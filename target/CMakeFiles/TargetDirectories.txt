@@ -1,0 +1,3 @@
+/Users/pandey/work/CALockBenchmarks/target/CMakeFiles/STMBENCH.dir
+/Users/pandey/work/CALockBenchmarks/target/CMakeFiles/edit_cache.dir
+/Users/pandey/work/CALockBenchmarks/target/CMakeFiles/rebuild_cache.dir

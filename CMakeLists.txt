@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.23)
+project(STMBENCH)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(STMBENCH src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
+        src/helpers.cpp src/id_pool.cpp src/parameters.cpp src/random.cpp src/operations/operations.cpp
+        src/operations/locking_coarse/lock_srv_lc.cpp src/operations/locking_coarse/operation_ops_lc.cpp
+        src/operations/locking_coarse/query_ops_lc.cpp src/operations/locking_coarse/short_traversal_ops_lc.cpp
+        src/operations/locking_coarse/structural_modification_ops_lc.cpp src/operations/locking_coarse/traversal_ops_lc.cpp
+
+        src/randomc/mersenne.cpp
+
+        src/struct/assembly.cpp src/struct/atomic_part.cpp src/struct/composite_part.cpp src/struct/design_obj.cpp
+        src/struct/document.cpp src/struct/manual.cpp
+
+        src/thread/thread.cpp src/thread/thread_fun.cpp
+        src/operations/locking_medium/lock_srv_lm.cpp src/operations/locking_medium/lock_srv_lm.h
+        src/operations/locking_medium/operation_ops_lm.cpp src/operations/locking_medium/operation_ops_lm.h
+        src/operations/locking_medium/query_ops_lm.cpp src/operations/locking_medium/query_ops_lm.h
+        src/operations/locking_medium/short_traversal_ops_lm.cpp src/operations/locking_medium/short_traversal_ops_lm.h
+        src/operations/locking_medium/structural_modification_ops_lm.cpp
+        src/operations/locking_medium/structural_modification_ops_lm.h
+        src/operations/locking_medium/traversal_ops_lm.cpp
+        src/operations/locking_medium/traversal_ops_lm.h
+
+        src/labelAssignmentTest.cpp
+        src/labelAssignmentTraversal.cpp
+        src/lockPool.cpp
+        src/operations/locking_ca/query_ops_ca.cpp src/operations/locking_ca/query_ops_ca.h src/operations/locking_ca/operation_ops_ca.cpp src/operations/locking_ca/operation_ops_ca.h src/operations/locking_ca/traversal_ops_ca.cpp src/operations/locking_ca/traversal_ops_ca.h src/operations/locking_ca/structural_modification_ops_ca.cpp src/operations/locking_ca/structural_modification_ops_ca.h)
