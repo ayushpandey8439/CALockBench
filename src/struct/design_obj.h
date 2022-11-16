@@ -18,10 +18,13 @@ namespace sb7 {
     class DesignObj {
     public:
         DesignObj(int id, string type, int buildDate)
-                : m_id(id), m_type(std::move(std::move(type))), m_buildDate(buildDate) {}
+                : m_id(id), m_type(std::move(std::move(type))), m_buildDate(buildDate) {
+            pthread_rwlock_init(&NodeLock, NULL);
+        }
 
         vector<std::string> pathLabel;
         set<string> labelNodes;
+        pthread_rwlock_t NodeLock;
 
         virtual ~DesignObj() = default;
 

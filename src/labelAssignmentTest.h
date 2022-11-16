@@ -2,8 +2,8 @@
 // Created by Ayush Pandey on 11/11/2022.
 //
 
-#ifndef CALOCK_ARTIFACTS_LABELASSIGNMENTTEST_H
-#define CALOCK_ARTIFACTS_LABELASSIGNMENTTEST_H
+#ifndef SB7_LOCK_LABELASSIGNMENTTEST_H
+#define SB7_LOCK_LABELASSIGNMENTTEST_H
 
 #include "struct/connection.h"
 #include "operations/operations.h"
@@ -35,4 +35,4 @@ namespace sb7 {
     };
 }
 
-#endif //CALOCK_ARTIFACTS_LABELASSIGNMENTTEST_H
+#endif //SB7_LOCK_LABELASSIGNMENTTEST_H

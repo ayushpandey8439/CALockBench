@@ -19,6 +19,11 @@
 #include "locking_medium/operation_ops_lm.h"
 #include "locking_medium/structural_modification_ops_lm.h"
 
+#include "locking_ca/traversal_ops_ca.h"
+#include "locking_ca/query_ops_ca.h"
+#include "locking_ca/operation_ops_ca.h"
+#include "locking_ca/structural_modification_ops_ca.h"
+
 
 using namespace sb7;
 
@@ -179,30 +184,30 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
     //ops.push_back(new LMShortTraversal9(dh));
     //ops.push_back(new LMShortTraversal10(dh));
 
-    ops.push_back(new LMQuery1(dh));
-    ops.push_back(new LMQuery2(dh));
-    ops.push_back(new LMQuery3(dh));
-    ops.push_back(new LMTraversal8(dh));
-    ops.push_back(new LMTraversal9(dh));
-    ops.push_back(new LMOperation6(dh));
-    ops.push_back(new LMOperation7(dh));
-    ops.push_back(new LMOperation8(dh));
-    ops.push_back(new LMOperation9(dh));
-    ops.push_back(new LMOperation10(dh));
-    ops.push_back(new LMOperation11(dh));
-    ops.push_back(new LMOperation12(dh));
-    ops.push_back(new LMOperation13(dh));
-    ops.push_back(new LMOperation14(dh));
-    ops.push_back(new LMOperation15(dh));
+    ops.push_back(new CAQuery1(dh));
+    ops.push_back(new CAQuery2(dh));
+    ops.push_back(new CAQuery3(dh));
+    ops.push_back(new CATraversal8(dh));
+    ops.push_back(new CATraversal9(dh));
+    ops.push_back(new CAOperation6(dh));
+    ops.push_back(new CAOperation7(dh));
+    ops.push_back(new CAOperation8(dh));
+    ops.push_back(new CAOperation9(dh));
+    ops.push_back(new CAOperation10(dh));
+    ops.push_back(new CAOperation11(dh));
+    ops.push_back(new CAOperation12(dh));
+    ops.push_back(new CAOperation13(dh));
+    ops.push_back(new CAOperation14(dh));
+    ops.push_back(new CAOperation15(dh));
 
-    ops.push_back(new LMStructuralModification1(dh));
-    ops.push_back(new LMStructuralModification2(dh));
-    ops.push_back(new LMStructuralModification3(dh));
-    ops.push_back(new LMStructuralModification4(dh));
-    ops.push_back(new LMStructuralModification5(dh));
-    ops.push_back(new LMStructuralModification6(dh));
-    ops.push_back(new LMStructuralModification7(dh));
-    ops.push_back(new LMStructuralModification8(dh));
+    ops.push_back(new CAStructuralModification1(dh));
+    ops.push_back(new CAStructuralModification2(dh));
+    ops.push_back(new CAStructuralModification3(dh));
+    ops.push_back(new CAStructuralModification4(dh));
+    ops.push_back(new CAStructuralModification5(dh));
+    ops.push_back(new CAStructuralModification6(dh));
+    ops.push_back(new CAStructuralModification7(dh));
+    ops.push_back(new CAStructuralModification8(dh));
 
 }
 

@@ -7,11 +7,14 @@
 #include "thread/thread.h"
 
 #include "labelAssignmentTraversal.h"
+#include "labelAssignmentTest.h"
 #include "lockPool.h"
+
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
 using namespace std;
+
 
 sb7::Benchmark::Benchmark() : operations(&dataHolder) {
     // initialize thread local data
@@ -98,6 +101,10 @@ void sb7::Benchmark::init() {
         auto *dfs = new CALockTraversal(&dataHolder);
         cout << "Creating labels for nodes"<< std::endl;
         dfs->run(0);
+        auto *dts = new CALockLabelTest(&dataHolder);
+        cout<< "Testing labels";
+        dts->run(0);
+        cout<< "Testing complete";
     }
 }
 

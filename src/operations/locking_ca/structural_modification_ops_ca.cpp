@@ -3,7 +3,6 @@
 //
 
 #include "structural_modification_ops_ca.h"
-#include "structural_modification_ops_CA.h"
 
 #include "../../parameters.h"
 #include "../../sb7_exception.h"

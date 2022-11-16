@@ -2,10 +2,11 @@
 
 #include "parameters.h"
 #include "benchmark.h"
-
+#include "lockPool.h"
 #include "struct/assembly.h"
 
 using namespace sb7;
+lockPool pool;
 
 int main(int argc, char **argv) {
     // initialize parameters

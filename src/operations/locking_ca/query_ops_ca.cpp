@@ -3,18 +3,18 @@
 //
 
 #include "query_ops_ca.h"
-#include "../../thread/thread.h"
-
 #include "../../helpers.h"
-#include "../../containers.h"
 #include "../../parameters.h"
-#include "../../struct/assembly.h"
+#include "../../lockPool.h"
 
 ////////////
 // Query1 //
 ////////////
 
 #define QUERY1_ITER 10
+
+extern lockPool pool;
+
 
 int sb7::CAQuery1::run() const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
@@ -24,21 +24,30 @@ int sb7::CAQuery1::run() const {
 int sb7::CAQuery1::innerRun() const {
     int count = 0;
 
-    for (int i = 0; i < QUERY1_ITER; i++) {
-        int apartId = get_random()->nextInt(
-                parameters.getMaxAtomicParts()) + 1;
+    vector<AtomicPart *> aparts;
+    vector<string> lockRequest;
 
+    for (int i = 0; i < QUERY1_ITER; i++) {
+        int apart = get_random()->nextInt(
+                parameters.getMaxAtomicParts()) + 1;
         Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
         Map<int, AtomicPart *>::Query query;
-        query.key = apartId;
+        query.key = apart;
         apartInd->get(query);
-
         if (query.found) {
-            performOperationOnAtomicPart(query.val);
+            aparts.push_back(query.val);
+            //performOperationOnAtomicPart(query.val);
+            lockRequest = pool.addToLockRequest(lockRequest, query.val->pathLabel);
             count++;
         }
     }
 
+    pthread_rwlock_t * lockObject = pool.getLockObject(lockRequest.back(), dataHolder);
+    pthread_rwlock_rdlock(lockObject);
+    for(AtomicPart * a: aparts){
+        performOperationOnAtomicPart(a);
+    }
+    pthread_rwlock_unlock(lockObject);
     return count;
 }
 

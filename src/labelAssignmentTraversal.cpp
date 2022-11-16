@@ -120,6 +120,7 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
             Connection *conn = iter.next();
             traverse(conn->getDestination(), visitedPartSet, false);
         }
+        visitedPartSet.remove(apart);
     }
     else if(apart == NULL || visitedPartSet.contains(apart)) {
         return;

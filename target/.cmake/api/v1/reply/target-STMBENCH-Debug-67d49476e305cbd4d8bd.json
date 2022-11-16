@@ -84,10 +84,10 @@
 				35,
 				36,
 				37,
-				38,
-				40,
-				42,
-				44
+				39,
+				41,
+				43,
+				45
 			]
 		}
 	],
@@ -152,10 +152,10 @@
 				35,
 				36,
 				37,
-				38,
-				40,
-				42,
-				44
+				39,
+				41,
+				43,
+				45
 			]
 		},
 		{
@@ -168,10 +168,11 @@
 				30,
 				32,
 				34,
-				39,
-				41,
-				43,
-				45
+				38,
+				40,
+				42,
+				44,
+				46
 			]
 		}
 	],
@@ -396,12 +397,6 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/lockPool.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
 			"path" : "src/operations/locking_ca/query_ops_ca.cpp",
 			"sourceGroupIndex" : 0
 		},
@@ -441,6 +436,17 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/operations/locking_ca/structural_modification_ops_ca.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/lockPool.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/lockPool.h",
 			"sourceGroupIndex" : 1
 		}
 	],

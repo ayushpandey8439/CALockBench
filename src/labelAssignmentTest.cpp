@@ -76,10 +76,14 @@ void sb7::CALockLabelTest::traverse(CompositePart *cpart) const {
 
 
 void sb7::CALockLabelTest::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet) const {
-    if(apart == NULL || visitedPartSet.contains(apart)) {
+    if(visitedPartSet.contains(apart)){
+        return;
+    }
+    else if(apart == NULL) {
+        std::cout<< std::endl << "Null atomic part";
         return;
     } else {
-        if(apart->pathLabel.empty()||apart->pathLabel.front() != "ca0" || apart->pathLabel.back() != ("ap"+ to_string(apart->getId())) ){
+        if(apart->pathLabel.empty() ||apart->pathLabel.front() != "ca0" || apart->pathLabel.back() != ("ap"+ to_string(apart->getId())) ){
             std::cout << std::endl << "Incorrect Atomic part Label: ";
             for (auto i: apart->pathLabel)
                 std::cout << i << ' ';
