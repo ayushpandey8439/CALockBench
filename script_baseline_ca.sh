@@ -1,5 +1,5 @@
 echo >ca.txt
-ITER=20
+ITER=5
 for((i=0;i<$ITER;i++));do ./target/STMBENCH -s b -l ca -n 1 -w rw -d 200| grep -i "throughput";done >>ca.txt
 
 for((i=0;i<$ITER;i++));do ./target/STMBENCH -s b -l ca -n 2 -w rw -d 200| grep -i "throughput";done >>ca.txt

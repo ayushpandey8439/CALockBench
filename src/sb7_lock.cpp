@@ -7,6 +7,7 @@
 
 using namespace sb7;
 lockPool pool;
+mutex lockPoolLock;
 
 int main(int argc, char **argv) {
     // initialize parameters

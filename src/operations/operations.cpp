@@ -80,7 +80,7 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
 
     ops.push_back(new LCQuery1(dh));
     ops.push_back(new LCQuery2(dh));
-    ops.push_back(new LCQuery3(dh));
+    //ops.push_back(new LCQuery3(dh));
     ops.push_back(new LCTraversal8(dh));
     ops.push_back(new LCTraversal9(dh));
     ops.push_back(new LCOperation6(dh));
@@ -133,7 +133,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
 
     ops.push_back(new LMQuery1(dh));
     ops.push_back(new LMQuery2(dh));
-    ops.push_back(new LMQuery3(dh));
+    //ops.push_back(new LMQuery3(dh));
     ops.push_back(new LMTraversal8(dh));
     ops.push_back(new LMTraversal9(dh));
     ops.push_back(new LMOperation6(dh));
@@ -186,28 +186,28 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 
     ops.push_back(new CAQuery1(dh));
     ops.push_back(new CAQuery2(dh));
-    ops.push_back(new CAQuery3(dh));
-    ops.push_back(new CATraversal8(dh));
-    ops.push_back(new CATraversal9(dh));
+    //ops.push_back(new CAQuery3(dh)); Not implemented
+    //ops.push_back(new CATraversal8(dh)); Trivial and does not need locks.
+//    ops.push_back(new CATraversal9(dh)); Trivial and does not need locks.
     ops.push_back(new CAOperation6(dh));
     ops.push_back(new CAOperation7(dh));
     ops.push_back(new CAOperation8(dh));
     ops.push_back(new CAOperation9(dh));
-    ops.push_back(new CAOperation10(dh));
-    ops.push_back(new CAOperation11(dh));
-    ops.push_back(new CAOperation12(dh));
-    ops.push_back(new CAOperation13(dh));
-    ops.push_back(new CAOperation14(dh));
-    ops.push_back(new CAOperation15(dh));
-
-    ops.push_back(new CAStructuralModification1(dh));
-    ops.push_back(new CAStructuralModification2(dh));
-    ops.push_back(new CAStructuralModification3(dh));
-    ops.push_back(new CAStructuralModification4(dh));
-    ops.push_back(new CAStructuralModification5(dh));
-    ops.push_back(new CAStructuralModification6(dh));
-    ops.push_back(new CAStructuralModification7(dh));
-    ops.push_back(new CAStructuralModification8(dh));
+//    ops.push_back(new CAOperation10(dh));
+//    ops.push_back(new CAOperation11(dh));
+//    ops.push_back(new CAOperation12(dh));
+//    ops.push_back(new CAOperation13(dh));
+//    ops.push_back(new CAOperation14(dh));
+//    ops.push_back(new CAOperation15(dh));
+//
+//    ops.push_back(new CAStructuralModification1(dh));
+//    ops.push_back(new CAStructuralModification2(dh));
+//    ops.push_back(new CAStructuralModification3(dh));
+//    ops.push_back(new CAStructuralModification4(dh));
+//    ops.push_back(new CAStructuralModification5(dh));
+//    ops.push_back(new CAStructuralModification6(dh));
+//    ops.push_back(new CAStructuralModification7(dh));
+//    ops.push_back(new CAStructuralModification8(dh));
 
 }
 

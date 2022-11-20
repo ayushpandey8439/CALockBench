@@ -7,65 +7,94 @@
 #include <vector>
 #include <set>
 #include <string>
+#include <thread>         // std::thread
+#include <mutex>
 #include "data_holder.h"
+#include "lscaHelpers.h"
 
 using namespace std;
+using namespace sb7;
+
+extern mutex lockPoolLock;
+
+struct classcomp {
+    bool operator() (const DesignObj* lhs, const DesignObj* rhs) const
+    {return lhs->getId()<rhs->getId();}
+};
 
 class lockPool {
-    pthread_rwlock_t lockPoolLock;
-    std::multiset<string> pool;
 public:
-    bool acquireLock(const string& lockLabel){
-        pthread_rwlock_wrlock(&lockPoolLock);
-        if(pool.find(lockLabel) == pool.end()){
-            pool.insert(lockLabel);
-            pthread_rwlock_unlock(&lockPoolLock);
+    set<DesignObj *, classcomp> lpool;
+    set<string> lockedIds;
+
+    bool testLockPoolConflict(list<string> testLabel){
+        bool conflict = false;
+        for(DesignObj *  o: lpool) {
+            if(lockedIds.find(testLabel.back()) != lockedIds.end()){
+                return true;
+            }
+
+            list<string> lockedLabel = o->getPathLabel();
+            list<string> common = lscaHelpers::findLSCA(lockedLabel,testLabel);
+            if (lockedIds.find(common.back()) == lockedIds.end() && common.back() != testLabel.back()) {
+                conflict |= false;
+            } else {
+                conflict |= true;
+                break;
+            }
+        }
+        return conflict;
+    }
+
+    bool acquireLock(DesignObj * designObject){
+        lockPoolLock.lock();
+        list<string> testLabel = designObject->getPathLabel();
+        bool conflict = false;
+        conflict = testLockPoolConflict(testLabel);
+
+        if(!conflict){
+            lpool.insert(designObject);
+            lockedIds.insert(testLabel.back());
+            lockPoolLock.unlock();
             return true;
-        } else {
-            pthread_rwlock_unlock(&lockPoolLock);
-            return false;
         }
-
+        lockPoolLock.unlock();
+        return false;
     }
 
-    void releaseLock(string lockLabel){
-        pthread_rwlock_wrlock(&lockPoolLock);
-        auto it = pool.find(lockLabel);
-        if(it != pool.end()){
-            pool.erase(it);
-        }
-        pthread_rwlock_unlock(&lockPoolLock);
+    void releaseLock(DesignObj*  designObject){
+        lockPoolLock.lock();
+        lpool.erase(designObject);
+        lockedIds.erase(designObject->getPathLabel().back());
+        lockPoolLock.unlock();
     }
 
-    vector<string> addToLockRequest(vector<string> lockRequest, vector<string> label){
-        vector<string> common(lockRequest.size()+label.size());
+    list<string> addToLockRequest(list<string> lockRequest, list<string> label){
         if(lockRequest.empty()){
             return label;
         } else {
-            auto it = set_intersection(lockRequest.begin(), lockRequest.end(), label.begin(), label.end(), common.begin());
-            common.resize(it-common.begin());
-            return common;
+            return lscaHelpers::findLSCA(lockRequest, label);
         }
     }
 
-    pthread_rwlock_t * getLockObject(string objectId, sb7::DataHolder * dh){
+    DesignObj * getLockObject(string objectId, sb7::DataHolder * dh){
         string typeIdentifier = objectId.substr(0,2);
         string id = objectId.substr(2);
         if(typeIdentifier == "ca"){
-            sb7::CompositePart * cp = dh->getCompositePart(stoi(id));
-            return &(cp->NodeLock);
+            sb7::ComplexAssembly * ca = dh->getComplexAssembly(stoi(id));
+            return ca;
         } else if(typeIdentifier == "ba") {
             sb7::BaseAssembly * ba = dh->getBaseAssembly(stoi(id));
-            return &(ba->NodeLock);
+            return ba;
         } else if(typeIdentifier == "cp"){
             sb7::CompositePart * cp  = dh->getCompositePart(stoi(id));
-            return &(cp->NodeLock);
+            return cp;
         } else if(typeIdentifier == "ap"){
             sb7::Map<int, sb7::AtomicPart *> * index  = dh->getAtomicPartIdIndex();
             sb7::Map<int, sb7::AtomicPart *>::Query query;
             query.key = stoi(id);
             index->get(query);
-            return &(query.val->NodeLock);
+            return query.val;
         } else {
             return NULL;
         }

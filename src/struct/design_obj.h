@@ -9,7 +9,7 @@
 #include <string>
 #include <utility>
 #include <utility>
-#include "vector"
+#include "list"
 #include "set"
 
 using namespace std;
@@ -22,14 +22,20 @@ namespace sb7 {
             pthread_rwlock_init(&NodeLock, NULL);
         }
 
-        vector<std::string> pathLabel;
-        set<string> labelNodes;
+
         pthread_rwlock_t NodeLock;
 
         virtual ~DesignObj() = default;
 
         int getId() const {
             return m_id;
+        }
+
+        list<string> getPathLabel(){
+            return pathLabel;
+        }
+        void setPathLabel(list<string> label){
+            pathLabel = label;
         }
 
         int getBuildDate() const {
@@ -44,6 +50,7 @@ namespace sb7 {
         int m_id;
         string m_type;
         int m_buildDate;
+        list<std::string> pathLabel;
     };
 }
 

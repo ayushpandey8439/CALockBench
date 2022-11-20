@@ -102,9 +102,9 @@ void sb7::Benchmark::init() {
         cout << "Creating labels for nodes"<< std::endl;
         dfs->run(0);
         auto *dts = new CALockLabelTest(&dataHolder);
-        cout<< "Testing labels";
-        dts->run(0);
-        cout<< "Testing complete";
+        cout<< "Testing labels"<< endl;
+        dts->run(1);
+        cout<< "Testing complete" <<endl;
     }
 }
 

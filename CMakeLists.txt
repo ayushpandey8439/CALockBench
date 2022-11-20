@@ -26,4 +26,4 @@ add_executable(STMBENCH src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src
 
         src/labelAssignmentTest.cpp
         src/labelAssignmentTraversal.cpp
-        src/operations/locking_ca/query_ops_ca.cpp src/operations/locking_ca/query_ops_ca.h src/operations/locking_ca/operation_ops_ca.cpp src/operations/locking_ca/operation_ops_ca.h src/operations/locking_ca/traversal_ops_ca.cpp src/operations/locking_ca/traversal_ops_ca.h src/operations/locking_ca/structural_modification_ops_ca.cpp src/operations/locking_ca/structural_modification_ops_ca.h src/lockPool.cpp src/lockPool.h)
+        src/operations/locking_ca/query_ops_ca.cpp src/operations/locking_ca/query_ops_ca.h src/operations/locking_ca/operation_ops_ca.cpp src/operations/locking_ca/operation_ops_ca.h src/operations/locking_ca/traversal_ops_ca.cpp src/operations/locking_ca/traversal_ops_ca.h src/operations/locking_ca/structural_modification_ops_ca.cpp src/operations/locking_ca/structural_modification_ops_ca.h src/lockPool.cpp src/lockPool.h src/lscaHelpers.cpp src/lscaHelpers.h)
