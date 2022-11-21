@@ -4,10 +4,11 @@
 #include "benchmark.h"
 #include "lockPool.h"
 #include "struct/assembly.h"
+#include "shared_mutex"
 
 using namespace sb7;
 lockPool pool;
-mutex lockPoolLock;
+shared_mutex lockPoolLock;
 
 int main(int argc, char **argv) {
     // initialize parameters

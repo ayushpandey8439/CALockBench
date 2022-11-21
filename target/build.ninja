@@ -48,223 +48,223 @@ build cmake_object_order_depends_target_STMBENCH: phony || CMakeFiles/STMBENCH.d
 
 build CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/sb7_lock.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/benchmark.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/data_holder.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/data_holder.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/data_holder.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/helpers.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/helpers.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/helpers.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/id_pool.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/id_pool.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/id_pool.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/parameters.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/parameters.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/parameters.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/random.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/random.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/random.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/operations.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/lock_srv_lc.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/lock_srv_lc.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/lock_srv_lc.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/operation_ops_lc.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/operation_ops_lc.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/operation_ops_lc.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/query_ops_lc.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/query_ops_lc.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/query_ops_lc.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/short_traversal_ops_lc.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/short_traversal_ops_lc.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/short_traversal_ops_lc.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/structural_modification_ops_lc.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/structural_modification_ops_lc.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/structural_modification_ops_lc.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/traversal_ops_lc.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/traversal_ops_lc.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/traversal_ops_lc.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_coarse
 
 build CMakeFiles/STMBENCH.dir/src/randomc/mersenne.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/randomc/mersenne.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/randomc/mersenne.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/randomc
 
 build CMakeFiles/STMBENCH.dir/src/struct/assembly.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/struct/assembly.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/struct/assembly.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/struct
 
 build CMakeFiles/STMBENCH.dir/src/struct/atomic_part.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/struct/atomic_part.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/struct/atomic_part.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/struct
 
 build CMakeFiles/STMBENCH.dir/src/struct/composite_part.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/struct/composite_part.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/struct/composite_part.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/struct
 
 build CMakeFiles/STMBENCH.dir/src/struct/design_obj.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/struct/design_obj.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/struct/design_obj.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/struct
 
 build CMakeFiles/STMBENCH.dir/src/struct/document.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/struct/document.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/struct/document.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/struct
 
 build CMakeFiles/STMBENCH.dir/src/struct/manual.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/struct/manual.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/struct/manual.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/struct
 
 build CMakeFiles/STMBENCH.dir/src/thread/thread.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/thread/thread.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/thread/thread.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/thread
 
 build CMakeFiles/STMBENCH.dir/src/thread/thread_fun.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/thread/thread_fun.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/thread/thread_fun.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/thread
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_medium/lock_srv_lm.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/lock_srv_lm.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_medium/lock_srv_lm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_medium
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_medium/operation_ops_lm.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/operation_ops_lm.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_medium/operation_ops_lm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_medium
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_medium/query_ops_lm.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/query_ops_lm.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_medium/query_ops_lm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_medium
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_medium/short_traversal_ops_lm.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/short_traversal_ops_lm.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_medium/short_traversal_ops_lm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_medium
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_medium/structural_modification_ops_lm.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/structural_modification_ops_lm.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_medium/structural_modification_ops_lm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_medium
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_medium/traversal_ops_lm.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/traversal_ops_lm.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_medium/traversal_ops_lm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_medium
 
 build CMakeFiles/STMBENCH.dir/src/labelAssignmentTest.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/labelAssignmentTest.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/labelAssignmentTest.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/labelAssignmentTraversal.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/query_ops_ca.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_ca
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/operation_ops_ca.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_ca
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_ca/traversal_ops_ca.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/traversal_ops_ca.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_ca/traversal_ops_ca.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_ca
 
 build CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/structural_modification_ops_ca.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src/operations/locking_ca
 
 build CMakeFiles/STMBENCH.dir/src/lockPool.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/lockPool.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/lockPool.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 
 build CMakeFiles/STMBENCH.dir/src/lscaHelpers.cpp.o: CXX_COMPILER__STMBENCH_Debug /Users/pandey/work/CALockBenchmarks/src/lscaHelpers.cpp || cmake_object_order_depends_target_STMBENCH
   DEP_FILE = CMakeFiles/STMBENCH.dir/src/lscaHelpers.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -std=gnu++17
   OBJECT_DIR = CMakeFiles/STMBENCH.dir
   OBJECT_FILE_DIR = CMakeFiles/STMBENCH.dir/src
 

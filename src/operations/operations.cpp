@@ -80,28 +80,29 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
 
     ops.push_back(new LCQuery1(dh));
     ops.push_back(new LCQuery2(dh));
-    //ops.push_back(new LCQuery3(dh));
-    ops.push_back(new LCTraversal8(dh));
-    ops.push_back(new LCTraversal9(dh));
+    //ops.push_back(new LCQuery3(dh)); Not implemented
+    //ops.push_back(new LCTraversal8(dh)); Trivial and does not need locks.
+//    ops.push_back(new LCTraversal9(dh)); Trivial and does not need locks.
     ops.push_back(new LCOperation6(dh));
     ops.push_back(new LCOperation7(dh));
     ops.push_back(new LCOperation8(dh));
     ops.push_back(new LCOperation9(dh));
     ops.push_back(new LCOperation10(dh));
-    ops.push_back(new LCOperation11(dh));
+//    ops.push_back(new LCOperation11(dh)); Traversal operation
     ops.push_back(new LCOperation12(dh));
     ops.push_back(new LCOperation13(dh));
     ops.push_back(new LCOperation14(dh));
-    ops.push_back(new LCOperation15(dh));
+//    ops.push_back(new LCOperation15(dh)); Index update
+//
+//    ops.push_back(new LCStructuralModification1(dh)); Node creation
+//    ops.push_back(new LCStructuralModification2(dh)); Node creation
+//    ops.push_back(new LCStructuralModification3(dh));
+//    ops.push_back(new LCStructuralModification4(dh));
+//    ops.push_back(new LCStructuralModification5(dh));
+//    ops.push_back(new LCStructuralModification6(dh));
+//    ops.push_back(new LCStructuralModification7(dh));
+//    ops.push_back(new LCStructuralModification8(dh));
 
-    ops.push_back(new LCStructuralModification1(dh));
-    ops.push_back(new LCStructuralModification2(dh));
-    ops.push_back(new LCStructuralModification3(dh));
-    ops.push_back(new LCStructuralModification4(dh));
-    ops.push_back(new LCStructuralModification5(dh));
-    ops.push_back(new LCStructuralModification6(dh));
-    ops.push_back(new LCStructuralModification7(dh));
-    ops.push_back(new LCStructuralModification8(dh));
 
 }
 
@@ -132,76 +133,77 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
     //ops.push_back(new LMShortTraversal10(dh));
 
     ops.push_back(new LMQuery1(dh));
-    ops.push_back(new LMQuery2(dh));
-    //ops.push_back(new LMQuery3(dh));
-    ops.push_back(new LMTraversal8(dh));
-    ops.push_back(new LMTraversal9(dh));
-    ops.push_back(new LMOperation6(dh));
-    ops.push_back(new LMOperation7(dh));
-    ops.push_back(new LMOperation8(dh));
-    ops.push_back(new LMOperation9(dh));
-    ops.push_back(new LMOperation10(dh));
-    ops.push_back(new LMOperation11(dh));
-    ops.push_back(new LMOperation12(dh));
-    ops.push_back(new LMOperation13(dh));
-    ops.push_back(new LMOperation14(dh));
-    ops.push_back(new LMOperation15(dh));
+//    ops.push_back(new LMQuery2(dh));
+    //ops.push_back(new LMQuery3(dh)); Not implemented
+    //ops.push_back(new LMTraversal8(dh)); Trivial and does not need locks.
+//    ops.push_back(new LMTraversal9(dh)); Trivial and does not need locks.
+//    ops.push_back(new LMOperation6(dh));
+//    ops.push_back(new LMOperation7(dh));
+//    ops.push_back(new LMOperation8(dh));
+//    ops.push_back(new LMOperation9(dh));
+//    ops.push_back(new LMOperation10(dh));
+//    ops.push_back(new LMOperation11(dh)); Traversal operation
+//    ops.push_back(new LMOperation12(dh));
+//    ops.push_back(new LMOperation13(dh));
+//    ops.push_back(new LMOperation14(dh));
+//    ops.push_back(new LMOperation15(dh)); Index update
+//
+//    ops.push_back(new LMStructuralModification1(dh)); Node creation
+//    ops.push_back(new LMStructuralModification2(dh)); Node creation
+//    ops.push_back(new LMStructuralModification3(dh));
+//    ops.push_back(new LMStructuralModification4(dh));
+//    ops.push_back(new LMStructuralModification5(dh));
+//    ops.push_back(new LMStructuralModification6(dh));
+//    ops.push_back(new LMStructuralModification7(dh));
+//    ops.push_back(new LMStructuralModification8(dh));
 
-    ops.push_back(new LMStructuralModification1(dh));
-    ops.push_back(new LMStructuralModification2(dh));
-    ops.push_back(new LMStructuralModification3(dh));
-    ops.push_back(new LMStructuralModification4(dh));
-    ops.push_back(new LMStructuralModification5(dh));
-    ops.push_back(new LMStructuralModification6(dh));
-    ops.push_back(new LMStructuralModification7(dh));
-    ops.push_back(new LMStructuralModification8(dh));
 
 }
 
 
 void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
-//ops.push_back(new LMTraversal1(dh));
-    //ops.push_back(new LMTraversal2a(dh));
-    //ops.push_back(new LMTraversal2b(dh));
-    //ops.push_back(new LMTraversal2c(dh));
-    //ops.push_back(new LMTraversal3a(dh));
-    //ops.push_back(new LMTraversal3b(dh));
-    //ops.push_back(new LMTraversal3c(dh));
-    //ops.push_back(new LMTraversal4(dh));
-    //ops.push_back(new LMTraversal5(dh));
-    //ops.push_back(new LMTraversal6(dh));
-    //ops.push_back(new LMQuery6(dh));
-    //ops.push_back(new LMQuery7(dh));
+//ops.push_back(new CATraversal1(dh));
+    //ops.push_back(new CATraversal2a(dh));
+    //ops.push_back(new CATraversal2b(dh));
+    //ops.push_back(new CATraversal2c(dh));
+    //ops.push_back(new CATraversal3a(dh));
+    //ops.push_back(new CATraversal3b(dh));
+    //ops.push_back(new CATraversal3c(dh));
+    //ops.push_back(new CATraversal4(dh));
+    //ops.push_back(new CATraversal5(dh));
+    //ops.push_back(new CATraversal6(dh));
+    //ops.push_back(new CAQuery6(dh));
+    //ops.push_back(new CAQuery7(dh));
 
-    //ops.push_back(new LMShortTraversal1(dh));
-    //ops.push_back(new LMShortTraversal2(dh));
-    //ops.push_back(new LMTraversal7(dh));
-    //ops.push_back(new LMQuery4(dh));
-    //ops.push_back(new LMQuery5(dh));
-    //ops.push_back(new LMShortTraversal6(dh));
-    //ops.push_back(new LMShortTraversal7(dh));
-    //ops.push_back(new LMShortTraversal8(dh));
-    //ops.push_back(new LMShortTraversal9(dh));
-    //ops.push_back(new LMShortTraversal10(dh));
+    //ops.push_back(new CAShortTraversal1(dh));
+    //ops.push_back(new CAShortTraversal2(dh));
+    //ops.push_back(new CATraversal7(dh));
+    //ops.push_back(new CAQuery4(dh));
+    //ops.push_back(new CAQuery5(dh));
+    //ops.push_back(new CAShortTraversal6(dh));
+    //ops.push_back(new CAShortTraversal7(dh));
+    //ops.push_back(new CAShortTraversal8(dh));
+    //ops.push_back(new CAShortTraversal9(dh));
+    //ops.push_back(new CAShortTraversal10(dh));
 
     ops.push_back(new CAQuery1(dh));
-    ops.push_back(new CAQuery2(dh));
+//    ops.push_back(new CAQuery2(dh));
     //ops.push_back(new CAQuery3(dh)); Not implemented
     //ops.push_back(new CATraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new CATraversal9(dh)); Trivial and does not need locks.
-    ops.push_back(new CAOperation6(dh));
-    ops.push_back(new CAOperation7(dh));
-    ops.push_back(new CAOperation8(dh));
-    ops.push_back(new CAOperation9(dh));
+//    ops.push_back(new CAOperation6(dh));
+//    ops.push_back(new CAOperation7(dh));
+//    ops.push_back(new CAOperation8(dh));
+//    ops.push_back(new CAOperation9(dh));
 //    ops.push_back(new CAOperation10(dh));
-//    ops.push_back(new CAOperation11(dh));
+//    ops.push_back(new CAOperation11(dh)); Traversal operation
 //    ops.push_back(new CAOperation12(dh));
 //    ops.push_back(new CAOperation13(dh));
 //    ops.push_back(new CAOperation14(dh));
-//    ops.push_back(new CAOperation15(dh));
+//    ops.push_back(new CAOperation15(dh)); Index update
 //
-//    ops.push_back(new CAStructuralModification1(dh));
-//    ops.push_back(new CAStructuralModification2(dh));
+//    ops.push_back(new CAStructuralModification1(dh)); Node creation
+//    ops.push_back(new CAStructuralModification2(dh)); Node creation
 //    ops.push_back(new CAStructuralModification3(dh));
 //    ops.push_back(new CAStructuralModification4(dh));
 //    ops.push_back(new CAStructuralModification5(dh));

@@ -1,0 +1,13 @@
+******************************************************
+Each column represent throughput with particular locking technique
+Column 1: Coarse-grain lock
+Column 2: Medium-grain lock
+Column 3: CALock
+X-axis of graph is number of threads from 1 to 32 in power of 2's and Y-axis is the throughput value
+
+504960 445411 26198
+263795 370176 1760
+186652 313440 3207
+169016 267143 1045
+220619 300107 812
+206621 281183 568

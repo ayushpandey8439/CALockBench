@@ -8,14 +8,14 @@
 #include <set>
 #include <string>
 #include <thread>         // std::thread
-#include <mutex>
+#include <shared_mutex>
 #include "data_holder.h"
 #include "lscaHelpers.h"
 
 using namespace std;
 using namespace sb7;
 
-extern mutex lockPoolLock;
+extern shared_mutex lockPoolLock;
 
 struct classcomp {
     bool operator() (const DesignObj* lhs, const DesignObj* rhs) const
@@ -25,18 +25,17 @@ struct classcomp {
 class lockPool {
 public:
     set<DesignObj *, classcomp> lpool;
-    set<string> lockedIds;
 
-    bool testLockPoolConflict(list<string> testLabel){
+    bool testLockPoolConflict(vector<DesignObj *> testLabel) const{
+        set<DesignObj *, classcomp> localLpool = lpool;
         bool conflict = false;
-        for(DesignObj *  o: lpool) {
-            if(lockedIds.find(testLabel.back()) != lockedIds.end()){
-                return true;
-            }
-
-            list<string> lockedLabel = o->getPathLabel();
-            list<string> common = lscaHelpers::findLSCA(lockedLabel,testLabel);
-            if (lockedIds.find(common.back()) == lockedIds.end() && common.back() != testLabel.back()) {
+        if(localLpool.find(testLabel.back()) != localLpool.end()){
+            return true;
+        }
+        for(DesignObj *  o: localLpool) {
+            vector<DesignObj*> lockedLabel = o->getPathLabel();
+            vector<DesignObj*> common = lscaHelpers::findLSCA(lockedLabel,testLabel);
+            if (localLpool.find(common.back()) == localLpool.end() && common.back() != testLabel.back()) {
                 conflict |= false;
             } else {
                 conflict |= true;
@@ -48,13 +47,13 @@ public:
 
     bool acquireLock(DesignObj * designObject){
         lockPoolLock.lock();
-        list<string> testLabel = designObject->getPathLabel();
+        vector<DesignObj*> testLabel = designObject->getPathLabel();
         bool conflict = false;
+        int conflictSize = lpool.size();
         conflict = testLockPoolConflict(testLabel);
 
         if(!conflict){
             lpool.insert(designObject);
-            lockedIds.insert(testLabel.back());
             lockPoolLock.unlock();
             return true;
         }
@@ -65,11 +64,10 @@ public:
     void releaseLock(DesignObj*  designObject){
         lockPoolLock.lock();
         lpool.erase(designObject);
-        lockedIds.erase(designObject->getPathLabel().back());
         lockPoolLock.unlock();
     }
 
-    list<string> addToLockRequest(list<string> lockRequest, list<string> label){
+    vector<DesignObj*> addToLockRequest(vector<DesignObj*> lockRequest, vector<DesignObj*> label){
         if(lockRequest.empty()){
             return label;
         } else {

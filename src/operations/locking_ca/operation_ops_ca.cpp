@@ -64,19 +64,19 @@ int sb7::CAOperation6::innerRun() const {
         Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
         SetIterator<Assembly *> iter = siblingAssms->getIter();
         ret = 0;
-        list<ComplexAssembly *> cassms;
-        list<string> lockRequest;
+        vector<ComplexAssembly *> cassms;
+        vector<DesignObj *> lockRequest;
 
         while (iter.has_next()) {
             auto* ca = (ComplexAssembly *) iter.next();
 
-            list<string> testLabel = ca->getPathLabel();
+            vector<DesignObj*> testLabel = ca->getPathLabel();
             if(!testLabel.empty()) {
                 cassms.push_back(ca);
                 lockRequest = pool.addToLockRequest(lockRequest, testLabel);
             }
 
-            DesignObj * lockObject = pool.getLockObject(lockRequest.back(), dataHolder);
+            DesignObj * lockObject = lockRequest.back();
             if(lockObject != NULL){
                 //cout<< "Lock Object is not null"<<endl;
                 xyz: if(pool.acquireLock(lockObject)){
@@ -128,8 +128,8 @@ int sb7::CAOperation7::innerRun() const {
     if (!query.found) {
         throw Sb7Exception();
     }
-    list<BaseAssembly *> bassms;
-    list<string> lockRequest;
+    vector<BaseAssembly *> bassms;
+    vector<DesignObj *> lockRequest;
 
     // process all sibling base assemblies
     ComplexAssembly *superAssm = query.val->getSuperAssembly();
@@ -139,14 +139,14 @@ int sb7::CAOperation7::innerRun() const {
 
     while (iter.has_next()) {
         auto * bassm = (BaseAssembly*) iter.next();
-        list<string> testLabel = bassm->getPathLabel();
+        vector<DesignObj*> testLabel = bassm->getPathLabel();
         if(!testLabel.empty()) {
             bassms.push_back(bassm);
             lockRequest = pool.addToLockRequest(lockRequest, testLabel);
         }
 
     }
-    DesignObj * lockObject = pool.getLockObject(lockRequest.back(), dataHolder);
+    DesignObj * lockObject = lockRequest.back();
     if(lockObject != NULL){
         //cout<< "Lock Object is not null"<<endl;
         xy: if(pool.acquireLock(lockObject)){
@@ -202,12 +202,12 @@ int sb7::CAOperation8::innerRun() const {
     BagIterator<CompositePart *> iter = componentBag->getIter();
     int ret = 0;
 
-    list<CompositePart *> cparts;
-    list<string> lockRequest;
+    vector<CompositePart *> cparts;
+    vector<DesignObj *> lockRequest;
 
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();
-        list<string> testLabel = cpart->getPathLabel();
+        vector<DesignObj*> testLabel = cpart->getPathLabel();
         if(!testLabel.empty()) {
             cparts.push_back(cpart);
             lockRequest = pool.addToLockRequest(lockRequest, testLabel);
@@ -215,7 +215,7 @@ int sb7::CAOperation8::innerRun() const {
 
     }
 
-    DesignObj * lockObject = pool.getLockObject(lockRequest.back(), dataHolder);
+    DesignObj * lockObject = lockRequest.back();
     if(lockObject != NULL){
         //cout<< "Lock Object is not null"<<endl;
         xy: if(pool.acquireLock(lockObject)){
@@ -247,14 +247,7 @@ int sb7::CAOperation9::run() const {
 }
 
 void sb7::CAOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
-    xy: if(pool.acquireLock(apart)){
-    //cout<< "Lock acquired"<<endl;
-    pthread_rwlock_rdlock(&apart->NodeLock);
     apart->swapXY();
-    pool.releaseLock(apart);
-    pthread_rwlock_unlock(&apart->NodeLock);
-} else goto xy;
-
 }
 
 ////////////////

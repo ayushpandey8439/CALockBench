@@ -21,8 +21,8 @@ int sb7::CALockTraversal::run(int tid) const {
     ComplexAssembly * root = dataHolder->getModule()->getDesignRoot();
     string labelIdentifier = "ca"+ to_string(root->getId());
 
-    list<string >rootLabel = root->getPathLabel();
-    rootLabel.push_back(labelIdentifier);
+    vector<DesignObj * >rootLabel = root->getPathLabel();
+    rootLabel.push_back(root);
     root->setPathLabel(rootLabel);
 
     cassmQ.push(root);
@@ -50,7 +50,7 @@ int sb7::CALockTraversal::run(int tid) const {
 
 void sb7::CALockTraversal::traverse(ComplexAssembly *cassm, queue<ComplexAssembly *> *cassmQ, queue<BaseAssembly *> *bassmQ) const {
     string type = "ca";
-    list<string> currLabel = cassm->getPathLabel();
+    vector<DesignObj*> currLabel = cassm->getPathLabel();
 
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
@@ -62,11 +62,12 @@ void sb7::CALockTraversal::traverse(ComplexAssembly *cassm, queue<ComplexAssembl
         if(!childrenAreBase) {
             string labelIdentifier = "ca"+ to_string(assm->getId());
 
-            currLabel.push_back(labelIdentifier);
+            currLabel.push_back(assm);
             assm->setPathLabel(currLabel);
             cassmQ->push((ComplexAssembly *)assm);
         } else {
-            currLabel.push_back("ba"+ to_string(assm->getId()));
+            string labelIdentifier = "ba"+ to_string(assm->getId());
+            currLabel.push_back(assm);
             assm->setPathLabel(currLabel);
             bassmQ->push((BaseAssembly *)assm);
         }
@@ -87,20 +88,20 @@ void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *ap
 
     Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
     BagIterator<BaseAssembly *> biter = usedIn->getIter();
-    list<string> firstLabel = biter.next()->getPathLabel();
+    vector<DesignObj*> firstLabel = biter.next()->getPathLabel();
 
     while(biter.has_next()){
-        list<string> tempPathLabel = biter.next()->getPathLabel();
-        std::set<string> tempPathSet(tempPathLabel.begin(), tempPathLabel.end());
-        auto newEnd = std::remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](string l){return (tempPathSet.find(l) == tempPathSet.end());});
+        vector<DesignObj*> tempPathLabel = biter.next()->getPathLabel();
+        std::set<DesignObj*> tempPathSet(tempPathLabel.begin(), tempPathLabel.end());
+        auto newEnd = std::remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](DesignObj* l){return (tempPathSet.find(l) == tempPathSet.end());});
         firstLabel.erase(newEnd, firstLabel.end());
     }
 
-    firstLabel.push_back(type+ to_string(cpart->getId()));
+    firstLabel.push_back(cpart);
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
-    firstLabel.push_back("ap"+ to_string(rootPart->getId()));
+    firstLabel.push_back(rootPart);
     rootPart->setPathLabel(firstLabel);
     apartQ->push(rootPart);
 
@@ -127,24 +128,24 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
 
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<string> containerLabel;
+        vector<DesignObj*> containerLabel;
         while(containerLabel.empty()){
             containerLabel = fiter.next()->getSource()->getPathLabel();
         }
         while(fiter.has_next()){
             Connection *conn = fiter.next();
-            list<string> parentLabel = conn->getSource()->getPathLabel();
+            vector<DesignObj*> parentLabel = conn->getSource()->getPathLabel();
             if(!parentLabel.empty()){
-                std::set<string> tempPathSet(parentLabel.begin(), parentLabel.end());
-                auto newEnd = std::remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](string l){return (tempPathSet.find(l) == tempPathSet.end());});
+                std::set<DesignObj*> tempPathSet(parentLabel.begin(), parentLabel.end());
+                auto newEnd = std::remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](DesignObj* l){return (tempPathSet.find(l) == tempPathSet.end());});
                 containerLabel.erase(newEnd, containerLabel.end());
             }
         }
 
-        containerLabel.push_back(type+ to_string(apart->getId()));
-        list<string> apartLabel = apart->getPathLabel();
-        std::set<string> myLabelSet(containerLabel.begin(),containerLabel.end());
-        std::set<string> originalLabelSet(apartLabel.begin(),apartLabel.end());
+        containerLabel.push_back(apart);
+        vector<DesignObj*> apartLabel = apart->getPathLabel();
+        std::set<DesignObj*> myLabelSet(containerLabel.begin(),containerLabel.end());
+        std::set<DesignObj*> originalLabelSet(apartLabel.begin(),apartLabel.end());
 
         if(myLabelSet != originalLabelSet){
             apart->setPathLabel(containerLabel);

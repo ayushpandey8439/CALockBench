@@ -9,7 +9,7 @@
 #include <string>
 #include <utility>
 #include <utility>
-#include "list"
+#include "vector"
 #include "set"
 
 using namespace std;
@@ -31,10 +31,10 @@ namespace sb7 {
             return m_id;
         }
 
-        list<string> getPathLabel(){
+        vector<DesignObj*> getPathLabel(){
             return pathLabel;
         }
-        void setPathLabel(list<string> label){
+        void setPathLabel(vector<DesignObj*> label){
             pathLabel = label;
         }
 
@@ -50,7 +50,7 @@ namespace sb7 {
         int m_id;
         string m_type;
         int m_buildDate;
-        list<std::string> pathLabel;
+        vector<DesignObj*> pathLabel;
     };
 }
 

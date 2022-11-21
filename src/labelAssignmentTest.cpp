@@ -22,8 +22,8 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
-    list<string> cassmPathLabel = cassm->getPathLabel();
-    if(cassmPathLabel.front()!= "ca0" || cassmPathLabel.back()!= ("ca"+ to_string(cassm->getId()))){
+    vector<DesignObj*> cassmPathLabel = cassm->getPathLabel();
+    if(cassmPathLabel.front()->getId() != 0 || cassmPathLabel.back()->getId()!= cassm->getId()){
         std::cout << std::endl << "Incorrect Complex Assembly Label: ";
         for (auto i: cassmPathLabel)
             std::cout << i << ' ';
@@ -42,9 +42,9 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
 }
 
 void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
-    list<string> bassmPathlabel = bassm->getPathLabel();
+    vector<DesignObj* > bassmPathlabel = bassm->getPathLabel();
 
-    if(bassmPathlabel.front() != "ca0"|| bassmPathlabel.back() != ("ba"+ to_string(bassm->getId()))){
+    if(bassmPathlabel.front()->getId() != 0 || bassmPathlabel.back()->getId() != bassm->getId()){
 
         std::cout << std::endl << "Incorrect Base Assembly Label: ";
         for (auto i: bassmPathlabel)
@@ -61,8 +61,8 @@ void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
 }
 
 void sb7::CALockLabelTest::traverse(CompositePart *cpart) const {
-    list<string> cpartPathLabel = cpart->getPathLabel();
-    if(cpartPathLabel.front() != "ca0" || cpartPathLabel.back() != ("cp"+ to_string(cpart->getId()))){
+    vector<DesignObj* > cpartPathLabel = cpart->getPathLabel();
+    if(cpartPathLabel.front()->getId() != 0 || cpartPathLabel.back()->getId() != cpart->getId()){
         std::cout << std::endl << "Incorrect Composite part Label: ";
         for (auto i: cpartPathLabel)
             std::cout << i << ' ';
@@ -84,8 +84,8 @@ void sb7::CALockLabelTest::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
         std::cout<< std::endl << "Null atomic part";
         return;
     } else {
-        list<string> apartPathLabel = apart->getPathLabel();
-        if(apartPathLabel.empty() ||apartPathLabel.front() != "ca0" || apartPathLabel.back() != ("ap"+ to_string(apart->getId())) ){
+        vector<DesignObj*> apartPathLabel = apart->getPathLabel();
+        if(apartPathLabel.empty() ||apartPathLabel.front()->getId() != 0 || apartPathLabel.back()->getId() != apart->getId()){
             std::cout << std::endl << "Incorrect Atomic part Label: ";
             for (auto i: apartPathLabel)
                 std::cout << i << ' ';

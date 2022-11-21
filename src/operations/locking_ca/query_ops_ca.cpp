@@ -32,18 +32,23 @@ int sb7::CAQuery1::innerRun() const {
         apartInd->get(query);
         //Only work with atomic parts that are connected. CA lock needs connected components.
         if (query.found && !query.val->getPathLabel().empty()) {
-            list<string> testLabel = query.val->getPathLabel();
-            DesignObj * lockObject = pool.getLockObject(testLabel.back(), dataHolder);
+            DesignObj * lockObject = query.val->getPathLabel().front();
+            int lockReqCount = 0;
             if(lockObject != NULL){
                 //cout<< "Lock Object is not null"<<endl;
-                xy: if(pool.acquireLock(lockObject)){
-                //cout<< "Lock acquired"<<endl;
-                pthread_rwlock_rdlock(&lockObject->NodeLock);
-                performOperationOnAtomicPart(query.val);
-                count++;
-                pool.releaseLock(lockObject);
-                pthread_rwlock_unlock(&lockObject->NodeLock);
-            } else goto xy;
+                xy:
+                if(!pool.testLockPoolConflict(lockObject->getPathLabel())){
+                    //cout<< "Lock acquired in "<<lockReqCount<<" tries"<<endl;
+                    pthread_rwlock_rdlock(&lockObject->NodeLock);
+
+                    performOperationOnAtomicPart(query.val);
+                    count++;
+                    pool.releaseLock(lockObject);
+                    pthread_rwlock_unlock(&lockObject->NodeLock);
+                } else{
+                    lockReqCount++;
+                    goto xy;
+                }
             }
         }
     }
@@ -88,9 +93,9 @@ int sb7::CAQuery2::innerRun() const {
 
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
-            list<string> testLabel = apart->getPathLabel();
+            vector<DesignObj*> testLabel = apart->getPathLabel();
             if(!testLabel.empty()) {
-                DesignObj * lockObject = pool.getLockObject(testLabel.back(), dataHolder);
+                DesignObj * lockObject = testLabel.back();
                 if(lockObject != NULL){
                     xyz: if(pool.acquireLock(lockObject)){
                     pthread_rwlock_rdlock(&lockObject->NodeLock);
@@ -135,8 +140,8 @@ int sb7::CAQuery4::run() const {
         query.key = title;
         docInd->get(query);
 
-        list<BaseAssembly *> bassms;
-        list<string> lockRequest;
+        vector<BaseAssembly *> bassms;
+        vector<DesignObj*> lockRequest;
 
         if (query.found) {
             Document *doc = query.val;
@@ -146,7 +151,7 @@ int sb7::CAQuery4::run() const {
 
             while (iter.has_next()) {
                 BaseAssembly *bassm = iter.next();
-                list<string> testLabel = bassm->getPathLabel();
+                vector<DesignObj*> testLabel = bassm->getPathLabel();
                 if(!testLabel.empty()) {
                     bassms.push_back(bassm);
                     lockRequest = pool.addToLockRequest(lockRequest, testLabel);
@@ -154,7 +159,7 @@ int sb7::CAQuery4::run() const {
 
             }
 
-            DesignObj * lockObject = pool.getLockObject(lockRequest.back(), dataHolder);
+            DesignObj * lockObject = lockRequest.back();
             if(lockObject != NULL){
                 //cout<< "Lock Object is not null"<<endl;
                 xy: if(pool.acquireLock(lockObject)){
