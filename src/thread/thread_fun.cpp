@@ -36,7 +36,7 @@ void *sb7::worker_thread(void *data) {
         try {
             // get start time
             long start_time = get_time_ms();
-            op->run();
+            op->run(wtdata->threadId);
             long end_time = get_time_ms();
 
             wtdata->successful_ops[opind]++;

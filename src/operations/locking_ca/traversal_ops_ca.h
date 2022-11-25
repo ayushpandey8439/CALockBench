@@ -22,7 +22,7 @@ namespace sb7 {
         explicit CATraversal1(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(ComplexAssembly *complexAssembly) const;
@@ -43,7 +43,7 @@ namespace sb7 {
         explicit CATraversal2a(DataHolder *dh) : CATraversal1(TRAVERSAL, "T2a", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int performOperationOnAtomicPart(AtomicPart *apart,
@@ -55,7 +55,7 @@ namespace sb7 {
         explicit CATraversal2b(DataHolder *dh) : CATraversal1(TRAVERSAL, "T2b", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int performOperationOnAtomicPart(AtomicPart *apart,
@@ -67,7 +67,7 @@ namespace sb7 {
         explicit CATraversal2c(DataHolder *dh) : CATraversal1(TRAVERSAL, "T2c", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int performOperationOnAtomicPart(AtomicPart *apart,
@@ -84,7 +84,7 @@ namespace sb7 {
         explicit CATraversal3a(DataHolder *dh) : CATraversal1(TRAVERSAL, "T3a", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int performOperationOnAtomicPart(AtomicPart *apart,
@@ -140,7 +140,7 @@ namespace sb7 {
         explicit CATraversal5(DataHolder *dh) : CATraversal4(TRAVERSAL, "T5", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(Document *doc) const override;
@@ -169,7 +169,7 @@ namespace sb7 {
                 : Operation(SHORT_TRAVERSAL_RO, "T7", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -196,7 +196,7 @@ namespace sb7 {
                 : Operation(OPERATION_RO, "T8", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         virtual int traverse(Manual *manual) const;

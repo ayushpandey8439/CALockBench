@@ -15,12 +15,12 @@ extern lockPool pool;
 #define QUERY1_ITER 10
 
 
-int sb7::CAQuery1::run() const {
+int sb7::CAQuery1::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
-    return innerRun();
+    return innerRun(tid);
 }
 
-int sb7::CAQuery1::innerRun() const {
+int sb7::CAQuery1::innerRun(int tid) const {
     int count = 0;
 
     for (int i = 0; i < QUERY1_ITER; i++) {
@@ -32,23 +32,11 @@ int sb7::CAQuery1::innerRun() const {
         apartInd->get(query);
         //Only work with atomic parts that are connected. CA lock needs connected components.
         if (query.found && !query.val->getPathLabel().empty()) {
-            DesignObj * lockObject = query.val->getPathLabel().front();
-            int lockReqCount = 0;
-            if(lockObject != NULL){
-                //cout<< "Lock Object is not null"<<endl;
-                xy:
-                if(!pool.testLockPoolConflict(lockObject->getPathLabel())){
-                    //cout<< "Lock acquired in "<<lockReqCount<<" tries"<<endl;
-                    pthread_rwlock_rdlock(&lockObject->NodeLock);
-
-                    performOperationOnAtomicPart(query.val);
-                    count++;
-                    pool.releaseLock(lockObject);
-                    pthread_rwlock_unlock(&lockObject->NodeLock);
-                } else{
-                    lockReqCount++;
-                    goto xy;
-                }
+            auto  * l = new lockObject(query.val, 'r');
+            if(pool.acquireLock(l, tid)) {
+                performOperationOnAtomicPart(query.val);
+                count++;
+                pool.releaseLock(tid);
             }
         }
     }
@@ -71,12 +59,12 @@ sb7::CAQuery2::CAQuery2(DataHolder *dh, optype t, const char *n, int percent)
                                parameters.getMinAtomicDate()) / 100;
 }
 
-int sb7::CAQuery2::run() const {
+int sb7::CAQuery2::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
-    return innerRun();
+    return innerRun(tid);
 }
 
-int sb7::CAQuery2::innerRun() const {
+int sb7::CAQuery2::innerRun(int tid) const {
     int count = 0;
     Map<int, Set<AtomicPart *> *> *setInd =
             dataHolder->getAtomicPartBuildDateIndex();
@@ -95,15 +83,11 @@ int sb7::CAQuery2::innerRun() const {
             AtomicPart *apart = apartIter.next();
             vector<DesignObj*> testLabel = apart->getPathLabel();
             if(!testLabel.empty()) {
-                DesignObj * lockObject = testLabel.back();
-                if(lockObject != NULL){
-                    xyz: if(pool.acquireLock(lockObject)){
-                    pthread_rwlock_rdlock(&lockObject->NodeLock);
+                auto * l = new lockObject(testLabel.back(), 'r');
+                if(pool.acquireLock(l,tid)){
                     performOperationOnAtomicPart(apart);
                     count++;
-                    pool.releaseLock(lockObject);
-                    pthread_rwlock_unlock(&lockObject->NodeLock);
-                } else goto xyz;
+                    pool.releaseLock(tid);
                 }
             }
         }
@@ -122,7 +106,7 @@ void sb7::CAQuery2::performOperationOnAtomicPart(AtomicPart *apart) const {
 
 #define QUERY4_ITER 100
 
-int sb7::CAQuery4::run() const {
+int sb7::CAQuery4::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
 
     int ret = 0;
@@ -159,18 +143,18 @@ int sb7::CAQuery4::run() const {
 
             }
 
-            DesignObj * lockObject = lockRequest.back();
-            if(lockObject != NULL){
+
+            if(!lockRequest.empty()){
+                auto * l = new lockObject(lockRequest.back(), 'r');
                 //cout<< "Lock Object is not null"<<endl;
-                xy: if(pool.acquireLock(lockObject)){
+                xy: if(pool.acquireLock(l,tid)){
                 //cout<< "Lock acquired"<<endl;
-                pthread_rwlock_rdlock(&lockObject->NodeLock);
                 for(BaseAssembly * b: bassms){
                     b->nullOperation();
                     ret++;
                 }
-                pool.releaseLock(lockObject);
-                pthread_rwlock_unlock(&lockObject->NodeLock);
+                pool.releaseLock(tid);
+                //pthread_rwlock_unlock(&lockObject->NodeLock);
             } else goto xy;
             }
         }
@@ -183,7 +167,7 @@ int sb7::CAQuery4::run() const {
 // Query5 //
 ////////////
 
-int sb7::CAQuery5::run() const {
+int sb7::CAQuery5::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     int ret = 0;
 
@@ -218,7 +202,7 @@ int sb7::CAQuery5::checkBaseAssembly(BaseAssembly *bassm) {
 // Query6 //
 ////////////
 
-int sb7::CAQuery6::run() const {
+int sb7::CAQuery6::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     return checkComplexAssembly(dataHolder->getModule()->getDesignRoot());
 }
@@ -253,7 +237,7 @@ int sb7::CAQuery6::checkComplexAssembly(ComplexAssembly *assembly) const {
 // Query7 //
 ////////////
 
-int sb7::CAQuery7::run() const {
+int sb7::CAQuery7::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     int ret = 0;
 

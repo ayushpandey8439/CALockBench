@@ -11,67 +11,89 @@
 #include <shared_mutex>
 #include "data_holder.h"
 #include "lscaHelpers.h"
+#include "iostream"
 
+#define SIZE 32
 using namespace std;
 using namespace sb7;
 
-extern shared_mutex lockPoolLock;
 
 struct classcomp {
     bool operator() (const DesignObj* lhs, const DesignObj* rhs) const
     {return lhs->getId()<rhs->getId();}
 };
 
+class lockObject{
+public:
+    DesignObj* designObj;
+    char mode;
+    long Oseq;
+    lockObject(DesignObj* d, char m){
+        designObj = d;
+        mode = m;
+    }
+};
+
 class lockPool {
 public:
-    set<DesignObj *, classcomp> lpool;
+    mutex lockPoolLock;
+    lockObject* locks[SIZE];
+    //Lock variable, one per lock-pool location
+    pthread_rwlock_t ArrayLock[SIZE];
 
-    bool testLockPoolConflict(vector<DesignObj *> testLabel) const{
-        set<DesignObj *, classcomp> localLpool = lpool;
-        bool conflict = false;
-        if(localLpool.find(testLabel.back()) != localLpool.end()){
-            return true;
+    long Gseq;
+    //Sequence number per thread for fairness and less contention
+    long Seq[SIZE];
+
+    lockPool(){
+        Gseq = 0;
+        for(int i = 0;i<SIZE; i++)
+        {
+            locks[i] = NULL;
+            pthread_rwlock_t ArrayLock[i];
         }
-        for(DesignObj *  o: localLpool) {
-            vector<DesignObj*> lockedLabel = o->getPathLabel();
-            vector<DesignObj*> common = lscaHelpers::findLSCA(lockedLabel,testLabel);
-            if (localLpool.find(common.back()) == localLpool.end() && common.back() != testLabel.back()) {
-                conflict |= false;
-            } else {
-                conflict |= true;
-                break;
+    }
+
+
+    bool acquireLock(lockObject * reqObj, int threadID){
+        lockPoolLock.lock();
+        reqObj->Oseq = ++Gseq;
+        locks[threadID] = reqObj;
+        lockPoolLock.unlock();
+
+        for(int i=0;i< SIZE; i++){
+            lockObject * lockedObj = locks[i];
+            if(lockedObj != NULL){
+                vector<DesignObj*> lockedLabel = lockedObj->designObj->getPathLabel();
+                DesignObj* common = lscaHelpers::findLSCA(lockedLabel,reqObj->designObj->getPathLabel());
+                while(lockedObj!= NULL &&
+                // If a read lock is requested for an object that ia read locked, then allow it. Otherwise, don't.
+                (reqObj->mode =='r' && lockedObj->mode == 'w') &&
+                (
+                // It isn't my turn to take the lock
+                reqObj->Oseq > lockedObj->Oseq ||
+                // I'm already locked
+                reqObj == lockedObj ||
+                // Someone else has requested a lock on my LSCA before me.
+                std::any_of(locks[0], locks[SIZE-1], [&reqObj, &common](lockObject o){return (o.designObj==common && o.Oseq < reqObj->Oseq);})
+                )){
+                    cout<<"waiting for lock resolution on "<< this_thread::get_id()<<endl;
+                    this_thread::sleep_for(chrono::milliseconds(1));
+                }
             }
         }
-        return conflict;
+        return true;
     }
 
-    bool acquireLock(DesignObj * designObject){
-        lockPoolLock.lock();
-        vector<DesignObj*> testLabel = designObject->getPathLabel();
-        bool conflict = false;
-        int conflictSize = lpool.size();
-        conflict = testLockPoolConflict(testLabel);
-
-        if(!conflict){
-            lpool.insert(designObject);
-            lockPoolLock.unlock();
-            return true;
-        }
-        lockPoolLock.unlock();
-        return false;
-    }
-
-    void releaseLock(DesignObj*  designObject){
-        lockPoolLock.lock();
-        lpool.erase(designObject);
-        lockPoolLock.unlock();
+    void releaseLock(int threadId){
+        locks[threadId] = NULL;
     }
 
     vector<DesignObj*> addToLockRequest(vector<DesignObj*> lockRequest, vector<DesignObj*> label){
         if(lockRequest.empty()){
             return label;
         } else {
-            return lscaHelpers::findLSCA(lockRequest, label);
+            return lscaHelpers::findLSCA(lockRequest, label)->getPathLabel();
         }
     }
 

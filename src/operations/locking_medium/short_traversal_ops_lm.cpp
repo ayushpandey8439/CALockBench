@@ -8,7 +8,7 @@
 // ShortTraversal1 //
 /////////////////////
 
-int sb7::LMShortTraversal1::run() const {
+int sb7::LMShortTraversal1::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -109,7 +109,7 @@ int sb7::LMShortTraversal1::traverse(AtomicPart *apart) const {
 // ShortTraversal2 //
 /////////////////////
 
-int sb7::LMShortTraversal2::run() const {
+int sb7::LMShortTraversal2::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle docLockHandle(lm_lock_srv.getDocumentLock());
 
@@ -133,7 +133,7 @@ int sb7::LMShortTraversal2::traverse(Document *doc) const {
 // ShortTraversal6 //
 /////////////////////
 
-int sb7::LMShortTraversal6::run() const {
+int sb7::LMShortTraversal6::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -153,7 +153,7 @@ int sb7::LMShortTraversal6::traverse(AtomicPart *apart) const {
 #define DOC_START_STRING_1 "I am"
 #define DOC_START_STRING_2 "This is"
 
-int sb7::LMShortTraversal7::run() const {
+int sb7::LMShortTraversal7::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle docLockHandle(lm_lock_srv.getDocumentLock());
 
@@ -179,7 +179,7 @@ int sb7::LMShortTraversal7::traverse(Document *doc) const {
 // ShortTraversal8 //
 /////////////////////
 
-int sb7::LMShortTraversal8::run() const {
+int sb7::LMShortTraversal8::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle assmLockHandle(
             lm_lock_srv.getAssemblyLockArray(),
@@ -237,7 +237,7 @@ int sb7::LMShortTraversal9::performOperationOnAtomicPart(
 // ShortTraversal10 //
 // ///////////////////
 
-int sb7::LMShortTraversal10::run() const {
+int sb7::LMShortTraversal10::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 

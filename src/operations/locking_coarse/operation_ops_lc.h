@@ -22,7 +22,7 @@ namespace sb7 {
         explicit LCOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun() const;
@@ -41,7 +41,7 @@ namespace sb7 {
         explicit LCOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun() const;
@@ -60,7 +60,7 @@ namespace sb7 {
         explicit LCOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun() const;
@@ -74,7 +74,7 @@ namespace sb7 {
         explicit LCOperation9(DataHolder *dh) : LCQuery1(OPERATION, "OP9", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnAtomicPart(
@@ -86,7 +86,7 @@ namespace sb7 {
         explicit LCOperation10(DataHolder *dh) : LCQuery2(dh, OPERATION, "OP10", 1) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnAtomicPart(
@@ -98,7 +98,7 @@ namespace sb7 {
         explicit LCOperation11(DataHolder *dh) : LCTraversal8(OPERATION, "OP11", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(Manual *manual) const override;
@@ -114,7 +114,7 @@ namespace sb7 {
         explicit LCOperation12(DataHolder *dh) : LCOperation6(OPERATION, "OP12", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnComplexAssembly(
@@ -126,7 +126,7 @@ namespace sb7 {
         explicit LCOperation13(DataHolder *dh) : LCOperation7(OPERATION, "OP13", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnBaseAssembly(
@@ -138,7 +138,7 @@ namespace sb7 {
         explicit LCOperation14(DataHolder *dh) : LCOperation8(OPERATION, "OP14", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnComponent(
@@ -150,7 +150,7 @@ namespace sb7 {
         explicit LCOperation15(DataHolder *dh) : LCQuery1(OPERATION, "OP15", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnAtomicPart(

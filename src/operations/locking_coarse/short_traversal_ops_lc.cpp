@@ -10,7 +10,7 @@
 // ShortTraversal1 //
 /////////////////////
 
-int sb7::LCShortTraversal1::run() const {
+int sb7::LCShortTraversal1::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
@@ -125,7 +125,7 @@ int sb7::LCShortTraversal2::traverse(Document *doc) const {
 // ShortTraversal6 //
 /////////////////////
 
-int sb7::LCShortTraversal6::run() const {
+int sb7::LCShortTraversal6::run(int tid) const {
     WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
     return LCShortTraversal1::traverse(
             dataHolder->getModule()->getDesignRoot());
@@ -143,7 +143,7 @@ int sb7::LCShortTraversal6::traverse(AtomicPart *apart) const {
 #define DOC_START_STRING_1 "I am"
 #define DOC_START_STRING_2 "This is"
 
-int sb7::LCShortTraversal7::run() const {
+int sb7::LCShortTraversal7::run(int tid) const {
     WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
     return LCShortTraversal1::traverse(
             dataHolder->getModule()->getDesignRoot());
@@ -167,7 +167,7 @@ int sb7::LCShortTraversal7::traverse(Document *doc) const {
 // ShortTraversal8 //
 /////////////////////
 
-int sb7::LCShortTraversal8::run() const {
+int sb7::LCShortTraversal8::run(int tid) const {
     WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
     return innerRun();
 }
@@ -221,7 +221,7 @@ int sb7::LCShortTraversal9::performOperationOnAtomicPart(
 // ShortTraversal10 //
 // ///////////////////
 
-int sb7::LCShortTraversal10::run() const {
+int sb7::LCShortTraversal10::run(int tid) const {
     WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
     return LCShortTraversal1::traverse(
             dataHolder->getModule()->getDesignRoot());

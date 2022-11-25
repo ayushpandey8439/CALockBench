@@ -20,7 +20,7 @@ namespace sb7 {
         explicit LCQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -33,7 +33,7 @@ namespace sb7 {
         explicit LCQuery2(DataHolder *dh, optype t = OPERATION_RO,
                  const char *n = "Q2", int percent = 1);
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -56,7 +56,7 @@ namespace sb7 {
         explicit LCQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class LCQuery5 : public Operation {
@@ -69,7 +69,7 @@ namespace sb7 {
         explicit LCQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         static int checkBaseAssembly(BaseAssembly *bassm) ;
@@ -80,7 +80,7 @@ namespace sb7 {
         explicit LCQuery6(DataHolder *dh) : LCQuery5(TRAVERSAL_RO, "Q6", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int checkAssembly(Assembly *assembly) const;
@@ -93,7 +93,7 @@ namespace sb7 {
         explicit LCQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 }
 

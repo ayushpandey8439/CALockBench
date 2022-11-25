@@ -14,12 +14,12 @@ extern lockPool pool;
 // Operation6 //
 ////////////////
 
-int sb7::CAOperation6::run() const {
+int sb7::CAOperation6::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
-    return innerRun();
+    return innerRun(tid);
 }
 
-int sb7::CAOperation6::innerRun() const {
+int sb7::CAOperation6::innerRun(int tid) const {
     // Generate one random number that is in range of possible complex assembly
     // identifiers. It is used to look up complex assembly.
     //
@@ -42,55 +42,20 @@ int sb7::CAOperation6::innerRun() const {
         throw Sb7Exception();
     }
 
-    int ret;
+    int ret = 0;
 
     // if complex assembly was found process it
     ComplexAssembly *cassm = query.val;
     ComplexAssembly *superAssm = cassm->getSuperAssembly();
-
+    auto *l = new lockObject(superAssm, 'r');
     // if this assembly is root perform operation on it
-    if (superAssm == nullptr) {
-        xy: if(pool.acquireLock(cassm)){
+    if (pool.acquireLock(l, tid)) {
         //cout<< "Lock acquired"<<endl;
         pthread_rwlock_rdlock(&cassm->NodeLock);
         performOperationOnComplexAssembly(cassm);
         ret = 1;
-        pool.releaseLock(cassm);
+        pool.releaseLock(tid);
         pthread_rwlock_unlock(&cassm->NodeLock);
-    } else goto xy;
-
-    } else {
-        // else perform operation on all it's siblings (including itself)
-        Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
-        SetIterator<Assembly *> iter = siblingAssms->getIter();
-        ret = 0;
-        vector<ComplexAssembly *> cassms;
-        vector<DesignObj *> lockRequest;
-
-        while (iter.has_next()) {
-            auto* ca = (ComplexAssembly *) iter.next();
-
-            vector<DesignObj*> testLabel = ca->getPathLabel();
-            if(!testLabel.empty()) {
-                cassms.push_back(ca);
-                lockRequest = pool.addToLockRequest(lockRequest, testLabel);
-            }
-
-            DesignObj * lockObject = lockRequest.back();
-            if(lockObject != NULL){
-                //cout<< "Lock Object is not null"<<endl;
-                xyz: if(pool.acquireLock(lockObject)){
-                //cout<< "Lock acquired"<<endl;
-                pthread_rwlock_rdlock(&lockObject->NodeLock);
-                for(ComplexAssembly * c: cassms){
-                    performOperationOnComplexAssembly(c);
-                    ret++;
-                }
-                pool.releaseLock(lockObject);
-                pthread_rwlock_unlock(&lockObject->NodeLock);
-            } else goto xyz;
-        }
-    }
     }
 
     return ret;
@@ -105,12 +70,12 @@ void sb7::CAOperation6::performOperationOnComplexAssembly(
 // Operation7 //
 ////////////////
 
-int sb7::CAOperation7::run() const {
+int sb7::CAOperation7::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
-    return innerRun();
+    return innerRun(tid);
 }
 
-int sb7::CAOperation7::innerRun() const {
+int sb7::CAOperation7::innerRun(int tid) const {
     // Generate one random number that is in range of possible base assembly
     // identifiers. It is used to look up base assembly from index.
     //
@@ -146,19 +111,19 @@ int sb7::CAOperation7::innerRun() const {
         }
 
     }
-    DesignObj * lockObject = lockRequest.back();
-    if(lockObject != NULL){
+
+    if(!lockRequest.empty()){
+        DesignObj * d = lockRequest.back();
+        auto * l = new lockObject(d, 'r');
         //cout<< "Lock Object is not null"<<endl;
-        xy: if(pool.acquireLock(lockObject)){
+        if(pool.acquireLock(l, tid)){
         //cout<< "Lock acquired"<<endl;
-        pthread_rwlock_rdlock(&lockObject->NodeLock);
         for(BaseAssembly * b: bassms){
             b->nullOperation();
             ret++;
         }
-        pool.releaseLock(lockObject);
-        pthread_rwlock_unlock(&lockObject->NodeLock);
-    } else goto xy;
+        pool.releaseLock(tid);
+    }
     }
 
     return ret;
@@ -173,12 +138,12 @@ void sb7::CAOperation7::performOperationOnBaseAssembly(
 // Operation8 //
 ////////////////
 
-int sb7::CAOperation8::run() const {
+int sb7::CAOperation8::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
-    return innerRun();
+    return innerRun(tid);
 }
 
-int sb7::CAOperation8::innerRun() const {
+int sb7::CAOperation8::innerRun(int tid) const {
     // Generate one random number that is in range of possible base assembly
     // identifiers. It is used to look up base assembly from index.
     //
@@ -215,19 +180,18 @@ int sb7::CAOperation8::innerRun() const {
 
     }
 
-    DesignObj * lockObject = lockRequest.back();
-    if(lockObject != NULL){
+    if(!lockRequest.empty()){
+        DesignObj * d = lockRequest.back();
+        auto *l = new lockObject(d, 'r');
         //cout<< "Lock Object is not null"<<endl;
-        xy: if(pool.acquireLock(lockObject)){
+        if(pool.acquireLock(l,tid)){
         //cout<< "Lock acquired"<<endl;
-        pthread_rwlock_rdlock(&lockObject->NodeLock);
         for(CompositePart * c: cparts){
             performOperationOnComponent(c);
             ret++;
         }
-        pool.releaseLock(lockObject);
-        pthread_rwlock_unlock(&lockObject->NodeLock);
-    } else goto xy;
+        pool.releaseLock(tid);
+    }
     }
 
     return ret;
@@ -241,9 +205,9 @@ void sb7::CAOperation8::performOperationOnComponent(CompositePart *comp) const {
 // Operation9 //
 ////////////////
 
-int sb7::CAOperation9::run() const {
+int sb7::CAOperation9::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-    return CAQuery1::innerRun();
+    return CAQuery1::innerRun(tid);
 }
 
 void sb7::CAOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
@@ -254,9 +218,9 @@ void sb7::CAOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 // Operation10 //
 ////////////////
 
-int sb7::CAOperation10::run() const {
+int sb7::CAOperation10::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-    return CAQuery2::innerRun();
+    return CAQuery2::innerRun(tid);
 }
 
 void sb7::CAOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
@@ -270,7 +234,7 @@ void sb7::CAOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
 #define MANUAL_TEXT_START_1 'I'
 #define MANUAL_TEXT_START_2 'i'
 
-int sb7::CAOperation11::run() const {
+int sb7::CAOperation11::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
     return CATraversal8::traverse(dataHolder->getModule()->getManual());
 }
@@ -293,9 +257,9 @@ int sb7::CAOperation11::traverse(Manual *manual) const {
 // Operation12 //
 /////////////////
 
-int sb7::CAOperation12::run() const {
+int sb7::CAOperation12::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-    return CAOperation6::innerRun();
+    return CAOperation6::innerRun(tid);
 }
 
 void sb7::CAOperation12::performOperationOnComplexAssembly(
@@ -307,9 +271,9 @@ void sb7::CAOperation12::performOperationOnComplexAssembly(
 // Operation13 //
 /////////////////
 
-int sb7::CAOperation13::run() const {
+int sb7::CAOperation13::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-    return CAOperation7::innerRun();
+    return CAOperation7::innerRun(tid);
 }
 
 void sb7::CAOperation13::performOperationOnBaseAssembly(
@@ -321,9 +285,9 @@ void sb7::CAOperation13::performOperationOnBaseAssembly(
 // Operation14 //
 /////////////////
 
-int sb7::CAOperation14::run() const {
+int sb7::CAOperation14::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-    return CAOperation8::innerRun();
+    return CAOperation8::innerRun(tid);
 }
 
 void sb7::CAOperation14::performOperationOnComponent(
@@ -335,9 +299,9 @@ void sb7::CAOperation14::performOperationOnComponent(
 // Operation15 //
 /////////////////
 
-int sb7::CAOperation15::run() const {
+int sb7::CAOperation15::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-    return CAQuery1::innerRun();
+    return CAQuery1::innerRun(tid);
 }
 
 void sb7::CAOperation15::performOperationOnAtomicPart(AtomicPart *apart) const {

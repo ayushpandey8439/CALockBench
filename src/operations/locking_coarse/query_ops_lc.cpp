@@ -13,7 +13,7 @@
 
 #define QUERY1_ITER 10
 
-int sb7::LCQuery1::run() const {
+int sb7::LCQuery1::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
     return innerRun();
 }
@@ -55,7 +55,7 @@ sb7::LCQuery2::LCQuery2(DataHolder *dh, optype t, const char *n, int percent)
                                parameters.getMinAtomicDate()) / 100;
 }
 
-int sb7::LCQuery2::run() const {
+int sb7::LCQuery2::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
     return innerRun();
 }
@@ -91,7 +91,7 @@ void sb7::LCQuery2::performOperationOnAtomicPart(AtomicPart *apart) const {
 
 #define QUERY4_ITER 100
 
-int sb7::LCQuery4::run() const {
+int sb7::LCQuery4::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
 
     int ret = 0;
@@ -130,7 +130,7 @@ int sb7::LCQuery4::run() const {
 // Query5 //
 ////////////
 
-int sb7::LCQuery5::run() const {
+int sb7::LCQuery5::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
     int ret = 0;
 
@@ -165,7 +165,7 @@ int sb7::LCQuery5::checkBaseAssembly(BaseAssembly *bassm) {
 // Query6 //
 ////////////
 
-int sb7::LCQuery6::run() const {
+int sb7::LCQuery6::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
     return checkComplexAssembly(dataHolder->getModule()->getDesignRoot());
 }
@@ -200,7 +200,7 @@ int sb7::LCQuery6::checkComplexAssembly(ComplexAssembly *assembly) const {
 // Query7 //
 ////////////
 
-int sb7::LCQuery7::run() const {
+int sb7::LCQuery7::run(int tid) const {
     ReadLockHandle readLockHandle(lc_lock_srv.getLock());
     int ret = 0;
 

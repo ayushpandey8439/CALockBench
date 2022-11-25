@@ -9,7 +9,7 @@
 // StructuralModification1 //
 /////////////////////////////
 
-int sb7::LMStructuralModification1::run() const {
+int sb7::LMStructuralModification1::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     dataHolder->createCompositePart();
@@ -20,7 +20,7 @@ int sb7::LMStructuralModification1::run() const {
 // StructuralModification2 //
 /////////////////////////////
 
-int sb7::LMStructuralModification2::run() const {
+int sb7::LMStructuralModification2::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random composite part id and try to look it up
@@ -40,7 +40,7 @@ int sb7::LMStructuralModification2::run() const {
 // StructuralModification3 //
 /////////////////////////////
 
-int sb7::LMStructuralModification3::run() const {
+int sb7::LMStructuralModification3::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random composite part id
@@ -68,7 +68,7 @@ int sb7::LMStructuralModification3::run() const {
 // StructuralModification4 //
 /////////////////////////////
 
-int sb7::LMStructuralModification4::run() const {
+int sb7::LMStructuralModification4::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random base assembly id
@@ -112,7 +112,7 @@ int sb7::LMStructuralModification4::run() const {
 // StructuralModification5 //
 /////////////////////////////
 
-int sb7::LMStructuralModification5::run() const {
+int sb7::LMStructuralModification5::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random base assembly id
@@ -133,7 +133,7 @@ int sb7::LMStructuralModification5::run() const {
 // StructuralModification6 //
 /////////////////////////////
 
-int sb7::LMStructuralModification6::run() const {
+int sb7::LMStructuralModification6::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random base assembly id
@@ -162,7 +162,7 @@ int sb7::LMStructuralModification6::run() const {
 // StructuralModification7 //
 /////////////////////////////
 
-int sb7::LMStructuralModification7::run() const {
+int sb7::LMStructuralModification7::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random complex assembly id
@@ -184,7 +184,7 @@ int sb7::LMStructuralModification7::run() const {
 // StructuralModification8 //
 /////////////////////////////
 
-int sb7::LMStructuralModification8::run() const {
+int sb7::LMStructuralModification8::run(int tid) const {
     WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // generate random complex assembly id

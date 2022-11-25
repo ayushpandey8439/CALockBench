@@ -13,7 +13,7 @@
 
 #define QUERY1_ITER 10
 
-int sb7::LMQuery1::run() const {
+int sb7::LMQuery1::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -57,7 +57,7 @@ sb7::LMQuery2::LMQuery2(DataHolder *dh, optype t, const char *n, int percent)
                                parameters.getMinAtomicDate()) / 100;
 }
 
-int sb7::LMQuery2::run() const {
+int sb7::LMQuery2::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -95,7 +95,7 @@ void sb7::LMQuery2::performOperationOnAtomicPart(AtomicPart *apart) const {
 
 #define QUERY4_ITER 100
 
-int sb7::LMQuery4::run() const {
+int sb7::LMQuery4::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
 
@@ -135,7 +135,7 @@ int sb7::LMQuery4::run() const {
 // Query5 //
 ////////////
 
-int sb7::LMQuery5::run() const {
+int sb7::LMQuery5::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
     ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
@@ -173,7 +173,7 @@ int sb7::LMQuery5::checkBaseAssembly(BaseAssembly *bassm) {
 // Query6 //
 ////////////
 
-int sb7::LMQuery6::run() const {
+int sb7::LMQuery6::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle assmLockHandle(lm_lock_srv.getAssemblyLockArray());
     ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
@@ -211,7 +211,7 @@ int sb7::LMQuery6::checkComplexAssembly(ComplexAssembly *assembly) const {
 // Query7 //
 ////////////
 
-int sb7::LMQuery7::run() const {
+int sb7::LMQuery7::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 

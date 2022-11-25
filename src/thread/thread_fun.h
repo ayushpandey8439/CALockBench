@@ -39,6 +39,8 @@ namespace sb7 {
         double max_low_ttc_log;
         double high_ttc_log_base;
 
+        int threadId;
+
         // some functions that can help
         int getOperationRndInd() const;
     };

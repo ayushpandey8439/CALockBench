@@ -25,7 +25,7 @@ namespace sb7 {
                 : Operation(SHORT_TRAVERSAL_RO, "ST1", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(Assembly *assm) const;
@@ -51,7 +51,7 @@ namespace sb7 {
                 LMShortTraversal1(SHORT_TRAVERSAL_RO, "ST2", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(CompositePart *cpart) const override;
@@ -67,7 +67,7 @@ namespace sb7 {
                 LMShortTraversal1(SHORT_TRAVERSAL, "ST6", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(AtomicPart *apart) const override;
@@ -79,7 +79,7 @@ namespace sb7 {
                 LMShortTraversal2(SHORT_TRAVERSAL, "ST7", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int traverse(Document *documentation) const override;
@@ -91,7 +91,7 @@ namespace sb7 {
                 LMTraversal7(SHORT_TRAVERSAL, "ST8", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         void performOperationOnAssembly(Assembly *assembly) const override;
@@ -126,7 +126,7 @@ namespace sb7 {
                 LMShortTraversal9(SHORT_TRAVERSAL, "ST10", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int performOperationOnAtomicPart(AtomicPart *apart) const override;

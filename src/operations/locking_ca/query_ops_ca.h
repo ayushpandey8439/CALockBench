@@ -20,10 +20,10 @@ namespace sb7 {
         explicit CAQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
-        int innerRun() const;
+        int innerRun(int tid) const;
 
         virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
     };
@@ -33,10 +33,10 @@ namespace sb7 {
         explicit CAQuery2(DataHolder *dh, optype t = OPERATION_RO,
                           const char *n = "Q2", int percent = 1);
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
-        int innerRun() const;
+        int innerRun(int tid) const;
 
         virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
 
@@ -56,7 +56,7 @@ namespace sb7 {
         explicit CAQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAQuery5 : public Operation {
@@ -69,7 +69,7 @@ namespace sb7 {
         explicit CAQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         static int checkBaseAssembly(BaseAssembly *bassm) ;
@@ -80,7 +80,7 @@ namespace sb7 {
         explicit CAQuery6(DataHolder *dh) : CAQuery5(TRAVERSAL_RO, "Q6", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
 
     protected:
         int checkAssembly(Assembly *assembly) const;
@@ -93,7 +93,7 @@ namespace sb7 {
         explicit CAQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 }
 

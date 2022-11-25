@@ -16,7 +16,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM1", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification2 : public Operation {
@@ -25,7 +25,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification3 : public Operation {
@@ -34,7 +34,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification4 : public Operation {
@@ -43,7 +43,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM4", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification5 : public Operation {
@@ -52,7 +52,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM5", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification6 : public Operation {
@@ -61,7 +61,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM6", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification7 : public Operation {
@@ -70,7 +70,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM7", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
     class CAStructuralModification8 : public Operation {
@@ -79,7 +79,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM8", dh) {
         }
 
-        int run() const override;
+        int run(int tid) const override;
     };
 
 }

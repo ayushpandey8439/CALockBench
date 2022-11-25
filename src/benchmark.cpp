@@ -47,6 +47,7 @@ sb7::Benchmark::Benchmark() : operations(&dataHolder) {
 
         threads[i].wtdata.max_low_ttc_log = max_low_ttc_log;
         threads[i].wtdata.high_ttc_log_base = high_ttc_log_base;
+        threads[i].wtdata.threadId=i;
     }
 
     elapsedTime = -1;

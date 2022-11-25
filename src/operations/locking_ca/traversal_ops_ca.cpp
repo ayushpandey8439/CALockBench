@@ -14,7 +14,7 @@
 // Traversal1 //
 ////////////////
 
-int sb7::CATraversal1::run() const {
+int sb7::CATraversal1::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
@@ -92,7 +92,7 @@ int sb7::CATraversal1::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal2a //
 /////////////////
 
-int sb7::CATraversal2a::run() const {
+int sb7::CATraversal2a::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
@@ -116,7 +116,7 @@ int sb7::CATraversal2a::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal2b //
 /////////////////
 
-int sb7::CATraversal2b::run() const {
+int sb7::CATraversal2b::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
@@ -131,7 +131,7 @@ int sb7::CATraversal2b::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal2c //
 /////////////////
 
-int sb7::CATraversal2c::run() const {
+int sb7::CATraversal2c::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
@@ -150,7 +150,7 @@ int sb7::CATraversal2c::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal3a //
 /////////////////
 
-int sb7::CATraversal3a::run() const {
+int sb7::CATraversal3a::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
@@ -225,7 +225,7 @@ int sb7::CATraversal4::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal5 //
 ////////////////
 
-int sb7::CATraversal5::run() const {
+int sb7::CATraversal5::run(int tid) const {
     //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
     return CATraversal1::traverse(
             dataHolder->getModule()->getDesignRoot());
@@ -263,7 +263,7 @@ int sb7::CATraversal6::traverse(CompositePart *cpart) const {
 // Traversal 7 - actually a short traversal //
 //////////////////////////////////////////////
 
-int sb7::CATraversal7::run() const {
+int sb7::CATraversal7::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     return innerRun();
 }
@@ -320,7 +320,7 @@ void sb7::CATraversal7::performOperationOnAssembly(Assembly *assembly) const {
 // Traversal8 - actually a ro operation //
 //////////////////////////////////////////
 
-int sb7::CATraversal8::run() const {
+int sb7::CATraversal8::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     return traverse(dataHolder->getModule()->getManual());
 }
