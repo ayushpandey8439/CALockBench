@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(STMBENCH src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
         src/helpers.cpp src/id_pool.cpp src/parameters.cpp src/random.cpp src/operations/operations.cpp
+
         src/operations/locking_coarse/lock_srv_lc.cpp src/operations/locking_coarse/operation_ops_lc.cpp
         src/operations/locking_coarse/query_ops_lc.cpp src/operations/locking_coarse/short_traversal_ops_lc.cpp
         src/operations/locking_coarse/structural_modification_ops_lc.cpp src/operations/locking_coarse/traversal_ops_lc.cpp
@@ -31,4 +32,12 @@ add_executable(STMBENCH src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src
         src/operations/locking_ca/traversal_ops_ca.cpp src/operations/locking_ca/traversal_ops_ca.h
         src/operations/locking_ca/structural_modification_ops_ca.cpp
         src/operations/locking_ca/structural_modification_ops_ca.h
-        src/lockPool.cpp src/lockPool.h src/lscaHelpers.cpp src/lscaHelpers.h)
+        src/lockPool.cpp src/lockPool.h src/lscaHelpers.cpp src/lscaHelpers.h
+
+
+        src/operations/locking_domLock/operation_ops_dom.cpp
+        src/operations/locking_domLock/query_ops_dom.cpp src/operations/locking_domLock/short_traversal_ops_dom.cpp
+        src/operations/locking_domLock/structural_modification_ops_dom.cpp src/operations/locking_domLock/traversal_ops_dom.cpp
+
+
+        src/interval.cpp src/interval.h src/intervalAssignment.cpp src/intervalAssignment.h src/CArelabelling.cpp src/CArelabelling.h src/DomRelabelling.cpp src/DomRelabelling.h)

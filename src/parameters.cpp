@@ -767,9 +767,12 @@ int sb7::Parameters::strToLockType(std::string &val) {
     } else if (equalNoCase(val, std::string("fine")) ||
                equalNoCase(val, std::string("f"))) {
         return Parameters::lock_fine;
-    } else if (equalNoCase(val, std::string("comon_ancestor")) ||
+    } else if (equalNoCase(val, std::string("comonancestor")) ||
                equalNoCase(val, std::string("ca"))) {
-        return Parameters::lock_ca;}
+        return Parameters::lock_ca;
+    } else if (equalNoCase(val, std::string("domlock")) ||
+             equalNoCase(val, std::string("dom"))) {
+        return Parameters::lock_dom;}
     else {
         return -1;
     }
@@ -785,7 +788,9 @@ std::string sb7::Parameters::lockTypeToStr(lock_type val) {
     } else if (val == lock_fine) {
         return {"fine"};
     } else if (val == lock_ca) {
-        return {"common ancestor"};
+        return {"Common Ancestor"};
+    } else if (val == lock_dom) {
+        return {"Domlock"};
     } else {
         return {"unknown"};
     }

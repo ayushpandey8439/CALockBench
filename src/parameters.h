@@ -25,7 +25,8 @@ namespace sb7 {
             lock_coarse,
             lock_medium,
             lock_fine,
-            lock_ca
+            lock_ca,
+            lock_dom
         };
 
     protected:

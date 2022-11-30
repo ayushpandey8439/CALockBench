@@ -1,10 +1,5 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
-#ifndef STMBENCH_OPERATION_OPS_LC_H
-#define STMBENCH_OPERATION_OPS_LC_H
-
+#ifndef SB7_LC_OPERATION_OPS_H_
+#define SB7_LC_OPERATION_OPS_H_
 
 #include "../operations.h"
 #include "query_ops_lc.h"
@@ -12,152 +7,148 @@
 
 namespace sb7 {
 
-    class LCOperation6 : public Operation {
-    protected:
-        LCOperation6(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-        }
+	class LCOperation6 : public Operation {
+		protected:
+			LCOperation6(optype t, const char *n, DataHolder *dh)
+				: Operation(t, n, dh) {
+			}
 
-    public:
-        explicit LCOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
-        }
+		public:
+			LCOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        virtual int innerRun() const;
+		protected:
+			virtual int innerRun(int tid) const;
+			virtual void performOperationOnComplexAssembly(
+				ComplexAssembly *cassm) const;
+	};
 
-        virtual void performOperationOnComplexAssembly(
-                ComplexAssembly *cassm) const;
-    };
+	class LCOperation7 : public Operation {
+		protected:
+			LCOperation7(optype t, const char *n, DataHolder *dh)
+				: Operation(t, n, dh) {
+			}
 
-    class LCOperation7 : public Operation {
-    protected:
-        LCOperation7(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-        }
+		public:
+			LCOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
+			}
 
-    public:
-        explicit LCOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
-        }
+			virtual int run(int tid) const;
 
-        int run(int tid) const override;
+		protected:
+			virtual int innerRun(int tid) const;
+			virtual void performOperationOnBaseAssembly(
+				BaseAssembly *bassm) const;
+	};
 
-    protected:
-        virtual int innerRun() const;
+	class LCOperation8 : public Operation {
+		protected:
+			LCOperation8(optype t, const char *n, DataHolder *dh)
+				: Operation(t, n, dh) {
+			}
 
-        virtual void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const;
-    };
+		public:
+			LCOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
+			}
 
-    class LCOperation8 : public Operation {
-    protected:
-        LCOperation8(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-        }
+			virtual int run(int tid) const;
 
-    public:
-        explicit LCOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
-        }
+		protected:
+			virtual int innerRun(int tid) const;
+			virtual void performOperationOnComponent(
+				CompositePart *comp) const;
+	};
 
-        int run(int tid) const override;
+	class LCOperation9 : public LCQuery1 {
+		public:
+			LCOperation9(DataHolder *dh) : LCQuery1(OPERATION, "OP9", dh) {
+			}
 
-    protected:
-        virtual int innerRun() const;
+			virtual int run(int tid) const;
 
-        virtual void performOperationOnComponent(
-                CompositePart *comp) const;
-    };
+		protected:
+			virtual void performOperationOnAtomicPart(
+				AtomicPart *apart) const;
+	};
 
-    class LCOperation9 : public LCQuery1 {
-    public:
-        explicit LCOperation9(DataHolder *dh) : LCQuery1(OPERATION, "OP9", dh) {
-        }
+	class LCOperation10 : public LCQuery2 {
+		public:
+			LCOperation10(DataHolder *dh) : LCQuery2(dh, OPERATION, "OP10", 1) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        void performOperationOnAtomicPart(
-                AtomicPart *apart) const override;
-    };
+		protected:
+			virtual void performOperationOnAtomicPart(
+				AtomicPart *apart) const;
+	};
 
-    class LCOperation10 : public LCQuery2 {
-    public:
-        explicit LCOperation10(DataHolder *dh) : LCQuery2(dh, OPERATION, "OP10", 1) {
-        }
+	class LCOperation11 : public LCTraversal8 {
+		public:
+			LCOperation11(DataHolder *dh) : LCTraversal8(OPERATION, "OP11", dh) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        void performOperationOnAtomicPart(
-                AtomicPart *apart) const override;
-    };
+		protected:
+			virtual int traverse(Manual *manual) const;
+	};
 
-    class LCOperation11 : public LCTraversal8 {
-    public:
-        explicit LCOperation11(DataHolder *dh) : LCTraversal8(OPERATION, "OP11", dh) {
-        }
+	class LCOperation12 : public LCOperation6 {
+		protected:
+			LCOperation12(optype t, const char *n, DataHolder *dh)
+				: LCOperation6(t, n, dh) {
+			}
 
-        int run(int tid) const override;
+		public:
+			LCOperation12(DataHolder *dh) : LCOperation6(OPERATION, "OP12", dh) {
+			}
 
-    protected:
-        int traverse(Manual *manual) const override;
-    };
+			virtual int run(int tid) const;
 
-    class LCOperation12 : public LCOperation6 {
-    protected:
-        LCOperation12(optype t, const char *n, DataHolder *dh)
-                : LCOperation6(t, n, dh) {
-        }
+		protected:
+			virtual void performOperationOnComplexAssembly(
+				ComplexAssembly *cassm) const;
+	};
 
-    public:
-        explicit LCOperation12(DataHolder *dh) : LCOperation6(OPERATION, "OP12", dh) {
-        }
+	class LCOperation13 : public LCOperation7 {
+		public:
+			LCOperation13(DataHolder *dh) : LCOperation7(OPERATION, "OP13", dh) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        void performOperationOnComplexAssembly(
-                ComplexAssembly *cassm) const override;
-    };
+		protected:
+			virtual void performOperationOnBaseAssembly(
+				BaseAssembly *bassm) const;
+	};
 
-    class LCOperation13 : public LCOperation7 {
-    public:
-        explicit LCOperation13(DataHolder *dh) : LCOperation7(OPERATION, "OP13", dh) {
-        }
+	class LCOperation14 : public LCOperation8 {
+		public:
+			LCOperation14(DataHolder *dh) : LCOperation8(OPERATION, "OP14", dh) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const override;
-    };
+		protected:
+			virtual void performOperationOnComponent(
+				CompositePart *comp) const;
+	};
 
-    class LCOperation14 : public LCOperation8 {
-    public:
-        explicit LCOperation14(DataHolder *dh) : LCOperation8(OPERATION, "OP14", dh) {
-        }
+	class LCOperation15 : public LCQuery1 {
+		public:
+			LCOperation15(DataHolder *dh) : LCQuery1(OPERATION, "OP15", dh) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        void performOperationOnComponent(
-                CompositePart *comp) const override;
-    };
-
-    class LCOperation15 : public LCQuery1 {
-    public:
-        explicit LCOperation15(DataHolder *dh) : LCQuery1(OPERATION, "OP15", dh) {
-        }
-
-        int run(int tid) const override;
-
-    protected:
-        void performOperationOnAtomicPart(
-                AtomicPart *apart) const override;
-    };
+		protected:
+			virtual void performOperationOnAtomicPart(
+				AtomicPart *apart) const;
+	};
 
 }
 
-
-#endif //STMBENCH_OPERATION_OPS_LC_H
+#endif // SB7_LC_OPERATION_OPS_H_

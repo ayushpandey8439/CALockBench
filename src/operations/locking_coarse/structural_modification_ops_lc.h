@@ -1,87 +1,82 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
-#ifndef STMBENCH_STRUCTURAL_MODIFICATION_OPS_LC_H
-#define STMBENCH_STRUCTURAL_MODIFICATION_OPS_LC_H
-
+#ifndef SB7_LC_STRUCTURAL_MODIFICATION_H_
+#define SB7_LC_STRUCTURAL_MODIFICATION_H_
 
 #include "../operations.h"
 
 namespace sb7 {
 
-    class LCStructuralModification1 : public Operation {
-    public:
-        explicit LCStructuralModification1(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM1", dh) {
-        }
+	class LCStructuralModification1 : public Operation {
+		public:
+			LCStructuralModification1(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM1", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification2 : public Operation {
-    public:
-        explicit LCStructuralModification2(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
-        }
+	class LCStructuralModification2 : public Operation {
+		public:
+			LCStructuralModification2(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification3 : public Operation {
-    public:
-        explicit LCStructuralModification3(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
-        }
+	class LCStructuralModification3 : public Operation {
+		public:
+			LCStructuralModification3(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification4 : public Operation {
-    public:
-        explicit LCStructuralModification4(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM4", dh) {
-        }
+	class LCStructuralModification4 : public Operation {
+		public:
+			LCStructuralModification4(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM4", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification5 : public Operation {
-    public:
-        explicit LCStructuralModification5(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM5", dh) {
-        }
+	class LCStructuralModification5 : public Operation {
+		public:
+			LCStructuralModification5(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM5", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification6 : public Operation {
-    public:
-        explicit LCStructuralModification6(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM6", dh) {
-        }
+	class LCStructuralModification6 : public Operation {
+		public:
+			LCStructuralModification6(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM6", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification7 : public Operation {
-    public:
-        explicit LCStructuralModification7(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM7", dh) {
-        }
+	class LCStructuralModification7 : public Operation {
+		public:
+			LCStructuralModification7(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM7", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
-    class LCStructuralModification8 : public Operation {
-    public:
-        explicit LCStructuralModification8(DataHolder *dh)
-                : Operation(STRUCTURAL_MODIFICATION, "SM8", dh) {
-        }
+	class LCStructuralModification8 : public Operation {
+		public:
+			LCStructuralModification8(DataHolder *dh)
+				: Operation(STRUCTURAL_MODIFICATION, "SM8", dh) {
+			}
 
-        int run(int tid) const override;
-    };
+			virtual int run() const;
+	};
 
 }
 
-#endif //STMBENCH_STRUCTURAL_MODIFICATION_OPS_LC_H
+#endif // SB7_LC_STRUCTURAL_MODIFICATION_H_

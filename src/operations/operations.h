@@ -108,7 +108,9 @@ namespace sb7 {
         //void initOperationsNoLock(DataHolder *dh);
         void initOperationsLockCoarse(DataHolder *dh);
         void initOperationsLockCA(DataHolder *dh);
+        void initOperationsLockDom(DataHolder *dh);
         void initOperationsLockMedium(DataHolder *dh);
+        void initOperationsNoLock(DataHolder *dh);
 
         void generateCdf();
 

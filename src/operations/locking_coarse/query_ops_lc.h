@@ -1,100 +1,92 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
-#ifndef STMBENCH_QUERY_OPS_LC_H
-#define STMBENCH_QUERY_OPS_LC_H
-
+#ifndef SB7_LC_QUERY_OPS_
+#define SB7_LC_QUERY_OPS_
 
 #include "../operations.h"
 
 namespace sb7 {
 
-    class LCQuery1 : public Operation {
-    protected:
-        LCQuery1(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-        }
+	class LCQuery1 : public Operation {
+		protected:
+			LCQuery1(optype t, const char *n, DataHolder *dh)
+				: Operation(t, n, dh) {
+			}
 
-    public:
-        explicit LCQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
-        }
+		public:
+			LCQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
+			}
 
-        int run(int tid) const override;
+			virtual int run(int tid) const;
 
-    protected:
-        int innerRun() const;
+		protected:
+			int innerRun(int tid) const;
+			virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
+	};
 
-        virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
-    };
+	class LCQuery2 : public Operation {
+		public:
+			LCQuery2(DataHolder *dh, optype t = OPERATION_RO,
+				const char *n = "Q2", int percent = 1);
 
-    class LCQuery2 : public Operation {
-    public:
-        explicit LCQuery2(DataHolder *dh, optype t = OPERATION_RO,
-                 const char *n = "Q2", int percent = 1);
+			virtual int run(int tid) const;
 
-        int run(int tid) const override;
+		protected:
+			int innerRun(int tid) const;
+			virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
 
-    protected:
-        int innerRun() const;
+		private:
+	    	int maxAtomicDate;
+			int minAtomicDate; 
+	};
 
-        virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
+	class LCQuery3 : public LCQuery2 {
+		public:
+			LCQuery3(DataHolder *dh) : LCQuery2(dh, OPERATION_RO, "Q3", 10) {
+			}
+	};
 
-    private:
-        int maxAtomicDate;
-        int minAtomicDate;
-    };
+	class LCQuery4 : public Operation {
+		public:
+			LCQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
+			}
 
-    class LCQuery3 : public LCQuery2 {
-    public:
-        explicit LCQuery3(DataHolder *dh) : LCQuery2(dh, OPERATION_RO, "Q3", 10) {
-        }
-    };
+			virtual int run(int tid) const;
+	};
 
-    class LCQuery4 : public Operation {
-    public:
-        explicit LCQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
-        }
+	class LCQuery5 : public Operation {
+		protected:
+			LCQuery5(optype t, const char *n, DataHolder *dh)
+				: Operation(t, n, dh) {
+			}
 
-        int run(int tid) const override;
-    };
+		public:
+			LCQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
+			}
 
-    class LCQuery5 : public Operation {
-    protected:
-        LCQuery5(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-        }
+			virtual int run(int tid) const;
 
-    public:
-        explicit LCQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
-        }
+		protected:
+			int checkBaseAssembly(BaseAssembly *bassm) const;
+	};
 
-        int run(int tid) const override;
+	class LCQuery6 : public LCQuery5 {
+		public:
+			LCQuery6(DataHolder *dh) : LCQuery5(TRAVERSAL_RO, "Q6", dh) {
+			}
 
-    protected:
-        static int checkBaseAssembly(BaseAssembly *bassm) ;
-    };
+			virtual int run(int tid) const;
 
-    class LCQuery6 : public LCQuery5 {
-    public:
-        explicit LCQuery6(DataHolder *dh) : LCQuery5(TRAVERSAL_RO, "Q6", dh) {
-        }
+		protected:
+			int checkAssembly(Assembly *assembly) const;
+			int checkComplexAssembly(ComplexAssembly *assembly) const;
+	};
 
-        int run(int tid) const override;
+	class LCQuery7 : public Operation {
+		public:
+			LCQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
+			}
 
-    protected:
-        int checkAssembly(Assembly *assembly) const;
-
-        int checkComplexAssembly(ComplexAssembly *assembly) const;
-    };
-
-    class LCQuery7 : public Operation {
-    public:
-        explicit LCQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
-        }
-
-        int run(int tid) const override;
-    };
+			virtual int run(int tid) const;
+	};
 }
 
-#endif //STMBENCH_QUERY_OPS_LC_H
+#endif // SB7_LC_QUERY_OPS_

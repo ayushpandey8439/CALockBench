@@ -7,6 +7,11 @@
 #include "../../parameters.h"
 #include "../../sb7_exception.h"
 #include "../../thread/thread.h"
+#include "../../lockPool.h"
+#include "../../CArelabelling.h"
+#include "queue"
+
+extern lockPool pool;
 
 /////////////////////////////
 // StructuralModification1 //
@@ -33,8 +38,18 @@ int sb7::CAStructuralModification2::run(int tid) const {
         throw Sb7Exception();
     }
 
-    dataHolder->deleteCompositePart(cpart);
+    Bag<BaseAssembly *> *bassmBag = cpart->getUsedIn();
+    int usedIn = bassmBag->size();
+    BagIterator<BaseAssembly *> iter = bassmBag->getIter();
+    if(usedIn==0){
+        auto * l = new lockObject(cpart, 1);
+        if(pool.acquireLock(l, tid)) {
+            dataHolder->deleteCompositePart(cpart);
+            pool.releaseLock(l,tid);
+        }
+    } else {
 
+    }
     return 0;
 }
 
@@ -61,7 +76,17 @@ int sb7::CAStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    bassm->addComponent(cpart);
+    DesignObj* lockRequest = pool.addToLockRequest(bassm,cpart);
+    auto * l = new lockObject(lockRequest, 1);
+    if(pool.acquireLock(l, tid)) {
+        bassm->addComponent(cpart);
+        auto * r = new CArelabelling(dataHolder);
+        r->cpartQ.push(cpart);
+        r->run();
+        pool.releaseLock(l,tid);
+    }
+
+
 
     return 0;
 }

@@ -15,12 +15,13 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static DesignObj* findLSCA(vector<DesignObj*> label1, vector<DesignObj*> label2){
-        vector<DesignObj*> common;
-        set_intersection(label1.begin(), label1.end(),
-                         label2.begin(), label2.end(),
-                         back_inserter(common));
-        return common.back();
+    static DesignObj* findLSCA(DesignObj* v1, DesignObj* v2){
+        for(auto *d: v1->pathLabel){
+            if(v2->criticalAncestors.find(d) != v2->criticalAncestors.end()){
+                return d;
+            }
+        }
+        return v1->pathLabel.front(); //If this is a connected component, then front is always the root.
     }
 };
 
