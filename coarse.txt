@@ -1,3 +1,13 @@
 
-Total throughput: 1011.75 op/s  (1060.57 op/s including failed)
-Total throughput: 971.10 op/s  (1017.82 op/s including failed)
+1011.75
+971.10
+1973.35
+1981.84
+4004.83
+3990.09
+8178.99
+8131.34
+16096.19
+16232.80
+33556.06
+33513.53

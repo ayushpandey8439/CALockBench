@@ -1,19 +1,5 @@
 
-2286.43
-2292.25
-2225.65
-2277.89
-2267.40
-2266.47
-2252.75
-2281.31
-2225.65
-1424.75
-221.14
-241.51
-217.09
-248.61
-103.57
-99.22
-96.09
-90.69
+Total throughput: 1250.79 op/s  (1282.11 op/s including failed)
+Total throughput: 1261.29 op/s  (1292.85 op/s including failed)
+Total throughput: 1257.64 op/s  (1289.13 op/s including failed)
+Total throughput: 1255.52 op/s  (1287.00 op/s including failed)

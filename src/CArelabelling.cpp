@@ -74,8 +74,7 @@ void CArelabelling::traverse(CompositePart *cpart) {
     list<DesignObj*> firstLabel = biter.next()->pathLabel;
 
     while(biter.has_next()){
-        list<DesignObj*> tempPathLabel = biter.next()->pathLabel;
-        std::set<DesignObj*> tempPathSet(tempPathLabel.begin(), tempPathLabel.end());
+        unordered_set<DesignObj*> tempPathSet = biter.next()->criticalAncestors;
         auto newEnd = std::remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](DesignObj* l){return (tempPathSet.find(l) == tempPathSet.end());});
         firstLabel.erase(newEnd, firstLabel.end());
     }
@@ -116,9 +115,8 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
         }
         while (fiter.has_next()) {
             Connection *conn = fiter.next();
-            list<DesignObj *> parentLabel = conn->getSource()->pathLabel;
-            if (!parentLabel.empty()) {
-                std::set<DesignObj *> tempPathSet(parentLabel.begin(), parentLabel.end());
+            if (conn->getSource()->hasLabel) {
+                auto tempPathSet = conn->getSource()->criticalAncestors;
                 auto newEnd = std::remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](DesignObj *l) {
                     return (tempPathSet.find(l) == tempPathSet.end());
                 });
@@ -127,11 +125,9 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
         }
 
         containerLabel.push_back(apart);
-        list<DesignObj *> apartLabel = apart->pathLabel;
-        std::set<DesignObj *> myLabelSet(containerLabel.begin(), containerLabel.end());
-        std::set<DesignObj *> originalLabelSet(apartLabel.begin(), apartLabel.end());
+        unordered_set<DesignObj *> myLabelSet(containerLabel.begin(), containerLabel.end());
 
-        if (myLabelSet != originalLabelSet) {
+        if (myLabelSet != apart->criticalAncestors) {
             apart->setPathLabel(containerLabel);
             // visit all connected parts
             Set<Connection *> *toConns = apart->getToConnections();
