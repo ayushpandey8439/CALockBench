@@ -44,7 +44,7 @@ namespace sb7 {
         }
 
         bool hasCriticalAncestor(DesignObj* d){
-            if(criticalAncestors.find(d)!=criticalAncestors.end()){
+            if(!criticalAncestors.empty() && criticalAncestors.find(d)!=criticalAncestors.end()){
                 return true;
             }
             else return false;

@@ -54,11 +54,11 @@ public:
 
 
     bool acquireLock(lockObject * reqObj, int threadID){
-        // A thread can only be one of two places. It can either be taking a lock or releasing one. So, the threadId index ensures that an element in the array is not concurrently modified.
-        //lockPoolLock.lock();
+        lockPoolLock.lock();
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
-        //lockPoolLock.unlock();
+        lockPoolLock.unlock();
+
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
             if(locks[i] != nullptr){
@@ -105,9 +105,13 @@ public:
         locks[threadId] = nullptr;
     }
 
-    DesignObj* addToLockRequest(DesignObj*  lockRequest, DesignObj* label){
-        if(lockRequest== nullptr){
+    DesignObj* addToLockRequest(DataHolder*dh, DesignObj*  lockRequest, DesignObj* label){
+        if((lockRequest == nullptr || !lockRequest->hasLabel) && (label== nullptr || !label->hasLabel)){
+            return dh->getModule()->getDesignRoot();
+        } else if(lockRequest != nullptr && lockRequest->hasLabel){
             return label;
+        } else if(label!= nullptr && label->hasLabel){
+            return lockRequest;
         } else {
             return lscaHelpers::findLSCA(lockRequest, label);
         }

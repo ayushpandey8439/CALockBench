@@ -102,6 +102,7 @@ void sb7::Benchmark::init() {
         auto *dfs = new CALockTraversal(&dataHolder);
         cout << "Creating labels for nodes"<< std::endl;
         dfs->run(0);
+        cout << "Creation complete"<< std::endl;
 //        auto *dts = new CALockLabelTest(&dataHolder);
 //        cout<< "Testing labels"<< endl;
 //        dts->run(1);
@@ -110,6 +111,7 @@ void sb7::Benchmark::init() {
 }
 
 void sb7::Benchmark::start() {
+    cout << "Start benchmark."<< std::endl;
     long start_time = get_time_ms();
 
     // create and run threads

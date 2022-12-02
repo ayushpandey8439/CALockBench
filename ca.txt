@@ -1,5 +1,8 @@
 
-Total throughput: 1250.79 op/s  (1282.11 op/s including failed)
-Total throughput: 1261.29 op/s  (1292.85 op/s including failed)
-Total throughput: 1257.64 op/s  (1289.13 op/s including failed)
-Total throughput: 1255.52 op/s  (1287.00 op/s including failed)
+74475.31
+67460.35
+141164.59
+206245.39
+195724.33
+330182.54
+426557.61

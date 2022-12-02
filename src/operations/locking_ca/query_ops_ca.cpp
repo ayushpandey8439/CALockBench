@@ -34,7 +34,7 @@ int sb7::CAQuery1::innerRun(int tid) const {
         apartInd->get(query);
 
         if (query.found && query.val->hasLabel) {
-            lockRequest = pool.addToLockRequest(lockRequest,query.val);
+            lockRequest = pool.addToLockRequest(dataHolder,lockRequest,query.val);
             aparts.push_back(query.val);
         }
     }
@@ -92,7 +92,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
                 auto * l = new lockObject(apart, 0);
-                if(pool.acquireLock(l,tid)){
+                if(l!= nullptr && l->designObj!= nullptr && pool.acquireLock(l,tid)){
                     performOperationOnAtomicPart(apart);
                     count++;
                     pool.releaseLock(l,tid);
@@ -149,7 +149,7 @@ int sb7::CAQuery4::run(int tid) const {
                 BaseAssembly *bassm = iter.next();
                 if (bassm->hasLabel) {
                     bassms.push_back(bassm);
-                    lockRequest = pool.addToLockRequest(lockRequest, bassm);
+                    lockRequest = pool.addToLockRequest(dataHolder,lockRequest, bassm);
                 }
 
             }

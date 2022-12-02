@@ -49,7 +49,6 @@ int sb7::CALockTraversal::run(int tid) const {
 
 
 void sb7::CALockTraversal::traverse(ComplexAssembly *cassm, queue<ComplexAssembly *> *cassmQ, queue<BaseAssembly *> *bassmQ) const {
-    string type = "ca";
     list<DesignObj*> currLabel = cassm->pathLabel;
 
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
@@ -59,15 +58,11 @@ void sb7::CALockTraversal::traverse(ComplexAssembly *cassm, queue<ComplexAssembl
     // think about transforming this into a nicer oo design
     while(iter.has_next()) {
         Assembly *assm = iter.next();
+        currLabel.push_back(assm);
         if(!childrenAreBase) {
-            string labelIdentifier = "ca"+ to_string(assm->getId());
-
-            currLabel.push_back(assm);
             assm->setPathLabel(currLabel);
             cassmQ->push((ComplexAssembly *)assm);
         } else {
-            string labelIdentifier = "ba"+ to_string(assm->getId());
-            currLabel.push_back(assm);
             assm->setPathLabel(currLabel);
             bassmQ->push((BaseAssembly *)assm);
         }

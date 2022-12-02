@@ -72,13 +72,13 @@ int sb7::CAOperation6::innerRun(int tid) const {
             auto * bassm = (BaseAssembly*) iter.next();
             if(bassm->hasLabel) {
                 bassms.push_back(bassm);
-                lockRequest = pool.addToLockRequest(lockRequest, bassm);
+                lockRequest = pool.addToLockRequest(dataHolder,lockRequest, bassm);
             }
         }
 
         auto * lockObj = new lockObject(lockRequest, 0);
         //cout<< "Lock Object is not null"<<endl;
-        if(pool.acquireLock(lockObj, tid)){
+        if(lockObj!= nullptr && l->designObj!= nullptr && pool.acquireLock(lockObj, tid)){
             //cout<< "Lock acquired"<<endl;
             for(BaseAssembly * b: bassms){
                 b->nullOperation();
@@ -146,14 +146,14 @@ int sb7::CAOperation7::innerRun(int tid) const {
         auto * bassm = (BaseAssembly*) iter.next();
         if(bassm->hasLabel) {
             bassms.push_back(bassm);
-            lockRequest = pool.addToLockRequest(lockRequest, bassm);
+            lockRequest = pool.addToLockRequest(dataHolder, lockRequest, bassm);
         }
 
     }
 
         auto * l = new lockObject(lockRequest, 0);
         //cout<< "Lock Object is not null"<<endl;
-        if(pool.acquireLock(l, tid)){
+        if(l->designObj!= nullptr && pool.acquireLock(l, tid)){
         //cout<< "Lock acquired"<<endl;
         for(BaseAssembly * b: bassms){
             b->nullOperation();
@@ -210,7 +210,7 @@ int sb7::CAOperation8::innerRun(int tid) const {
         CompositePart *cpart = iter.next();
         if(cpart->hasLabel) {
             cparts.push_back(cpart);
-            lockRequest = pool.addToLockRequest(lockRequest, cpart);
+            lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart);
         }
 
     }

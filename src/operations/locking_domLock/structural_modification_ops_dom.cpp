@@ -65,7 +65,7 @@ int sb7::DomStructuralModification3::run(int tid) const {
 
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         bassm->addComponent(cpart);
-        DomRelabelling *r = new DomRelabelling(dataHolder);
+        auto *r = new DomRelabelling(dataHolder);
         r->traverse(dataHolder->getModule()->getDesignRoot());
         ICheck.Delete(tid);
     }
@@ -83,7 +83,7 @@ int sb7::DomStructuralModification4::run(int tid) const {
 	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
 	BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
 
-	if(bassm == NULL) {
+	if(bassm == nullptr) {
 		throw Sb7Exception();
 	}	
 
@@ -105,7 +105,14 @@ int sb7::DomStructuralModification4::run(int tid) const {
 		CompositePart *cpart = iter.next();
 
 		if(nextId == i) {
-			bassm->removeComponent(cpart);
+
+            auto *inv = new interval(bassm->m_pre_number,bassm->m_post_number,1);
+            if(!ICheck.IsOverlap(inv, 1, tid)) {
+                bassm->removeComponent(cpart);
+                auto *r = new DomRelabelling(dataHolder);
+                r->traverse(dataHolder->getModule()->getDesignRoot());
+                ICheck.Delete(tid);
+            }
 			return 0;
 		}
 
@@ -130,10 +137,19 @@ int sb7::DomStructuralModification5::run(int tid) const {
 
 	if(bassm == NULL) {
 		throw Sb7Exception();
-	}	
+	}
 
-	// create sibling base assembly
-	dataHolder->createBaseAssembly(bassm->getSuperAssembly());
+    auto * cassm =  bassm->getSuperAssembly();
+
+    auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,1);
+    if(!ICheck.IsOverlap(inv, 1, tid)) {
+        // create sibling base assembly
+        dataHolder->createBaseAssembly(bassm->getSuperAssembly());
+        auto *r = new DomRelabelling(dataHolder);
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        ICheck.Delete(tid);
+    }
+
 
 	return 0;
 }
@@ -163,7 +179,13 @@ int sb7::DomStructuralModification6::run(int tid) const {
 		throw Sb7Exception();
 	}
 
-	dataHolder->deleteBaseAssembly(bassm);
+    auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,1);
+    if(!ICheck.IsOverlap(inv, 1, tid)) {
+        dataHolder->deleteBaseAssembly(bassm);
+        auto *r = new DomRelabelling(dataHolder);
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        ICheck.Delete(tid);
+    }
 
 	return 0;
 }
@@ -184,8 +206,16 @@ int sb7::DomStructuralModification7::run(int tid) const {
 		throw Sb7Exception();
 	}
 
-	// create sub assembly
-	dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
+    auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,1);
+    if(!ICheck.IsOverlap(inv, 1, tid)) {
+        // create sub assembly
+        dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
+        auto *r = new DomRelabelling(dataHolder);
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        ICheck.Delete(tid);
+    }
+
+
 
 	return 1;
 }
@@ -221,8 +251,15 @@ int sb7::DomStructuralModification8::run(int tid) const {
 		throw Sb7Exception();
 	}
 
-	// delete selected complex assembly
-	dataHolder->deleteComplexAssembly(cassm);
+    auto *inv = new interval(superAssm->m_pre_number,superAssm->m_post_number,1);
+    if(!ICheck.IsOverlap(inv, 1, tid)) {
+        // delete selected complex assembly
+        dataHolder->deleteComplexAssembly(cassm);
+        auto *r = new DomRelabelling(dataHolder);
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        ICheck.Delete(tid);
+    }
+
 
 	return 1;
 }

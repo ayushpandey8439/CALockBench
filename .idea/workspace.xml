@@ -26,12 +26,36 @@
       <change beforePath="$PROJECT_DIR$/build/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/CArelabelling.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/CArelabelling.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/structural_modification_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/structural_modification_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/STMBENCH" beforeDir="false" afterPath="$PROJECT_DIR$/build/STMBENCH" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ca.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ca.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coarse.txt" beforeDir="false" afterPath="$PROJECT_DIR$/coarse.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dom.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dom.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/medium.txt" beforeDir="false" afterPath="$PROJECT_DIR$/medium.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_calock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_calock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_coarse.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_coarse.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_domlock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_domlock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_medium.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_medium.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CArelabelling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/CArelabelling.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/benchmark.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelAssignmentTraversal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelAssignmentTraversal.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lockPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lockPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lscaHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lscaHelpers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/operation_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/operation_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/query_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/query_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_domLock/structural_modification_ops_dom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_domLock/structural_modification_ops_dom.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/operations.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/operations.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/struct/composite_part.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct/composite_part.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/struct/design_obj.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct/design_obj.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +71,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/benchmark.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/lockPool.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/operations/locking_domLock/query_ops_dom.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/operations/operations.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -89,12 +114,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 4 -w rw -d 12000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBENCH" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBENCH" RUN_TARGET_NAME="STMBENCH">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 1 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBENCH" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBENCH" RUN_TARGET_NAME="STMBENCH">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -110,6 +130,8 @@
       <updated>1669816128862</updated>
       <workItem from="1669816130055" duration="4351000" />
       <workItem from="1669823927483" duration="14002000" />
+      <workItem from="1669903952291" duration="4564000" />
+      <workItem from="1669913625004" duration="3721000" />
     </task>
     <servers />
   </component>

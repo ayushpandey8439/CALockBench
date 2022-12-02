@@ -17,11 +17,11 @@ class lscaHelpers {
 public:
     static DesignObj* findLSCA(DesignObj* v1, DesignObj* v2){
         for(auto *d: v1->pathLabel){
-            if(v2->criticalAncestors.find(d) != v2->criticalAncestors.end()){
+            if(v2->hasCriticalAncestor(d)){
                 return d;
             }
         }
-        return v1->pathLabel.front(); //If this is a connected component, then front is always the root.
+        return v2->pathLabel.front(); //If this is a connected component, then front is always the root.
     }
 };
 

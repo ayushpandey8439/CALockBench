@@ -18,7 +18,7 @@ extern lockPool pool;
 /////////////////////////////
 
 int sb7::CAStructuralModification1::run(int tid) const {
-    //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
+    //simple creation of an object does not require relabelling or lock. Only when this component is connected to the hierarchy, we need to label it in order to operate on it.
     dataHolder->createCompositePart();
     return 0;
 }
@@ -39,16 +39,18 @@ int sb7::CAStructuralModification2::run(int tid) const {
     }
 
     Bag<BaseAssembly *> *bassmBag = cpart->getUsedIn();
-    int usedIn = bassmBag->size();
     BagIterator<BaseAssembly *> iter = bassmBag->getIter();
-    if(usedIn==0){
-        auto * l = new lockObject(cpart, 1);
-        if(pool.acquireLock(l, tid)) {
-            dataHolder->deleteCompositePart(cpart);
-            pool.releaseLock(l,tid);
-        }
-    } else {
 
+    auto * l = new lockObject(cpart, 1);
+    if(pool.acquireLock(l, tid)) {
+        dataHolder->deleteCompositePart(cpart);
+        //Deleting composite parts doesn't require a relabelling because everything inder a composite part if unique and has no links to anything outside the specified composite part.
+//        if(cpart->getUsedIn()->size()>0){
+//            auto * r = new CArelabelling(dataHolder);
+//            r->cpartQ.push(cpart);
+//            r->run();
+//        }
+        pool.releaseLock(l,tid);
     }
     return 0;
 }
@@ -76,7 +78,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    DesignObj* lockRequest = pool.addToLockRequest(bassm,cpart);
+    DesignObj* lockRequest = pool.addToLockRequest(dataHolder, bassm,cpart);
     auto * l = new lockObject(lockRequest, 1);
     if(pool.acquireLock(l, tid)) {
         bassm->addComponent(cpart);
@@ -122,9 +124,19 @@ int sb7::CAStructuralModification4::run(int tid) const {
 
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();
-
         if (nextId == i) {
-            bassm->removeComponent(cpart);
+            DesignObj* lockRequest = pool.addToLockRequest(dataHolder, bassm,cpart);
+            auto * l = new lockObject(lockRequest, 1);
+            if(pool.acquireLock(l, tid)) {
+                bassm->removeComponent(cpart);
+                //relabelling should only be done if the component is actually connected to anything. If not, we can avoid relabelling.
+                if(cpart->getUsedIn()->size()>0){
+                    auto * r = new CArelabelling(dataHolder);
+                    r->cpartQ.push(cpart);
+                    r->run();
+                }
+                pool.releaseLock(l,tid);
+            }
             return 0;
         }
 
@@ -151,8 +163,19 @@ int sb7::CAStructuralModification5::run(int tid) const {
         throw Sb7Exception();
     }
 
-    // create sibling base assembly
-    dataHolder->createBaseAssembly(bassm->getSuperAssembly());
+    auto * cassm =  bassm->getSuperAssembly();
+
+    auto * l = new lockObject(cassm, 1);
+    if(pool.acquireLock(l, tid)) {
+        // create sibling base assembly
+        dataHolder->createBaseAssembly(cassm);
+        auto * r = new CArelabelling(dataHolder);
+        r->bassmQ.push(bassm);
+        r->run();
+        pool.releaseLock(l,tid);
+    }
+
+
 
     return 0;
 }
@@ -182,8 +205,14 @@ int sb7::CAStructuralModification6::run(int tid) const {
         throw Sb7Exception();
     }
 
-    dataHolder->deleteBaseAssembly(bassm);
-
+    auto * l = new lockObject(cassm, 1);
+    if(pool.acquireLock(l, tid)) {
+        dataHolder->deleteBaseAssembly(bassm);
+        auto *r = new CArelabelling(dataHolder);
+        r->cassmQ.push(cassm);
+        r->run();
+        pool.releaseLock(l, tid);
+    }
     return 0;
 }
 
@@ -203,9 +232,16 @@ int sb7::CAStructuralModification7::run(int tid) const {
         throw Sb7Exception();
     }
 
-    // create sub assembly
-    dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
 
+    auto * l = new lockObject(cassm, 1);
+    if(pool.acquireLock(l, tid)) {
+        // create sub assembly
+        dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
+        auto *r = new CArelabelling(dataHolder);
+        r->cassmQ.push(cassm);
+        r->run();
+        pool.releaseLock(l, tid);
+    }
     return 1;
 }
 
@@ -240,8 +276,19 @@ int sb7::CAStructuralModification8::run(int tid) const {
         throw Sb7Exception();
     }
 
-    // delete selected complex assembly
-    dataHolder->deleteComplexAssembly(cassm);
+
+    auto * l = new lockObject(superAssm, 1);
+    if(pool.acquireLock(l, tid)) {
+        // delete selected complex assembly
+        dataHolder->deleteComplexAssembly(cassm);
+        auto *r = new CArelabelling(dataHolder);
+        r->cassmQ.push(superAssm);
+        r->run();
+        pool.releaseLock(l, tid);
+    }
+
+
+
 
     return 1;
 }

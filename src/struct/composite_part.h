@@ -41,7 +41,7 @@ namespace sb7 {
             delete m_parts;
         }
 
-        void addAssembly(BaseAssembly *assembly) const {
+        void addAssembly(BaseAssembly * assembly) const {
             m_usedIn->add(assembly);
         }
 
