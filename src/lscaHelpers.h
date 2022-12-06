@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include "./struct/design_obj.h"
+#include "data_holder.h"
 
 using namespace std;
 using namespace sb7;
@@ -15,13 +16,46 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static DesignObj* findLSCA(DesignObj* v1, DesignObj* v2){
-        for(auto *d: v1->pathLabel){
-            if(v2->hasCriticalAncestor(d)){
-                return d;
-            }
+    static list<string>  findLSCA(list<string> v1, list<string> v2){
+        list<string> common;
+        set_intersection(v1.begin(), v1.end(), v2.begin(),v2.end(), back_inserter(common));
+        return common;
+    }
+
+    static bool hasCriticalAncestor(unordered_set<string> A, string d){
+        if(!A.empty() && A.find(d)!=A.end()){
+            return true;
         }
-        return v2->pathLabel.front(); //If this is a connected component, then front is always the root.
+        else return false;
+    }
+
+    static DesignObj * getLockObject(list<string> objectLabel, sb7::DataHolder * dh){
+        string objectId;
+        if(objectLabel.size()==1){
+            objectId = objectLabel.front();
+        } else {
+            objectId = objectLabel.back();
+        }
+        string typeIdentifier = objectId.substr(0,2);
+        string id = objectId.substr(2);
+        if(typeIdentifier == "ca"){
+            sb7::ComplexAssembly * ca = dh->getComplexAssembly(stoi(id));
+            return ca;
+        } else if(typeIdentifier == "ba") {
+            sb7::BaseAssembly * ba = dh->getBaseAssembly(stoi(id));
+            return ba;
+        } else if(typeIdentifier == "cp"){
+            sb7::CompositePart * cp  = dh->getCompositePart(stoi(id));
+            return cp;
+        } else if(typeIdentifier == "ap"){
+            sb7::Map<int, sb7::AtomicPart *> * index  = dh->getAtomicPartIdIndex();
+            sb7::Map<int, sb7::AtomicPart *>::Query query;
+            query.key = stoi(id);
+            index->get(query);
+            return query.val;
+        } else {
+            return NULL;
+        }
     }
 };
 

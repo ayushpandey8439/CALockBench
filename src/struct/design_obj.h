@@ -35,19 +35,18 @@ namespace sb7 {
             return m_id;
         }
 
-        void setPathLabel(list<DesignObj*> label){
-            hasLabel=true;
-            pathLabel = label;
-            for(auto * d: label){
-                criticalAncestors.insert(d);
-            }
+        string getStringId() const{
+            return pathLabel.back();
         }
 
-        bool hasCriticalAncestor(DesignObj* d){
-            if(!criticalAncestors.empty() && criticalAncestors.find(d)!=criticalAncestors.end()){
-                return true;
+        void setPathLabel(const list<string>& label){
+            hasLabel=true;
+            pathLabel.clear();
+            pathLabel = label;
+            criticalAncestors.clear();
+            for(const auto& d: label){
+                criticalAncestors.insert(d);
             }
-            else return false;
         }
 
         int getBuildDate() const {
@@ -62,8 +61,8 @@ namespace sb7 {
         int m_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
-        list<DesignObj*> pathLabel;
-        unordered_set<DesignObj*> criticalAncestors;
+        list<string> pathLabel;
+        unordered_set<string> criticalAncestors;
     protected:
         int m_id;
         string m_type;

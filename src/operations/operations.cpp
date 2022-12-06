@@ -200,10 +200,10 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
     //ops.push_back(new CAQuery3(dh)); Not implemented
     //ops.push_back(new CATraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new CATraversal9(dh)); Trivial and does not need locks.
-//    ops.push_back(new CAOperation6(dh));
-//    ops.push_back(new CAOperation7(dh));
-//    ops.push_back(new CAOperation8(dh));
-   // ops.push_back(new CAOperation9(dh));
+      ops.push_back(new CAOperation6(dh));
+      ops.push_back(new CAOperation7(dh));
+      ops.push_back(new CAOperation8(dh));
+      ops.push_back(new CAOperation9(dh));
     //ops.push_back(new CAOperation10(dh));
 //    ops.push_back(new CAOperation11(dh)); Traversal operation
 //    ops.push_back(new CAOperation12(dh));
@@ -212,13 +212,13 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 //    ops.push_back(new CAOperation15(dh)); Index update
 //
 //    ops.push_back(new CAStructuralModification1(dh)); Node creation
-    ops.push_back(new CAStructuralModification2(dh));
-    ops.push_back(new CAStructuralModification3(dh));
-    ops.push_back(new CAStructuralModification4(dh));
-    ops.push_back(new CAStructuralModification5(dh));
-    ops.push_back(new CAStructuralModification6(dh));
-    ops.push_back(new CAStructuralModification7(dh));
-    ops.push_back(new CAStructuralModification8(dh));
+//    ops.push_back(new CAStructuralModification2(dh));
+//    ops.push_back(new CAStructuralModification3(dh));
+//    ops.push_back(new CAStructuralModification4(dh));
+//    ops.push_back(new CAStructuralModification5(dh));
+//    ops.push_back(new CAStructuralModification6(dh));
+//    ops.push_back(new CAStructuralModification7(dh));
+//    ops.push_back(new CAStructuralModification8(dh));
 
 }
 

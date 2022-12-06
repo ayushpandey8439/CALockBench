@@ -48,9 +48,8 @@ int sb7::CAOperation6::innerRun(int tid) const {
     ComplexAssembly *cassm = query.val;
     ComplexAssembly *superAssm = cassm->getSuperAssembly();
     lockObject *l = nullptr;
-    // if this assembly is root perform operation on it
     if(superAssm == NULL) {
-        l = new lockObject(cassm, 0);
+        l = new lockObject(*cassm, 0);
         // if this assembly is root perform operation on it
         if (pool.acquireLock(l, tid)) {
             //cout<< "Lock acquired"<<endl;
@@ -65,38 +64,18 @@ int sb7::CAOperation6::innerRun(int tid) const {
         SetIterator<Assembly *> iter = siblingAssms->getIter();
         ret = 0;
 
-        list<BaseAssembly *> bassms;
-        DesignObj * lockRequest;
-
-        while (iter.has_next()) {
-            auto * bassm = (BaseAssembly*) iter.next();
-            if(bassm->hasLabel) {
-                bassms.push_back(bassm);
-                lockRequest = pool.addToLockRequest(dataHolder,lockRequest, bassm);
-            }
-        }
-
-        auto * lockObj = new lockObject(lockRequest, 0);
-        //cout<< "Lock Object is not null"<<endl;
-        if(lockObj!= nullptr && l->designObj!= nullptr && pool.acquireLock(lockObj, tid)){
-            //cout<< "Lock acquired"<<endl;
-            for(BaseAssembly * b: bassms){
-                b->nullOperation();
-                ret++;
+        auto * l = new lockObject(*superAssm, 0);
+        if(pool.acquireLock(l,tid)){
+            while (iter.has_next()) {
+                auto * bassm = (BaseAssembly*) iter.next();
+                if(bassm->hasLabel) {
+                    bassm->nullOperation();
+                    ret++;
+                }
             }
             pool.releaseLock(l,tid);
         }
 
-//        l = new lockObject(superAssm, 0);
-//        // if this assembly is root perform operation on it
-//        if (pool.acquireLock(l, tid)) {
-//            //cout<< "Lock acquired"<<endl;
-//            while(iter.has_next()) {
-//                performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
-//                ret++;
-//            }
-//            pool.releaseLock(tid);
-//        }
     }
     return ret;
 }
@@ -142,26 +121,17 @@ int sb7::CAOperation7::innerRun(int tid) const {
     SetIterator<Assembly *> iter = siblingSet->getIter();
     int ret = 0;
 
-    while (iter.has_next()) {
-        auto * bassm = (BaseAssembly*) iter.next();
-        if(bassm->hasLabel) {
-            bassms.push_back(bassm);
-            lockRequest = pool.addToLockRequest(dataHolder, lockRequest, bassm);
-        }
-
-    }
-
-        auto * l = new lockObject(lockRequest, 0);
-        //cout<< "Lock Object is not null"<<endl;
-        if(l->designObj!= nullptr && pool.acquireLock(l, tid)){
-        //cout<< "Lock acquired"<<endl;
-        for(BaseAssembly * b: bassms){
-            b->nullOperation();
-            ret++;
+    auto * l = new lockObject(*superAssm, 0);
+    if(pool.acquireLock(l,tid)){
+        while (iter.has_next()) {
+            auto * bassm = (BaseAssembly*) iter.next();
+            if(bassm->hasLabel) {
+                bassm->nullOperation();
+                ret++;
+            }
         }
         pool.releaseLock(l,tid);
     }
-
     return ret;
 }
 
@@ -204,18 +174,20 @@ int sb7::CAOperation8::innerRun(int tid) const {
     int ret = 0;
 
     list<CompositePart *> cparts;
-    DesignObj * lockRequest;
+    list<string> lockRequest;
 
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();
         if(cpart->hasLabel) {
             cparts.push_back(cpart);
-            lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart);
+            lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart->pathLabel);
         }
 
     }
 
-    auto *l = new lockObject(lockRequest, 0);
+    DesignObj* d = lscaHelpers::getLockObject(lockRequest, dataHolder);
+
+    auto *l = new lockObject(*d, 0);
     //cout<< "Lock Object is not null"<<endl;
     if(pool.acquireLock(l,tid)){
         //cout<< "Lock acquired"<<endl;

@@ -32,9 +32,9 @@ void CArelabelling::run() {
 
 
 void CArelabelling::traverse(ComplexAssembly *cassm) {
-    list<DesignObj*> currLabel = cassm->pathLabel;
-    list<DesignObj*> superLabel = cassm->getSuperAssembly()->pathLabel;
-    superLabel.push_back(cassm);
+    list<string> currLabel = cassm->pathLabel;
+    list<string> superLabel = cassm->getSuperAssembly()->pathLabel;
+    superLabel.push_back("ca"+ to_string(cassm->getId()));
 
     if(currLabel == superLabel){
         return;
@@ -56,9 +56,9 @@ void CArelabelling::traverse(ComplexAssembly *cassm) {
 }
 
 void CArelabelling::traverse(BaseAssembly *bassm) {
-    list<DesignObj*> currLabel = bassm->getSuperAssembly()->pathLabel;
+    list<string> currLabel = bassm->getSuperAssembly()->pathLabel;
     string labelIdentifier = "ba"+ to_string(bassm->getId());
-    currLabel.push_back(bassm);
+    currLabel.push_back(labelIdentifier);
     bassm->setPathLabel(currLabel);
     BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
     while(iter.has_next()) {
@@ -72,20 +72,20 @@ void CArelabelling::traverse(CompositePart *cpart) {
 
     Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
     BagIterator<BaseAssembly *> biter = usedIn->getIter();
-    list<DesignObj*> firstLabel = biter.next()->pathLabel;
+    list<string> firstLabel = biter.next()->pathLabel;
 
     while(biter.has_next()){
-        list<DesignObj*> common;
-        list<DesignObj*> testLabel = biter.next()->pathLabel;
+        list<string> common;
+        list<string> testLabel = biter.next()->pathLabel;
         set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
         firstLabel = common;
     }
 
-    firstLabel.push_back(cpart);
+    firstLabel.push_back("cp"+ to_string(cpart->getId()));
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
-    firstLabel.push_back(rootPart);
+    firstLabel.push_back("ap"+ to_string(rootPart->getId()));
     rootPart->setPathLabel(firstLabel);
     apartQ.push(rootPart);
 
@@ -111,21 +111,21 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
 
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<DesignObj *> containerLabel;
+        list<string> containerLabel;
         while (containerLabel.empty()) {
             containerLabel = fiter.next()->getSource()->pathLabel;
         }
         while (fiter.has_next()) {
             Connection *conn = fiter.next();
             if (conn->getSource()->hasLabel) {
-                list<DesignObj*> common;
+                list<string> common;
                 set_intersection(containerLabel.begin(), containerLabel.end(), conn->getSource()->pathLabel.begin(),conn->getSource()->pathLabel.end(), back_inserter(common));
                 containerLabel = common;
             }
         }
 
-        containerLabel.push_back(apart);
-        unordered_set<DesignObj *> myLabelSet(containerLabel.begin(), containerLabel.end());
+        containerLabel.push_back("ap"+ to_string(apart->getId()));
+        unordered_set<string> myLabelSet(containerLabel.begin(), containerLabel.end());
 
         if (myLabelSet != apart->criticalAncestors) {
             apart->setPathLabel(containerLabel);

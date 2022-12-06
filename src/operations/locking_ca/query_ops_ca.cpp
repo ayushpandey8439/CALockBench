@@ -23,9 +23,8 @@ int sb7::CAQuery1::run(int tid) const {
 
 int sb7::CAQuery1::innerRun(int tid) const {
     int count = 0;
-    vector<AtomicPart*> aparts;
-    DesignObj* lockRequest = nullptr;
     for (int i = 0; i < QUERY1_ITER; i++) {
+        DesignObj* lockRequest = nullptr;
         int apart = get_random()->nextInt(
                 parameters.getMaxAtomicParts()) + 1;
         Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
@@ -34,25 +33,26 @@ int sb7::CAQuery1::innerRun(int tid) const {
         apartInd->get(query);
 
         if (query.found && query.val->hasLabel) {
-            lockRequest = pool.addToLockRequest(dataHolder,lockRequest,query.val);
-            aparts.push_back(query.val);
-        }
-    }
-
-    if(string(name)=="Q1" && lockRequest!= nullptr){
-        auto * l = new lockObject(lockRequest, 0);
-        if(pool.acquireLock(l, tid)) {
-            for(auto * a :aparts){
-                performOperationOnAtomicPart(a);
-                count++;
+            if(string(name)=="Q1"){
+                auto * l = new lockObject(*query.val, 0);
+                if(pool.acquireLock(l, tid)) {
+                    performOperationOnAtomicPart(query.val);
+                    count++;
+                    pool.releaseLock(l,tid);
+                }
             }
-
-            pool.releaseLock(l,tid);
+            else if(string(name) == "OP9"|| string(name) == "OP15") {
+                auto * l= new lockObject(*query.val, 1);
+                if(pool.acquireLock(l, tid)) {
+                    performOperationOnAtomicPart(query.val);
+                    count++;
+                    pool.releaseLock(l,tid);
+                }
+            }
         }
     }
-//    else if(string(name) == "OP9"|| string(name) == "OP15"){
-//        auto * l= new lockObject(query.val, 1);
-//    }
+
+
     return count;
 }
 
@@ -73,7 +73,6 @@ sb7::CAQuery2::CAQuery2(DataHolder *dh, optype t, const char *n, int percent)
 }
 
 int sb7::CAQuery2::run(int tid) const {
-    //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
     return innerRun(tid);
 }
 
@@ -91,20 +90,18 @@ int sb7::CAQuery2::innerRun(int tid) const {
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
-                auto * l = new lockObject(apart, 0);
-                if(l!= nullptr && l->designObj!= nullptr && pool.acquireLock(l,tid)){
+                auto * l = new lockObject(*apart, 0);
+                if(pool.acquireLock(l,tid)){
                     performOperationOnAtomicPart(apart);
                     count++;
                     pool.releaseLock(l,tid);
                 }
-
 //                else if(string(name) == "OP10"){
-//                    l= new lockObject(apart, 1);
+//                    l= new lockObject(*apart, 1);
 //                }
             }
         }
     }
-
     return count;
 }
 
@@ -120,53 +117,54 @@ void sb7::CAQuery2::performOperationOnAtomicPart(AtomicPart *apart) const {
 
 int sb7::CAQuery4::run(int tid) const {
     //ReadLockHandle readLockHandle(CA_lock_srv.getLock());
-
     int ret = 0;
 
+    throw Sb7Exception();
+
     for (int i = 0; i < QUERY4_ITER; i++) {
-        // construct name of documentation for composite part
-        int partId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
-        // TODO move all these constants to separate header file
-        ITOA(itoa_buf, partId);
-        string title = "Composite Part #" + (string) itoa_buf;
-
-        // search for document with that name
-        Map<string, Document *> *docInd = dataHolder->getDocumentTitleIndex();
-        Map<string, Document *>::Query query;
-        query.key = title;
-        docInd->get(query);
-
-        list<BaseAssembly *> bassms;
-        DesignObj* lockRequest = nullptr;
-
-        if (query.found) {
-            Document *doc = query.val;
-            CompositePart *cpart = doc->getCompositePart();
-            Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
-            BagIterator<BaseAssembly *> iter = usedIn->getIter();
-
-            while (iter.has_next()) {
-                BaseAssembly *bassm = iter.next();
-                if (bassm->hasLabel) {
-                    bassms.push_back(bassm);
-                    lockRequest = pool.addToLockRequest(dataHolder,lockRequest, bassm);
-                }
-
-            }
-        }
-        if(lockRequest!= nullptr){
-            auto * l = new lockObject(lockRequest, 0);
-            //cout<< "Lock Object is not null"<<endl;
-            if(pool.acquireLock(l,tid)){
-                //cout<< "Lock acquired"<<endl;
-                for(BaseAssembly * b: bassms){
-                    b->nullOperation();
-                    ret++;
-                }
-                pool.releaseLock(l,tid);
-                //pthread_rwlock_unlock(&lockObject->NodeLock);
-            }
-        }
+//        // construct name of documentation for composite part
+//        int partId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
+//        // TODO move all these constants to separate header file
+//        ITOA(itoa_buf, partId);
+//        string title = "Composite Part #" + (string) itoa_buf;
+//
+//        // search for document with that name
+//        Map<string, Document *> *docInd = dataHolder->getDocumentTitleIndex();
+//        Map<string, Document *>::Query query;
+//        query.key = title;
+//        docInd->get(query);
+//
+//        list<BaseAssembly *> bassms;
+//        DesignObj* lockRequest = nullptr;
+//
+//        if (query.found) {
+//            Document *doc = query.val;
+//            CompositePart *cpart = doc->getCompositePart();
+//            Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
+//            BagIterator<BaseAssembly *> iter = usedIn->getIter();
+//
+//            while (iter.has_next()) {
+//                BaseAssembly *bassm = iter.next();
+//                if (bassm->hasLabel) {
+//                    bassms.push_back(bassm);
+//                    lockRequest = pool.addToLockRequest(dataHolder,lockRequest, bassm);
+//                }
+//
+//            }
+//        }
+//        if(lockRequest!= nullptr){
+//            auto * l = new lockObject(*lockRequest, 0);
+//            //cout<< "Lock Object is not null"<<endl;
+//            if(pool.acquireLock(l,tid)){
+//                //cout<< "Lock acquired"<<endl;
+//                for(BaseAssembly * b: bassms){
+//                    b->nullOperation();
+//                    ret++;
+//                }
+//                pool.releaseLock(l,tid);
+//                //pthread_rwlock_unlock(&lockObject->NodeLock);
+//            }
+//        }
 
     }
 

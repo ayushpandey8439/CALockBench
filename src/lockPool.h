@@ -25,11 +25,14 @@ struct classcomp {
 
 class lockObject{
 public:
-    DesignObj* designObj;
+    unordered_set<string> criticalAncestors;
+    string Id;
     int mode;
     long Oseq;
-    lockObject(DesignObj * d, int m){
-        designObj = d;
+
+    lockObject(const DesignObj d, int m){
+        Id = d.getStringId();
+        criticalAncestors = d.criticalAncestors;
         mode = m;
         Oseq=-1;
     }
@@ -53,7 +56,7 @@ public:
     }
 
 
-    bool acquireLock(lockObject * reqObj, int threadID){
+    bool acquireLock(lockObject * reqObj, int threadID) {
         lockPoolLock.lock();
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
@@ -68,7 +71,7 @@ public:
                         (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
                         // Someone else has requested a lock on my LSCA before me.
                         //std::any_of(locks[0], locks[SIZE-1], [&reqObj, &lsca](lockObject o){return (o.designObj==lsca && o.Oseq < reqObj->Oseq);})
-                        reqObj->designObj->hasCriticalAncestor(l->designObj) &&
+                        lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id) &&
                         //lockedLSCA(locks, lscaHelpers::findLSCA(l->designObj->getPathLabel(),reqObj->designObj->getPathLabel()) , reqObj->Oseq)
 
                         // It isn't my turn to take the lock
@@ -86,18 +89,6 @@ public:
     }
 
 
-    static bool lockedLSCA(lockObject * lockedObjs[SIZE], DesignObj* lsca, long seqNo){
-        for(int i=0; i<SIZE; i++){
-            if(lockedObjs[i] != nullptr){
-                auto * l = lockedObjs[i];
-                if(l != nullptr && l->designObj == lsca && l->Oseq< seqNo){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     void releaseLock(lockObject* l, int threadId){
         if(l->mode==1){
             writers--;
@@ -105,15 +96,13 @@ public:
         locks[threadId] = nullptr;
     }
 
-    DesignObj* addToLockRequest(DataHolder*dh, DesignObj*  lockRequest, DesignObj* label){
-        if((lockRequest == nullptr || !lockRequest->hasLabel) && (label== nullptr || !label->hasLabel)){
-            return dh->getModule()->getDesignRoot();
-        } else if(lockRequest != nullptr && lockRequest->hasLabel){
+    list<string> addToLockRequest(DataHolder*dh, list<string>  lockRequest, list<string> label){
+        if(lockRequest.empty()){
             return label;
-        } else if(label!= nullptr && label->hasLabel){
-            return lockRequest;
         } else {
-            return lscaHelpers::findLSCA(lockRequest, label);
+            list<string> common;
+            set_intersection(lockRequest.begin(), lockRequest.end(), label.begin(),label.end(), back_inserter(common));
+            return common;
         }
     }
 

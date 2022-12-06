@@ -22,8 +22,9 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
-    list<DesignObj*> cassmPathLabel = cassm->pathLabel;
-    if(cassmPathLabel.front()->getId() != 0 || cassmPathLabel.back()->getId()!= cassm->getId()){
+    list<string> cassmPathLabel = cassm->pathLabel;
+    //cout<<"Size: "<< cassmPathLabel.size()<< endl;
+    if(cassmPathLabel.front() != "ca0" || cassmPathLabel.back() != "ca"+to_string(cassm->getId())){
         std::cout << std::endl << "Incorrect Complex Assembly Label: ";
         for (auto i: cassmPathLabel)
             std::cout << i << ' ';
@@ -42,9 +43,9 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
 }
 
 void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
-    list<DesignObj* > bassmPathlabel = bassm->pathLabel;
-
-    if(bassmPathlabel.front()->getId() != 0 || bassmPathlabel.back()->getId() != bassm->getId()){
+    list<string > bassmPathlabel = bassm->pathLabel;
+    //cout<<"Size: "<< bassmPathlabel.size()<< endl;
+    if(bassmPathlabel.front() != "ca0" || bassmPathlabel.back() != "ba"+to_string(bassm->getId())){
 
         std::cout << std::endl << "Incorrect Base Assembly Label: ";
         for (auto i: bassmPathlabel)
@@ -61,8 +62,9 @@ void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
 }
 
 void sb7::CALockLabelTest::traverse(CompositePart *cpart) const {
-    list<DesignObj* > cpartPathLabel = cpart->pathLabel;
-    if(cpartPathLabel.front()->getId() != 0 || cpartPathLabel.back()->getId() != cpart->getId()){
+    list<string > cpartPathLabel = cpart->pathLabel;
+    //cout<<"Size: "<< cpartPathLabel.size()<< endl;
+    if(cpartPathLabel.front()!="ca0" || cpartPathLabel.back() != "cp"+to_string(cpart->getId())){
         std::cout << std::endl << "Incorrect Composite part Label: ";
         for (auto i: cpartPathLabel)
             std::cout << i << ' ';
@@ -84,8 +86,9 @@ void sb7::CALockLabelTest::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
         std::cout<< std::endl << "Null atomic part";
         return;
     } else {
-        list<DesignObj*> apartPathLabel = apart->pathLabel;
-        if(apartPathLabel.empty() ||apartPathLabel.front()->getId() != 0 || apartPathLabel.back()->getId() != apart->getId()){
+        list<string> apartPathLabel = apart->pathLabel;
+        //cout<<"Size: "<< apartPathLabel.size()<< endl;
+        if(apartPathLabel.empty() ||apartPathLabel.front() != "ca0" || apartPathLabel.back() != "ap"+to_string(apart->getId())){
             std::cout << std::endl << "Incorrect Atomic part Label: ";
             for (auto i: apartPathLabel)
                 std::cout << i << ' ';
