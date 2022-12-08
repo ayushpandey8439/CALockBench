@@ -17,12 +17,6 @@
 using namespace std;
 using namespace sb7;
 
-
-struct classcomp {
-    bool operator() (const DesignObj* lhs, const DesignObj* rhs) const
-    {return lhs->getId()<rhs->getId();}
-};
-
 class lockObject{
 public:
     unordered_set<string> criticalAncestors;
@@ -40,18 +34,19 @@ public:
 
 class lockPool {
 public:
-    int writers;
     mutex lockPoolLock;
     lockObject* locks[SIZE];
-
+    pthread_mutex_t threadMutexes[SIZE];
+    pthread_cond_t threadConditions[SIZE];
     long Gseq;
 
     lockPool(){
         Gseq = 0;
-        writers=0;
-        for(auto & lock : locks)
+        for(int i=0; i<SIZE;i++)
         {
-            lock = nullptr;
+            locks[i] = nullptr;
+            threadMutexes[i] = PTHREAD_MUTEX_INITIALIZER;
+            threadConditions[i] = PTHREAD_COND_INITIALIZER;
         }
     }
 
@@ -61,39 +56,39 @@ public:
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
         lockPoolLock.unlock();
-
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
             if(locks[i] != nullptr){
+                pthread_mutex_lock(&threadMutexes[i]);
                 lockObject * l = locks[i];
                 while(l!= nullptr &&
                         // If a read lock is requested for an object that is read locked, only then allow it.
                         (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
                         // Someone else has requested a lock on my LSCA before me.
-                        //std::any_of(locks[0], locks[SIZE-1], [&reqObj, &lsca](lockObject o){return (o.designObj==lsca && o.Oseq < reqObj->Oseq);})
-                        lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id) &&
-                        //lockedLSCA(locks, lscaHelpers::findLSCA(l->designObj->getPathLabel(),reqObj->designObj->getPathLabel()) , reqObj->Oseq)
-
+                        (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
                         // It isn't my turn to take the lock
                         reqObj->Oseq > l->Oseq
                     ){
-                    //cout<<"waiting for lock resolution on "<< this_thread::get_id()<<endl;
+                        //cout<<reqObj->Oseq<<endl;
+                        //pthread_cond_broadcast(&threadConditions[i]);
+
+                        int waitStatus = pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
+                        //cout<<waitStatus<<" On " <<threadID<<endl;
                         l=locks[i];
                     }
+                pthread_mutex_unlock(&threadMutexes[i]);
             }
-        }
-        if(reqObj->mode==1){
-            writers++;
         }
         return true;
     }
 
-
     void releaseLock(lockObject* l, int threadId){
-        if(l->mode==1){
-            writers--;
-        }
+        pthread_mutex_lock(&threadMutexes[threadId]);
         locks[threadId] = nullptr;
+        pthread_mutex_unlock(&threadMutexes[threadId]);
+        pthread_cond_broadcast(&threadConditions[threadId]);
+
+
     }
 
     list<string> addToLockRequest(DataHolder*dh, list<string>  lockRequest, list<string> label){

@@ -41,7 +41,7 @@ namespace sb7 {
 
         void setPathLabel(const list<string>& label){
             hasLabel=true;
-            pathLabel.clear();
+            //pathLabel.clear();
             pathLabel = label;
             criticalAncestors.clear();
             for(const auto& d: label){

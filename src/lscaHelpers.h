@@ -16,12 +16,6 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static list<string>  findLSCA(list<string> v1, list<string> v2){
-        list<string> common;
-        set_intersection(v1.begin(), v1.end(), v2.begin(),v2.end(), back_inserter(common));
-        return common;
-    }
-
     static bool hasCriticalAncestor(unordered_set<string> A, string d){
         if(!A.empty() && A.find(d)!=A.end()){
             return true;
@@ -54,7 +48,7 @@ public:
             index->get(query);
             return query.val;
         } else {
-            return NULL;
+            return nullptr;
         }
     }
 };
