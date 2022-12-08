@@ -12,6 +12,7 @@
 #include "lscaHelpers.h"
 #include "iostream"
 #include "parameters.h"
+#include <algorithm>
 
 #define SIZE 32
 using namespace std;
