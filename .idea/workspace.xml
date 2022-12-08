@@ -11,7 +11,7 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="STMBENCH" targetName="STMBENCH" />
+      <config projectName="sb7_lock" targetName="sb7_lock" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -21,33 +21,108 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b179c889-a3a1-42a9-872f-2dc3c1bab1d5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figure_4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/CArelabelling.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/CArelabelling.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/STMBENCH" beforeDir="false" afterPath="$PROJECT_DIR$/build/STMBENCH" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ca.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ca.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/client-vscode/query.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cache-v2-3e54d4686e6c048c2979.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cmakeFiles-v1-5c56042e232d2c7f31b8.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/codemodel-v2-43f791b620b57c429f33.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/index-2022-11-30T18-42-11-0153.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/target-STMBENCH-Debug-d3ab9a0c9ac254348a86.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/toolchains-v1-16323ffe180a2cf95f9f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.23.2/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.25.0/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/CArelabelling.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/DomRelabelling.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/benchmark.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/data_holder.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/helpers.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/id_pool.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/interval.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/intervalAssignment.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/labelAssignmentTest.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/labelAssignmentTraversal.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/lockPool.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/lscaHelpers.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/interval.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/query_ops_ca.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_ca/traversal_ops_ca.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/lock_srv_lc.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/operation_ops_lc.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/query_ops_lc.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/short_traversal_ops_lc.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/structural_modification_ops_lc.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_coarse/traversal_ops_lc.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/lock_srv_dom.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/operation_ops_dom.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/query_ops_dom.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/short_traversal_ops_dom.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/structural_modification_ops_dom.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_domLock/traversal_ops_dom.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_medium/lock_srv_lm.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_medium/operation_ops_lm.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_medium/query_ops_lm.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_medium/short_traversal_ops_lm.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_medium/structural_modification_ops_lm.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/locking_medium/traversal_ops_lm.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/operations/operations.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/parameters.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/random.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/randomc/mersenne.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/sb7_lock.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/struct/assembly.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/struct/atomic_part.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/struct/composite_part.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/struct/design_obj.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/struct/document.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/struct/manual.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/thread/thread.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/STMBENCH.dir/src/thread/thread_fun.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clion-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/STMBENCH" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/compile_commands.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/coarse.txt" beforeDir="false" afterPath="$PROJECT_DIR$/coarse.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dom.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dom.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/medium.txt" beforeDir="false" afterPath="$PROJECT_DIR$/medium.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plotter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/plotter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/benchmark.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lockPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lockPool.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lscaHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lscaHelpers.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/operations.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/operations.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/struct/design_obj.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct/design_obj.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_calock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_calock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_coarse.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_coarse.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_domlock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_domlock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_medium.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_medium.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_nolock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_nolock.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,12 +180,26 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 4 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBENCH" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBENCH" RUN_TARGET_NAME="STMBENCH">
+  <component name="RunManager" selected="CMake Application.sb7_lock">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 4 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="STMBENCH">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="sb7_lock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="sb7_lock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="sb7_lock">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.STMBENCH" />
+      <item itemvalue="CMake Application.sb7_lock" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
