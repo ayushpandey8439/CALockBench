@@ -5,9 +5,9 @@ Column 2: Medium-grain lock
 Column 3: CALock
 X-axis of graph is number of threads from 1 to 32 in power of 2's and Y-axis is the throughput value
 
-0   1076   56947
-0   2201   111492
-0   4479   194306
-0   8929   243694
-0   17928   272041
-0   35368   205421
+1263   1299   66070
+2519   2598   66380
+5025   5188   66380
+10054   10356   66380
+20177   20791   66380
+41242   42060   66380
