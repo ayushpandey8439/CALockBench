@@ -18,16 +18,18 @@
 using namespace std;
 using namespace sb7;
 
+
+
 class lockObject{
 public:
-    unordered_set<string> criticalAncestors;
-    string Id;
+    unordered_set<int>* criticalAncestors;
+    int Id;
     int mode;
     long Oseq;
 
-    lockObject(const DesignObj d, int m){
-        Id = d.getStringId();
-        criticalAncestors = d.criticalAncestors;
+    lockObject(int Id, unordered_set<int> * ancestors, int m){
+        Id = Id;
+        criticalAncestors = ancestors;
         mode = m;
         Oseq=-1;
     }
@@ -35,7 +37,7 @@ public:
 
 class lockPool {
 public:
-    mutex lockPoolLock;
+    pthread_mutex_t lockPoolLock;
     lockObject* locks[SIZE];
     pthread_mutex_t threadMutexes[SIZE];
     pthread_cond_t threadConditions[SIZE];
@@ -53,10 +55,10 @@ public:
 
 
     bool acquireLock(lockObject * reqObj, int threadID) {
-        lockPoolLock.lock();
+        pthread_mutex_lock(&lockPoolLock);
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
-        lockPoolLock.unlock();
+        pthread_mutex_unlock(&lockPoolLock);
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
             if(locks[i] != nullptr){
@@ -71,9 +73,7 @@ public:
                         reqObj->Oseq > l->Oseq
                     ){
                         //cout<<reqObj->Oseq<<endl;
-                        //pthread_cond_broadcast(&threadConditions[i]);
-
-                        int waitStatus = pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
+                        pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
                         //cout<<waitStatus<<" On " <<threadID<<endl;
                         l=locks[i];
                     }
@@ -92,11 +92,11 @@ public:
 
     }
 
-    list<string> addToLockRequest(DataHolder*dh, list<string>  lockRequest, list<string> label){
+    list<int> addToLockRequest(DataHolder*dh, list<int>  lockRequest, list<int> label){
         if(lockRequest.empty()){
             return label;
         } else {
-            list<string> common;
+            list<int> common;
             set_intersection(lockRequest.begin(), lockRequest.end(), label.begin(),label.end(), back_inserter(common));
             return common;
         }

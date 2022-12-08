@@ -21,7 +21,6 @@ int sb7::DomQuery1::innerRun(int tid) const {
 	int count = 0;
     int threadID = tid;
     int min=500000,max=0;
-    vector<AtomicPart*> aparts;
     for(int i = 0; i < QUERY1_ITER; i++) {
         int apartId= get_random()->nextInt(
                 parameters.getMaxAtomicParts()) + 1;
@@ -29,25 +28,31 @@ int sb7::DomQuery1::innerRun(int tid) const {
         Map<int, AtomicPart *>::Query query;
         query.key = apartId;
         apartInd->get(query);
+
         if(query.found && query.val->m_pre_number!=0){
-            if((query.val)-> m_pre_number < min )
-                min = (query.val)-> m_pre_number;
-            if((query.val)-> m_post_number > max )
-                max = (query.val)-> m_post_number;
+            if(string(name) == "Q1"){
+                auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
+                if(!ICheck.IsOverlap(inv, 0, threadID))
+                {
+                    performOperationOnAtomicPart(query.val);
+                    count++;
+                    ICheck.Delete(threadID);
+                }
+            }
+            if(string(name) == "OP9" || string(name) == "OP15"){
+                auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,1);
+                if(!ICheck.IsOverlap(inv, 1, threadID))
+                {
+                    performOperationOnAtomicPart(query.val);
+                    count++;
+                    ICheck.Delete(threadID);
+                }
+            }
         }
+
     }
 
-    if(string(name) == "Q1"){
-        auto *inv = new interval(min,max,0);
-        if(!ICheck.IsOverlap(inv, 0, threadID))
-        {
-            for(auto *a :aparts){
-                performOperationOnAtomicPart(a);
-                count++;
-            }
-            ICheck.Delete(threadID);
-        }
-    }
+
 
     return count;
 }

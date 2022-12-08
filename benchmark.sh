@@ -1,14 +1,16 @@
 echo Compiling Benchmark implementation on STMBench7......
 #cmake --build ./target --target sb7_lock -j 6
-make
+make clean
+make all
+
 echo Benchmarking coarse-grain locking......
-./script_coarse.sh
+./scripts/script_coarse.sh
 echo Benchmarking medium-grain locking......
-./script_medium.sh
+./scripts/script_medium.sh
 echo Benchmarking CALock......
-./script_calock.sh
-#echo Benchmarking Domlock......
-#./script_domlock.sh
+./scripts/script_calock.sh
+echo Benchmarking Domlock......
+./scripts/script_domlock.sh
 pwd
 g++ plotter.cpp
 ./a.out

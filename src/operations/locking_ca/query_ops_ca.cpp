@@ -24,7 +24,6 @@ int sb7::CAQuery1::run(int tid) const {
 int sb7::CAQuery1::innerRun(int tid) const {
     int count = 0;
     for (int i = 0; i < QUERY1_ITER; i++) {
-        DesignObj* lockRequest = nullptr;
         int apart = get_random()->nextInt(
                 parameters.getMaxAtomicParts()) + 1;
         Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
@@ -33,8 +32,9 @@ int sb7::CAQuery1::innerRun(int tid) const {
         apartInd->get(query);
 
         if (query.found && query.val->hasLabel) {
+            AtomicPart * a = query.val;
             if(string(name)=="Q1"){
-                auto * l = new lockObject(*query.val, 0);
+                auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 0);
                 if(pool.acquireLock(l, tid)) {
                     performOperationOnAtomicPart(query.val);
                     count++;
@@ -42,7 +42,7 @@ int sb7::CAQuery1::innerRun(int tid) const {
                 }
             }
             else if(string(name) == "OP9"|| string(name) == "OP15") {
-                auto * l= new lockObject(*query.val, 1);
+                auto * l= new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
                 if(pool.acquireLock(l, tid)) {
                     performOperationOnAtomicPart(query.val);
                     count++;
@@ -89,17 +89,14 @@ int sb7::CAQuery2::innerRun(int tid) const {
 
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
-            if(apart->hasLabel) {
-                auto * l = new lockObject(*apart, 0);
-                if(pool.acquireLock(l,tid)){
-                    performOperationOnAtomicPart(apart);
-                    count++;
-                    pool.releaseLock(l,tid);
-                }
-//                else if(string(name) == "OP10"){
-//                    l= new lockObject(*apart, 1);
+//            if(apart->hasLabel) {
+//                auto * l = new lockObject(apart->getLabellingId(), apart->criticalAncestors, 0);
+//                if(pool.acquireLock(l,tid)){
+//                    performOperationOnAtomicPart(apart);
+//                    count++;
+//                    pool.releaseLock(l,tid);
 //                }
-            }
+//            }
         }
     }
     return count;

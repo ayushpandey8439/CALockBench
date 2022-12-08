@@ -260,7 +260,7 @@ $(OBJ_DIR)/DomRelabelling.o: $(SRC_DIR)/DomRelabelling.cpp \
 # TODO make this work even when there are no files to delete
 clean:
 	rm -r $(TARGET_DIR)
-	rm STMBench
+	rm sb7_lock
 
 docs:
 	mkdir -p $(TARGET_DOCS_DIR)

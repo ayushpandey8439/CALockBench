@@ -23,7 +23,6 @@ namespace sb7 {
                 : m_id(id), m_type(std::move(std::move(type))), m_buildDate(buildDate) {
             m_pre_number = 0;
             m_post_number = 0;
-            pthread_rwlock_init(&NodeLock, NULL);
             hasLabel= false;
         }
 
@@ -35,11 +34,11 @@ namespace sb7 {
             return m_id;
         }
 
-        string getStringId() const{
+        int getLabellingId() const{
             return pathLabel.back();
         }
 
-        void setPathLabel(const list<string>& label){
+        void setPathLabel(const list<int>& label){
             hasLabel=true;
             //pathLabel.clear();
             pathLabel = label;
@@ -61,8 +60,8 @@ namespace sb7 {
         int m_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
-        list<string> pathLabel;
-        unordered_set<string> criticalAncestors;
+        list<int> pathLabel;
+        unordered_set<int> criticalAncestors;
     protected:
         int m_id;
         string m_type;

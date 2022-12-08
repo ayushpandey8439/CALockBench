@@ -22,7 +22,118 @@
   <component name="ChangeListManager">
     <list default="true" id="b179c889-a3a1-42a9-872f-2dc3c1bab1d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile.in" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/CArelabelling.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/CArelabelling.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/DomRelabelling.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/DomRelabelling.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/benchmark.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/benchmark.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/data_holder.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/data_holder.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/intervalAssignment.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/intervalAssignment.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/labelAssignmentTest.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/labelAssignmentTest.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/labelAssignmentTraversal.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/labelAssignmentTraversal.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/lockPool.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/lockPool.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/query_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/query_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/traversal_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/traversal_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/operation_ops_lc.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/operation_ops_lc.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/query_ops_lc.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/query_ops_lc.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/short_traversal_ops_lc.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/short_traversal_ops_lc.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/structural_modification_ops_lc.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/structural_modification_ops_lc.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/traversal_ops_lc.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_coarse/traversal_ops_lc.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/operation_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/operation_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/query_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/query_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/short_traversal_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/short_traversal_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/structural_modification_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/structural_modification_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/traversal_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/traversal_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/operation_ops_lm.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/operation_ops_lm.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/query_ops_lm.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/query_ops_lm.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/short_traversal_ops_lm.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/short_traversal_ops_lm.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/structural_modification_ops_lm.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/structural_modification_ops_lm.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/traversal_ops_lm.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_medium/traversal_ops_lm.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/operations.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/operations.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/sb7_lock.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/sb7_lock.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/assembly.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/assembly.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/atomic_part.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/atomic_part.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/composite_part.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/composite_part.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/design_obj.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/struct/design_obj.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/thread/thread_fun.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/thread/thread_fun.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/sb7_lock" beforeDir="false" afterPath="$PROJECT_DIR$/build/sb7_lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ca.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/coarse.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dom.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medium.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nl.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plotter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/plotter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb7_lock" beforeDir="false" afterPath="$PROJECT_DIR$/sb7_lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_calock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script_calock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_coarse.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script_coarse.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_domlock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script_domlock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_medium.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script_medium.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_nolock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script_nolock.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CArelabelling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/CArelabelling.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/benchmark.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interval.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/interval.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelAssignmentTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelAssignmentTest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelAssignmentTraversal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelAssignmentTraversal.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lockPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lockPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lscaHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/lscaHelpers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/operation_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/operation_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/query_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/query_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/locking_domLock/query_ops_dom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/locking_domLock/query_ops_dom.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/operations.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/operations.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/struct/design_obj.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct/design_obj.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/CArelabelling.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/DomRelabelling.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/assembly.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/atomic_part.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/benchmark.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/composite_part.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/data_holder.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/design_obj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/document.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/helpers.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/id_pool.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/labelAssignmentTest.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/labelAssignmentTraversal.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/lockPool.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/lock_srv_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/lock_srv_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/lscaHelpers.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/manual.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/mersenne.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operations.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/parameters.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/random.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/sb7_lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/sb7_lock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/short_traversal_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/short_traversal_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/thread.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/thread_fun.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_lm.o" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,17 +150,26 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/benchmark.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/coarse.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/medium.txt" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/script_calock.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/script_coarse.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/script_domlock.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/script_medium.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/script_nolock.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/benchmarkResults/ca.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/script_calock.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/script_coarse.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/script_domlock.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/script_medium.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/script_nolock.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/benchmark.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/lockPool.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/operations/locking_ca/query_ops_ca.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/operations/locking_ca/query_ops_ca.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/operations/locking_ca/structural_modification_ops_ca.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/operations/locking_domLock/query_ops_dom.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/operations/locking_medium/lock_srv_lm.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/operations/operations.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/random.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/randomc/mersenne.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/sb7_lock.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/struct/design_obj.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/thread/thread_fun.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/thread/thread_fun.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,29 +206,21 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Scripts" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.sb7_lock">
-    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 4 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="STMBENCH">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="sb7_lock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="sb7_lock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="sb7_lock">
+    <configuration name="sb7_lock" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l dom -n 8 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="sb7_lock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="sb7_lock">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="CMake Application.STMBENCH" />
-      <item itemvalue="CMake Application.sb7_lock" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

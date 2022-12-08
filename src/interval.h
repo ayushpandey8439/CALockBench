@@ -71,7 +71,10 @@ public:
             if(Array[i] != nullptr)
             {	interval *ptr = Array[i];
                 //wait untill there is an overlap and my sequence number is greater
-                while(ptr !=NULL && (m == 1 || (m == 0 && ptr->mode == 1)) && (ptr->pre <= inv->post && ptr->post >= inv->pre) && ptr->MySeq < inv->MySeq)
+                while(ptr !=NULL &&
+                (m == 1 || (m == 0 && ptr->mode == 1)) &&
+                (ptr->pre <= inv->post && ptr->post >= inv->pre)
+                && ptr->MySeq < inv->MySeq)
                 {
                     ptr = Array[i];
                 }
