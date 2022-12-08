@@ -27,7 +27,7 @@ int main()
     //output<<"Column 4: NoSync\n";
     output<<"X-axis of graph is number of threads from 1 to 32 in power of 2's and Y-axis is the throughput value\n\n";
 
-    int Iterations = 2;
+    int Iterations = 5;
 
     for(int i=0;i<6;i++)
     {

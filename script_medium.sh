@@ -1,5 +1,5 @@
 echo >medium.txt
-ITER=2
+ITER=5
 for((i=0;i<$ITER;i++));do ./sb7_lock -s b -l m -n 1 -w rw -d 2000| grep -i "throughput";done >>medium.txt
 
 for((i=0;i<$ITER;i++));do ./sb7_lock -s b -l m -n 2 -w rw -d 2000| grep -i "throughput";done >>medium.txt

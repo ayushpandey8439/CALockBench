@@ -1,5 +1,5 @@
 echo >coarse.txt
-ITER=2
+ITER=5
 for((i=0;i<$ITER;i++));do ./sb7_lock -s b -l c -n 1 -w rw -d 2000| grep -i "throughput";done >>coarse.txt
 
 for((i=0;i<$ITER;i++));do ./sb7_lock -s b -l c -n 2 -w rw -d 2000| grep -i "throughput";done >>coarse.txt
