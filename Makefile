@@ -17,6 +17,7 @@ OBJFILES = $(OBJ_DIR)/sb7_lock.o \
 	$(OBJ_DIR)/lock_srv_lm.o \
 	$(OBJ_DIR)/traversal_ops_ca.o $(OBJ_DIR)/query_ops_ca.o $(OBJ_DIR)/operation_ops_ca.o \
 	$(OBJ_DIR)/structural_modification_ops_ca.o $(OBJ_DIR)/labelAssignmentTraversal.o\
+	$(OBJ_DIR)/lockPool.o $(OBJ_DIR)/lscaHelpers.o\
 	$(OBJ_DIR)/labelAssignmentTest.o $(OBJ_DIR)/CArelabelling.o $(OBJ_DIR)/DomRelabelling.o\
 	$(OBJ_DIR)/traversal_ops_dom.o $(OBJ_DIR)/query_ops_dom.o $(OBJ_DIR)/operation_ops_dom.o \
     $(OBJ_DIR)/structural_modification_ops_dom.o\
@@ -187,6 +188,16 @@ $(OBJ_DIR)/labelAssignmentTest.o: $(SRC_DIR)/labelAssignmentTest.cpp \
 		$(SRC_DIR)/labelAssignmentTest.h
 	mkdir -p $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) $(SRC_DIR)/labelAssignmentTest.cpp -c -o $@
+
+$(OBJ_DIR)/lockPool.o: $(SRC_DIR)/lockPool.cpp \
+		$(SRC_DIR)/lockPool.h
+	mkdir -p $(OBJ_DIR)
+	$(CPP) $(CPPFLAGS) $(SRC_DIR)/lockPool.cpp -c -o $@
+
+$(OBJ_DIR)/lscaHelpers.o: $(SRC_DIR)/lscaHelpers.cpp \
+		$(SRC_DIR)/lscaHelpers.h
+	mkdir -p $(OBJ_DIR)
+	$(CPP) $(CPPFLAGS) $(SRC_DIR)/lscaHelpers.cpp -c -o $@
 
 $(OBJ_DIR)/CArelabelling.o: $(SRC_DIR)/CArelabelling.cpp \
 		$(SRC_DIR)/CArelabelling.h

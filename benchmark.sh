@@ -10,5 +10,5 @@ echo Benchmarking CALock......
 #echo Benchmarking Domlock......
 #./script_domlock.sh
 pwd
-g++ Plotter.cpp
+g++ plotter.cpp
 ./a.out

@@ -22,10 +22,54 @@
   <component name="ChangeListManager">
     <list default="true" id="b179c889-a3a1-42a9-872f-2dc3c1bab1d5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plotter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/plotter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script_calock.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_calock.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script_coarse.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_coarse.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script_medium.sh" beforeDir="false" afterPath="$PROJECT_DIR$/script_medium.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Results.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coarse.txt" beforeDir="false" afterPath="$PROJECT_DIR$/coarse.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb7_lock" beforeDir="false" afterPath="$PROJECT_DIR$/sb7_lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/CArelabelling.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/DomRelabelling.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/assembly.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/atomic_part.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/benchmark.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/composite_part.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/data_holder.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/design_obj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/document.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/helpers.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/id_pool.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/labelAssignmentTest.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/labelAssignmentTraversal.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/lock_srv_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/lock_srv_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/manual.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/mersenne.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operation_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/operations.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/parameters.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/random.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/sb7_lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/sb7_lock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/short_traversal_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/short_traversal_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/structural_modification_ops_lm.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/thread.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/thread_fun.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_ca.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_dom.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_lc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_lm.o" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,12 +137,12 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.sb7_lock">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 4 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="STMBENCH">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="STMBENCH" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 4 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="STMBENCH" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="STMBENCH">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -125,6 +169,7 @@
       <workItem from="1669823927483" duration="14002000" />
       <workItem from="1669903952291" duration="4564000" />
       <workItem from="1669913625004" duration="3721000" />
+      <workItem from="1670506591755" duration="187000" />
     </task>
     <servers />
   </component>
