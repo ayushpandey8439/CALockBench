@@ -6,6 +6,7 @@
 #include "queue"
 #include <string>
 #include "map"
+#include <algorithm>
 
 using namespace sb7;
 //***************************************************************************************************
@@ -90,7 +91,7 @@ void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *ap
     while(biter.has_next()){
         list<string> tempPathLabel = biter.next()->pathLabel;
         std::set<string> tempPathSet(tempPathLabel.begin(), tempPathLabel.end());
-        auto newEnd = std::remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](string l){return (tempPathSet.find(l) == tempPathSet.end());});
+        auto newEnd = remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](string l){return (tempPathSet.find(l) == tempPathSet.end());});
         firstLabel.erase(newEnd, firstLabel.end());
     }
 
@@ -134,7 +135,7 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
             list<string> parentLabel = conn->getSource()->pathLabel;
             if(!parentLabel.empty()){
                 std::set<string> tempPathSet(parentLabel.begin(), parentLabel.end());
-                auto newEnd = std::remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](string l){return (tempPathSet.find(l) == tempPathSet.end());});
+                auto newEnd = remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](string l){return (tempPathSet.find(l) == tempPathSet.end());});
                 containerLabel.erase(newEnd, containerLabel.end());
             }
         }

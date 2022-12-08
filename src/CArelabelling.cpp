@@ -4,7 +4,7 @@
 
 #include "CArelabelling.h"
 #include "./struct/connection.h"
-
+#include <algorithm>
 
 using namespace sb7;
 

@@ -4,6 +4,7 @@
 
 #include "DomRelabelling.h"
 #include "./struct/connection.h"
+#include "limits.h"
 
 using namespace sb7;
 
