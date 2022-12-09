@@ -32,6 +32,7 @@
       <change afterPath="$PROJECT_DIR$/build/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/obj/intervalAssignment.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benchmarkResults/ca.txt" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResults/ca.txt" afterDir="false" />
@@ -165,6 +166,24 @@
       <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_dom.o" beforeDir="false" afterPath="$PROJECT_DIR$/target/obj/traversal_ops_dom.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_lc.o" beforeDir="false" afterPath="$PROJECT_DIR$/target/obj/traversal_ops_lc.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/obj/traversal_ops_lm.o" beforeDir="false" afterPath="$PROJECT_DIR$/target/obj/traversal_ops_lm.o" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/cmakeFiles-v1-653a8e99c7038241f17c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.cmake/api/v1/reply/index-2022-12-08T13-00-27-0488.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/build/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/operation_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/query_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/query_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_ca/structural_modification_ops_ca.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/query_ops_dom.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/operations/locking_domLock/query_ops_dom.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/sb7_lock.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/sb7_lock.dir/src/sb7_lock.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/build/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/sb7_lock" beforeDir="false" afterPath="$PROJECT_DIR$/build/sb7_lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb7_lock" beforeDir="false" afterPath="$PROJECT_DIR$/sb7_lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/query_ops_ca.o" beforeDir="false" afterPath="$PROJECT_DIR$/target/obj/query_ops_ca.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/obj/sb7_lock" beforeDir="false" afterPath="$PROJECT_DIR$/target/obj/sb7_lock" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,6 +247,7 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+<<<<<<< Updated upstream
     "last_opened_file_path": "/home/pandey/work/DomLock_Artifacts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -236,6 +256,11 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "dynamic.analysis.tools.valgrind",
     "vue.rearranger.settings.migration": "true"
+=======
+    "last_opened_file_path": "/Users/pandey/work/CALockBenchmarks",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "dynamic.analysis.tools.valgrind"
+>>>>>>> Stashed changes
   }
 }]]></component>
   <component name="RecentsManager">
@@ -253,7 +278,11 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="sb7_lock" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l dom -n 1 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="sb7_lock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sb7_lock" RUN_TARGET_NAME="sb7_lock">
+=======
+    <configuration name="sb7_lock" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-s b -l ca -n 2 -w rw -d 2000" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sb7_lock" TARGET_NAME="sb7_lock" CONFIG_NAME="Debug" RUN_PATH="$PROJECT_DIR$/sb7_lock">
+>>>>>>> Stashed changes
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
