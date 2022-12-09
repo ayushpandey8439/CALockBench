@@ -8,6 +8,7 @@
 
 #include "labelAssignmentTraversal.h"
 #include "labelAssignmentTest.h"
+#include "intervalAssignment.h"
 #include "lockPool.h"
 
 
@@ -107,6 +108,11 @@ void sb7::Benchmark::init() {
         cout<< "Testing labels"<< endl;
         dts->run(1);
         cout<< "Testing complete" <<endl;
+    } else if(parameters.getLockType() == Parameters::lock_dom){
+        auto * dfs = new DomLockTraversal(&dataHolder);
+        dfs->run(0);
+        cout<<"Interval assignment complete"<< endl;
+
     }
 }
 

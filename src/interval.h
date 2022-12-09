@@ -8,6 +8,7 @@
 #include <vector>
 #include <stdlib.h>
 #include<algorithm>
+#include <pthread.h>
 
 using namespace std;
 #define S 40

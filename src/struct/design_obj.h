@@ -56,8 +56,8 @@ namespace sb7 {
 
         void nullOperation() const {}
 
-        int m_pre_number;
-        int m_post_number;
+        long int m_pre_number;
+        long int m_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
         list<int> pathLabel;

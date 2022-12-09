@@ -3,6 +3,7 @@
 #include "../../helpers.h"
 #include "../../parameters.h"
 #include "../../interval.h"
+#include "../../sb7_exception.h"
 
 extern IntervalCheck ICheck;
 
@@ -21,39 +22,35 @@ int sb7::DomQuery1::innerRun(int tid) const {
 	int count = 0;
     int threadID = tid;
     int min=500000,max=0;
-    for(int i = 0; i < QUERY1_ITER; i++) {
-        int apartId= get_random()->nextInt(
-                parameters.getMaxAtomicParts()) + 1;
-        Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
-        Map<int, AtomicPart *>::Query query;
-        query.key = apartId;
-        apartInd->get(query);
+    int apartId= get_random()->nextInt(
+            parameters.getMaxAtomicParts()) + 1;
+    Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
+    Map<int, AtomicPart *>::Query query;
+    query.key = apartId;
+    apartInd->get(query);
 
-        if(query.found && query.val->m_pre_number!=0){
-            if(string(name) == "Q1"){
-                auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
-                if(!ICheck.IsOverlap(inv, 0, threadID))
-                {
-                    performOperationOnAtomicPart(query.val);
-                    count++;
-                    ICheck.Delete(threadID);
-                }
-            }
-            if(string(name) == "OP9" || string(name) == "OP15"){
-                auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,1);
-                if(!ICheck.IsOverlap(inv, 1, threadID))
-                {
-                    performOperationOnAtomicPart(query.val);
-                    count++;
-                    ICheck.Delete(threadID);
-                }
+    if(query.found && query.val->m_pre_number!=0){
+        if(string(name) == "Q1"){
+            auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
+            if(!ICheck.IsOverlap(inv, 0, threadID))
+            {
+                performOperationOnAtomicPart(query.val);
+                count++;
+                ICheck.Delete(threadID);
             }
         }
-
+        else if(string(name) == "OP9" || string(name) == "OP15"){
+            auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,1);
+            if(!ICheck.IsOverlap(inv, 1, threadID))
+            {
+                performOperationOnAtomicPart(query.val);
+                count++;
+                ICheck.Delete(threadID);
+            }
+        }
+    } else {
+        Sb7Exception();
     }
-
-
-
     return count;
 }
 

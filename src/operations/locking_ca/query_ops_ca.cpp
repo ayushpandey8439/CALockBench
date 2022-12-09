@@ -23,36 +23,34 @@ int sb7::CAQuery1::run(int tid) const {
 
 int sb7::CAQuery1::innerRun(int tid) const {
     int count = 0;
-    for (int i = 0; i < QUERY1_ITER; i++) {
-        int apart = get_random()->nextInt(
-                parameters.getMaxAtomicParts()) + 1;
-        Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
-        Map<int, AtomicPart *>::Query query;
-        query.key = apart;
-        apartInd->get(query);
+    int apart = get_random()->nextInt(
+            parameters.getMaxAtomicParts()) + 1;
+    Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
+    Map<int, AtomicPart *>::Query query;
+    query.key = apart;
+    apartInd->get(query);
 
-        if (query.found && query.val->hasLabel) {
-            AtomicPart * a = query.val;
-            if(string(name)=="Q1"){
-                auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 0);
-                if(pool.acquireLock(l, tid)) {
-                    performOperationOnAtomicPart(query.val);
-                    count++;
-                    pool.releaseLock(l,tid);
-                }
-            }
-            else if(string(name) == "OP9"|| string(name) == "OP15") {
-                auto * l= new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
-                if(pool.acquireLock(l, tid)) {
-                    performOperationOnAtomicPart(query.val);
-                    count++;
-                    pool.releaseLock(l,tid);
-                }
+    if (query.found && query.val->hasLabel) {
+        AtomicPart * a = query.val;
+        if(string(name)=="Q1"){
+            auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 0);
+            if(pool.acquireLock(l, tid)) {
+                performOperationOnAtomicPart(query.val);
+                count++;
+                pool.releaseLock(l,tid);
             }
         }
+        else if(string(name) == "OP9"|| string(name) == "OP15") {
+            auto * l= new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
+            if(pool.acquireLock(l, tid)) {
+                performOperationOnAtomicPart(query.val);
+                count++;
+                pool.releaseLock(l,tid);
+            }
+        }
+    } else {
+        Sb7Exception();
     }
-
-
     return count;
 }
 

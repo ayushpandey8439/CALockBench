@@ -22,22 +22,18 @@ int sb7::LMQuery1::run(int tid) const {
 
 int sb7::LMQuery1::innerRun(int tid) const {
 	int count = 0;
-		
-	for(int i = 0; i < QUERY1_ITER; i++) {
-		int apartId = get_random()->nextInt(
-			parameters.getMaxAtomicParts()) + 1;
+    int apartId = get_random()->nextInt(
+        parameters.getMaxAtomicParts()) + 1;
 
-		Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
-		Map<int, AtomicPart *>::Query query;
-		query.key = apartId;
-		apartInd->get(query);
+    Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
+    Map<int, AtomicPart *>::Query query;
+    query.key = apartId;
+    apartInd->get(query);
 
-		if(query.found) {
-			performOperationOnAtomicPart(query.val);
-			count++;
-		}
-	}
-
+    if(query.found) {
+        performOperationOnAtomicPart(query.val);
+        count++;
+    }
 	return count;
 }
 

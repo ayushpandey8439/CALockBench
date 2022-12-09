@@ -4,6 +4,7 @@
 
 #include "intervalAssignment.h"
 #include "./struct/connection.h"
+#include "limits.h"
 using namespace sb7;
 
 
@@ -24,16 +25,14 @@ int sb7::DomLockTraversal::run(int tid) const {
 
 int sb7::DomLockTraversal::traverse(ComplexAssembly *cassm) const {
     int partsVisited = 0;
-//	if(cassm -> m_pre_number == 0)
-//	cassm -> m_pre_number = dfscounter++;
-//	else dfscounter++;
+    if(cassm -> m_pre_number == 0)
+        cassm -> m_pre_number = ++dfscounter;
+    else ++dfscounter;
 
 
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
-
-    int pre = INT_MAX, post = 0;
 
     // think about transforming this into a nicer oo design
     while(iter.has_next()) {
@@ -41,20 +40,12 @@ int sb7::DomLockTraversal::traverse(ComplexAssembly *cassm) const {
 
         if(!childrenAreBase) {
             partsVisited += traverse((ComplexAssembly *)assm);
-
         } else {
             partsVisited += traverse((BaseAssembly *)assm);
         }
-
-        if(assm->m_pre_number < pre)
-            pre = assm->m_pre_number;
-        if(assm->m_post_number > post)
-            post = assm->m_post_number;
-
     }
 
-    cassm->m_pre_number = pre;
-    cassm->m_post_number = post;
+    cassm -> m_post_number = ++dfscounter;
 
 
     return partsVisited;
@@ -62,40 +53,33 @@ int sb7::DomLockTraversal::traverse(ComplexAssembly *cassm) const {
 
 int sb7::DomLockTraversal::traverse(BaseAssembly *bassm) const {
     int partsVisited = 0;
-//	if(bassm -> m_pre_number == 0)
-//	bassm -> m_pre_number = dfscounter++;
-//	else dfscounter++;
+    if(bassm -> m_pre_number == 0)
+        bassm -> m_pre_number = ++dfscounter;
+    else ++dfscounter;
 
     BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
 
     while(iter.has_next()) {
         partsVisited += traverse(iter.next());
     }
+    bassm -> m_post_number = ++dfscounter;
     return partsVisited;
 }
 
 int sb7::DomLockTraversal::traverse(CompositePart *cpart) const {
 
-//	if(cpart -> m_pre_number == 0)
-//	cpart -> m_pre_number = dfscounter++;
-//	else dfscounter++;
+    if(cpart -> m_pre_number == 0)
+        cpart -> m_pre_number = ++dfscounter;
+    else ++dfscounter;
 
 
     AtomicPart *rootPart = cpart->getRootPart();
     Set<AtomicPart *> visitedPartSet;
 
 
+    cpart -> m_post_number = ++dfscounter;
 
-    int retval =  traverse(rootPart, visitedPartSet);
-
-    // Assign intervals to all connected atomic parts
-    SetIterator<AtomicPart *> iter	= visitedPartSet.getIter();
-    while(iter.has_next()) {
-        AtomicPart *ap = iter.next();
-        ap->m_pre_number = cpart->m_pre_number;
-        ap->m_post_number = cpart->m_post_number;
-    }
-    return retval;
+    return traverse(rootPart, visitedPartSet);
 }
 
 int sb7::DomLockTraversal::traverse(AtomicPart *apart,
@@ -107,9 +91,9 @@ int sb7::DomLockTraversal::traverse(AtomicPart *apart,
     } else if(visitedPartSet.contains(apart)) {
         ret = 0;
 
-//		dfscounter++;
+        ++dfscounter;
     } else {
-//		apart -> m_pre_number = dfscounter++;
+        apart -> m_pre_number = ++dfscounter;
 
 
         ret = performOperationOnAtomicPart(apart, visitedPartSet);
@@ -124,7 +108,7 @@ int sb7::DomLockTraversal::traverse(AtomicPart *apart,
             ret += traverse(conn->getDestination(), visitedPartSet);
         }
     }
-//	apart -> m_post_number = dfscounter++;
+    apart -> m_post_number = ++dfscounter;
     return ret;
 }
 

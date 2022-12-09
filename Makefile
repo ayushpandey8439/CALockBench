@@ -18,7 +18,8 @@ OBJFILES = $(OBJ_DIR)/sb7_lock.o \
 	$(OBJ_DIR)/traversal_ops_ca.o $(OBJ_DIR)/query_ops_ca.o $(OBJ_DIR)/operation_ops_ca.o \
 	$(OBJ_DIR)/structural_modification_ops_ca.o $(OBJ_DIR)/labelAssignmentTraversal.o\
 	$(OBJ_DIR)/lockPool.o $(OBJ_DIR)/lscaHelpers.o\
-	$(OBJ_DIR)/labelAssignmentTest.o $(OBJ_DIR)/CArelabelling.o $(OBJ_DIR)/DomRelabelling.o\
+	$(OBJ_DIR)/labelAssignmentTest.o $(OBJ_DIR)/CArelabelling.o \
+	$(OBJ_DIR)/DomRelabelling.o $(OBJ_DIR)/intervalAssignment.o\
 	$(OBJ_DIR)/traversal_ops_dom.o $(OBJ_DIR)/query_ops_dom.o $(OBJ_DIR)/operation_ops_dom.o \
     $(OBJ_DIR)/structural_modification_ops_dom.o\
 
@@ -255,6 +256,10 @@ $(OBJ_DIR)/DomRelabelling.o: $(SRC_DIR)/DomRelabelling.cpp \
 	mkdir -p $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) $(SRC_DIR)/DomRelabelling.cpp -c -o $@
 
+$(OBJ_DIR)/intervalAssignment.o: $(SRC_DIR)/intervalAssignment.cpp \
+		$(SRC_DIR)/intervalAssignment.h
+	mkdir -p $(OBJ_DIR)
+	$(CPP) $(CPPFLAGS) $(SRC_DIR)/intervalAssignment.cpp -c -o $@
 
 # general
 # TODO make this work even when there are no files to delete

@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "sb7_lock::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-sb7_lock-Debug-a0b9af05a7c356c6c58a.json",
+					"jsonFile" : "target-sb7_lock-Debug-df8e5de0dc2481cb945b.json",
 					"name" : "sb7_lock",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/pandey/work/CALockBenchmarks/build",
-		"source" : "/Users/pandey/work/CALockBenchmarks"
+		"build" : "/home/pandey/work/CALockBench/build",
+		"source" : "/home/pandey/work/CALockBench"
 	},
 	"version" : 
 	{
