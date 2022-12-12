@@ -1,5 +1,7 @@
 CPP = /usr/bin/g++ -std=c++17
 
+### Add nodebug and optimization
+
 ########################################
 # set initial values for the core variables
 
@@ -10,3 +12,18 @@ SRC_DOCS_DIR = ./docs
 TARGET_DIR = ./target
 OBJ_DIR = ./target/obj
 TARGET_DOCS_DIR = ./target/docs
+
+
+
+
+########################################
+# set the build profile (default=normal)
+CPPFLAGS_normal  =  -ggdb -O3
+CPPFLAGS_fast    =  -DNDEBUG -O3
+CPPFLAGS_debug   =  -ggdb -O0
+CPPFLAGS_gp0     =  -ggdb -pg -O0
+CPPFLAGS_gp      =  -ggdb -pg -O3
+ifeq ($(PROFILE), )
+    PROFILE = normal
+endif
+CPPFLAGS += $(CPPFLAGS_${PROFILE})

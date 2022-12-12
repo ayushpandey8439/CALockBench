@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="sb7_lock"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/pandey/work/CALockBenchmarks/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sb7_lock">
+				<Option output="/Users/pandey/work/CALockBenchmarks/cmake-build-debug/sb7_lock" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/pandey/work/CALockBenchmarks/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 sb7_lock"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sb7_lock/fast">
+				<Option output="/Users/pandey/work/CALockBenchmarks/cmake-build-debug/sb7_lock" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/pandey/work/CALockBenchmarks/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 sb7_lock/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/pandey/work/CALockBenchmarks/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/pandey/work/CALockBenchmarks/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/pandey/work/CALockBenchmarks/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/CArelabelling.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/CArelabelling.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/DomRelabelling.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/DomRelabelling.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/benchmark.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/benchmark.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/data_holder.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/data_holder.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/helpers.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/helpers.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/id_pool.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/id_pool.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/interval.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/interval.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/intervalAssignment.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/intervalAssignment.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/labelAssignmentTest.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/labelAssignmentTest.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/labelAssignmentTraversal.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/labelAssignmentTraversal.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/lockPool.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/lockPool.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/lscaHelpers.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/lscaHelpers.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/operation_ops_ca.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/operation_ops_ca.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/query_ops_ca.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/query_ops_ca.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/structural_modification_ops_ca.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/structural_modification_ops_ca.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/traversal_ops_ca.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_ca/traversal_ops_ca.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/lock_srv_lc.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/lock_srv_lc.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/operation_ops_lc.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/operation_ops_lc.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/query_ops_lc.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/query_ops_lc.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/short_traversal_ops_lc.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/short_traversal_ops_lc.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/structural_modification_ops_lc.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/structural_modification_ops_lc.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/traversal_ops_lc.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_coarse/traversal_ops_lc.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/operation_ops_dom.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/operation_ops_dom.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/query_ops_dom.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/query_ops_dom.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/short_traversal_ops_dom.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/short_traversal_ops_dom.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/structural_modification_ops_dom.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/structural_modification_ops_dom.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/traversal_ops_dom.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_domLock/traversal_ops_dom.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/lock_srv_lm.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/lock_srv_lm.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/operation_ops_lm.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/operation_ops_lm.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/query_ops_lm.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/query_ops_lm.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/short_traversal_ops_lm.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/short_traversal_ops_lm.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/structural_modification_ops_lm.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/structural_modification_ops_lm.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/traversal_ops_lm.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/locking_medium/traversal_ops_lm.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/operations.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/operations/operations.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/parameters.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/parameters.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/random.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/random.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/randomc/mersenne.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/sb7_lock.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/assembly.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/assembly.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/atomic_part.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/atomic_part.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/composite_part.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/composite_part.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/design_obj.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/design_obj.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/document.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/document.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/manual.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/struct/manual.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/thread/thread.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/thread/thread.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/thread/thread_fun.cpp">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/src/thread/thread_fun.h">
+			<Option target="sb7_lock"/>
+		</Unit>
+		<Unit filename="/Users/pandey/work/CALockBenchmarks/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

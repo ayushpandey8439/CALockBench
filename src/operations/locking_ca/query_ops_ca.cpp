@@ -34,18 +34,19 @@ int sb7::CAQuery1::innerRun(int tid) const {
         AtomicPart * a = query.val;
         if(string(name)=="Q1"){
             auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 0);
-            if(pool.acquireLock(l, tid)) {
-                performOperationOnAtomicPart(query.val);
-                count++;
-                pool.releaseLock(l,tid);
-            }
+            pool.acquireLock(l, tid);
+            performOperationOnAtomicPart(query.val);
+            count++;
+            pool.releaseLock(tid);
+            delete l;
         }
         else if(string(name) == "OP9"|| string(name) == "OP15") {
             auto * l= new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
             if(pool.acquireLock(l, tid)) {
                 performOperationOnAtomicPart(query.val);
                 count++;
-                pool.releaseLock(l,tid);
+                pool.releaseLock(tid);
+                delete l;
             }
         }
     } else {

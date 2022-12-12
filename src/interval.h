@@ -19,7 +19,7 @@ class interval{
 public: double pre, post;
     int mode;
     long MySeq;
-    interval( double a, double b, int m){
+    interval( long a, long b, int m){
         pre = a; post = b; mode = m;
     }
 };

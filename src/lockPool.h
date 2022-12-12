@@ -13,6 +13,8 @@
 #include "iostream"
 #include "parameters.h"
 #include <algorithm>
+#include <mutex>              // std::mutex, std::unique_lock
+#include <condition_variable> // std::condition_variable
 
 #define SIZE 32
 using namespace std;
@@ -27,8 +29,8 @@ public:
     int mode;
     long Oseq;
 
-    lockObject(int Id, unordered_set<int> * ancestors, int m){
-        Id = Id;
+    lockObject(int pId, unordered_set<int> * ancestors, int m){
+        Id = pId;
         criticalAncestors = ancestors;
         mode = m;
         Oseq=-1;
@@ -36,6 +38,7 @@ public:
 };
 
 class lockPool {
+    bool threadBlocking = false;
 public:
     pthread_mutex_t lockPoolLock;
     lockObject* locks[SIZE];
@@ -61,35 +64,39 @@ public:
         pthread_mutex_unlock(&lockPoolLock);
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
-            if(locks[i] != nullptr){
-                pthread_mutex_lock(&threadMutexes[i]);
+            /// A thread won't run into conflict with itself.
+            if(locks[i] != nullptr && i != threadID){
                 lockObject * l = locks[i];
-                while(l!= nullptr &&
-                        // If a read lock is requested for an object that is read locked, only then allow it.
-                        (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
-                        // Someone else has requested a lock on my LSCA before me.
-                        (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
-                        // It isn't my turn to take the lock
-                        reqObj->Oseq > l->Oseq
-                    ){
-                        //cout<<reqObj->Oseq<<endl;
-                        pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
-                        //cout<<waitStatus<<" On " <<threadID<<endl;
-                        l=locks[i];
-                    }
-                pthread_mutex_unlock(&threadMutexes[i]);
+                if(threadBlocking) pthread_mutex_lock(&threadMutexes[i]);
+                while (l!= nullptr &&
+                     /// If a read lock is requested for an object that is read locked, only then allow it.
+                     (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
+                     /// Someone else has requested a lock on my LSCA before me.
+                     (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
+                     /// It isn't my turn to take the lock
+                     reqObj->Oseq > l->Oseq)
+                {
+                    //cout<<l->Id << " "<< l->Oseq<<endl;
+                    //cout<<reqObj->Oseq<<endl;
+                   // int waitStatus = pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
+                    //cout<<waitStatus<<" On " <<threadID<<endl;
+                    if(threadBlocking) pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
+                    l=locks[i];
+                }
+                if(threadBlocking) pthread_mutex_unlock(&threadMutexes[i]);
             }
         }
         return true;
     }
 
-    void releaseLock(lockObject* l, int threadId){
-        pthread_mutex_lock(&threadMutexes[threadId]);
+    void releaseLock(int threadId){
+        if(threadBlocking)  pthread_mutex_lock(&threadMutexes[threadId]);
+        //cout<<threadId<<" releasing lock"<<endl;
         locks[threadId] = nullptr;
-        pthread_mutex_unlock(&threadMutexes[threadId]);
-        pthread_cond_broadcast(&threadConditions[threadId]);
-
-
+        if(threadBlocking){
+            pthread_mutex_unlock(&threadMutexes[threadId]);
+            pthread_cond_broadcast(&threadConditions[threadId]);
+        }
     }
 
     list<int> addToLockRequest(DataHolder*dh, list<int>  lockRequest, list<int> label){
