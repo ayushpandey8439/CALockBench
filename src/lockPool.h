@@ -38,21 +38,22 @@ public:
 };
 
 class lockPool {
-    bool threadBlocking = false;
 public:
     pthread_mutex_t lockPoolLock;
     lockObject* locks[SIZE];
-    pthread_mutex_t threadMutexes[SIZE];
-    pthread_cond_t threadConditions[SIZE];
+    mutex threadMutexes[SIZE];
+    condition_variable threadConditions[SIZE];
     long Gseq;
+    ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
+    //bool blockingAllowed = parameters.threadBlockingAllowed();
 
     lockPool(){
         Gseq = 0;
         for(int i=0; i<SIZE;i++)
         {
             locks[i] = nullptr;
-            threadMutexes[i] = PTHREAD_MUTEX_INITIALIZER;
-            threadConditions[i] = PTHREAD_COND_INITIALIZER;
+//            threadMutexes[i] = PTHREAD_MUTEX_INITIALIZER;
+//            threadConditions[i] = PTHREAD_COND_INITIALIZER;
         }
     }
 
@@ -66,37 +67,44 @@ public:
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
             if(locks[i] != nullptr && i != threadID){
-                lockObject * l = locks[i];
-                if(threadBlocking) pthread_mutex_lock(&threadMutexes[i]);
-                while (l!= nullptr &&
-                     /// If a read lock is requested for an object that is read locked, only then allow it.
-                     (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
-                     /// Someone else has requested a lock on my LSCA before me.
-                     (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
-                     /// It isn't my turn to take the lock
-                     reqObj->Oseq > l->Oseq)
-                {
-                    //cout<<l->Id << " "<< l->Oseq<<endl;
-                    //cout<<reqObj->Oseq<<endl;
-                   // int waitStatus = pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
-                    //cout<<waitStatus<<" On " <<threadID<<endl;
-                    if(threadBlocking) pthread_cond_wait(&threadConditions[i], &threadMutexes[i]);
-                    l=locks[i];
-                }
-                if(threadBlocking) pthread_mutex_unlock(&threadMutexes[i]);
+                std::unique_lock<std::mutex> lck(threadMutexes[i]);
+                /// wait only allows treads to progress if the predicate is true.
+                threadConditions[i].wait(lck, [this, i, threadID]{return (locks[i]== nullptr ||
+                                                 /// Read vs Read is not a conflict
+                                                 (locks[threadID]->mode == 0 &&  locks[i]->mode == 0) ||
+                                                 /// The hierarchies do not overlap
+                                                 (locks[threadID]->Id != locks[i]->Id && !lscaHelpers::hasCriticalAncestor(locks[threadID]->criticalAncestors, locks[i]->Id)) ||
+                                                 /// If all else fails, then at least it should be my turn.
+                                                 locks[threadID]->Oseq <= locks[i]->Oseq);});
+//                while (l!= nullptr &&
+//                     l->Oseq!=0 &&
+//                     /// If a read lock is requested for an object that is read locked, only then allow it.
+//                     (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
+//                     /// Someone else has requested a lock on my LSCA before me.
+//                     (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
+//                     /// It isn't my turn to take the lock
+//                     reqObj->Oseq > l->Oseq)
+//                {
+//                    //cout<<l<<"    "<< locks[i]<<endl;
+//                    cout<<"Same object lock? " <<(reqObj->Id == l->Id) <<endl;
+//                    if(parameters.threadBlockingAllowed()){
+//                        //pthread_cond_broadcast(&threadConditions[i]);
+//                        threadConditions->wait(threadMutexes[i], true);
+//                        //cout<<waitStatus<<" On " <<threadID<<endl;
+//                    }
+//                    l=locks[i];
+//                }
+//                if(parameters.threadBlockingAllowed()) pthread_mutex_unlock(&threadMutexes[i]);
             }
         }
         return true;
     }
 
-    void releaseLock(int threadId){
-        if(threadBlocking)  pthread_mutex_lock(&threadMutexes[threadId]);
-        //cout<<threadId<<" releasing lock"<<endl;
+    void releaseLock(lockObject *l, int threadId){
+        std::lock_guard<std::mutex> lck(threadMutexes[threadId]);
         locks[threadId] = nullptr;
-        if(threadBlocking){
-            pthread_mutex_unlock(&threadMutexes[threadId]);
-            pthread_cond_broadcast(&threadConditions[threadId]);
-        }
+        delete l;
+        threadConditions[threadId].notify_all();
     }
 
     list<int> addToLockRequest(DataHolder*dh, list<int>  lockRequest, list<int> label){

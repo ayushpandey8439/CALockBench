@@ -24,6 +24,6 @@ CPPFLAGS_debug   =  -ggdb -O0
 CPPFLAGS_gp0     =  -ggdb -pg -O0
 CPPFLAGS_gp      =  -ggdb -pg -O3
 ifeq ($(PROFILE), )
-    PROFILE = normal
+    PROFILE = fast
 endif
 CPPFLAGS += $(CPPFLAGS_${PROFILE})

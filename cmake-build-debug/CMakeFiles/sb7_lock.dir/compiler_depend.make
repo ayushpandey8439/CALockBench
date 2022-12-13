@@ -12762,7 +12762,8 @@ CMakeFiles/sb7_lock.dir/src/operations/locking_medium/query_ops_lm.cpp.o: ../src
   ../src/randomc/randomc.h \
   ../src/helpers.h \
   ../src/parameters.h \
-  ../src/operations/locking_medium/lock_srv_lm.h
+  ../src/operations/locking_medium/lock_srv_lm.h \
+  ../src/sb7_exception.h
 
 CMakeFiles/sb7_lock.dir/src/operations/locking_medium/short_traversal_ops_lm.cpp.o: ../src/operations/locking_medium/short_traversal_ops_lm.cpp \
   ../src/operations/locking_medium/short_traversal_ops_lm.h \

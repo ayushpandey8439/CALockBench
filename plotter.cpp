@@ -41,7 +41,7 @@ int main()
             dom_file>>domval;
             c+=cval;m+=mval;ca+=caval;dom+=domval;
         }
-        output<<c/Iterations<<"   "<<m/Iterations<<"   "<<ca/Iterations<<"   "<<dom/Iterations<<"\n";
+        output<<c/Iterations<<"   "<<m/Iterations<<"   "<<dom/Iterations<<"   "<<ca/Iterations<<"\n";
     }
 
     c_file.close();

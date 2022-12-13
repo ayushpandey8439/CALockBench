@@ -6,6 +6,7 @@
 #include "../../struct/assembly.h"
 #include "lock_srv_lm.h"
 #include "../../thread/thread.h"
+#include "../../sb7_exception.h"
 
 ////////////
 // Query1 //
@@ -33,6 +34,8 @@ int sb7::LMQuery1::innerRun(int tid) const {
     if(query.found) {
         performOperationOnAtomicPart(query.val);
         count++;
+    } else {
+        throw Sb7Exception();
     }
 	return count;
 }

@@ -81,6 +81,7 @@ namespace sb7 {
         static const double MAX_TO_INITIAL_RATIO;
 
         static const lock_type DEFAULT_LOCK_TYPE;
+        static const bool DEFAULT_THREAD_BLOCKING;
 
     protected:
         int numAtomicPerComp;
@@ -141,6 +142,7 @@ namespace sb7 {
         std::string fileName;
 
         lock_type lockType;
+        bool threadBlocking;
 
     public:
         Parameters();
@@ -332,6 +334,10 @@ namespace sb7 {
 
         lock_type getLockType() const {
             return lockType;
+        }
+
+        bool threadBlockingAllowed() const {
+            return threadBlocking;
         }
 
         ////////////////////////////////////////////////////////////////
@@ -550,6 +556,10 @@ namespace sb7 {
             lockType = lt;
         }
 
+        void setThreadBlocking(bool t){
+            threadBlocking = t;
+        }
+
         ///////////////////////////////////////////
         // functions for initializing parameters //
         ///////////////////////////////////////////
@@ -598,6 +608,9 @@ namespace sb7 {
         bool fileNameSet;
         std::string fileName;
 
+        bool threadblockingSet;
+        bool threadBlocking;
+
         // printing help and exiting can be set only from command line
         bool printHelp;
 
@@ -624,6 +637,8 @@ namespace sb7 {
         bool experimentLengthSet;
         int experimentLength;
 
+
+
         bool sizeSet;
         enum {
             small = 0,
@@ -645,6 +660,7 @@ namespace sb7 {
             experimentLengthSet = false;
             sizeSet = false;
             lockTypeSet = false;
+            threadblockingSet = false;
         }
     };
 }

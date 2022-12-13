@@ -61,6 +61,7 @@ namespace sb7 {
 
     const Parameters::lock_type Parameters::DEFAULT_LOCK_TYPE =
             Parameters::lock_coarse;
+    const bool Parameters::DEFAULT_THREAD_BLOCKING = false;
 
     Parameters parameters;
 }
@@ -193,6 +194,7 @@ void sb7::Parameters::initDefault() {
     setFileName(DEFAULT_FILE_NAME);
 
     setLockType(DEFAULT_LOCK_TYPE);
+    setThreadBlocking(DEFAULT_THREAD_BLOCKING);
 }
 
 void sb7::Parameters::print(std::ostream &out) const {
@@ -288,6 +290,7 @@ void sb7::Parameters::print(std::ostream &out) const {
 #define EXPERIMENT_DURATION_KEY "experimentDuration"
 #define SIZE_KEY "size"
 #define LOCK_TYPE_KEY "lockType"
+#define THREAD_BLOCKING "threadBlocking"
 
 void sb7::Parameters::parseCommandLine(int argc, char **argv,
                                        ConfigParameters &configParams) {
@@ -302,12 +305,13 @@ void sb7::Parameters::parseCommandLine(int argc, char **argv,
             {EXPERIMENT_DURATION_KEY,      1, nullptr, 'd'},
             {SIZE_KEY,                     1, nullptr, 's'},
             {LOCK_TYPE_KEY,                1, nullptr, 'l'},
+            {THREAD_BLOCKING,                1, nullptr, 'b'},
             {nullptr,                            0, nullptr, 0}
     };
 
     while (true) {
         int option_index;
-        int c = getopt_long(argc, argv, "f:?p:w:t:m:n:d:s:l:",
+        int c = getopt_long(argc, argv, "f:?p:w:t:m:n:d:s:l:b:",
                             long_options, &option_index);
 
         if (c == -1) {
@@ -464,6 +468,22 @@ void sb7::Parameters::parseCommandLine(int argc, char **argv,
                                  "Ignoring." << std::endl;
                 }
                 break;
+            case 'b':
+                if (optarg) {
+                    std::string t(optarg);
+
+                    if (t == "y") {
+                        configParams.threadblockingSet = true;
+                        configParams.threadBlocking = true;
+                    } else {
+                        configParams.threadblockingSet = true;
+                        configParams.threadBlocking = false;
+                    }
+                } else {
+                    std::cout << "Thread blocking parameter without value. "
+                                 "Ignoring." << std::endl;
+                }
+                break;
             default:
                 std::cout << "Unknown parameter. Ignoring." << std::endl;
                 break;
@@ -614,7 +634,17 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
                 configParams.lockTypeSet = true;
                 configParams.lockType = (Parameters::lock_type) lockType;
             }
-        } else {
+        } else if (equalNoCase(key, THREAD_BLOCKING)) {
+            if (val == "y") {
+                configParams.threadblockingSet = true;
+                configParams.threadBlocking = true;
+                std::cout << "Lock type parameter has "
+                             "wrong value. Ignoring." << std::endl;
+            } else {
+                configParams.threadblockingSet = true;
+                configParams.threadBlocking = false;
+            }
+        }else {
             std::cout << "Unknown parameter at line " << lineNo
                       << ". Ignoring." << std::endl;
         }
@@ -694,6 +724,10 @@ void sb7::Parameters::applyParameters(ConfigParameters &configParams) {
 
     if (configParams.lockTypeSet) {
         lockType = configParams.lockType;
+    }
+
+    if (configParams.threadblockingSet) {
+        threadBlocking = configParams.threadBlocking;
     }
 }
 

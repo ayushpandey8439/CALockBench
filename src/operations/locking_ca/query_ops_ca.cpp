@@ -37,16 +37,14 @@ int sb7::CAQuery1::innerRun(int tid) const {
             pool.acquireLock(l, tid);
             performOperationOnAtomicPart(query.val);
             count++;
-            pool.releaseLock(tid);
-            delete l;
+            pool.releaseLock(l, tid);
         }
         else if(string(name) == "OP9"|| string(name) == "OP15") {
             auto * l= new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
             if(pool.acquireLock(l, tid)) {
                 performOperationOnAtomicPart(query.val);
                 count++;
-                pool.releaseLock(tid);
-                delete l;
+                pool.releaseLock(l, tid);
             }
         }
     } else {

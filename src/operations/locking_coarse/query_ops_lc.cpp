@@ -30,6 +30,7 @@ int sb7::LCQuery1::innerRun(int tid) const {
     apartInd->get(query);
 
     if(query.found) {
+        //cout<<".";
         performOperationOnAtomicPart(query.val);
         count++;
     } else {
