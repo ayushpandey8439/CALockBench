@@ -7,7 +7,6 @@
 #include <set>
 #include <string>
 #include <thread>         // std::thread
-#include <shared_mutex>
 #include "data_holder.h"
 #include "lscaHelpers.h"
 #include "iostream"
@@ -67,34 +66,33 @@ public:
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
             if(locks[i] != nullptr && i != threadID){
-                std::unique_lock<std::mutex> lck(threadMutexes[i]);
-                /// wait only allows treads to progress if the predicate is true.
-                threadConditions[i].wait(lck, [this, i, threadID]{return (locks[i]== nullptr ||
-                                                 /// Read vs Read is not a conflict
-                                                 (locks[threadID]->mode == 0 &&  locks[i]->mode == 0) ||
-                                                 /// The hierarchies do not overlap
-                                                 (locks[threadID]->Id != locks[i]->Id && !lscaHelpers::hasCriticalAncestor(locks[threadID]->criticalAncestors, locks[i]->Id)) ||
-                                                 /// If all else fails, then at least it should be my turn.
-                                                 locks[threadID]->Oseq <= locks[i]->Oseq);});
-//                while (l!= nullptr &&
-//                     l->Oseq!=0 &&
-//                     /// If a read lock is requested for an object that is read locked, only then allow it.
-//                     (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
-//                     /// Someone else has requested a lock on my LSCA before me.
-//                     (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
-//                     /// It isn't my turn to take the lock
-//                     reqObj->Oseq > l->Oseq)
-//                {
-//                    //cout<<l<<"    "<< locks[i]<<endl;
-//                    cout<<"Same object lock? " <<(reqObj->Id == l->Id) <<endl;
-//                    if(parameters.threadBlockingAllowed()){
-//                        //pthread_cond_broadcast(&threadConditions[i]);
-//                        threadConditions->wait(threadMutexes[i], true);
-//                        //cout<<waitStatus<<" On " <<threadID<<endl;
-//                    }
-//                    l=locks[i];
-//                }
-//                if(parameters.threadBlockingAllowed()) pthread_mutex_unlock(&threadMutexes[i]);
+                if(parameters.threadBlockingAllowed()) {
+                    /// Threads are blocked until the condition is true;
+                    std::unique_lock<std::mutex> lck(threadMutexes[i]);
+                    /// wait only allows treads to progress if the predicate is true.
+                    threadConditions[i].wait(lck, [this, i, threadID] {
+                        return (locks[i] == nullptr ||
+                                /// Read vs Read is not a conflict
+                                (locks[threadID]->mode == 0 && locks[i]->mode == 0) ||
+                                /// The hierarchies do not overlap
+                                (locks[threadID]->Id != locks[i]->Id &&
+                                 !lscaHelpers::hasCriticalAncestor(locks[threadID]->criticalAncestors, locks[i]->Id)) ||
+                                /// If all else fails, then at least it should be my turn.
+                                locks[threadID]->Oseq <= locks[i]->Oseq);
+                    });
+                } else {
+                    /// Spin waiting on the condition.
+                    auto * l = locks[i];
+                    while (l!= nullptr &&
+                     /// If a read lock is requested for an object that is read locked, only then allow it.
+                     (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
+                     /// Someone else has requested a lock on my LSCA before me.
+                     (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
+                     /// It isn't my turn to take the lock
+                     reqObj->Oseq > l->Oseq) {
+                        l=locks[i];
+                    }
+                }
             }
         }
         return true;

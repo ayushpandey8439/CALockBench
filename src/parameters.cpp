@@ -225,6 +225,7 @@ void sb7::Parameters::print(std::ostream &out) const {
         boolToStr(reportTtcHistograms) << std::endl;
 
     out << "LockType " << lockTypeToStr(lockType) << std::endl;
+    out << "ThreadBlocking " << threadBlocking << std::endl;
 
     if (verboseLevel >= 2) {
         out << "ConnectionsPerAtomicPart " << numConnPerAtomic << std::endl;

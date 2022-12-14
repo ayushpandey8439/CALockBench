@@ -71,6 +71,7 @@ int sb7::WorkerThreadData::getOperationRndInd() const {
     while (opRat[opind] < oprnd) {
         opind++;
     }
+    cout<<opind<<endl;
 
     return opind;
 }

@@ -18,12 +18,12 @@ TARGET_DOCS_DIR = ./target/docs
 
 ########################################
 # set the build profile (default=normal)
-CPPFLAGS_normal  =  -ggdb -O3
+CPPFLAGS_normal  =  -ggdb -O2
 CPPFLAGS_fast    =  -DNDEBUG -O3
 CPPFLAGS_debug   =  -ggdb -O0
 CPPFLAGS_gp0     =  -ggdb -pg -O0
 CPPFLAGS_gp      =  -ggdb -pg -O3
 ifeq ($(PROFILE), )
-    PROFILE = fast
+    PROFILE = debug
 endif
 CPPFLAGS += $(CPPFLAGS_${PROFILE})

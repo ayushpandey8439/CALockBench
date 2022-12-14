@@ -622,7 +622,7 @@ namespace sb7 {
         enum {
             read_dominated = 0,
             read_write,
-            write_dominated
+            write_dominated,
         } workloadType;
 
         bool traversalsEnabledSet;
