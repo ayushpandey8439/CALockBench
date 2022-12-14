@@ -46,10 +46,6 @@ public:
     //Sequence number per thread for fairness and less contention
     int MySeq[S];
 
-
-    class mutex threadMutexes[S];
-    condition_variable threadConditions[S];
-
     //*****************************************************************************
     //Constructor for initialization of class variables
     //*****************************************************************************
@@ -80,22 +76,14 @@ public:
         {
             if(Array[i] != nullptr)
             {
-                if(sb7:: parameters.threadBlockingAllowed()) {
-                    std::unique_lock<std::mutex> lck(threadMutexes[i]);
-                    threadConditions[i].wait(lck, [this, i, m, inv]{return !(Array[i] !=NULL &&
-                                                             (m == 1 || (m == 0 && Array[i]->mode == 1)) &&
-                                                             (Array[i]->pre <= inv->post && Array[i]->post >= inv->pre)
-                                                             && Array[i]->MySeq < inv->MySeq);});
-                } else {
-                    interval *ptr = Array[i];
-                    //wait untill there is an overlap and my sequence number is greater
-                    while(ptr !=NULL &&
-                          (m == 1 || (m == 0 && ptr->mode == 1)) &&
-                          (ptr->pre <= inv->post && ptr->post >= inv->pre)
-                          && ptr->MySeq < inv->MySeq)
-                    {
-                        ptr = Array[i];
-                    }
+                interval *ptr = Array[i];
+                //wait untill there is an overlap and my sequence number is greater
+                while(ptr !=NULL &&
+                      (m == 1 || (m == 0 && ptr->mode == 1)) &&
+                      (ptr->pre <= inv->post && ptr->post >= inv->pre)
+                      && ptr->MySeq < inv->MySeq)
+                {
+                    ptr = Array[i];
                 }
             }
         }

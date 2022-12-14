@@ -38,34 +38,32 @@ public:
 
 class lockPool {
 public:
-    pthread_mutex_t lockPoolLock;
+    mutex lockPoolLock;
     lockObject* locks[SIZE];
     mutex threadMutexes[SIZE];
     condition_variable threadConditions[SIZE];
-    long Gseq;
+    atomic<long> Gseq;
     ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
     //bool blockingAllowed = parameters.threadBlockingAllowed();
 
     lockPool(){
-        Gseq = 0;
+        Gseq = 1;
         for(int i=0; i<SIZE;i++)
         {
             locks[i] = nullptr;
-//            threadMutexes[i] = PTHREAD_MUTEX_INITIALIZER;
-//            threadConditions[i] = PTHREAD_COND_INITIALIZER;
         }
     }
 
 
     bool acquireLock(lockObject * reqObj, int threadID) {
-        pthread_mutex_lock(&lockPoolLock);
-        reqObj->Oseq = ++Gseq;
+        //lockPoolLock.lock();
+        reqObj->Oseq = Gseq.fetch_add(1);
         locks[threadID] = reqObj;
-        pthread_mutex_unlock(&lockPoolLock);
+        //lockPoolLock.unlock();
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
-            if(locks[i] != nullptr && i != threadID){
+            if(locks[i] != nullptr && i!= threadID){
                 if(parameters.threadBlockingAllowed()) {
                     /// Threads are blocked until the condition is true;
                     std::unique_lock<std::mutex> lck(threadMutexes[i]);
@@ -99,10 +97,13 @@ public:
     }
 
     void releaseLock(lockObject *l, int threadId){
-        std::lock_guard<std::mutex> lck(threadMutexes[threadId]);
+        if(parameters.threadBlockingAllowed()) threadMutexes[threadId].lock();
         locks[threadId] = nullptr;
         delete l;
-        threadConditions[threadId].notify_all();
+        if(parameters.threadBlockingAllowed()){
+            threadMutexes[threadId].unlock();
+            threadConditions[threadId].notify_all();
+        }
     }
 
     list<int> addToLockRequest(DataHolder*dh, list<int>  lockRequest, list<int> label){
