@@ -1,31 +1,10 @@
 
-951729.27
-916444.00
-909369.00
-952642.00
-912304.00
-1588070.93
-1553675.32
-1538074.00
-1571466.53
-1536643.00
-2497649.35
-2499767.23
-2526724.28
-2572979.02
-2512302.40
-2575573.43
-3483506.49
-2574242.00
-3500158.68
-2933786.21
-2396162.51
-2380374.25
-2343575.27
-2363591.41
-2479445.11
-1896706.47
-1840906.56
-1872479.60
-1875467.66
-1852965.17
+Total throughput: 1337858.71 op/s  (1419131.34 op/s including failed)
+Total throughput: 1335614.39 op/s  (1416750.25 op/s including failed)
+Total throughput: 1326753.23 op/s  (1407352.24 op/s including failed)
+Total throughput: 1178772.91 op/s  (1250379.48 op/s including failed)
+Total throughput: 1258118.41 op/s  (1334546.27 op/s including failed)
+Total throughput: 2142334.00 op/s  (2272476.14 op/s including failed)
+Total throughput: 2132012.94 op/s  (2261525.37 op/s including failed)
+Total throughput: 2367805.97 op/s  (2511644.78 op/s including failed)
+Total throughput: 2354723.66 op/s  (2497764.41 op/s including failed)

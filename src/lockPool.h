@@ -17,7 +17,7 @@
 #include "atomic"
 #include "memory"
 
-#define SIZE 32
+#define SIZE 256
 using namespace std;
 using namespace sb7;
 

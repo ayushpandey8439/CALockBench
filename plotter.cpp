@@ -14,22 +14,22 @@ int main()
     ifstream dom_file("./benchmarkResults/dom.txt");
     //ifstream no_file("./nl.txt");
     //ifstream b_file("./stmbench7 baseline.c++/sb7_lock/baseline.txt");
-    ofstream output("./benchmarkResults/Results.txt");
+    ofstream output("./benchmarkResults/Results.csv");
 
     output<<"******************************************************\n";
     output<<"Each column represent throughput with particular locking technique\n";
     //output<<"Column 1: NoLock\n";
     output<<"Column 1: Coarse-grain lock\n";
     output<<"Column 2: Medium-grain lock\n";
-    output<<"Column 3: CALock\n";
     output<<"Column 4: Domlock\n";
+    output<<"Column 3: CALock\n";
 
     //output<<"Column 4: NoSync\n";
     output<<"X-axis of graph is number of threads from 1 to 32 in power of 2's and Y-axis is the throughput value\n\n";
 
     int Iterations = 5;
 
-    for(int i=0;i<6;i++)
+    for(int i=0;i<9;i++)
     {
         int c=0,m=0,ca=0,dom=0;
         for(int j=0;j<Iterations;j++)
@@ -41,7 +41,7 @@ int main()
             dom_file>>domval;
             c+=cval;m+=mval;ca+=caval;dom+=domval;
         }
-        output<<c/Iterations<<"   "<<m/Iterations<<"   "<<dom/Iterations<<"   "<<ca/Iterations<<"\n";
+        output<<c/Iterations<<","<<m/Iterations<<","<<dom/Iterations<<","<<ca/Iterations<<"\n";
     }
 
     c_file.close();

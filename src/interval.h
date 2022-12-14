@@ -17,7 +17,7 @@
 using namespace std;
 
 
-#define S 40
+#define S 256
 #define leafNodes = 300;
 class interval{
 
