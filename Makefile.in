@@ -14,7 +14,7 @@ OBJ_DIR = ./target/obj
 TARGET_DOCS_DIR = ./target/docs
 
 
-
+LDFLAGS= -lpthread
 
 ########################################
 # set the build profile (default=normal)
