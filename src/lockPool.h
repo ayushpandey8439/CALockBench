@@ -42,7 +42,7 @@ public:
     lockObject* locks[SIZE];
     mutex threadMutexes[SIZE];
     condition_variable threadConditions[SIZE];
-    std::atomic<long> Gseq;
+    std::atomic<long int> Gseq;
     ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
     //bool blockingAllowed = parameters.threadBlockingAllowed();
 
