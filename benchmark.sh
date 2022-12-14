@@ -1,7 +1,7 @@
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
-BLOCKING=n
+BLOCKING=y
 LOAD_TYPE=
 READ_ONLY_PERCENT=100
 DURATION=2000
