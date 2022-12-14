@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <mutex>              // std::mutex, std::unique_lock
 #include <condition_variable> // std::condition_variable
+#include "atomic"
+#include "memory"
 
 #define SIZE 32
 using namespace std;
