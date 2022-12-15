@@ -45,8 +45,8 @@ int sb7::CAStructuralModification2::run(int tid) const {
     Bag<BaseAssembly *> *bassmBag = cpart->getUsedIn();
     BagIterator<BaseAssembly *> iter = bassmBag->getIter();
 
-//    auto * l = new lockObject(cpart->getLabellingId(), cpart->criticalAncestors, 1);
-//    if(pool.acquireLock(l, tid)) {
+//    lockObject l (cpart->getLabellingId(), &cpart->criticalAncestors, 1);
+//    if(pool.acquireLock(&l, tid)) {
 //        //// Between when the lock was acquired and the actual deletion happens,
 //        /// If some other thread races to delete this object, Then, deleting will raise an exception.
 //        /// We can solve this by taking two stage locks where the first lock is a read lock on the object which
@@ -54,7 +54,7 @@ int sb7::CAStructuralModification2::run(int tid) const {
 //        if(cpart->hasLabel){
 //            dataHolder->deleteCompositePart(cpart);
 //        }
-//        pool.releaseLock(l,tid);
+//        pool.releaseLock(&l,tid);
 //    }
     return 0;
 }

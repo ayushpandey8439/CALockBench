@@ -96,7 +96,8 @@ public:
                      /// Someone else has requested a lock on my LSCA before me.
                      (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
                      /// It isn't my turn to take the lock
-                     reqObj->Oseq > l->Oseq) {
+                     (reqObj->Oseq > l->Oseq || l->Oseq==-1)) {
+                        this_thread::yield();
                         l=locks[i];
                     }
                 }
@@ -110,12 +111,10 @@ public:
             {
                 std::lock_guard<std::mutex> lk (threadMutexes[threadId]);
                 locks[threadId] = nullptr;
-                delete l;
             }
             threadConditions[threadId].notify_all();
         } else {
             locks[threadId] = nullptr;
-            delete l;
         }
     }
 

@@ -149,7 +149,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
 //    ops.push_back(new LMOperation6(dh));
 //    ops.push_back(new LMOperation7(dh));
 //    ops.push_back(new LMOperation8(dh));
-    ops.push_back(new LMOperation9(dh));
+//    ops.push_back(new LMOperation9(dh));
     //ops.push_back(new LMOperation10(dh));
 //    ops.push_back(new LMOperation11(dh)); Traversal operation
 //    ops.push_back(new LMOperation12(dh));
@@ -158,7 +158,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
 //    ops.push_back(new LMOperation15(dh)); Index update
 //
 //    ops.push_back(new LMStructuralModification1(dh)); Node creation
-//    ops.push_back(new LMStructuralModification2(dh));// Node creation
+    ops.push_back(new LMStructuralModification2(dh));// Node creation
 //    ops.push_back(new LMStructuralModification3(dh));
 //    ops.push_back(new LMStructuralModification4(dh));
 //    ops.push_back(new LMStructuralModification5(dh));
