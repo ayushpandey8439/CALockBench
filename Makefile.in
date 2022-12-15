@@ -17,8 +17,8 @@ TARGET_DOCS_DIR = ./target/docs
 
 LDFLAGS = $(LDFLAGS_$(UNAME))
 
-LDFLAGS_LINUX= -lrt -lpthread
-LDFLAGS_DARWIN= -lpthread
+LDFLAGS_Linux= -lrt -lpthread
+LDFLAGS_Darwin=
 MFLAGS = -j2
 
 ########################################

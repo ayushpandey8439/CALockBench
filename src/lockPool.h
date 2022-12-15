@@ -56,6 +56,24 @@ public:
         }
     }
 
+    void waitResolve(int i, int threadID){
+        /// Threads are blocked until the condition is true;
+        abc:
+        std::unique_lock<std::mutex> ul (threadMutexes[i]);
+        bool waitstatus = threadConditions[i].wait_for(ul,1ms, [this, i, threadID] {
+            return (locks[i] == nullptr ||
+                    /// Read vs Read is not a conflict
+                    (locks[threadID]->mode == 0 && locks[i]->mode == 0) ||
+                    /// The hierarchies do not overlap
+                    (locks[threadID]->Id != locks[i]->Id &&
+                     !lscaHelpers::hasCriticalAncestor(locks[threadID]->criticalAncestors, locks[i]->Id)) ||
+                    /// If all else fails, then at least it should be my turn.
+                    locks[threadID]->Oseq <= locks[i]->Oseq);
+        });
+        if(!waitstatus) {
+            goto abc;
+        }
+    }
 
     bool acquireLock(lockObject * reqObj, int threadID) {
         lockPoolLock.lock();
@@ -68,21 +86,7 @@ public:
             /// A thread won't run into conflict with itself.
             if(locks[i] != nullptr && i!= threadID){
                 if(parameters.threadBlockingAllowed()) {
-                    /// Threads are blocked until the condition is true;
-                    std::unique_lock<std::mutex> lck(threadMutexes[i]);
-                    /// wait only allows treads to progress if the predicate is true.
-                    threadConditions[i].wait(lck, [this, i, threadID] {
-                        return (locks[i] == nullptr ||
-                                /// Read vs Read is not a conflict
-                                (locks[threadID]->mode == 0 && locks[i]->mode == 0) ||
-                                /// The hierarchies do not overlap
-                                (locks[threadID]->Id != locks[i]->Id &&
-                                 !lscaHelpers::hasCriticalAncestor(locks[threadID]->criticalAncestors, locks[i]->Id)) ||
-                                /// If all else fails, then at least it should be my turn.
-                                /// If seq is -1, then the request object was just inserted and might be
-                                /// in the process of fetching it's sequence. This might be a conflict, so i wait
-                                locks[threadID]->Oseq <= locks[i]->Oseq);
-                    });
+                    waitResolve(i, threadID);
                 } else {
                     /// Spin waiting on the condition.
                     auto * l = locks[i];
@@ -102,12 +106,16 @@ public:
     }
 
     void releaseLock(lockObject *l, int threadId){
-        if(parameters.threadBlockingAllowed()) threadMutexes[threadId].lock();
-        locks[threadId] = nullptr;
-        delete l;
         if(parameters.threadBlockingAllowed()){
-            threadMutexes[threadId].unlock();
+            {
+                std::lock_guard<std::mutex> lk (threadMutexes[threadId]);
+                locks[threadId] = nullptr;
+                delete l;
+            }
             threadConditions[threadId].notify_all();
+        } else {
+            locks[threadId] = nullptr;
+            delete l;
         }
     }
 
