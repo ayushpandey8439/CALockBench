@@ -59,8 +59,9 @@ public:
 
     bool acquireLock(lockObject * reqObj, int threadID) {
         //lockPoolLock.lock();
-        reqObj->Oseq = Gseq.fetch_add(1);
         locks[threadID] = reqObj;
+        reqObj->Oseq = Gseq.fetch_add(1);
+        threadConditions[threadID].notify_all();
         //lockPoolLock.unlock();
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
@@ -78,7 +79,9 @@ public:
                                 (locks[threadID]->Id != locks[i]->Id &&
                                  !lscaHelpers::hasCriticalAncestor(locks[threadID]->criticalAncestors, locks[i]->Id)) ||
                                 /// If all else fails, then at least it should be my turn.
-                                locks[threadID]->Oseq <= locks[i]->Oseq);
+                                /// If seq is -1, then the request object was just inserted and might be
+                                /// in the process of fetching it's sequence. This might be a conflict, so i wait
+                                (locks[threadID]->Oseq <= locks[i]->Oseq && locks[threadID]->Oseq!=-1));
                     });
                 } else {
                     /// Spin waiting on the condition.
