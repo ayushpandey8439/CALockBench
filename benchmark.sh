@@ -1,7 +1,6 @@
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
-BLOCKING=y
 LOAD_TYPE=
 READ_ONLY_PERCENT=100
 DURATION=2000
@@ -12,10 +11,12 @@ STRUCTURAL_MODIFICATIONS=false
 #. ./scripts/script_coarse.sh
 #echo Benchmarking medium-grain locking......
 #. ./scripts/script_medium.sh
-echo Benchmarking CALock......
-. ./scripts/script_calock.sh
-#echo Benchmarking Domlock......
-#. ./scripts/script_domlock.sh
+echo Benchmarking CALock Blocking......
+. ./scripts/script_calock_blocking.sh
+echo Benchmarking CALock Spinning......
+. ./scripts/script_calock_spinning.sh
+echo Benchmarking Domlock......
+. ./scripts/script_domlock.sh
 pwd
 g++ plotter.cpp
 ./a.out

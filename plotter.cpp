@@ -10,10 +10,9 @@ int main()
 {
     ifstream c_file("./benchmarkResults/coarse.txt");
     ifstream m_file("./benchmarkResults/medium.txt");
-    ifstream ca_file("./benchmarkResults/ca.txt");
+    ifstream casp_file("./benchmarkResults/caspinning.txt");
+    ifstream cab_file("./benchmarkResults/cablocking.txt");
     ifstream dom_file("./benchmarkResults/dom.txt");
-    //ifstream no_file("./nl.txt");
-    //ifstream b_file("./stmbench7 baseline.c++/sb7_lock/baseline.txt");
     ofstream output("./benchmarkResults/Results.csv");
 
     output<<"******************************************************\n";
@@ -22,7 +21,8 @@ int main()
     output<<"Column 1: Coarse-grain lock\n";
     output<<"Column 2: Medium-grain lock\n";
     output<<"Column 4: Domlock\n";
-    output<<"Column 3: CALock\n";
+    output<<"Column 3: CALock Blocking\n";
+    output<<"Column 3: CALock Spinning\n";
 
     //output<<"Column 4: NoSync\n";
     output<<"X-axis of graph is number of threads from 1 to 32 in power of 2's and Y-axis is the throughput value\n\n";
@@ -31,22 +31,24 @@ int main()
 
     for(int i=0;i<9;i++)
     {
-        int c=0,m=0,ca=0,dom=0;
+        int c=0,m=0,cab=0,cas=0,dom=0;
         for(int j=0;j<Iterations;j++)
         {
-            double cval,mval,caval, domval;
+            double cval,mval,cabval,caspval, domval;
             c_file>>cval;
             m_file>>mval;
-            ca_file>>caval;
+            cab_file>>cabval;
             dom_file>>domval;
-            c+=cval;m+=mval;ca+=caval;dom+=domval;
+            casp_file>>caspval;
+            c+=cval;m+=mval;cab+=cabval;cas+=caspval;dom+=domval;
         }
-        output<<c/Iterations<<","<<m/Iterations<<","<<dom/Iterations<<","<<ca/Iterations<<"\n";
+        output<<c/Iterations<<","<<m/Iterations<<","<<dom/Iterations<<","<<cab/Iterations<<","<<cas/Iterations<<"\n";
     }
 
     c_file.close();
     m_file.close();
-    ca_file.close();
+    casp_file.close();
+    cab_file.close();
     dom_file.close();
     //b_file.close();
     output.close();
