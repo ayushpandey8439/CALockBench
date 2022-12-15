@@ -44,12 +44,12 @@ public:
     lockObject* locks[SIZE];
     mutex threadMutexes[SIZE];
     condition_variable threadConditions[SIZE];
-    std::atomic<long int> Gseq;
+    long int Gseq;
     ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
     //bool blockingAllowed = parameters.threadBlockingAllowed();
 
     lockPool(){
-        Gseq = 1;
+        Gseq = 0;
         for(int i=0; i<SIZE;i++)
         {
             locks[i] = nullptr;
@@ -58,11 +58,11 @@ public:
 
 
     bool acquireLock(lockObject * reqObj, int threadID) {
-        //lockPoolLock.lock();
+        lockPoolLock.lock();
         locks[threadID] = reqObj;
-        reqObj->Oseq = Gseq.fetch_add(1);
-        threadConditions[threadID].notify_all();
-        //lockPoolLock.unlock();
+        locks[threadID]->Oseq = ++Gseq;
+        //threadConditions[threadID].notify_all();
+        lockPoolLock.unlock();
         //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
@@ -81,7 +81,7 @@ public:
                                 /// If all else fails, then at least it should be my turn.
                                 /// If seq is -1, then the request object was just inserted and might be
                                 /// in the process of fetching it's sequence. This might be a conflict, so i wait
-                                (locks[threadID]->Oseq <= locks[i]->Oseq && locks[threadID]->Oseq!=-1));
+                                locks[threadID]->Oseq <= locks[i]->Oseq);
                     });
                 } else {
                     /// Spin waiting on the condition.
