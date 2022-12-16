@@ -181,9 +181,11 @@ int sb7::CAOperation8::innerRun(int tid) const {
             cparts.push_back(cpart);
             lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart->pathLabel);
         }
-
     }
 
+    if(lockRequest.empty()){
+        throw Sb7Exception();
+    }
     DesignObj* d = lscaHelpers::getLockObject(lockRequest, dataHolder);
 
     lockObject l (d->getLabellingId(), &d->criticalAncestors, 0);

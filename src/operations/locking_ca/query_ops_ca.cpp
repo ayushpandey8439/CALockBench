@@ -48,7 +48,7 @@ int sb7::CAQuery1::innerRun(int tid) const {
         }
     } else {
         //cout<<"found without label"<<endl;
-        Sb7Exception();
+        throw Sb7Exception();
     }
     return count;
 }
