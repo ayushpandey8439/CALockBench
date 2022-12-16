@@ -83,18 +83,28 @@ int sb7::CAQuery2::innerRun(int tid) const {
     while (iter.has_next()) {
         Set<AtomicPart *> *apartSet = iter.next();
         SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-
+        vector<AtomicPart*> aparts;
+        list<int> lockRequest;
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
-                lockObject l (apart->getLabellingId(), &apart->criticalAncestors, 0);
-                if(pool.acquireLock(&l,tid)){
-                    performOperationOnAtomicPart(apart);
-                    count++;
-                    pool.releaseLock(&l,tid);
-                }
+                lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
+                aparts.push_back(apart);
             }
         }
+        DesignObj* lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
+        int mode = 0;
+        if(string(name) == "Q2") mode = 0;
+        if(string(name) == "OP10") mode = 1;
+
+        lockObject l(lo->getLabellingId(), &lo->criticalAncestors, mode);
+        pool.acquireLock(&l, tid);
+        for(auto * apart: aparts){
+            performOperationOnAtomicPart(apart);
+            count++;
+        }
+        pool.releaseLock(&l, tid);
+
     }
     return count;
 }

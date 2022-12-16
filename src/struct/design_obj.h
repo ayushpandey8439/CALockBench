@@ -23,6 +23,7 @@ namespace sb7 {
                 : m_id(id), m_type(std::move(std::move(type))), m_buildDate(buildDate) {
             m_pre_number = 0;
             m_post_number = 0;
+            pthread_rwlock_init(&NodeLock, NULL);
             hasLabel= false;
         }
 

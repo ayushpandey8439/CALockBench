@@ -127,29 +127,6 @@ public:
             return common;
         }
     }
-
-//    DesignObj * getLockObject(string objectId, sb7::DataHolder * dh){
-//        string typeIdentifier = objectId.substr(0,2);
-//        string id = objectId.substr(2);
-//        if(typeIdentifier == "ca"){
-//            sb7::ComplexAssembly * ca = dh->getComplexAssembly(stoi(id));
-//            return ca;
-//        } else if(typeIdentifier == "ba") {
-//            sb7::BaseAssembly * ba = dh->getBaseAssembly(stoi(id));
-//            return ba;
-//        } else if(typeIdentifier == "cp"){
-//            sb7::CompositePart * cp  = dh->getCompositePart(stoi(id));
-//            return cp;
-//        } else if(typeIdentifier == "ap"){
-//            sb7::Map<int, sb7::AtomicPart *> * index  = dh->getAtomicPartIdIndex();
-//            sb7::Map<int, sb7::AtomicPart *>::Query query;
-//            query.key = stoi(id);
-//            index->get(query);
-//            return query.val;
-//        } else {
-//            return NULL;
-//        }
-//    }
 };
 
 

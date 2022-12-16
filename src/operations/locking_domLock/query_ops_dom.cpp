@@ -77,6 +77,7 @@ int sb7::DomQuery2::run(int tid) const {
 
 int sb7::DomQuery2::innerRun(int tid) const {
 	int count = 0;
+    long min=0, max=0;
 	Map<int, Set<AtomicPart *> *> *setInd =
 		dataHolder->getAtomicPartBuildDateIndex();
 	MapIterator<int, Set<AtomicPart *> *> iter =
@@ -85,22 +86,31 @@ int sb7::DomQuery2::innerRun(int tid) const {
 	while(iter.has_next()) {
 		Set<AtomicPart *> *apartSet = iter.next();
 		SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-
-		while(apartIter.has_next()) {
-			AtomicPart *apart = apartIter.next();
-
-            if(apart->m_pre_number!=0) {
-                int min = apart-> m_pre_number;
-                int max = apart-> m_post_number;
-                auto *inv = new interval(min,max,0);
-                if(!ICheck.IsOverlap(inv, 0, tid))
-                {
-                    performOperationOnAtomicPart(apart);
-                    count++;
-                    ICheck.Delete(tid);
+        vector<AtomicPart*> aparts;
+        while (apartIter.has_next()) {
+            AtomicPart *apart = apartIter.next();
+            if(apart->hasLabel) {
+                if(min==0 || min< apart->m_pre_number){
+                    min=apart->m_pre_number;
                 }
+                if(max ==0 || max > apart->m_post_number){
+                    max = apart->m_post_number;
+                }
+                aparts.push_back(apart);
             }
-		}
+        }
+        int mode = 0;
+        if(string(name) == "Q2") mode = 0;
+        if(string(name) == "OP10") mode = 1;
+
+        auto *inv = new interval(min,max,mode);
+        if(!ICheck.IsOverlap(inv, 0, tid)) {
+            for(auto * apart: aparts){
+                performOperationOnAtomicPart(apart);
+                count++;
+            }
+            ICheck.Delete(tid);
+        }
 	}
 
 	return count;

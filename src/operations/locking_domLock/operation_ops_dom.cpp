@@ -3,6 +3,8 @@
 
 #include "../../parameters.h"
 #include "../../sb7_exception.h"
+#include "../../interval.h"
+extern IntervalCheck ICheck;
 
 ////////////////
 // Operation6 //
@@ -44,18 +46,26 @@ int sb7::DomOperation6::innerRun(int tid) const {
 
 	// if this assembly is root perform operation on it
 	if(superAssm == NULL) {
-		performOperationOnComplexAssembly(cassm);
-		ret = 1;
+        auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,0);
+        if(!ICheck.IsOverlap(inv, 0, tid)) {
+            performOperationOnComplexAssembly(cassm);
+            ret = 1;
+            ICheck.Delete(tid);
+        }
+        ret = 0;
 	} else {
 		// else perform operation on all it's siblings (including itself)
 		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
 		SetIterator<Assembly *> iter = siblingAssms->getIter();
 		ret = 0;
-
-		while(iter.has_next()) {
-			performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
-			ret++;
-		}
+        auto *inv = new interval(superAssm->m_pre_number,superAssm->m_post_number,0);
+        if(!ICheck.IsOverlap(inv, 0, tid)) {
+            while(iter.has_next()) {
+                performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
+                ret++;
+            }
+            ICheck.Delete(tid);
+        }
 	}
 
 	return ret;
@@ -100,10 +110,15 @@ int sb7::DomOperation7::innerRun(int tid) const {
 	SetIterator<Assembly *> iter = siblingSet->getIter();
 	int ret = 0;
 
-	while(iter.has_next()) {
-		performOperationOnBaseAssembly((BaseAssembly *)iter.next());
-		ret++;
-	}
+    auto *inv = new interval(superAssm->m_pre_number,superAssm->m_post_number,0);
+    if(!ICheck.IsOverlap(inv, 0, tid)) {
+        while(iter.has_next()) {
+            performOperationOnBaseAssembly((BaseAssembly *)iter.next());
+            ret++;
+        }
+        ICheck.Delete(tid);
+    }
+
 
 	return ret;
 }
@@ -146,10 +161,30 @@ int sb7::DomOperation8::innerRun(int tid) const {
 	BagIterator<CompositePart *> iter = componentBag->getIter();
 	int ret = 0;
 
-	while(iter.has_next()) {
-		performOperationOnComponent(iter.next());
-		ret++;
-	}
+    list<CompositePart *> cparts;
+    long min=0, max=0;
+
+    while (iter.has_next()) {
+        CompositePart *cpart = iter.next();
+        if(cpart->m_pre_number!=0){
+            cparts.push_back(cpart);
+            if(min==0 || min< cpart->m_pre_number){
+                min=cpart->m_pre_number;
+            }
+            if(max ==0 || max > cpart->m_post_number){
+                max = cpart->m_post_number;
+            }
+        }
+    }
+
+    auto *inv = new interval(min, max,0);
+    if(!ICheck.IsOverlap(inv, 0, tid)) {
+       for(auto * cpart: cparts){
+           performOperationOnComponent(cpart);
+           ret++;
+       }
+        ICheck.Delete(tid);
+    }
 
 	return ret;
 }

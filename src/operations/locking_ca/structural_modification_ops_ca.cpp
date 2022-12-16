@@ -45,17 +45,17 @@ int sb7::CAStructuralModification2::run(int tid) const {
     Bag<BaseAssembly *> *bassmBag = cpart->getUsedIn();
     BagIterator<BaseAssembly *> iter = bassmBag->getIter();
 
-//    lockObject l (cpart->getLabellingId(), &cpart->criticalAncestors, 1);
-//    if(pool.acquireLock(&l, tid)) {
-//        //// Between when the lock was acquired and the actual deletion happens,
-//        /// If some other thread races to delete this object, Then, deleting will raise an exception.
-//        /// We can solve this by taking two stage locks where the first lock is a read lock on the object which
-//        /// prevents modifications and then we convert the read lock to a write lock.
-//        if(cpart->hasLabel){
-//            dataHolder->deleteCompositePart(cpart);
-//        }
-//        pool.releaseLock(&l,tid);
-//    }
+    lockObject l (cpart->getLabellingId(), &cpart->criticalAncestors, 1);
+    if(pool.acquireLock(&l, tid)) {
+        //// Between when the lock was created and the actual deletion happens,
+        /// If some other thread races to delete this object, Then, deleting will raise an exception.
+        /// We can solve this by taking two stage locks where the first lock is a read lock on the object which
+        /// prevents modifications and then we convert the read lock to a write lock.
+        if(cpart->hasLabel){
+            dataHolder->deleteCompositePart(cpart);
+        }
+        pool.releaseLock(&l,tid);
+    }
     return 0;
 }
 
@@ -88,18 +88,18 @@ int sb7::CAStructuralModification3::run(int tid) const {
     if(lo== nullptr){
         lo = bassm;
     }
-//    auto * l = new lockObject(lo->getLabellingId(), lo->criticalAncestors, 1);
-//    if(pool.acquireLock(l, tid)) {
-//        /// Similar to SM2, If some thread as deleted the element we are going to modify then we cannot progress with the addition.
-//        /// This also needs the ability to convert a read lock into a write lock.
-//        if(bassm->hasLabel && cpart!= nullptr){
-//            bassm->addComponent(cpart);
-//            auto * r = new CArelabelling(dataHolder);
-//            r->cpartQ.push(cpart);
-//            r->run();
-//        }
-//        pool.releaseLock(l,tid);
-//    }
+    lockObject l (lo->getLabellingId(), &lo->criticalAncestors, 1);
+    if(pool.acquireLock(&l, tid)) {
+        /// Similar to SM2, If some thread as deleted the element we are going to modify then we cannot progress with the addition.
+        /// This also needs the ability to convert a read lock into a write lock.
+        if(bassm->hasLabel && cpart!= nullptr){
+            bassm->addComponent(cpart);
+            auto * r = new CArelabelling(dataHolder);
+            r->cpartQ.push(cpart);
+            r->run();
+        }
+        pool.releaseLock(&l,tid);
+    }
 
 
 
@@ -136,24 +136,26 @@ int sb7::CAStructuralModification4::run(int tid) const {
     int i = 0;
 
     while (iter.has_next()) {
+        /// Delete composite part and iterating over it to make locks is a trouble.
+        /// Should we take read locks?
         CompositePart *cpart = iter.next();
         if (nextId == i && cpart->hasLabel && bassm->hasLabel) {
             list<int> lockRequest = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
             DesignObj * lo = lscaHelpers::getLockObject(lockRequest, dataHolder);
-//            auto * l = new lockObject(lo->getLabellingId(), lo->criticalAncestors, 1);
-//            if(pool.acquireLock(l, tid)) {
-//                /// Only issue the delete if the component has not be concurrently disconnected before the lock request was granted.
-//                if(bassm->hasLabel && cpart->hasLabel){
-//                    bassm->removeComponent(cpart);
-//                    //relabelling should only be done if the component is actually connected to anything. If not, we can avoid relabelling.
-//                    if(cpart->getUsedIn()->size()>0){
-//                        auto * r = new CArelabelling(dataHolder);
-//                        r->cpartQ.push(cpart);
-//                        r->run();
-//                    }
-//                }
-//                pool.releaseLock(l,tid);
-//            }
+            lockObject l (lo->getLabellingId(), &lo->criticalAncestors, 1);
+            if(pool.acquireLock(&l, tid)) {
+                /// Only issue the delete if the component has not be concurrently disconnected before the lock request was granted.
+                if(bassm->hasLabel && cpart->hasLabel){
+                    bassm->removeComponent(cpart);
+                    //relabelling should only be done if the component is actually connected to anything. If not, we can avoid relabelling.
+                    if(cpart->getUsedIn()->size()>0){
+                        auto * r = new CArelabelling(dataHolder);
+                        r->cpartQ.push(cpart);
+                        r->run();
+                    }
+                }
+                pool.releaseLock(&l,tid);
+            }
             return 0;
         }
 
@@ -181,17 +183,16 @@ int sb7::CAStructuralModification5::run(int tid) const {
 
     auto * cassm =  bassm->getSuperAssembly();
 
-//    auto * l = new lockObject(cassm->getLabellingId(), cassm->criticalAncestors, 1);
-//    if(pool.acquireLock(l, tid)) {
-//        /// Create sibling base assembly only if both the base and complex assembly exist and the complex assembly has a label.
-//        if(bassm != nullptr && cassm->hasLabel){
-//            dataHolder->createBaseAssembly(cassm);
-//            auto * r = new CArelabelling(dataHolder);
-//            r->bassmQ.push(bassm);
-//            r->run();
-//        }
-//        pool.releaseLock(l,tid);
-//    }
+    lockObject l (cassm->getLabellingId(), &cassm->criticalAncestors, 1);
+    pool.acquireLock(&l, tid);
+    /// Create sibling base assembly only if both the base and complex assembly exist and the complex assembly has a label.
+    if(bassm != nullptr && cassm->hasLabel){
+        dataHolder->createBaseAssembly(cassm);
+        auto * r = new CArelabelling(dataHolder);
+        r->bassmQ.push(bassm);
+        r->run();
+    }
+    pool.releaseLock(&l,tid);
 
 
 
