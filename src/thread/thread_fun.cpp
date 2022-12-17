@@ -68,7 +68,7 @@ int sb7::WorkerThreadData::getOperationRndInd() const {
     const std::vector<double> &opRat = operations->getOperationCdf();
     int opind = 0;
 
-    while (opRat[opind] < oprnd) {
+    while (opRat[opind] < oprnd && opind < opRat.size()-1) {
         opind++;
     }
 

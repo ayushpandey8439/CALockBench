@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <mutex>              // std::mutex, std::unique_lock
 #include <condition_variable> // std::condition_variable
+#include <shared_mutex>
 #include "atomic"
 #include "memory"
 
@@ -43,6 +44,7 @@ public:
     mutex lockPoolLock;
     lockObject* locks[SIZE];
     mutex threadMutexes[SIZE];
+    shared_mutex threadGuards[SIZE];
     condition_variable threadConditions[SIZE];
     long int Gseq;
     ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
@@ -88,8 +90,9 @@ public:
                 if(parameters.threadBlockingAllowed()) {
                     waitResolve(i, threadID);
                 } else {
+                    threadGuards[i].lock_shared();
                     /// Spin waiting on the condition.
-                    auto * l = locks[i];
+                    auto l = locks[i];
                     while (l!= nullptr &&
                      /// If a read lock is requested for an object that is read locked, only then allow it.
                      (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
@@ -97,9 +100,12 @@ public:
                      (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
                      /// It isn't my turn to take the lock
                      (reqObj->Oseq > l->Oseq || l->Oseq==-1)) {
+                        threadGuards[i].unlock_shared();
                         this_thread::yield();
+                        threadGuards[i].lock_shared();
                         l=locks[i];
                     }
+                    threadGuards[i].unlock_shared();
                 }
             }
         }
@@ -114,7 +120,9 @@ public:
             }
             threadConditions[threadId].notify_all();
         } else {
+            threadGuards[threadId].lock();
             locks[threadId] = nullptr;
+            threadGuards[threadId].unlock();
         }
     }
 
