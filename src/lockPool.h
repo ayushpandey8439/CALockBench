@@ -90,7 +90,6 @@ public:
                 if(parameters.threadBlockingAllowed()) {
                     waitResolve(i, threadID);
                 } else {
-                    threadGuards[i].lock_shared();
                     /// Spin waiting on the condition.
                     auto l = locks[i];
                     while (l!= nullptr &&
@@ -100,9 +99,7 @@ public:
                      (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
                      /// It isn't my turn to take the lock
                      (reqObj->Oseq > l->Oseq || l->Oseq==-1)) {
-                        threadGuards[i].unlock_shared();
                         this_thread::yield();
-                        threadGuards[i].lock_shared();
                         l=locks[i];
                     }
                     threadGuards[i].unlock_shared();
@@ -120,9 +117,7 @@ public:
             }
             threadConditions[threadId].notify_all();
         } else {
-            threadGuards[threadId].lock();
             locks[threadId] = nullptr;
-            threadGuards[threadId].unlock();
         }
     }
 

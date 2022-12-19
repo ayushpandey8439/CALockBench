@@ -212,10 +212,10 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 //    ops.push_back(new CAOperation15(dh)); Index update
 //
 //    ops.push_back(new CAStructuralModification1(dh)); Node creation
-    ops.push_back(new CAStructuralModification2(dh));
-    ops.push_back(new CAStructuralModification3(dh));
-    ops.push_back(new CAStructuralModification4(dh));
-    ops.push_back(new CAStructuralModification5(dh));
+//    ops.push_back(new CAStructuralModification2(dh));
+//    ops.push_back(new CAStructuralModification3(dh));
+//    ops.push_back(new CAStructuralModification4(dh));
+//    ops.push_back(new CAStructuralModification5(dh));
 //    ops.push_back(new CAStructuralModification6(dh));
 //    ops.push_back(new CAStructuralModification7(dh));
 //    ops.push_back(new CAStructuralModification8(dh));

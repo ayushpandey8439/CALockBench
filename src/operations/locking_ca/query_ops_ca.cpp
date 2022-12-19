@@ -40,11 +40,11 @@ int sb7::CAQuery1::innerRun(int tid) const {
             pool.releaseLock(l, tid);
         }
         else if(string(name) == "OP9"|| string(name) == "OP15") {
-            lockObject l(a->getLabellingId(), &a->criticalAncestors, 1);
-            pool.acquireLock(&l, tid);
+            auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
+            pool.acquireLock(l, tid);
             performOperationOnAtomicPart(query.val);
             count++;
-            pool.releaseLock(&l, tid);
+            pool.releaseLock(l, tid);
         }
     } else {
         //cout<<"found without label"<<endl;
@@ -97,13 +97,13 @@ int sb7::CAQuery2::innerRun(int tid) const {
         if(string(name) == "Q2") mode = 0;
         if(string(name) == "OP10") mode = 1;
 
-        lockObject l(lo->getLabellingId(), &lo->criticalAncestors, mode);
-        pool.acquireLock(&l, tid);
+        auto * l = new lockObject(lo->getLabellingId(), &lo->criticalAncestors, mode);
+        pool.acquireLock(l, tid);
         for(auto * apart: aparts){
             performOperationOnAtomicPart(apart);
             count++;
         }
-        pool.releaseLock(&l, tid);
+        pool.releaseLock(l, tid);
 
     }
     return count;
