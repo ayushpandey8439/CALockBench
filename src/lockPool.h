@@ -79,11 +79,9 @@ public:
 
     bool acquireLock(lockObject * reqObj, int threadID) {
         lockPoolLock.lock();
+        reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
-        locks[threadID]->Oseq = ++Gseq;
-        //threadConditions[threadID].notify_all();
         lockPoolLock.unlock();
-        //Shortcut to allow readers to take locks. If the number of writers is 0 and only a read lock is requested, then allow the fast track read lock.
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
             if(locks[i] != nullptr && i!= threadID){
@@ -98,7 +96,7 @@ public:
                      /// Someone else has requested a lock on my LSCA before me.
                      (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
                      /// It isn't my turn to take the lock
-                     (reqObj->Oseq > l->Oseq || l->Oseq==-1)) {
+                     (reqObj->Oseq > l->Oseq)) {
                         this_thread::yield();
                         l=locks[i];
                     }

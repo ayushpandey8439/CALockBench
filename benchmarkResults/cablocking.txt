@@ -1,17 +1,46 @@
 
-Total throughput: 5359.60 op/s  (13470.32 op/s including failed)
-Total throughput: 4580.05 op/s  (11506.73 op/s including failed)
-Total throughput: 5242.89 op/s  (13177.56 op/s including failed)
-Total throughput: 5237.41 op/s  (13164.09 op/s including failed)
-Total throughput: 5210.97 op/s  (13097.76 op/s including failed)
-Total throughput: 10211.37 op/s  (25704.39 op/s including failed)
-Total throughput: 10330.01 op/s  (26005.98 op/s including failed)
-Total throughput: 10170.57 op/s  (25603.99 op/s including failed)
-Total throughput: 10125.19 op/s  (25488.28 op/s including failed)
-Total throughput: 9912.67 op/s  (24950.10 op/s including failed)
-Total throughput: 18266.97 op/s  (46016.97 op/s including failed)
-Total throughput: 18744.88 op/s  (47217.67 op/s including failed)
-Total throughput: 17553.62 op/s  (44213.47 op/s including failed)
-Total throughput: 19132.10 op/s  (48196.41 op/s including failed)
-Total throughput: 18883.18 op/s  (47570.64 op/s including failed)
-Total throughput: 26793.12 op/s  (67515.45 op/s including failed)
+65676.31
+64649.05
+65946.53
+63273.68
+66494.76
+117279.36
+116167.50
+117608.39
+119823.76
+117191.90
+86165.92
+85744.64
+86078.96
+86031.42
+86374.88
+94441.40
+98464.11
+94033.45
+90222.44
+95823.94
+99450.15
+91178.96
+95817.05
+96329.18
+97734.66
+82652.87
+69820.04
+73681.46
+78550.12
+76768.69
+64406.78
+63076.27
+63838.48
+57547.58
+60734.80
+46044.32
+45658.37
+40825.20
+40452.96
+42629.48
+16292.86
+15515.12
+16222.11
+16905.30
+16523.55

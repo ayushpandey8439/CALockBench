@@ -178,8 +178,22 @@ int sb7::CAOperation8::innerRun(int tid) const {
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();
         if(cpart->hasLabel){
+            if(lockRequest.size()!=1){
+                if(lockRequest.empty()) lockRequest = cpart->pathLabel;
+                else {
+                    auto it = lockRequest.begin();
+                    auto end = lockRequest.end();
+                    while(it != end){
+                        if(!lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
+                            it = lockRequest.erase(it);
+                        } else {
+                            ++it;
+                        }
+                    }
+                }
+            }
             cparts.push_back(cpart);
-            lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart->pathLabel);
+            //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart->pathLabel);
         }
     }
 

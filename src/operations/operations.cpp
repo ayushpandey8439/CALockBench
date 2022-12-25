@@ -94,7 +94,7 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
 //    ops.push_back(new LCTraversal9(dh)); Trivial and does not need locks.
     ops.push_back(new LCOperation6(dh));
     ops.push_back(new LCOperation7(dh));
-    ops.push_back(new LCOperation8(dh));
+    //ops.push_back(new LCOperation8(dh));
     ops.push_back(new LCOperation9(dh));
     ops.push_back(new LCOperation10(dh));
 //    ops.push_back(new LCOperation11(dh)); Traversal operation
@@ -148,7 +148,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
 //    ops.push_back(new LMTraversal9(dh)); Trivial and does not need locks.
     ops.push_back(new LMOperation6(dh));
     ops.push_back(new LMOperation7(dh));
-    ops.push_back(new LMOperation8(dh));
+    //ops.push_back(new LMOperation8(dh));
     ops.push_back(new LMOperation9(dh));
     ops.push_back(new LMOperation10(dh));
 //    ops.push_back(new LMOperation11(dh)); Traversal operation
@@ -202,9 +202,9 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 //    ops.push_back(new CATraversal9(dh)); Trivial and does not need locks.
       ops.push_back(new CAOperation6(dh));
       ops.push_back(new CAOperation7(dh));
-      ops.push_back(new CAOperation8(dh));
+      //ops.push_back(new CAOperation8(dh));//aggregation same as query 2
       ops.push_back(new CAOperation9(dh));
-    ops.push_back(new CAOperation10(dh)); // Aggregation
+      ops.push_back(new CAOperation10(dh)); // Aggregation
 //    ops.push_back(new CAOperation11(dh)); Traversal operation
 //    ops.push_back(new CAOperation12(dh));
 //    ops.push_back(new CAOperation13(dh));
@@ -212,10 +212,10 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 //    ops.push_back(new CAOperation15(dh)); Index update
 //
 //    ops.push_back(new CAStructuralModification1(dh)); Node creation
-    ops.push_back(new CAStructuralModification2(dh));
-    ops.push_back(new CAStructuralModification3(dh));
-    ops.push_back(new CAStructuralModification4(dh));
-    ops.push_back(new CAStructuralModification5(dh));
+      ops.push_back(new CAStructuralModification2(dh));
+      ops.push_back(new CAStructuralModification3(dh));
+      ops.push_back(new CAStructuralModification4(dh));
+      ops.push_back(new CAStructuralModification5(dh));
 //    ops.push_back(new CAStructuralModification6(dh));
 //    ops.push_back(new CAStructuralModification7(dh));
 //    ops.push_back(new CAStructuralModification8(dh));
@@ -254,7 +254,7 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
 //    ops.push_back(new DomTraversal9(dh)); Trivial and does not need locks.
     ops.push_back(new DomOperation6(dh));
     ops.push_back(new DomOperation7(dh));
-    ops.push_back(new DomOperation8(dh));
+    //ops.push_back(new DomOperation8(dh));
      ops.push_back(new DomOperation9(dh));
     ops.push_back(new DomOperation10(dh));
 //    ops.push_back(new DomOperation11(dh)); Traversal operation
