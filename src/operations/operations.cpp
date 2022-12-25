@@ -5,6 +5,8 @@
 #include "operations.h"
 #include "../parameters.h"
 #include "../struct/connection.h"
+#include <algorithm>
+
 
 #include "locking_coarse/traversal_ops_lc.h"
 #include "locking_coarse/query_ops_lc.h"
