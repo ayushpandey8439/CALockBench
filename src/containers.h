@@ -372,7 +372,9 @@ namespace sb7 {
             bool ret = (iter != inner.end());
 
             if (ret) {
-                query.val = (*iter).second;
+                if(iter->second!= nullptr)
+                    query.val = (*iter).second;
+                else ret= false;
             }
 
             query.found = ret;
@@ -411,16 +413,17 @@ namespace sb7 {
          * @return true if element was removed, false otherwise
          */
         bool remove(const Key &key) {
+            //inner.erase(key);
             inner_iterator iter = inner.find(key);
             bool ret;
 
             if (iter != inner.end()) {
-                inner.erase(iter);
+                //inner.erase(iter);
+                iter->second = nullptr;
                 ret = true;
             } else {
                 ret = false;
             }
-
             return ret;
         }
 

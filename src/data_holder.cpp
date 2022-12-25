@@ -437,6 +437,9 @@ void sb7::DataHolder::deleteDocument(Document *doc) {
 
 void sb7::DataHolder::deleteAtomicPart(AtomicPart *apart) {
     int id = apart->getId();
+    if(apart->isDeleted){
+        return;
+    }
 
     // remove part from build date index
     removeAtomicPartFromBuildDateIndex(apart);
@@ -474,9 +477,11 @@ void sb7::DataHolder::deleteAtomicPart(AtomicPart *apart) {
         delete (conn);
     }
 
+    ///Objects relevant to the existance of
+    /// the hierarchy have been marked deleted instead of being actually deleted
     // delete atomic part
-    delete apart;
-
+    //delete apart;
+    apart->Delete();
     // return id to the pool
     m_atomicPartIdPool->putId(id);
 }
@@ -521,8 +526,8 @@ void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
     }
 
     // mark composite part for deletion
-    delete cpart;
-
+    //delete cpart;
+    cpart->Delete();
     // return id to the pool
     m_compositePartIdPool->putId(cpartId);
 }
@@ -561,8 +566,8 @@ void sb7::DataHolder::deleteBaseAssembly(BaseAssembly *bassm) {
     }
 
     // delete base assembly
-    delete bassm;
-
+    //delete bassm;
+    bassm->Delete();
     // return id to pool
     m_baseAssemblyIdPool->putId(bassmId);
 }

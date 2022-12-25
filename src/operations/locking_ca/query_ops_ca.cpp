@@ -112,13 +112,13 @@ int sb7::CAQuery2::innerRun(int tid) const {
         if(string(name) == "OP10")
             mode = 1;
 
-        auto * l = new lockObject(lo->getLabellingId(), &lo->criticalAncestors, mode);
-        pool.acquireLock(l, tid);
+        lockObject l (lo->getLabellingId(), &lo->criticalAncestors, mode);
+        pool.acquireLock(&l, tid);
         for(auto * apart: aparts){
             performOperationOnAtomicPart(apart);
             count++;
         }
-        pool.releaseLock(l, tid);
+        pool.releaseLock(&l, tid);
 
     }
     return count;

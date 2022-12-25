@@ -25,6 +25,7 @@ namespace sb7 {
             m_post_number = 0;
             pthread_rwlock_init(&NodeLock, NULL);
             hasLabel= false;
+            isDeleted = false;
         }
 
 
@@ -37,6 +38,16 @@ namespace sb7 {
 
         int getLabellingId() const{
             return pathLabel.back();
+        }
+
+        void Delete() {
+            this->isDeleted = true;
+            this->hasLabel = false;
+            this->m_id = NULL;
+            //this->criticalAncestors.clear();
+            this->pathLabel.clear();
+            this->m_buildDate = NULL;
+            this->m_type.clear();
         }
 
         void setPathLabel(const list<int>& label){
@@ -63,6 +74,7 @@ namespace sb7 {
         bool hasLabel;
         list<int> pathLabel;
         unordered_set<int> criticalAncestors;
+        bool isDeleted;
     protected:
         int m_id;
         string m_type;

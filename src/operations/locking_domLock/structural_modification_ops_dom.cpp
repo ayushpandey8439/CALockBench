@@ -32,9 +32,11 @@ int sb7::DomStructuralModification2::run(int tid) const {
 	if(cpart == NULL) {
 		throw Sb7Exception();
 	}
-
-	dataHolder->deleteCompositePart(cpart);
-
+    auto *inv = new interval(cpart->m_pre_number,cpart->m_post_number,1);
+    if(!ICheck.IsOverlap(inv, 1, tid)) {
+        dataHolder->deleteCompositePart(cpart);
+        ICheck.Delete(tid);
+    }
 	return 0;
 }
 
@@ -43,8 +45,6 @@ int sb7::DomStructuralModification2::run(int tid) const {
 /////////////////////////////
 
 int sb7::DomStructuralModification3::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-
 	// generate random composite part id
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
 	CompositePart *cpart = dataHolder->getCompositePart(cpartId);
@@ -61,7 +61,14 @@ int sb7::DomStructuralModification3::run(int tid) const {
 		throw Sb7Exception();
 	}
 
-    auto *inv = new interval(cpart->m_pre_number,cpart->m_post_number,1);
+    long min = bassm-> m_pre_number;
+    long max = bassm-> m_post_number;
+    if(cpart-> m_pre_number < min )
+        min = cpart-> m_pre_number;
+    if(cpart-> m_post_number > max )
+        max = cpart-> m_post_number;
+
+    auto *inv = new interval(min,max,1);
 
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         bassm->addComponent(cpart);
@@ -105,7 +112,6 @@ int sb7::DomStructuralModification4::run(int tid) const {
 		CompositePart *cpart = iter.next();
 
 		if(nextId == i) {
-
             auto *inv = new interval(bassm->m_pre_number,bassm->m_post_number,1);
             if(!ICheck.IsOverlap(inv, 1, tid)) {
                 bassm->removeComponent(cpart);
