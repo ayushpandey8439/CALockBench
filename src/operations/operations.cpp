@@ -109,7 +109,7 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
     ops.push_back(new LCStructuralModification2(dh));
     ops.push_back(new LCStructuralModification3(dh));
     ops.push_back(new LCStructuralModification4(dh));
-    ops.push_back(new LCStructuralModification5(dh));
+//    ops.push_back(new LCStructuralModification5(dh));
 //    ops.push_back(new LCStructuralModification6(dh));
 //    ops.push_back(new LCStructuralModification7(dh));
 //    ops.push_back(new LCStructuralModification8(dh));
@@ -163,7 +163,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
     ops.push_back(new LMStructuralModification2(dh));
     ops.push_back(new LMStructuralModification3(dh));
     ops.push_back(new LMStructuralModification4(dh));
-    ops.push_back(new LMStructuralModification5(dh));
+//    ops.push_back(new LMStructuralModification5(dh));
 //    ops.push_back(new LMStructuralModification6(dh));
 //    ops.push_back(new LMStructuralModification7(dh));
 //    ops.push_back(new LMStructuralModification8(dh));
@@ -217,7 +217,7 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
       ops.push_back(new CAStructuralModification2(dh));
       ops.push_back(new CAStructuralModification3(dh));
       ops.push_back(new CAStructuralModification4(dh));
-      ops.push_back(new CAStructuralModification5(dh));
+//      ops.push_back(new CAStructuralModification5(dh));
 //    ops.push_back(new CAStructuralModification6(dh));
 //    ops.push_back(new CAStructuralModification7(dh));
 //    ops.push_back(new CAStructuralModification8(dh));
@@ -269,7 +269,7 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
     ops.push_back(new DomStructuralModification2(dh));
     ops.push_back(new DomStructuralModification3(dh));
     ops.push_back(new DomStructuralModification4(dh));
-    ops.push_back(new DomStructuralModification5(dh));
+//    ops.push_back(new DomStructuralModification5(dh));
 //    ops.push_back(new DomStructuralModification6(dh));
 //    ops.push_back(new DomStructuralModification7(dh));
 //    ops.push_back(new DomStructuralModification8(dh));
