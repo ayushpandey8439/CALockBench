@@ -89,22 +89,29 @@ int sb7::DomQuery2::innerRun(int tid) const {
         vector<AtomicPart*> aparts;
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
-            if(apart->hasLabel) {
-                if(min==0 || min< apart->m_pre_number){
-                    min=apart->m_pre_number;
+            if(apart->m_pre_number!=0 && apart->m_post_number!=0) {
+                if(min == 0 && max == 0)
+                {
+                    min = apart-> m_pre_number;
+                    max = apart-> m_post_number;
                 }
-                if(max ==0 || max > apart->m_post_number){
-                    max = apart->m_post_number;
+                else {
+                    if(apart-> m_pre_number < min )
+                        min = apart-> m_pre_number;
+                    if(apart-> m_post_number > max )
+                        max = apart-> m_post_number;
                 }
                 aparts.push_back(apart);
             }
         }
         int mode = 0;
-        if(string(name) == "Q2") mode = 0;
-        if(string(name) == "OP10") mode = 1;
+        if(string(name) == "Q2")
+            mode = 0;
+        if(string(name) == "OP10")
+            mode = 1;
 
         auto *inv = new interval(min,max,mode);
-        if(!ICheck.IsOverlap(inv, 0, tid)) {
+        if(!ICheck.IsOverlap(inv, mode, tid)) {
             for(auto * apart: aparts){
                 performOperationOnAtomicPart(apart);
                 count++;
@@ -112,7 +119,6 @@ int sb7::DomQuery2::innerRun(int tid) const {
             ICheck.Delete(tid);
         }
 	}
-
 	return count;
 }
 

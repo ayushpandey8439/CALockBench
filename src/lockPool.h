@@ -102,7 +102,6 @@ public:
                         this_thread::yield();
                         l=locks[i];
                     }
-                    threadGuards[i].unlock_shared();
                 }
             }
         }

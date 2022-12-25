@@ -88,14 +88,29 @@ int sb7::CAQuery2::innerRun(int tid) const {
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
-                lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
+                //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
+                if(lockRequest.size()!=1){
+                    if(lockRequest.empty()) lockRequest = apart->pathLabel;
+                    else {
+                        auto it = lockRequest.begin();
+                        auto end = lockRequest.end();
+                        while(it != end){
+                            if(!lscaHelpers::hasCriticalAncestor(&apart->criticalAncestors, *it)){
+                                it = lockRequest.erase(it);
+                            } else {
+                                ++it;
+                            }
+                        }
+                    }
+                }
                 aparts.push_back(apart);
             }
         }
         DesignObj* lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
         int mode = 0;
         if(string(name) == "Q2") mode = 0;
-        if(string(name) == "OP10") mode = 1;
+        if(string(name) == "OP10")
+            mode = 1;
 
         auto * l = new lockObject(lo->getLabellingId(), &lo->criticalAncestors, mode);
         pool.acquireLock(l, tid);
