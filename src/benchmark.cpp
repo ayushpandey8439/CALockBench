@@ -10,6 +10,8 @@
 #include "labelAssignmentTest.h"
 #include "intervalAssignment.h"
 #include "lockPool.h"
+#include <thread>
+
 
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)

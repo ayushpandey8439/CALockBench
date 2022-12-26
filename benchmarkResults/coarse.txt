@@ -1,3 +1,1 @@
 
-Total throughput: 124812.00 op/s  (255579.00 op/s including failed)
-Total throughput: 97167.50 op/s  (198910.00 op/s including failed)

@@ -1,1 +1,1945 @@
 
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 1
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 318    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 635    maxttc = 0      failed = 0     
+Operation  OP7:   successful = 635    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2542   maxttc = 1      failed = 4449  
+Operation OP10:   successful = 9535   maxttc = 1      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5087   maxttc = 4      failed = 14939 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.85    (total =  43.33  error =   1.22)
+           OPERATION_RO:  expected =   4.95  successful =   8.47  error =   3.52    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.13  error =  26.14    (total =  52.51  error =  51.52)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12077  maxttc =      1  failed =   4449  total =  16526
+           OPERATION_RO:  successful =   1588  maxttc =      1  failed =      0  total =   1588
+STRUCTURAL_MODIFICATION:  successful =   5087  maxttc =      4  failed =  14939  total =  20026
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 9371.31 op/s  (19060.47 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 1
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 329    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 658    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 658    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2632   maxttc = 1      failed = 4607  
+Operation OP10:   successful = 9871   maxttc = 1      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5266   maxttc = 2      failed = 15467 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.85    (total =  43.33  error =   1.22)
+           OPERATION_RO:  expected =   4.95  successful =   8.47  error =   3.52    (total =   4.17  error =   0.78)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.12  error =  26.13    (total =  52.50  error =  51.51)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12503  maxttc =      1  failed =   4607  total =  17110
+           OPERATION_RO:  successful =   1645  maxttc =      1  failed =      0  total =   1645
+STRUCTURAL_MODIFICATION:  successful =   5266  maxttc =      2  failed =  15467  total =  20733
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 9702.15 op/s  (19734.13 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 1
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 325    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 650    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 650    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2602   maxttc = 1      failed = 4556  
+Operation OP10:   successful = 9764   maxttc = 1      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5211   maxttc = 6      failed = 15297 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.85    (total =  43.33  error =   1.23)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.14  error =  26.15    (total =  52.51  error =  51.52)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12366  maxttc =      1  failed =   4556  total =  16922
+           OPERATION_RO:  successful =   1625  maxttc =      1  failed =      0  total =   1625
+STRUCTURAL_MODIFICATION:  successful =   5211  maxttc =      6  failed =  15297  total =  20508
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 9601.00 op/s  (19527.50 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 1
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 317    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 634    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 634    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2538   maxttc = 1      failed = 4444  
+Operation OP10:   successful = 9524   maxttc = 1      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5082   maxttc = 5      failed = 14921 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.85    (total =  43.33  error =   1.22)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.13  error =  26.14    (total =  52.51  error =  51.52)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12062  maxttc =      1  failed =   4444  total =  16506
+           OPERATION_RO:  successful =   1585  maxttc =      1  failed =      0  total =   1585
+STRUCTURAL_MODIFICATION:  successful =   5082  maxttc =      5  failed =  14921  total =  20003
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 9364.50 op/s  (19047.00 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 1
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 321    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 642    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 642    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2569   maxttc = 1      failed = 4499  
+Operation OP10:   successful = 9635   maxttc = 1      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5142   maxttc = 2      failed = 15104 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.84    (total =  43.32  error =   1.23)
+           OPERATION_RO:  expected =   4.95  successful =   8.47  error =   3.52    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.13  error =  26.14    (total =  52.51  error =  51.52)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12204  maxttc =      1  failed =   4499  total =  16703
+           OPERATION_RO:  successful =   1605  maxttc =      1  failed =      0  total =   1605
+STRUCTURAL_MODIFICATION:  successful =   5142  maxttc =      2  failed =  15104  total =  20246
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 9470.76 op/s  (19267.37 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 2
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 341    maxttc = 2      failed = 0     
+Operation  OP6:   successful = 681    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 682    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2726   maxttc = 1      failed = 4773  
+Operation OP10:   successful = 10227  maxttc = 2      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5456   maxttc = 6      failed = 16025 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.85    (total =  43.33  error =   1.23)
+           OPERATION_RO:  expected =   4.95  successful =   8.47  error =   3.52    (total =   4.17  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.13  error =  26.14    (total =  52.51  error =  51.52)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12953  maxttc =      2  failed =   4773  total =  17726
+           OPERATION_RO:  successful =   1704  maxttc =      2  failed =      0  total =   1704
+STRUCTURAL_MODIFICATION:  successful =   5456  maxttc =      6  failed =  16025  total =  21481
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10051.47 op/s  (20445.28 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 2
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 319    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 637    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 637    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2550   maxttc = 1      failed = 4467  
+Operation OP10:   successful = 9567   maxttc = 3      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5106   maxttc = 3      failed = 15002 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.84    (total =  43.32  error =   1.24)
+           OPERATION_RO:  expected =   4.95  successful =   8.47  error =   3.52    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.14  error =  26.15    (total =  52.52  error =  51.53)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  12117  maxttc =      3  failed =   4467  total =  16584
+           OPERATION_RO:  successful =   1593  maxttc =      2  failed =      0  total =   1593
+STRUCTURAL_MODIFICATION:  successful =   5106  maxttc =      3  failed =  15002  total =  20108
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 9403.30 op/s  (19132.93 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 2
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 349    maxttc = 3      failed = 0     
+Operation  OP6:   successful = 698    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 698    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2795   maxttc = 1      failed = 4898  
+Operation OP10:   successful = 10493  maxttc = 3      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5603   maxttc = 3      failed = 16443 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.39  error =  19.84    (total =  43.32  error =   1.23)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.15  error =  26.16    (total =  52.52  error =  51.53)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13288  maxttc =      3  failed =   4898  total =  18186
+           OPERATION_RO:  successful =   1745  maxttc =      3  failed =      0  total =   1745
+STRUCTURAL_MODIFICATION:  successful =   5603  maxttc =      3  failed =  16443  total =  22046
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10312.84 op/s  (20978.01 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 2
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 354    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 708    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 708    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2834   maxttc = 2      failed = 4964  
+Operation OP10:   successful = 10636  maxttc = 2      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5677   maxttc = 5      failed = 16668 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.40  error =  19.84    (total =  43.32  error =   1.23)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.14  error =  26.15    (total =  52.52  error =  51.53)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13470  maxttc =      2  failed =   4964  total =  18434
+           OPERATION_RO:  successful =   1770  maxttc =      1  failed =      0  total =   1770
+STRUCTURAL_MODIFICATION:  successful =   5677  maxttc =      5  failed =  16668  total =  22345
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10453.27 op/s  (21263.87 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 2
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 350    maxttc = 1      failed = 0     
+Operation  OP6:   successful = 700    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 700    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2802   maxttc = 4      failed = 4912  
+Operation OP10:   successful = 10518  maxttc = 6      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5616   maxttc = 6      failed = 16486 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.39  error =  19.84    (total =  43.32  error =   1.23)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.15  error =  26.16    (total =  52.52  error =  51.53)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13320  maxttc =      6  failed =   4912  total =  18232
+           OPERATION_RO:  successful =   1750  maxttc =      1  failed =      0  total =   1750
+STRUCTURAL_MODIFICATION:  successful =   5616  maxttc =      6  failed =  16486  total =  22102
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10337.83 op/s  (21031.48 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 4
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 363    maxttc = 2      failed = 0     
+Operation  OP6:   successful = 725    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 726    maxttc = 2      failed = 0     
+Operation  OP9:   successful = 2904   maxttc = 2      failed = 5090  
+Operation OP10:   successful = 10901  maxttc = 3      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5822   maxttc = 5      failed = 17091 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.39  error =  19.83    (total =  43.32  error =   1.24)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.15  error =  26.16    (total =  52.53  error =  51.54)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13805  maxttc =      3  failed =   5090  total =  18895
+           OPERATION_RO:  successful =   1814  maxttc =      2  failed =      0  total =   1814
+STRUCTURAL_MODIFICATION:  successful =   5822  maxttc =      5  failed =  17091  total =  22913
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10715.14 op/s  (21800.10 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 4
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 364    maxttc = 2      failed = 0     
+Operation  OP6:   successful = 728    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 728    maxttc = 2      failed = 0     
+Operation  OP9:   successful = 2916   maxttc = 2      failed = 5116  
+Operation OP10:   successful = 10955  maxttc = 2      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5852   maxttc = 6      failed = 17177 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.39  error =  19.83    (total =  43.31  error =   1.24)
+           OPERATION_RO:  expected =   4.95  successful =   8.45  error =   3.50    (total =   4.15  error =   0.80)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.16  error =  26.17    (total =  52.53  error =  51.54)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13871  maxttc =      2  failed =   5116  total =  18987
+           OPERATION_RO:  successful =   1820  maxttc =      2  failed =      0  total =   1820
+STRUCTURAL_MODIFICATION:  successful =   5852  maxttc =      6  failed =  17177  total =  23029
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10766.12 op/s  (21907.05 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 4
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 363    maxttc = 2      failed = 0     
+Operation  OP6:   successful = 724    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 725    maxttc = 2      failed = 0     
+Operation  OP9:   successful = 2901   maxttc = 2      failed = 5083  
+Operation OP10:   successful = 10886  maxttc = 2      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5813   maxttc = 3      failed = 17069 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.39  error =  19.83    (total =  43.32  error =   1.24)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.15  error =  26.16    (total =  52.53  error =  51.53)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13787  maxttc =      2  failed =   5083  total =  18870
+           OPERATION_RO:  successful =   1812  maxttc =      2  failed =      0  total =   1812
+STRUCTURAL_MODIFICATION:  successful =   5813  maxttc =      3  failed =  17069  total =  22882
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10700.65 op/s  (21771.11 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 4
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 367    maxttc = 2      failed = 0     
+Operation  OP6:   successful = 734    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 734    maxttc = 1      failed = 0     
+Operation  OP9:   successful = 2938   maxttc = 2      failed = 5151  
+Operation OP10:   successful = 11029  maxttc = 3      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5891   maxttc = 3      failed = 17295 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.38  error =  19.83    (total =  43.31  error =   1.24)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.16  error =  26.17    (total =  52.53  error =  51.54)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13967  maxttc =      3  failed =   5151  total =  19118
+           OPERATION_RO:  successful =   1835  maxttc =      2  failed =      0  total =   1835
+STRUCTURAL_MODIFICATION:  successful =   5891  maxttc =      3  failed =  17295  total =  23186
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10835.66 op/s  (22047.45 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 4
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 365    maxttc = 2      failed = 0     
+Operation  OP6:   successful = 728    maxttc = 1      failed = 0     
+Operation  OP7:   successful = 729    maxttc = 2      failed = 0     
+Operation  OP9:   successful = 2917   maxttc = 2      failed = 5113  
+Operation OP10:   successful = 10952  maxttc = 3      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5849   maxttc = 3      failed = 17172 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.39  error =  19.83    (total =  43.31  error =   1.24)
+           OPERATION_RO:  expected =   4.95  successful =   8.46  error =   3.51    (total =   4.16  error =   0.79)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.15  error =  26.16    (total =  52.53  error =  51.54)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13869  maxttc =      3  failed =   5113  total =  18982
+           OPERATION_RO:  successful =   1822  maxttc =      2  failed =      0  total =   1822
+STRUCTURAL_MODIFICATION:  successful =   5849  maxttc =      3  failed =  17172  total =  23021
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10770.00 op/s  (21912.50 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 8
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 346    maxttc = 3      failed = 0     
+Operation  OP6:   successful = 682    maxttc = 3      failed = 0     
+Operation  OP7:   successful = 688    maxttc = 3      failed = 0     
+Operation  OP9:   successful = 2748   maxttc = 3      failed = 4827  
+Operation OP10:   successful = 10343  maxttc = 4      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5532   maxttc = 5      failed = 16220 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.36  error =  19.81    (total =  43.29  error =   1.26)
+           OPERATION_RO:  expected =   4.95  successful =   8.44  error =   3.49    (total =   4.15  error =   0.80)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.20  error =  26.21    (total =  52.56  error =  51.57)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13091  maxttc =      4  failed =   4827  total =  17918
+           OPERATION_RO:  successful =   1716  maxttc =      3  failed =      0  total =   1716
+STRUCTURAL_MODIFICATION:  successful =   5532  maxttc =      5  failed =  16220  total =  21752
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10164.42 op/s  (20682.66 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 8
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 353    maxttc = 3      failed = 0     
+Operation  OP6:   successful = 702    maxttc = 2      failed = 0     
+Operation  OP7:   successful = 703    maxttc = 2      failed = 0     
+Operation  OP9:   successful = 2813   maxttc = 4      failed = 4941  
+Operation OP10:   successful = 10583  maxttc = 3      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5653   maxttc = 4      failed = 16593 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.38  error =  19.83    (total =  43.31  error =   1.25)
+           OPERATION_RO:  expected =   4.95  successful =   8.45  error =   3.50    (total =   4.15  error =   0.80)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.17  error =  26.18    (total =  52.54  error =  51.55)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13396  maxttc =      4  failed =   4941  total =  18337
+           OPERATION_RO:  successful =   1758  maxttc =      3  failed =      0  total =   1758
+STRUCTURAL_MODIFICATION:  successful =   5653  maxttc =      4  failed =  16593  total =  22246
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10398.30 op/s  (21159.92 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 8
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 347    maxttc = 3      failed = 0     
+Operation  OP6:   successful = 691    maxttc = 3      failed = 0     
+Operation  OP7:   successful = 691    maxttc = 3      failed = 0     
+Operation  OP9:   successful = 2773   maxttc = 5      failed = 4875  
+Operation OP10:   successful = 10439  maxttc = 5      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5583   maxttc = 5      failed = 16374 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.37  error =  19.82    (total =  43.30  error =   1.26)
+           OPERATION_RO:  expected =   4.95  successful =   8.42  error =   3.47    (total =   4.14  error =   0.81)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.20  error =  26.21    (total =  52.56  error =  51.57)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13212  maxttc =      5  failed =   4875  total =  18087
+           OPERATION_RO:  successful =   1729  maxttc =      3  failed =      0  total =   1729
+STRUCTURAL_MODIFICATION:  successful =   5583  maxttc =      5  failed =  16374  total =  21957
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10246.63 op/s  (20855.22 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 8
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 349    maxttc = 3      failed = 0     
+Operation  OP6:   successful = 692    maxttc = 3      failed = 0     
+Operation  OP7:   successful = 693    maxttc = 3      failed = 0     
+Operation  OP9:   successful = 2780   maxttc = 3      failed = 4877  
+Operation OP10:   successful = 10451  maxttc = 4      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5590   maxttc = 4      failed = 16389 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.37  error =  19.81    (total =  43.30  error =   1.26)
+           OPERATION_RO:  expected =   4.95  successful =   8.44  error =   3.49    (total =   4.15  error =   0.80)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.20  error =  26.21    (total =  52.55  error =  51.56)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13231  maxttc =      4  failed =   4877  total =  18108
+           OPERATION_RO:  successful =   1734  maxttc =      3  failed =      0  total =   1734
+STRUCTURAL_MODIFICATION:  successful =   5590  maxttc =      4  failed =  16389  total =  21979
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10267.23 op/s  (20889.61 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 8
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 354    maxttc = 3      failed = 0     
+Operation  OP6:   successful = 705    maxttc = 3      failed = 0     
+Operation  OP7:   successful = 706    maxttc = 3      failed = 0     
+Operation  OP9:   successful = 2829   maxttc = 4      failed = 4969  
+Operation OP10:   successful = 10639  maxttc = 5      failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 5690   maxttc = 5      failed = 16691 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.37  error =  19.81    (total =  43.30  error =   1.26)
+           OPERATION_RO:  expected =   4.95  successful =   8.44  error =   3.49    (total =   4.14  error =   0.81)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.19  error =  26.20    (total =  52.56  error =  51.57)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  13468  maxttc =      5  failed =   4969  total =  18437
+           OPERATION_RO:  successful =   1765  maxttc =      3  failed =      0  total =   1765
+STRUCTURAL_MODIFICATION:  successful =   5690  maxttc =      5  failed =  16691  total =  22381
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 10451.05 op/s  (21270.23 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 16
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 254    maxttc = 16     failed = 0     
+Operation  OP6:   successful = 495    maxttc = 16     failed = 0     
+Operation  OP7:   successful = 500    maxttc = 19     failed = 0     
+Operation  OP9:   successful = 2002   maxttc = 17     failed = 3533  
+Operation OP10:   successful = 7571   maxttc = 19     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4051   maxttc = 19     failed = 11874 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.36  error =  19.81    (total =  43.28  error =   1.27)
+           OPERATION_RO:  expected =   4.95  successful =   8.40  error =   3.45    (total =   4.12  error =   0.83)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.24  error =  26.25    (total =  52.59  error =  51.60)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =   9573  maxttc =     19  failed =   3533  total =  13106
+           OPERATION_RO:  successful =   1249  maxttc =     19  failed =      0  total =   1249
+STRUCTURAL_MODIFICATION:  successful =   4051  maxttc =     19  failed =  11874  total =  15925
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7417.96 op/s  (15102.24 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 16
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 261    maxttc = 23     failed = 0     
+Operation  OP6:   successful = 513    maxttc = 9      failed = 0     
+Operation  OP7:   successful = 517    maxttc = 23     failed = 0     
+Operation  OP9:   successful = 2074   maxttc = 24     failed = 3669  
+Operation OP10:   successful = 7839   maxttc = 24     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4213   maxttc = 27     failed = 12323 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.30  error =  19.74    (total =  43.24  error =   1.31)
+           OPERATION_RO:  expected =   4.95  successful =   8.37  error =   3.42    (total =   4.11  error =   0.84)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.33  error =  26.34    (total =  52.65  error =  51.66)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =   9913  maxttc =     24  failed =   3669  total =  13582
+           OPERATION_RO:  successful =   1291  maxttc =     23  failed =      0  total =   1291
+STRUCTURAL_MODIFICATION:  successful =   4213  maxttc =     27  failed =  12323  total =  16536
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7689.28 op/s  (15665.34 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 16
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 272    maxttc = 8      failed = 0     
+Operation  OP6:   successful = 538    maxttc = 13     failed = 0     
+Operation  OP7:   successful = 542    maxttc = 13     failed = 0     
+Operation  OP9:   successful = 2166   maxttc = 15     failed = 3808  
+Operation OP10:   successful = 8159   maxttc = 16     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4368   maxttc = 16     failed = 12812 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.35  error =  19.80    (total =  43.27  error =   1.29)
+           OPERATION_RO:  expected =   4.95  successful =   8.43  error =   3.48    (total =   4.14  error =   0.81)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.22  error =  26.23    (total =  52.59  error =  51.60)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  10325  maxttc =     16  failed =   3808  total =  14133
+           OPERATION_RO:  successful =   1352  maxttc =     13  failed =      0  total =   1352
+STRUCTURAL_MODIFICATION:  successful =   4368  maxttc =     16  failed =  12812  total =  17180
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 8006.49 op/s  (16299.90 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 16
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 267    maxttc = 15     failed = 0     
+Operation  OP6:   successful = 513    maxttc = 17     failed = 0     
+Operation  OP7:   successful = 522    maxttc = 13     failed = 0     
+Operation  OP9:   successful = 2098   maxttc = 18     failed = 3706  
+Operation OP10:   successful = 7934   maxttc = 20     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4270   maxttc = 19     failed = 12459 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.29  error =  19.74    (total =  43.24  error =   1.31)
+           OPERATION_RO:  expected =   4.95  successful =   8.34  error =   3.39    (total =   4.10  error =   0.85)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.36  error =  26.37    (total =  52.66  error =  51.67)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  10032  maxttc =     20  failed =   3706  total =  13738
+           OPERATION_RO:  successful =   1302  maxttc =     17  failed =      0  total =   1302
+STRUCTURAL_MODIFICATION:  successful =   4270  maxttc =     19  failed =  12459  total =  16729
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7790.31 op/s  (15860.71 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 16
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 271    maxttc = 14     failed = 0     
+Operation  OP6:   successful = 540    maxttc = 14     failed = 0     
+Operation  OP7:   successful = 541    maxttc = 9      failed = 0     
+Operation  OP9:   successful = 2169   maxttc = 14     failed = 3830  
+Operation OP10:   successful = 8181   maxttc = 15     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4392   maxttc = 15     failed = 12869 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.31  error =  19.76    (total =  43.24  error =   1.31)
+           OPERATION_RO:  expected =   4.95  successful =   8.40  error =   3.45    (total =   4.12  error =   0.83)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.29  error =  26.30    (total =  52.64  error =  51.65)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  10350  maxttc =     15  failed =   3830  total =  14180
+           OPERATION_RO:  successful =   1352  maxttc =     14  failed =      0  total =   1352
+STRUCTURAL_MODIFICATION:  successful =   4392  maxttc =     15  failed =  12869  total =  17261
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 8026.93 op/s  (16355.61 op/s including failed)
+Elapsed time: 2.00 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 32
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 258    maxttc = 21     failed = 0     
+Operation  OP6:   successful = 511    maxttc = 16     failed = 0     
+Operation  OP7:   successful = 512    maxttc = 27     failed = 0     
+Operation  OP9:   successful = 2068   maxttc = 25     failed = 3690  
+Operation OP10:   successful = 7814   maxttc = 28     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4235   maxttc = 27     failed = 12431 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.18  error =  19.62    (total =  43.06  error =   1.49)
+           OPERATION_RO:  expected =   4.95  successful =   8.32  error =   3.37    (total =   4.06  error =   0.89)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.50  error =  26.51    (total =  52.88  error =  51.89)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =   9882  maxttc =     28  failed =   3690  total =  13572
+           OPERATION_RO:  successful =   1281  maxttc =     27  failed =      0  total =   1281
+STRUCTURAL_MODIFICATION:  successful =   4235  maxttc =     27  failed =  12431  total =  16666
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7664.51 op/s  (15688.90 op/s including failed)
+Elapsed time: 2.01 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 32
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 265    maxttc = 21     failed = 0     
+Operation  OP6:   successful = 512    maxttc = 16     failed = 0     
+Operation  OP7:   successful = 517    maxttc = 18     failed = 0     
+Operation  OP9:   successful = 2095   maxttc = 28     failed = 3751  
+Operation OP10:   successful = 7993   maxttc = 22     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4344   maxttc = 23     failed = 12638 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.15  error =  19.59    (total =  43.09  error =   1.46)
+           OPERATION_RO:  expected =   4.95  successful =   8.23  error =   3.28    (total =   4.03  error =   0.92)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.62  error =  26.63    (total =  52.88  error =  51.89)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  10088  maxttc =     28  failed =   3751  total =  13839
+           OPERATION_RO:  successful =   1294  maxttc =     21  failed =      0  total =   1294
+STRUCTURAL_MODIFICATION:  successful =   4344  maxttc =     23  failed =  12638  total =  16982
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7827.78 op/s  (15985.56 op/s including failed)
+Elapsed time: 2.01 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 32
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 267    maxttc = 13     failed = 0     
+Operation  OP6:   successful = 512    maxttc = 21     failed = 0     
+Operation  OP7:   successful = 514    maxttc = 34     failed = 0     
+Operation  OP9:   successful = 2111   maxttc = 25     failed = 3785  
+Operation OP10:   successful = 8114   maxttc = 25     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4408   maxttc = 25     failed = 12774 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.20  error =  19.65    (total =  43.13  error =   1.43)
+           OPERATION_RO:  expected =   4.95  successful =   8.12  error =   3.17    (total =   3.98  error =   0.97)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.68  error =  26.69    (total =  52.89  error =  51.90)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =  10225  maxttc =     25  failed =   3785  total =  14010
+           OPERATION_RO:  successful =   1293  maxttc =     34  failed =      0  total =   1293
+STRUCTURAL_MODIFICATION:  successful =   4408  maxttc =     25  failed =  12774  total =  17182
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7907.65 op/s  (16129.59 op/s including failed)
+Elapsed time: 2.01 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 32
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 256    maxttc = 20     failed = 0     
+Operation  OP6:   successful = 509    maxttc = 16     failed = 0     
+Operation  OP7:   successful = 512    maxttc = 21     failed = 0     
+Operation  OP9:   successful = 2061   maxttc = 27     failed = 3657  
+Operation OP10:   successful = 7800   maxttc = 91     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 4204   maxttc = 56     failed = 12313 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.27  error =  19.72    (total =  43.17  error =   1.38)
+           OPERATION_RO:  expected =   4.95  successful =   8.32  error =   3.37    (total =   4.08  error =   0.87)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.40  error =  26.41    (total =  52.75  error =  51.76)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =   9861  maxttc =     91  failed =   3657  total =  13518
+           OPERATION_RO:  successful =   1277  maxttc =     21  failed =      0  total =   1277
+STRUCTURAL_MODIFICATION:  successful =   4204  maxttc =     56  failed =  12313  total =  16517
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 7621.46 op/s  (15554.89 op/s including failed)
+Elapsed time: 2.01 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 32
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 224    maxttc = 37     failed = 0     
+Operation  OP6:   successful = 448    maxttc = 41     failed = 0     
+Operation  OP7:   successful = 448    maxttc = 37     failed = 0     
+Operation  OP9:   successful = 1834   maxttc = 38     failed = 3309  
+Operation OP10:   successful = 7047   maxttc = 62     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 3833   maxttc = 62     failed = 11135 
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  64.20  error =  19.64    (total =  43.11  error =   1.45)
+           OPERATION_RO:  expected =   4.95  successful =   8.10  error =   3.15    (total =   3.96  error =   0.99)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.71  error =  26.72    (total =  52.93  error =  51.94)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =   8881  maxttc =     62  failed =   3309  total =  12190
+           OPERATION_RO:  successful =   1120  maxttc =     41  failed =      0  total =   1120
+STRUCTURAL_MODIFICATION:  successful =   3833  maxttc =     62  failed =  11135  total =  14968
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 6622.31 op/s  (13536.62 op/s including failed)
+Elapsed time: 2.09 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 64
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
+Testing complete
+Start benchmark.
+------------------------------------------------------------------------------
+Detailed results
+------------------------------------------------------------------------------
+Operation   Q1:   successful = 0      maxttc = 0      failed = 0     
+Operation   Q2:   successful = 192    maxttc = 32     failed = 0     
+Operation  OP6:   successful = 384    maxttc = 30     failed = 0     
+Operation  OP7:   successful = 384    maxttc = 18     failed = 0     
+Operation  OP9:   successful = 1536   maxttc = 47     failed = 2827  
+Operation OP10:   successful = 5922   maxttc = 81     failed = 0     
+Operation  SM2:   successful = 0      maxttc = 0      failed = 0     
+Operation  SM3:   successful = 3272   maxttc = 77     failed = 9532  
+
+------------------------------------------------------------------------------
+Sample errors (operation ratios [%])
+------------------------------------------------------------------------------
+              TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+           TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+        SHORT_TRAVERSAL:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+     SHORT_TRAVERSAL_RO:  expected =   -nan  successful =   0.00  error =    nan    (total =   0.00  error =    nan)
+              OPERATION:  expected =  44.55  successful =  63.80  error =  19.24    (total =  42.77  error =   1.79)
+           OPERATION_RO:  expected =   4.95  successful =   8.21  error =   3.26    (total =   3.99  error =   0.96)
+STRUCTURAL_MODIFICATION:  expected =   0.99  successful =  27.99  error =  27.00    (total =  53.24  error =  52.25)
+
+------------------------------------------------------------------------------
+Summary results
+------------------------------------------------------------------------------
+              TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+           TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+        SHORT_TRAVERSAL:  successful =      0  maxttc =      0  failed =      0  total =      0
+     SHORT_TRAVERSAL_RO:  successful =      0  maxttc =      0  failed =      0  total =      0
+              OPERATION:  successful =   7458  maxttc =     81  failed =   2827  total =  10285
+           OPERATION_RO:  successful =    960  maxttc =     32  failed =      0  total =    960
+STRUCTURAL_MODIFICATION:  successful =   3272  maxttc =     77  failed =   9532  total =  12804
+
+Total sampleError: nan%  (nan% including failed)
+Total throughput: 5721.98 op/s  (11771.41 op/s including failed)
+Elapsed time: 2.04 s
+
+------------------------------------------------------------------------------
+Parameters
+------------------------------------------------------------------------------
+ConfigFileName "default.conf"
+AtomicPartsPerComponent 200
+ComponentsPerModule 500
+TraversalRatio 5
+ShortTraversalRatio 40
+OperationsRatio 45
+StructuralModificationsRatio 1
+ReadOnlyOperationsRatio 10
+ThreadNumber 64
+ExperimentLengthMs 2000
+ReportTtcHistograms false
+LockType Common Ancestor
+ThreadBlocking 0
+
+
+Finished creating composite parts
+Creating labels for nodes
+Creation complete
+Testing labels
