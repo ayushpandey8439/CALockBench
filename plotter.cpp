@@ -29,7 +29,7 @@ int main()
 
     int Iterations = 5;
 
-    for(int i=0;i<9;i++)
+    for(int i=0;i<7;i++)
     {
         int c=0,m=0,cab=0,cas=0,dom=0;
         for(int j=0;j<Iterations;j++)

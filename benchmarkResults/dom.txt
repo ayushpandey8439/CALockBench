@@ -1,46 +1,19 @@
 
-79954.11
-81068.33
-81130.37
-81216.96
-80388.03
-146898.75
-146539.65
-154594.51
-146999.50
-155913.63
-230751.87
-233566.58
-229495.76
-224206.98
-232119.88
-165305.39
-165252.37
-157503.99
-161791.10
-165594.42
-752.23
-389.24
-410.93
-1126.80
-301.54
-1219.50
-275.12
-144.14
-321.69
-560.85
-185.77
-352.46
-354.41
-334.46
-107.82
-278.78
-446.90
-65.70
-135.42
-41.08
-55.84
-87.58
-58.84
-19.76
-22.84
+Total throughput: 0.88 op/s  (0.88 op/s including failed)
+Total throughput: 0.78 op/s  (0.78 op/s including failed)
+Total throughput: 0.68 op/s  (0.68 op/s including failed)
+Total throughput: 0.88 op/s  (0.88 op/s including failed)
+Total throughput: 0.88 op/s  (0.88 op/s including failed)
+Total throughput: 1.32 op/s  (1.32 op/s including failed)
+Total throughput: 1.31 op/s  (1.31 op/s including failed)
+Total throughput: 1.32 op/s  (1.32 op/s including failed)
+Total throughput: 1.31 op/s  (1.31 op/s including failed)
+Total throughput: 1.14 op/s  (1.14 op/s including failed)
+Total throughput: 1.07 op/s  (1.07 op/s including failed)
+Total throughput: 0.94 op/s  (0.94 op/s including failed)
+Total throughput: 1.07 op/s  (1.07 op/s including failed)
+Total throughput: 1.07 op/s  (1.07 op/s including failed)
+Total throughput: 0.95 op/s  (0.95 op/s including failed)
+Total throughput: 0.94 op/s  (0.94 op/s including failed)
+Total throughput: 0.84 op/s  (0.84 op/s including failed)
+Total throughput: 0.91 op/s  (0.91 op/s including failed)
