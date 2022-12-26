@@ -100,17 +100,18 @@ void sb7::Benchmark::free_matrix(int **matrix, int rows) {
 void sb7::Benchmark::init() {
     // initialize structure of data holder
     sb7::init_data_holder(&dataHolder);
+    /// The CALabels are also used to check if the component is actually connected during random selection
+    /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
+    auto *dfs = new CALockTraversal(&dataHolder);
+    cout << "Creating labels for nodes"<< std::endl;
+    dfs->run(0);
+    cout << "Creation complete"<< std::endl;
+    auto *dts = new CALockLabelTest(&dataHolder);
+    cout<< "Testing labels"<< endl;
+    dts->run(1);
+    cout<< "Testing complete" <<endl;
 
-    if(parameters.getLockType() == Parameters::lock_ca) {
-        auto *dfs = new CALockTraversal(&dataHolder);
-        cout << "Creating labels for nodes"<< std::endl;
-        dfs->run(0);
-        cout << "Creation complete"<< std::endl;
-        auto *dts = new CALockLabelTest(&dataHolder);
-        cout<< "Testing labels"<< endl;
-        dts->run(1);
-        cout<< "Testing complete" <<endl;
-    } else if(parameters.getLockType() == Parameters::lock_dom){
+    if(parameters.getLockType() == Parameters::lock_dom){
         auto * dfs = new DomLockTraversal(&dataHolder);
         dfs->run(0);
         cout<<"Interval assignment complete"<< endl;
