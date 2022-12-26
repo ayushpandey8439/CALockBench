@@ -31,7 +31,7 @@ int sb7::LMQuery1::innerRun(int tid) const {
     query.key = apartId;
     apartInd->get(query);
 
-    if(query.found) {
+    if(query.found && query.val->hasLabel) {
         performOperationOnAtomicPart(query.val);
         count++;
     } else {
@@ -75,9 +75,11 @@ int sb7::LMQuery2::innerRun(int tid) const {
 		SetIterator<AtomicPart *> apartIter = apartSet->getIter();
 
 		while(apartIter.has_next()) {
-			AtomicPart *apart = apartIter.next();
-			performOperationOnAtomicPart(apart);
-			count++;
+            AtomicPart *apart = apartIter.next();
+            if(apart->hasLabel) {
+                performOperationOnAtomicPart(apart);
+                count++;
+            }
 		}
 	}
 

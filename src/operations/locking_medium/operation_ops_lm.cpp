@@ -30,13 +30,16 @@ int sb7::LMOperation6::run(int tid) const {
 
 	// If complex assembly is not found throw an exception.
 	// This is an easy way to get out of the transaction.
-	if(!query.found) {
+	if(!query.found || !query.val->hasLabel) {
 		throw Sb7Exception();
 	}
 
 	// if complex assembly was found process it
 	ComplexAssembly *cassm = query.val;
-	return processComplexAssemblyWrap(cassm);
+    if(cassm->hasLabel){
+        return processComplexAssemblyWrap(cassm);
+    }
+
 }
 
 int sb7::LMOperation6::processComplexAssemblyWrap(
@@ -53,7 +56,7 @@ int sb7::LMOperation6::processComplexAssembly(ComplexAssembly *cassm) const {
 	int ret;
 
 	// if this assembly is root perform operation on it
-	if(superAssm == NULL) {
+	if(superAssm == NULL ) {
 		performOperationOnComplexAssembly(cassm);
 		ret = 1;
 	} else {
@@ -102,7 +105,7 @@ int sb7::LMOperation7::innerRun() const {
 	query.key = bassmId;
 	bassmInd->get(query);
 
-	if(!query.found) {
+	if(!query.found || !query.val->hasLabel) {
 		throw Sb7Exception();
 	}
 

@@ -29,7 +29,7 @@ int sb7::LCQuery1::innerRun(int tid) const {
     query.key = apartId;
     apartInd->get(query);
 
-    if(query.found) {
+    if(query.found && query.val->hasLabel) {
         //cout<<".";
         performOperationOnAtomicPart(query.val);
         count++;
@@ -73,8 +73,10 @@ int sb7::LCQuery2::innerRun(int tid) const {
 
 		while(apartIter.has_next()) {
 			AtomicPart *apart = apartIter.next();
-			performOperationOnAtomicPart(apart);
-			count++;
+            if(apart->hasLabel) {
+                performOperationOnAtomicPart(apart);
+                count++;
+            }
 		}
 	}
 

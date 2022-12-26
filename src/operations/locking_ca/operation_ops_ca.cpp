@@ -38,7 +38,7 @@ int sb7::CAOperation6::innerRun(int tid) const {
 
     // If complex assembly is not found throw an exception.
     // This is an easy way to get out of the transaction.
-    if (!query.found) {
+    if (!query.found || !query.val->hasLabel) {
         throw Sb7Exception();
     }
 
@@ -108,7 +108,7 @@ int sb7::CAOperation7::innerRun(int tid) const {
     query.key = bassmId;
     bassmInd->get(query);
 
-    if (!query.found) {
+    if (!query.found || !query.val->hasLabel) {
         throw Sb7Exception();
     }
     list<BaseAssembly *> bassms;

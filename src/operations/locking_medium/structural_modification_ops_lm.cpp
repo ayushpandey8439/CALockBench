@@ -27,7 +27,7 @@ int sb7::LMStructuralModification2::run(int tid) const {
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
 	CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
-	if(cpart == NULL) {
+	if(cpart == NULL || !cpart->hasLabel) {
 		throw Sb7Exception();
 	}
 
