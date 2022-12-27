@@ -67,7 +67,9 @@ int sb7::WorkerThreadData::getOperationRndInd() const {
     double oprnd = get_random()->nextDouble();
     const std::vector<double> &opRat = operations->getOperationCdf();
     int opind = 0;
-
+    double maxPossible = opRat.at(opRat.size()-1);
+    oprnd = 1-oprnd;
+    oprnd *= maxPossible;
     while (opRat[opind] < oprnd && opind < opRat.size()-1) {
         opind++;
     }

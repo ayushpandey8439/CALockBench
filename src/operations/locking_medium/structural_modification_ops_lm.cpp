@@ -47,7 +47,7 @@ int sb7::LMStructuralModification3::run(int tid) const {
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
 	CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
-	if(cpart == NULL) {
+	if(cpart == NULL || cpart->isDeleted ||!cpart->hasLabel) {
 		throw Sb7Exception();
 	}
 
@@ -55,7 +55,7 @@ int sb7::LMStructuralModification3::run(int tid) const {
 	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
 	BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
 
-	if(bassm == NULL) {
+	if(bassm == NULL|| bassm->isDeleted ||!bassm->hasLabel) {
 		throw Sb7Exception();
 	}	
 
