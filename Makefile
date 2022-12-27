@@ -3,7 +3,7 @@ include Makefile.in
 .PHONY: clean docs
 
 OBJFILES = $(OBJ_DIR)/sb7_lock.o \
-	$(OBJ_DIR)/mersenne.o $(OBJ_DIR)/random.o $(OBJ_DIR)/helpers.o \
+	$(OBJ_DIR)/random.o $(OBJ_DIR)/helpers.o \
 	$(OBJ_DIR)/thread.o $(OBJ_DIR)/thread_fun.o $(OBJ_DIR)/parameters.o \
 	$(OBJ_DIR)/manual.o $(OBJ_DIR)/design_obj.o $(OBJ_DIR)/assembly.o \
 	$(OBJ_DIR)/composite_part.o $(OBJ_DIR)/document.o $(OBJ_DIR)/atomic_part.o \
@@ -90,11 +90,11 @@ $(OBJ_DIR)/benchmark.o: $(SRC_DIR)/benchmark.cpp $(SRC_DIR)/benchmark.h \
 	$(CPP) $(CPPFLAGS) $(SRC_DIR)/benchmark.cpp -c -o $@
 
 # build random impl
-$(OBJ_DIR)/mersenne.o: $(SRC_DIR)/randomc/mersenne.cpp
-	mkdir -p $(OBJ_DIR)
-	$(CPP) $(CPPFLAGS) $(SRC_DIR)/randomc/mersenne.cpp -c -o $@
+#$(OBJ_DIR)/mersenne.o: $(SRC_DIR)/randomc/mersenne.cpp
+#	mkdir -p $(OBJ_DIR)
+#	$(CPP) $(CPPFLAGS) $(SRC_DIR)/randomc/mersenne.cpp -c -o $@
 
-$(OBJ_DIR)/random.o: $(SRC_DIR)/random.cpp $(SRC_DIR)/random.h $(OBJ_DIR)/mersenne.o
+$(OBJ_DIR)/random.o: $(SRC_DIR)/random.cpp $(SRC_DIR)/random.h
 	mkdir -p $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) $(SRC_DIR)/random.cpp -c -o $@
 

@@ -442,10 +442,10 @@ void sb7::DataHolder::deleteAtomicPart(AtomicPart *apart) {
     }
 
     // remove part from build date index
-    removeAtomicPartFromBuildDateIndex(apart);
+    //removeAtomicPartFromBuildDateIndex(apart);
 
     // remove atomic part from id index
-    m_atomicPartIdIndex->remove(id);
+    //m_atomicPartIdIndex->remove(id);
 
     // remove connections to other parts and delete them
     Set<Connection *> *connToSet = apart->getToConnections();
@@ -490,7 +490,7 @@ void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
     int cpartId = cpart->getId();
 
     // remove composite part from composite part index
-    m_compositePartIdIndex->remove(cpartId);
+    //m_compositePartIdIndex->remove(cpartId);
 
     // delete document
     deleteDocument(cpart->getDocumentation());

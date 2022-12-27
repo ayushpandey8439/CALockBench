@@ -109,9 +109,11 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
 
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<int> containerLabel;
-        while (containerLabel.empty()) {
-            containerLabel = fiter.next()->getSource()->pathLabel;
+        list<int> containerLabel={};
+        while (containerLabel.empty() && fiter.has_next()) {
+            auto s = fiter.next();
+            if(s->getSource()->hasLabel)
+                containerLabel = s->getSource()->pathLabel;
         }
         while (fiter.has_next()) {
             Connection *conn = fiter.next();
@@ -123,7 +125,7 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
         }
 
         containerLabel.push_back((apart->getId()*10)+4);
-        unordered_set<int> myLabelSet(containerLabel.begin(), containerLabel.end());
+        vector<int> myLabelSet(containerLabel.begin(), containerLabel.end());
 
         if (myLabelSet != apart->criticalAncestors) {
             apart->setPathLabel(containerLabel);

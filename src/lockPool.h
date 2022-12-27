@@ -26,12 +26,12 @@ using namespace sb7;
 
 class lockObject{
 public:
-    unordered_set<int>* criticalAncestors;
+    vector<int>* criticalAncestors;
     int Id;
     int mode;
     long Oseq;
 
-    lockObject(int pId, unordered_set<int> * ancestors, int m){
+    lockObject(int pId, vector<int> * ancestors, int m){
         Id = pId;
         criticalAncestors = ancestors;
         mode = m;

@@ -39,7 +39,7 @@ int sb7::LMOperation6::run(int tid) const {
     if(cassm->hasLabel){
         return processComplexAssemblyWrap(cassm);
     }
-
+    return 0;
 }
 
 int sb7::LMOperation6::processComplexAssemblyWrap(

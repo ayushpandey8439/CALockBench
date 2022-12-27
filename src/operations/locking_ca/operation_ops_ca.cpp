@@ -149,72 +149,72 @@ int sb7::CAOperation8::run(int tid) const {
 }
 
 int sb7::CAOperation8::innerRun(int tid) const {
-    // Generate one random number that is in range of possible base assembly
-    // identifiers. It is used to look up base assembly from index.
-    //
-    // TODO try to figure out how to generate these ids in a more precise way
-    // so this operation fails only if it is really
-    //
-    int bassmId = get_random()->nextInt(
-            parameters.getMaxBaseAssemblies()) + 1;
+//    // Generate one random number that is in range of possible base assembly
+//    // identifiers. It is used to look up base assembly from index.
+//    //
+//    // TODO try to figure out how to generate these ids in a more precise way
+//    // so this operation fails only if it is really
+//    //
+//    int bassmId = get_random()->nextInt(
+//            parameters.getMaxBaseAssemblies()) + 1;
+//
+//    // lookup base assembly using base assembly index
+//    Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
+//    Map<int, BaseAssembly *>::Query query;
+//    query.key = bassmId;
+//    bassmInd->get(query);
+//
+//    if (!query.found) {
+//        throw Sb7Exception();
+//    }
+//
+//    Bag<CompositePart *> *componentBag = query.val->getComponents();
+//    BagIterator<CompositePart *> iter = componentBag->getIter();
+//    int ret = 0;
+//
+//    list<CompositePart *> cparts;
+//    list<int> lockRequest;
+//
+//    while (iter.has_next()) {
+//        CompositePart *cpart = iter.next();
+//        if(cpart->hasLabel){
+//            if(lockRequest.size()!=1){
+//                if(lockRequest.empty()) lockRequest = cpart->pathLabel;
+//                else {
+//                    auto it = lockRequest.begin();
+//                    auto end = lockRequest.end();
+//                    while(it != end){
+//                        if(!lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
+//                            it = lockRequest.erase(it);
+//                        } else {
+//                            ++it;
+//                        }
+//                    }
+//                }
+//            }
+//            cparts.push_back(cpart);
+//            //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart->pathLabel);
+//        }
+//    }
+//
+//    if(lockRequest.empty()){
+//        throw Sb7Exception();
+//    }
+//    DesignObj* d = lscaHelpers::getLockObject(lockRequest, dataHolder);
+//
+//    auto * l = new lockObject(d->getLabellingId(), &d->criticalAncestors, 0);
+//    //cout<< "Lock Object is not null"<<endl;
+//    if(pool.acquireLock(l,tid)){
+//        //cout<< "Lock acquired"<<endl;
+//        for(CompositePart * c: cparts){
+//            performOperationOnComponent(c);
+//            ret++;
+//        }
+//        pool.releaseLock(l,tid);
+//    }
 
-    // lookup base assembly using base assembly index
-    Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
-    Map<int, BaseAssembly *>::Query query;
-    query.key = bassmId;
-    bassmInd->get(query);
 
-    if (!query.found) {
-        throw Sb7Exception();
-    }
-
-    Bag<CompositePart *> *componentBag = query.val->getComponents();
-    BagIterator<CompositePart *> iter = componentBag->getIter();
-    int ret = 0;
-
-    list<CompositePart *> cparts;
-    list<int> lockRequest;
-
-    while (iter.has_next()) {
-        CompositePart *cpart = iter.next();
-        if(cpart->hasLabel){
-            if(lockRequest.size()!=1){
-                if(lockRequest.empty()) lockRequest = cpart->pathLabel;
-                else {
-                    auto it = lockRequest.begin();
-                    auto end = lockRequest.end();
-                    while(it != end){
-                        if(!lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
-                            it = lockRequest.erase(it);
-                        } else {
-                            ++it;
-                        }
-                    }
-                }
-            }
-            cparts.push_back(cpart);
-            //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, cpart->pathLabel);
-        }
-    }
-
-    if(lockRequest.empty()){
-        throw Sb7Exception();
-    }
-    DesignObj* d = lscaHelpers::getLockObject(lockRequest, dataHolder);
-
-    auto * l = new lockObject(d->getLabellingId(), &d->criticalAncestors, 0);
-    //cout<< "Lock Object is not null"<<endl;
-    if(pool.acquireLock(l,tid)){
-        //cout<< "Lock acquired"<<endl;
-        for(CompositePart * c: cparts){
-            performOperationOnComponent(c);
-            ret++;
-        }
-        pool.releaseLock(l,tid);
-    }
-
-
-    return ret;
+    return 0;
 }
 
 void sb7::CAOperation8::performOperationOnComponent(CompositePart *comp) const {

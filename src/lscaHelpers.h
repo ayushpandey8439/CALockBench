@@ -7,6 +7,7 @@
 #define STMBENCH_LSCAHELPERS_H
 #include <string>
 #include <list>
+#include <algorithm>    // std::find
 #include "./struct/design_obj.h"
 #include "data_holder.h"
 
@@ -16,14 +17,15 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static bool hasCriticalAncestor(unordered_set<int> * A, int d){
-        if(!A->empty() && A->find(d)!=A->end()){
+    static bool hasCriticalAncestor(vector<int> * A, int d){
+        if(!A->empty() && find(A->begin(), A->end(), d) !=A->end()){
             return true;
         }
         else return false;
     }
 
-    static DesignObj * getLockObject(list<int> objectLabel, sb7::DataHolder * dh){
+    static pair<DesignObj *, bool> getLockObject(list<int> objectLabel, sb7::DataHolder * dh){
+        pair<DesignObj *, bool> res;
         int objectId;
         if(objectLabel.size()==1){
             objectId = objectLabel.front();
@@ -34,20 +36,30 @@ public:
         int id = objectId/10;
         switch(typeIdentifier){
             case 1:
-                return dh->getComplexAssembly(id);
+                res.first=dh->getComplexAssembly(id);
+                res.second = true;
+                return res;
             case 2:
-                return dh->getBaseAssembly(id);
+                res.second = true;
+                res.first= dh->getBaseAssembly(id);
+                return res;
             case 3:
-                return dh->getCompositePart(id);
+                res.second = true;
+                res.first=  dh->getCompositePart(id);
+                return res;
             case 4: {
                 sb7::Map<int, sb7::AtomicPart *> *index = dh->getAtomicPartIdIndex();
                 sb7::Map<int, sb7::AtomicPart *>::Query query;
                 query.key = id;
                 index->get(query);
-                return query.val;
+                res.second = true;
+                res.first=  query.val;
+                return res;
             }
             default:
-                return nullptr;
+                res.first = nullptr;
+                res.second = false;
+                return res;
         }
     }
 };

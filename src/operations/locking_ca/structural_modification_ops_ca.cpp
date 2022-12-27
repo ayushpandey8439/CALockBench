@@ -80,14 +80,25 @@ int sb7::CAStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    list<int> lockLabel = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
-    DesignObj* lo = lscaHelpers::getLockObject(lockLabel, dataHolder);
+    list<int> lockLabel = {};
+
+
+    auto it = bassm->pathLabel.begin();
+    auto end = bassm->pathLabel.end();
+    while(it != end){
+        if(lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
+            lockLabel.push_back(*it);
+        }
+        ++it;
+    }
+//    lockLabel= pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
+    pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockLabel, dataHolder);
     /// When adding a component, it is possible that the composite part we are going to add isn't connected.
     /// This means. a lock on the base assembly is enough.
-    if(lo== nullptr){
-        lo = bassm;
+    if(!lo.second){
+        lo.first = bassm;
     }
-    auto * l = new lockObject (lo->getLabellingId(), &lo->criticalAncestors, 1);
+    auto * l = new lockObject (lo.first->getLabellingId(), &lo.first->criticalAncestors, 1);
     if(pool.acquireLock(l, tid)) {
         /// Similar to SM2, If some thread as deleted the element we are going to modify then we cannot progress with the addition.
         /// This also needs the ability to convert a read lock into a write lock.
@@ -110,59 +121,59 @@ int sb7::CAStructuralModification3::run(int tid) const {
 /////////////////////////////
 
 int sb7::CAStructuralModification4::run(int tid) const {
-    //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
+//    //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
+//
+//    // generate random base assembly id
+//    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
+//    BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
+//
+//    if (bassm == nullptr || !bassm->hasLabel) {
+//        throw Sb7Exception();
+//    }
+//
+//    // select one of composite parts used in the base assembly
+//    Bag<CompositePart *> *cpartBag = bassm->getComponents();
+//    int compNum = cpartBag->size();
+//
+//    if (compNum == 0) {
+//        throw Sb7Exception();
+//    }
+//
+//    int nextId = get_random()->nextInt(compNum);
+//
+//    // find component with that ordinal number
+//    BagIterator<CompositePart *> iter = cpartBag->getIter();
+//    int i = 0;
+//
+//    while (iter.has_next()) {
+//        /// Delete composite part and iterating over it to make locks is a trouble.
+//        /// Should we take read locks?
+//        CompositePart *cpart = iter.next();
+//        if (nextId == i && cpart->hasLabel && bassm->hasLabel) {
+//            list<int> lockRequest = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
+//            DesignObj * lo = lscaHelpers::getLockObject(lockRequest, dataHolder);
+//            auto *l = new lockObject (lo->getLabellingId(), &lo->criticalAncestors, 1);
+//            if(pool.acquireLock(l, tid)) {
+//                /// Only issue the delete if the component has not be concurrently disconnected before the lock request was granted.
+//                if(bassm->hasLabel && cpart->hasLabel){
+//                    bassm->removeComponent(cpart);
+//                    //relabelling should only be done if the component is actually connected to anything. If not, we can avoid relabelling.
+//                    if(cpart->getUsedIn()->size()>0){
+//                        auto * r = new CArelabelling(dataHolder);
+//                        r->cpartQ.push(cpart);
+//                        r->run();
+//                    }
+//                }
+//                pool.releaseLock(l,tid);
+//            }
+//            return 0;
+//        }
+//
+//        i++;
+//    }
 
-    // generate random base assembly id
-    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-    BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
-
-    if (bassm == nullptr || !bassm->hasLabel) {
-        throw Sb7Exception();
-    }
-
-    // select one of composite parts used in the base assembly
-    Bag<CompositePart *> *cpartBag = bassm->getComponents();
-    int compNum = cpartBag->size();
-
-    if (compNum == 0) {
-        throw Sb7Exception();
-    }
-
-    int nextId = get_random()->nextInt(compNum);
-
-    // find component with that ordinal number
-    BagIterator<CompositePart *> iter = cpartBag->getIter();
-    int i = 0;
-
-    while (iter.has_next()) {
-        /// Delete composite part and iterating over it to make locks is a trouble.
-        /// Should we take read locks?
-        CompositePart *cpart = iter.next();
-        if (nextId == i && cpart->hasLabel && bassm->hasLabel) {
-            list<int> lockRequest = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
-            DesignObj * lo = lscaHelpers::getLockObject(lockRequest, dataHolder);
-            auto *l = new lockObject (lo->getLabellingId(), &lo->criticalAncestors, 1);
-            if(pool.acquireLock(l, tid)) {
-                /// Only issue the delete if the component has not be concurrently disconnected before the lock request was granted.
-                if(bassm->hasLabel && cpart->hasLabel){
-                    bassm->removeComponent(cpart);
-                    //relabelling should only be done if the component is actually connected to anything. If not, we can avoid relabelling.
-                    if(cpart->getUsedIn()->size()>0){
-                        auto * r = new CArelabelling(dataHolder);
-                        r->cpartQ.push(cpart);
-                        r->run();
-                    }
-                }
-                pool.releaseLock(l,tid);
-            }
-            return 0;
-        }
-
-        i++;
-    }
-
-    throw Sb7Exception(
-            "SM4: concurrent modification of BaseAssembly.components!");
+//    throw Sb7Exception(
+//            "SM4: concurrent modification of BaseAssembly.components!");
 return 0;
 }
 

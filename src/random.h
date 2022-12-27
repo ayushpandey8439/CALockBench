@@ -4,9 +4,7 @@
 
 #ifndef STMBENCH_RANDOM_H
 #define STMBENCH_RANDOM_H
-
-
-#include "randomc/randomc.h"
+#include "random"
 
 namespace sb7 {
     class Random {
@@ -19,8 +17,8 @@ namespace sb7 {
 
         double nextDouble();
 
-    private:
-        TRandomMersenne randomGen;
+    protected:
+        std::mt19937 generator;
     };
 }
 

@@ -28,6 +28,7 @@ namespace sb7 {
             pthread_rwlock_init(&NodeLock, NULL);
             hasLabel= false;
             isDeleted = false;
+            pathLabel={};
         }
 
 
@@ -45,10 +46,10 @@ namespace sb7 {
         void Delete() {
             this->isDeleted = true;
             this->hasLabel = false;
-            this->m_id = NULL;
+            this->m_id = -1;
             //this->criticalAncestors.clear();
-            this->pathLabel.clear();
-            this->m_buildDate = NULL;
+            this->pathLabel = {};
+            this->m_buildDate = -1;
             this->m_type.clear();
         }
 
@@ -58,7 +59,7 @@ namespace sb7 {
             pathLabel = label;
             criticalAncestors.clear();
             for(const auto& d: label){
-                criticalAncestors.insert(d);
+                criticalAncestors.push_back(d);
             }
         }
 
@@ -74,8 +75,8 @@ namespace sb7 {
         long int m_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
-        list<int> pathLabel;
-        unordered_set<int> criticalAncestors;
+        list<int> pathLabel{};
+        vector<int> criticalAncestors;
         bool isDeleted;
     protected:
         int m_id;
