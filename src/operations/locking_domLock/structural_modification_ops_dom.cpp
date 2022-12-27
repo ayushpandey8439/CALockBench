@@ -29,7 +29,7 @@ int sb7::DomStructuralModification2::run(int tid) const {
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
 	CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
-	if(cpart == NULL) {
+	if(cpart == NULL|| cpart->m_post_number==0 || cpart->m_pre_number==0) {
 		throw Sb7Exception();
 	}
     auto *inv = new interval(cpart->m_pre_number,cpart->m_post_number,1);
@@ -49,7 +49,7 @@ int sb7::DomStructuralModification3::run(int tid) const {
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
 	CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
-	if(cpart == NULL) {
+	if(cpart == NULL || cpart->m_pre_number==0 || cpart->m_post_number==0) {
 		throw Sb7Exception();
 	}
 
@@ -57,7 +57,7 @@ int sb7::DomStructuralModification3::run(int tid) const {
 	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
 	BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
 
-	if(bassm == NULL) {
+	if(bassm == NULL|| bassm->m_pre_number==0 || bassm->m_post_number==0) {
 		throw Sb7Exception();
 	}
 

@@ -34,7 +34,7 @@ int sb7::DomOperation6::innerRun(int tid) const {
 
 	// If complex assembly is not found throw an exception.
 	// This is an easy way to get out of the transaction.
-	if(!query.found) {
+	if(!query.found|| query.val->m_pre_number==0 || query.val->m_post_number==0) {
 		throw Sb7Exception();
 	}
 
@@ -45,7 +45,7 @@ int sb7::DomOperation6::innerRun(int tid) const {
 	ComplexAssembly *superAssm = cassm->getSuperAssembly();
 
 	// if this assembly is root perform operation on it
-	if(superAssm == NULL) {
+	if(superAssm == NULL || superAssm->m_pre_number==0 || superAssm->m_post_number==0) {
         auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
             performOperationOnComplexAssembly(cassm);
@@ -100,7 +100,7 @@ int sb7::DomOperation7::innerRun(int tid) const {
 	query.key = bassmId;
 	bassmInd->get(query);
 
-	if(!query.found) {
+	if(!query.found || query.val->m_pre_number==0 || query.val->m_post_number==0) {
 		throw Sb7Exception();
 	}
 

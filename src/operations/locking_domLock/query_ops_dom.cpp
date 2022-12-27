@@ -29,7 +29,7 @@ int sb7::DomQuery1::innerRun(int tid) const {
     query.key = apartId;
     apartInd->get(query);
 
-    if(query.found && query.val->m_pre_number!=0){
+    if(query.found && query.val->m_pre_number!=0 && query.val->m_post_number!=0){
         if(string(name) == "Q1"){
             auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
             if(!ICheck.IsOverlap(inv, 0, threadID))

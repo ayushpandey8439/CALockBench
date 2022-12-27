@@ -51,6 +51,8 @@ namespace sb7 {
             this->pathLabel = {};
             this->m_buildDate = -1;
             this->m_type.clear();
+            m_post_number=0;
+            m_pre_number=0;
         }
 
         void setPathLabel(const list<int>& label){
