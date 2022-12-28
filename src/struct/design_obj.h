@@ -48,7 +48,7 @@ namespace sb7 {
             this->hasLabel = false;
             this->m_id = -1;
             //this->criticalAncestors.clear();
-            this->pathLabel = {};
+            this->pathLabel = std::list<int>();
             this->m_buildDate = -1;
             this->m_type.clear();
             m_post_number=0;

@@ -32,6 +32,9 @@ void CArelabelling::run() {
 
 
 void CArelabelling::traverse(ComplexAssembly *cassm) {
+    if(cassm->isDeleted){
+        return;
+    }
     list<int> currLabel = cassm->pathLabel;
     list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
     superLabel.push_back((cassm->getId()*10)+1);
@@ -56,6 +59,8 @@ void CArelabelling::traverse(ComplexAssembly *cassm) {
 }
 
 void CArelabelling::traverse(BaseAssembly *bassm) {
+    if(bassm->isDeleted) return;
+
     list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
     currLabel.push_back((bassm->getId()*10)+1);
     bassm->setPathLabel(currLabel);
@@ -68,7 +73,7 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
 
 void CArelabelling::traverse(CompositePart *cpart) {
     string type = "cp";
-
+    if(cpart->isDeleted) return;
     Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
     BagIterator<BaseAssembly *> biter = usedIn->getIter();
     list<int> firstLabel = biter.next()->pathLabel;
@@ -93,6 +98,7 @@ void CArelabelling::traverse(CompositePart *cpart) {
 
 
 void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, bool isRoot) {
+    if(apart->isDeleted) return;
     if (isRoot) {
         visitedPartSet.add(apart);
         Set<Connection *> *toConns = apart->getToConnections();
@@ -109,7 +115,7 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
 
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<int> containerLabel={};
+        list<int> containerLabel(10,-1);
         while (containerLabel.empty() && fiter.has_next()) {
             auto s = fiter.next();
             if(s->getSource()->hasLabel)

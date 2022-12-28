@@ -487,6 +487,7 @@ void sb7::DataHolder::deleteAtomicPart(AtomicPart *apart) {
 }
 
 void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
+    if(cpart->isDeleted) return;
     int cpartId = cpart->getId();
 
     // remove composite part from composite part index

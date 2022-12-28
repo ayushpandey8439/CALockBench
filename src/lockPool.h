@@ -117,16 +117,25 @@ public:
             locks[threadId] = nullptr;
         }
     }
-
-    list<int> addToLockRequest(DataHolder*dh, list<int>  lockRequest, list<int> label){
-        if(lockRequest.empty()){
-            return label;
-        } else {
-            list<int> common;
-            set_intersection(lockRequest.begin(), lockRequest.end(), label.begin(),label.end(), back_inserter(common));
-            return common;
-        }
-    }
+//
+//    list<int> addToLockRequest(DataHolder*dh, list<int> & lockRequest, DesignObj & label){
+//        if(lockRequest.empty()){
+//            lockRequest = label.pathLabel;
+//            return label.pathLabel;
+//        } else {
+//            list<int> common;
+//            set_intersection(lockRequest.begin(), lockRequest.end(), label.begin(),label.end(), back_inserter(common));
+//           return common;
+//            auto it = lockRequest.begin();
+//            while (it != lockRequest.end()) {
+//                    if (!lscaHelpers::hasCriticalAncestor(&label.criticalAncestors, *it)) {
+//                        it = lockRequest.erase(it);
+//                    } else {
+//                        ++it;
+//                    }
+//                }
+//        }
+//    }
 };
 
 

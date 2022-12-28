@@ -84,27 +84,25 @@ int sb7::CAQuery2::innerRun(int tid) const {
         Set<AtomicPart *> *apartSet = iter.next();
         SetIterator<AtomicPart *> apartIter = apartSet->getIter();
         vector<AtomicPart*> aparts;
-        list<int> lockRequest={};
+        list<int> lockRequest;
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel && !apart->isDeleted) {
                 //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
-                if(lockRequest.size()!=1){
                     if(lockRequest.empty()){
                         lockRequest = apart->pathLabel;
                     }
                     else {
                         auto it = lockRequest.begin();
                         auto end = lockRequest.end();
-                        while(it != end){
-                            if(!lscaHelpers::hasCriticalAncestor(&apart->criticalAncestors, *it)){
+                        while (it != end) {
+                            if (!lscaHelpers::hasCriticalAncestor(&apart->criticalAncestors, *it)) {
                                 it = lockRequest.erase(it);
                             } else {
                                 ++it;
                             }
                         }
                     }
-                }
                 aparts.push_back(apart);
             }
         }

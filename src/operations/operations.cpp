@@ -206,7 +206,7 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
       ops.push_back(new CAOperation7(dh));
       //ops.push_back(new CAOperation8(dh));//aggregation same as query 2
       ops.push_back(new CAOperation9(dh));
-      ops.push_back(new CAOperation10(dh)); // Aggregation
+//      ops.push_back(new CAOperation10(dh)); // Aggregation
 //    ops.push_back(new CAOperation11(dh)); Traversal operation
 //    ops.push_back(new CAOperation12(dh));
 //    ops.push_back(new CAOperation13(dh));

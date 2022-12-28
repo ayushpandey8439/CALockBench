@@ -19,10 +19,10 @@ r2 = [x + barWidth for x in r1]
 r3 = [x + barWidth for x in r2]
 r4 = [x + barWidth for x in r3]
 
-plt.bar(r1, df['Coarse'], color='#D65780', width=barWidth, edgecolor='white', label='Coarse')
-plt.bar(r2, df['Medium'], color='#A4B0F5', width=barWidth, edgecolor='white', label='Medium')
-plt.bar(r3, df['Domlock'], color='#363537', width=barWidth, edgecolor='white', label='Domlock')
-plt.bar(r4, df['CALock'], color='#ECA72C', width=barWidth, edgecolor='white', label='CALock')
+plt.bar(r1, df['Coarse'], color='#ed553b', width=barWidth, edgecolor='white', label='Coarse')
+plt.bar(r2, df['Medium'], color='#f6d55c', width=barWidth, edgecolor='white', label='Medium')
+plt.bar(r3, df['Domlock'], color='#173f5f', width=barWidth, edgecolor='white', label='Domlock')
+plt.bar(r4, df['CALock'], color='#3caea3', width=barWidth, edgecolor='white', label='CALock')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('Op/s', fontweight='bold')
 
