@@ -32,6 +32,3 @@ echo "Thread count 64"
 for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l m -n 64 -w $LOAD_TYPE  -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i "throughput";done >>./benchmarkResults/medium64.txt
 cut -d ' ' -f3 ./benchmarkResults/medium64.txt >./benchmarkResults/Results.txt
 mv ./benchmarkResults/Results.txt ./benchmarkResults/medium64.txt
-
-cut -d ' ' -f3 ./benchmarkResults/medium.txt >./benchmarkResults/Results.txt
-mv ./benchmarkResults/Results.txt ./benchmarkResults/medium.txt
