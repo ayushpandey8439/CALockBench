@@ -62,12 +62,13 @@ void sb7::DomQuery1::performOperationOnAtomicPart(AtomicPart *apart) const {
 // Query2 //
 ////////////
 
-sb7::DomQuery2::DomQuery2(DataHolder *dh, optype t, const char *n, int percent)
+sb7::DomQuery2::DomQuery2(DataHolder *dh, optype t, const char *n, int p)
 		: Operation(t, n, dh) {
-	maxAtomicDate = parameters.getMaxAtomicDate();
-	minAtomicDate = parameters.getMaxAtomicDate() -
-		percent * (parameters.getMaxAtomicDate() -
-					parameters.getMinAtomicDate()) / 100;
+    percent = p;
+//	maxAtomicDate = parameters.getMaxAtomicDate();
+//	minAtomicDate = parameters.getMaxAtomicDate() -
+//		percent * (parameters.getMaxAtomicDate() -
+//					parameters.getMinAtomicDate()) / 100;
 }
 
 int sb7::DomQuery2::run(int tid) const {
@@ -78,10 +79,16 @@ int sb7::DomQuery2::run(int tid) const {
 int sb7::DomQuery2::innerRun(int tid) const {
 	int count = 0;
     long min=0, max=0;
+
+    int range = percent* (parameters.getMaxAtomicDate() -
+                          parameters.getMinAtomicDate())/100;
+    int minA = get_random()->nextInt(parameters.getMaxAtomicDate()-range);
+    int maxA = minA+range;
+
 	Map<int, Set<AtomicPart *> *> *setInd =
 		dataHolder->getAtomicPartBuildDateIndex();
 	MapIterator<int, Set<AtomicPart *> *> iter =
-		setInd->getRange(minAtomicDate, maxAtomicDate);
+		setInd->getRange(minA, maxA);
 
 	while(iter.has_next()) {
 		Set<AtomicPart *> *apartSet = iter.next();

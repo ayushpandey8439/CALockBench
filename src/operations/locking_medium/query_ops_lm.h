@@ -34,6 +34,7 @@ namespace sb7 {
 			virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
 
 		private:
+            int percent;
 	    	int maxAtomicDate;
 			int minAtomicDate; 
 	};

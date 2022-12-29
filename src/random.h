@@ -18,7 +18,7 @@ namespace sb7 {
         double nextDouble();
 
     protected:
-        std::mt19937 generator;
+        std::mt19937_64 generator;
     };
 }
 

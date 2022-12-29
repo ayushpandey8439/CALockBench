@@ -61,12 +61,9 @@ void sb7::CAQuery1::performOperationOnAtomicPart(AtomicPart *apart) const {
 // Query2 //
 ////////////
 
-sb7::CAQuery2::CAQuery2(DataHolder *dh, optype t, const char *n, int percent)
+sb7::CAQuery2::CAQuery2(DataHolder *dh, optype t, const char *n, int p)
         : Operation(t, n, dh) {
-    maxAtomicDate = parameters.getMaxAtomicDate();
-    minAtomicDate = parameters.getMaxAtomicDate() -
-                    percent * (parameters.getMaxAtomicDate() -
-                               parameters.getMinAtomicDate()) / 100;
+    percent = p;
 }
 
 int sb7::CAQuery2::run(int tid) const {
@@ -74,11 +71,16 @@ int sb7::CAQuery2::run(int tid) const {
 }
 
 int sb7::CAQuery2::innerRun(int tid) const {
+    int range = percent* (parameters.getMaxAtomicDate() -
+                          parameters.getMinAtomicDate())/100;
+    int min = get_random()->nextInt(parameters.getMaxAtomicDate()-range);
+    int max = min+range;
     int count = 0;
+
     Map<int, Set<AtomicPart *> *> *setInd =
             dataHolder->getAtomicPartBuildDateIndex();
     MapIterator<int, Set<AtomicPart *> *> iter =
-            setInd->getRange(minAtomicDate, maxAtomicDate);
+            setInd->getRange(min, max);
 
     while (iter.has_next()) {
         Set<AtomicPart *> *apartSet = iter.next();
@@ -116,7 +118,6 @@ int sb7::CAQuery2::innerRun(int tid) const {
 
             if(lo.second && lo.first->hasLabel){
                 auto * l = new lockObject(lo.first->getLabellingId(), &lo.first->criticalAncestors, mode);
-                cout<< lo.first->getLabellingId()<<endl;
                 pool.acquireLock(l, tid);
                 for(auto * apart: aparts){
                     performOperationOnAtomicPart(apart);
