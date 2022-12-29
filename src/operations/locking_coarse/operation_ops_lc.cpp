@@ -58,7 +58,6 @@ int sb7::LCOperation6::innerRun(int tid) const {
 			ret++;
 		}
 	}
-
 	return ret;
 }
 

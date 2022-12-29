@@ -116,6 +116,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
 
             if(lo.second && lo.first->hasLabel){
                 auto * l = new lockObject(lo.first->getLabellingId(), &lo.first->criticalAncestors, mode);
+                cout<< lo.first->getLabellingId()<<endl;
                 pool.acquireLock(l, tid);
                 for(auto * apart: aparts){
                     performOperationOnAtomicPart(apart);
@@ -126,7 +127,6 @@ int sb7::CAQuery2::innerRun(int tid) const {
               }
             }
         }
-
     return count;
 }
 
@@ -210,7 +210,6 @@ int sb7::CAQuery5::run(int tid) const {
     while (iter.has_next()) {
         ret += checkBaseAssembly(iter.next());
     }
-
     return ret;
 }
 
@@ -227,7 +226,6 @@ int sb7::CAQuery5::checkBaseAssembly(BaseAssembly *bassm) {
             return 1;
         }
     }
-
     return 0;
 }
 
@@ -262,7 +260,6 @@ int sb7::CAQuery6::checkComplexAssembly(ComplexAssembly *assembly) const {
         assembly->nullOperation();
         ret++;
     }
-
     return ret;
 }
 

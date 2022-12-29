@@ -90,7 +90,7 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
     //ops.push_back(new LCShortTraversal10(dh));
 
     ops.push_back(new LCQuery1(dh));
-    ops.push_back(new LCQuery2(dh));
+//    ops.push_back(new LCQuery2(dh));
     //ops.push_back(new LCQuery3(dh)); Not implemented
     //ops.push_back(new LCTraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new LCTraversal9(dh)); Trivial and does not need locks.
@@ -98,7 +98,7 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
     ops.push_back(new LCOperation7(dh));
     //ops.push_back(new LCOperation8(dh));
     ops.push_back(new LCOperation9(dh));
-    ops.push_back(new LCOperation10(dh));
+//    ops.push_back(new LCOperation10(dh));
 //    ops.push_back(new LCOperation11(dh)); Traversal operation
 //    ops.push_back(new LCOperation12(dh));
 //    ops.push_back(new LCOperation13(dh));
@@ -144,7 +144,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
     //ops.push_back(new LMShortTraversal10(dh));
 
     ops.push_back(new LMQuery1(dh));
-    ops.push_back(new LMQuery2(dh));
+//    ops.push_back(new LMQuery2(dh));
     //ops.push_back(new LMQuery3(dh)); Not implemented
     //ops.push_back(new LMTraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new LMTraversal9(dh)); Trivial and does not need locks.
@@ -152,7 +152,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
     ops.push_back(new LMOperation7(dh));
     //ops.push_back(new LMOperation8(dh));
     ops.push_back(new LMOperation9(dh));
-    ops.push_back(new LMOperation10(dh));
+//    ops.push_back(new LMOperation10(dh));
 //    ops.push_back(new LMOperation11(dh)); Traversal operation
 //    ops.push_back(new LMOperation12(dh));
 //    ops.push_back(new LMOperation13(dh));
@@ -198,7 +198,7 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
     //ops.push_back(new CAShortTraversal10(dh));
 
       ops.push_back(new CAQuery1(dh));
-      ops.push_back(new CAQuery2(dh)); // Aggregation
+//      ops.push_back(new CAQuery2(dh)); // Aggregation
     //ops.push_back(new CAQuery3(dh)); Not implemented
     //ops.push_back(new CATraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new CATraversal9(dh)); Trivial and does not need locks.
@@ -250,7 +250,7 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
     //ops.push_back(new DomShortTraversal10(dh));
 
     ops.push_back(new DomQuery1(dh));
-    ops.push_back(new DomQuery2(dh));
+//    ops.push_back(new DomQuery2(dh));
     //ops.push_back(new DomQuery3(dh)); Not implemented
     //ops.push_back(new DomTraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new DomTraversal9(dh)); Trivial and does not need locks.
@@ -258,7 +258,7 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
     ops.push_back(new DomOperation7(dh));
     //ops.push_back(new DomOperation8(dh));
      ops.push_back(new DomOperation9(dh));
-    ops.push_back(new DomOperation10(dh));
+//    ops.push_back(new DomOperation10(dh));
 //    ops.push_back(new DomOperation11(dh)); Traversal operation
 //    ops.push_back(new DomOperation12(dh));
 //    ops.push_back(new DomOperation13(dh));
