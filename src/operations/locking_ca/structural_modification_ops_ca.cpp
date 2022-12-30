@@ -42,9 +42,6 @@ int sb7::CAStructuralModification2::run(int tid) const {
         throw Sb7Exception();
     }
 
-    Bag<BaseAssembly *> *bassmBag = cpart->getUsedIn();
-    BagIterator<BaseAssembly *> iter = bassmBag->getIter();
-
     auto *l = new lockObject (cpart->getLabellingId(), &cpart->criticalAncestors, 1);
     pool.acquireLock(l, tid);
     //// Between when the lock was created and the actual deletion happens,

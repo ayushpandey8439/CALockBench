@@ -98,7 +98,7 @@ namespace sb7 {
 
     class BaseAssembly : public Assembly {
     protected:
-        typedef Bag<CompositePart *> composite_part_bag;
+        typedef Set<CompositePart *> composite_part_bag;
 
     public:
         BaseAssembly(int id, string type, int buildDate, Module *module,

@@ -491,7 +491,7 @@ void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
     int cpartId = cpart->getId();
 
     // remove composite part from composite part index
-    //m_compositePartIdIndex->remove(cpartId);
+    m_compositePartIdIndex->remove(cpartId);
 
     // delete document
     deleteDocument(cpart->getDocumentation());
@@ -505,11 +505,11 @@ void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
     }
 
     // break connection with all base assemblies
-    Bag<BaseAssembly *> *bassmBag = cpart->getUsedIn();
-    BagIterator<BaseAssembly *> iterBag = bassmBag->getIter();
+    Set<BaseAssembly *> *bassmBag = cpart->getUsedIn();
+    SetIterator<BaseAssembly *> iterBag = bassmBag->getIter();
     Set<BaseAssembly *> bassmSet;
 
-    // first copy all base assemblies to separate set as bag will change
+    // first copy all base assemblies to separate set as Set will change
     // while breaking connection
     while (iterBag.has_next()) {
         bassmSet.add(iterBag.next());
@@ -544,18 +544,18 @@ void sb7::DataHolder::deleteBaseAssembly(BaseAssembly *bassm) {
     parent->removeSubAssembly(bassm);
 
     // remove links to all used components
-    Bag<CompositePart *> *cpartBag = bassm->getComponents();
+    Set<CompositePart *> *cpartBag = bassm->getComponents();
     Set<CompositePart *> cpartSet;
 
-    // copy component bag to a local one, to avoid changes to set we are
+    // copy component Set to a local one, to avoid changes to set we are
     // iteration through
-    BagIterator<CompositePart *> iterSh = cpartBag->getIter();
+    SetIterator<CompositePart *> iterSh = cpartBag->getIter();
 
     while (iterSh.has_next()) {
         cpartSet.add(iterSh.next());
     }
 
-    // now go through local bag and remove all components in there
+    // now go through local Set and remove all components in there
     SetIterator<CompositePart *> iter = cpartSet.getIter();
 
     while (iter.has_next()) {

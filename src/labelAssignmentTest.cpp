@@ -54,7 +54,7 @@ void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
     }
 
 
-    BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
+    SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
 
     while(iter.has_next()) {
         traverse(iter.next());

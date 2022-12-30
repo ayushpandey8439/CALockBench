@@ -73,7 +73,7 @@ void sb7::CALockTraversal::traverse(ComplexAssembly *cassm, queue<ComplexAssembl
 }
 
 void sb7::CALockTraversal::traverse(BaseAssembly *bassm, queue<CompositePart*> *cpartQ) const {
-    BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
+    SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
     while(iter.has_next()) {
         CompositePart * cp = iter.next();
         cpartQ->push(cp);
@@ -81,8 +81,8 @@ void sb7::CALockTraversal::traverse(BaseAssembly *bassm, queue<CompositePart*> *
 }
 
 void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *apartQ) const {
-    Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
-    BagIterator<BaseAssembly *> biter = usedIn->getIter();
+    Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
+    SetIterator<BaseAssembly *> biter = usedIn->getIter();
     list<int> firstLabel = biter.next()->pathLabel;
 
     while(biter.has_next()){

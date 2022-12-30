@@ -160,8 +160,8 @@ int sb7::DomQuery4::run(int tid) const {
 		if(query.found) {
 			Document *doc = query.val;
 			CompositePart *cpart = doc->getCompositePart();
-			Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
-			BagIterator<BaseAssembly *> iter = usedIn->getIter();
+			Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
+			SetIterator<BaseAssembly *> iter = usedIn->getIter();
 
 			while(iter.has_next()) {
 				BaseAssembly *bassm = iter.next();
@@ -194,8 +194,8 @@ int sb7::DomQuery5::run(int tid) const {
 
 int sb7::DomQuery5::checkBaseAssembly(BaseAssembly *bassm) const {
 	int assmBuildDate = bassm->getBuildDate();
-	Bag<CompositePart *> *cparts = bassm->getComponents();
-	BagIterator<CompositePart *> iter = cparts->getIter();
+	Set<CompositePart *> *cparts = bassm->getComponents();
+	SetIterator<CompositePart *> iter = cparts->getIter();
 
 	while(iter.has_next()) {
 		CompositePart *cpart = iter.next();

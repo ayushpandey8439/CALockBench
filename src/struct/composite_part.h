@@ -23,7 +23,7 @@ namespace sb7 {
 
     class CompositePart : public DesignObj {
     protected:
-        typedef Bag<BaseAssembly *> base_assembly_bag;
+        typedef Set<BaseAssembly *> base_assembly_bag;
         typedef Set<AtomicPart *> atomic_part_set;
 
     public:

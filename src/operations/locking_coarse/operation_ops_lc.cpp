@@ -142,8 +142,8 @@ int sb7::LCOperation8::innerRun(int tid) const {
 		throw Sb7Exception();
 	}
 
-	Bag<CompositePart *> *componentBag = query.val->getComponents();
-	BagIterator<CompositePart *> iter = componentBag->getIter();
+	Set<CompositePart *> *componentBag = query.val->getComponents();
+	SetIterator<CompositePart *> iter = componentBag->getIter();
 	int ret = 0;
 
 	while(iter.has_next()) {

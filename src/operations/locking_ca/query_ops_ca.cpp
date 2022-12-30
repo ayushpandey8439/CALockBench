@@ -85,7 +85,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
     while (iter.has_next()) {
         Set<AtomicPart *> *apartSet = iter.next();
         SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-        vector<AtomicPart*> aparts;
+        list<AtomicPart*> aparts;
         list<int> lockRequest;
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
@@ -216,8 +216,8 @@ int sb7::CAQuery5::run(int tid) const {
 
 int sb7::CAQuery5::checkBaseAssembly(BaseAssembly *bassm) {
     int assmBuildDate = bassm->getBuildDate();
-    Bag<CompositePart *> *cparts = bassm->getComponents();
-    BagIterator<CompositePart *> iter = cparts->getIter();
+    Set<CompositePart *> *cparts = bassm->getComponents();
+    SetIterator<CompositePart *> iter = cparts->getIter();
 
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();

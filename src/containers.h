@@ -248,6 +248,11 @@ namespace sb7 {
             return ret;
         }
 
+        bool removeAll(T &el){
+            inner.erase(el);
+            return true;
+        }
+
         /**
          * Function returns iterator for accessing elements of the
          * container.

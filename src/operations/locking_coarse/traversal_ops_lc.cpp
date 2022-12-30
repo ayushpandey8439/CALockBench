@@ -39,7 +39,7 @@ int sb7::LCTraversal1::traverse(ComplexAssembly *cassm) const {
 
 int sb7::LCTraversal1::traverse(BaseAssembly *bassm) const {
 	int partsVisited = 0;
-	BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
+	SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
 
 	while(iter.has_next()) {
 		partsVisited += traverse(iter.next());
@@ -283,7 +283,7 @@ int sb7::LCTraversal7::traverse(CompositePart *cpart) const {
 	Set<Assembly *> visitedAssemblies;
 	int ret = 0;
 
-	BagIterator<BaseAssembly *> iter = cpart->getUsedIn()->getIter();
+	SetIterator<BaseAssembly *> iter = cpart->getUsedIn()->getIter();
 
 	while(iter.has_next()) {
 		ret += traverse(iter.next(), visitedAssemblies);

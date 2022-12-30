@@ -57,7 +57,7 @@ int sb7::DomLockTraversal::traverse(BaseAssembly *bassm) const {
         bassm -> m_pre_number = ++dfscounter;
     else ++dfscounter;
 
-    BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
+    SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
 
     while(iter.has_next()) {
         partsVisited += traverse(iter.next());

@@ -64,7 +64,7 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
     list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
     currLabel.push_back((bassm->getId()*10)+1);
     bassm->setPathLabel(currLabel);
-    BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
+    SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
     while(iter.has_next()) {
         CompositePart * cp = iter.next();
         cpartQ.push(cp);
@@ -74,8 +74,8 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
 void CArelabelling::traverse(CompositePart *cpart) {
     string type = "cp";
     if(cpart->isDeleted) return;
-    Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
-    BagIterator<BaseAssembly *> biter = usedIn->getIter();
+    Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
+    SetIterator<BaseAssembly *> biter = usedIn->getIter();
     list<int> firstLabel = biter.next()->pathLabel;
 
     while(biter.has_next()){

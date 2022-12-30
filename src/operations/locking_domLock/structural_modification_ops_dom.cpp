@@ -95,7 +95,7 @@ int sb7::DomStructuralModification4::run(int tid) const {
 	}	
 
 	// select one of composite parts used in the base assembly
-	Bag<CompositePart *> *cpartBag = bassm->getComponents();
+	Set<CompositePart *> *cpartBag = bassm->getComponents();
 	int compNum = cpartBag->size();
 
 	if(compNum == 0) {
@@ -105,7 +105,7 @@ int sb7::DomStructuralModification4::run(int tid) const {
 	int nextId = get_random()->nextInt(compNum);
 
 	// find component with that ordinal number
-	BagIterator<CompositePart *> iter = cpartBag->getIter();
+	SetIterator<CompositePart *> iter = cpartBag->getIter();
 	int i = 0;
 
 	while(iter.has_next()) {

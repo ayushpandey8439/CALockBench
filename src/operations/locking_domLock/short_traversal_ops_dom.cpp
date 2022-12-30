@@ -50,7 +50,7 @@ int sb7::DomShortTraversal1::traverse(ComplexAssembly *cassm) const {
 
 int sb7::DomShortTraversal1::traverse(BaseAssembly *bassm) const {
 	// choose one component to traverse
-	Bag<CompositePart *> *components = bassm->getComponents();
+	Set<CompositePart *> *components = bassm->getComponents();
 	int componentNum = components->size();
 
 	if(componentNum == 0) {
@@ -61,7 +61,7 @@ int sb7::DomShortTraversal1::traverse(BaseAssembly *bassm) const {
 
 	// find chosen component and traverse it
 	int i = 0;
-	BagIterator<CompositePart *> iter = components->getIter();
+	SetIterator<CompositePart *> iter = components->getIter();
 
 	while(iter.has_next()) {
 		CompositePart *cpart = iter.next();
