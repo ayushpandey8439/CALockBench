@@ -12,17 +12,17 @@ df.columns = [col.strip() for col in df.columns] #For data in each column
 
 dft = df.T
 print(df)
-barWidth = 0.2
+barWidth = 0
 
 r1 = np.arange(len(df['ThreadCount']))
 r2 = [x + barWidth for x in r1]
 r3 = [x + barWidth for x in r2]
 r4 = [x + barWidth for x in r3]
 
-plt.bar(r1, df['Coarse'], color='#ed553b', width=barWidth, edgecolor='white', label='Coarse')
-plt.bar(r2, df['Medium'], color='#f6d55c', width=barWidth, edgecolor='white', label='Medium')
-plt.bar(r3, df['Domlock'], color='#173f5f', width=barWidth, edgecolor='white', label='Domlock')
-plt.bar(r4, df['CALock'], color='#3caea3', width=barWidth, edgecolor='white', label='CALock')
+plt.plot(r1, df['Coarse'], color='#ed553b', label='Coarse', marker='d')
+plt.plot(r2, df['Medium'], color='#f6d55c', label='Medium', marker='s')
+plt.plot(r3, df['Domlock'], color='#173f5f', label='Domlock', marker='+')
+plt.plot(r4, df['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('Op/s', fontweight='bold')
 
