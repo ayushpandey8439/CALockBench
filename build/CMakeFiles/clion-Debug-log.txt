@@ -1,4 +1,0 @@
-/home/pandey/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/pandey/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/ninja/linux/ninja -G Ninja -S /home/pandey/work/CALockBench -B /home/pandey/work/CALockBench/build
--- Configuring done
--- Generating done
--- Build files have been written to: /home/pandey/work/CALockBench/build

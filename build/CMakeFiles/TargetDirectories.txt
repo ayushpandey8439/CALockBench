@@ -1,3 +1,0 @@
-/home/pandey/work/CALockBench/build/CMakeFiles/sb7_lock.dir
-/home/pandey/work/CALockBench/build/CMakeFiles/edit_cache.dir
-/home/pandey/work/CALockBench/build/CMakeFiles/rebuild_cache.dir
