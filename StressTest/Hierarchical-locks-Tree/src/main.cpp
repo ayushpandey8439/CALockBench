@@ -45,8 +45,13 @@ int main(int argc, char *argv[])
 	
 	//cout<<"\nHead data\n"<<T->head->left->data;
 	//T->DFS(T->head);
-    T->ModifiedDFS(T->head);
-    T->CALabelling(T->head);
+    if(caseParameter==5){
+        T->ModifiedDFS(T->head);
+    }
+
+    if(caseParameter==7){
+        T->CALabelling(T->head);
+    }
 
 	//T->preorder(T->head);
 

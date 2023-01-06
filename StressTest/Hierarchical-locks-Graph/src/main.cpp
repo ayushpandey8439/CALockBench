@@ -45,9 +45,16 @@ int main(int argc, char *argv[])
 	//T->DFS(T->head);
     
 //cout<<"Numbering Algorithm started \n";
-	T->ModifiedDFS(T->head);
+if(caseParameter==5){
+    T->ModifiedDFS(T->head);
+}
+
+if(caseParameter==7){
+    T->CALabelling(T->head);
+}
+
 //cout<<"numbering algo finished \n";
-	T->CALabelling(T->head);
+
     //T->preorder(T->head);
 	//std::vector<int>V;
 	
