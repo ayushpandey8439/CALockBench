@@ -19,7 +19,7 @@ char CSSize;
 TreeNode** Array;
 int main(int argc, char *argv[])
 {	
-	srand( time(NULL) );
+	srand(12345);//Use a fixed random seed to ensure result replication across all the runs.
 	//srand(0);	
 	err *e=new err();
 	Tree *T=new Tree();

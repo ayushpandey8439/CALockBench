@@ -22,7 +22,7 @@ char CSSize;
 TreeNode** Array;
 int main(int argc, char *argv[])
 {	
-	srand( time(NULL) );
+	srand(12345);
 	err *e=new err();
 	Tree *T=new Tree();
     ParallelThread *th=new ParallelThread();
