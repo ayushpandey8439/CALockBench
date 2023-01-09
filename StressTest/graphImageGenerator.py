@@ -32,7 +32,7 @@ ax[0, 0].plot(dfST['Intention Lock'], color='#f6d55c', label='Intention Lock', m
 ax[0, 0].plot(dfST['CALock'], color='#173f5f', label='CALock', marker='+')
 ax[0, 0].set_title('Small Critical Section on Trees(6 \u03BCs)')
 ax[0, 0].set_xticks([0, 1, 2, 3, 4, 5, 6, 7], ['2', '4', '8', '16', '32', '64', '128', '256'])
-
+ax[0,0].set_ylim(0,1)
 ax[0, 0].legend()
 
 # ax = plt.subplot(3,2,3, figsize=(15, 15))
@@ -41,7 +41,7 @@ ax[1, 0].plot(dfMT['Intention Lock'], color='#f6d55c', label='Intention Lock', m
 ax[1, 0].plot(dfMT['CALock'], color='#173f5f', label='CALock', marker='+')
 ax[1, 0].set_title('Medium Critical Section on Trees(60 \u03BCs)')
 ax[1, 0].set_xticks([0, 1, 2, 3, 4, 5, 6, 7], ['2', '4', '8', '16', '32', '64', '128', '256'])
-
+ax[1,0].set_ylim(0,1)
 ax[1, 0].legend()
 
 # ax = plt.subplot(3,2,5, figsize=(15, 15))
@@ -50,7 +50,7 @@ ax[2, 0].plot(dfLT['Intention Lock'], color='#f6d55c', label='Intention Lock', m
 ax[2, 0].plot(dfLT['CALock'], color='#173f5f', label='CALock', marker='+')
 ax[2, 0].set_title('Large Critical Section on Trees(600 \u03BCs)')
 ax[2, 0].set_xticks([0, 1, 2, 3, 4, 5, 6, 7], ['2', '4', '8', '16', '32', '64', '128', '256'])
-
+ax[2,0].set_ylim(0,1)
 ax[2, 0].legend()
 
 # ax = plt.subplot(3,2,1, figsize=(15, 15));
@@ -65,7 +65,7 @@ ax[0, 1].legend()
 ax[1, 1].plot(dfMG['Domlock'], color='#ed553b', label='Domlock', marker='d')
 ax[1, 1].plot(dfMG['Intention Lock'], color='#f6d55c', label='Intention Lock', marker='s')
 ax[1, 1].plot(dfMG['CALock'], color='#173f5f', label='CALock', marker='+')
-ax[1, 1].set_title('Medium Critical Section on Graphs(60 \u03BCs')
+ax[1, 1].set_title('Medium Critical Section on Graphs(60 \u03BCs)')
 ax[1, 1].set_xticks([0, 1, 2, 3, 4, 5], ['2', '4', '8', '16', '32', '64'])
 ax[1, 1].legend()
 

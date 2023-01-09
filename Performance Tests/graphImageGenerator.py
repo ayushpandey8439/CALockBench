@@ -2,8 +2,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import sys
 # Initialize the lists for X and Y
-data = pd.read_csv('./benchmarkResults/Results.csv')
+data = pd.read_csv(sys.argv[1])
 
 df = pd.DataFrame(data)
 df.columns = df.columns.str.strip() #For column names
@@ -27,7 +28,7 @@ plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('Op/s', fontweight='bold')
 
 plt.xticks([r + barWidth for r in range(len(df['ThreadCount']))], ['1', '2', '4', '8', '16','32','64'])
+
 # Create legend & Show graphic
 plt.legend()
-plt.savefig('./benchmarkResults/Results.png')
-plt.show()
+plt.savefig(sys.argv[2])
