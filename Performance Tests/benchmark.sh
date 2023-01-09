@@ -1,24 +1,16 @@
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
-LOAD_TYPE=w
-READ_ONLY_PERCENT=100
-DURATION=2000
-SIZE=b
-ITERATIONS_PER_THREAD=5
-STRUCTURAL_MODIFICATIONS=true
-rm -rf ./benchmarkResults
-mkdir benchmarkResults
-#echo Benchmarking coarse-grain locking......
-#. ./scripts/script_coarse.sh
-#echo Benchmarking medium-grain locking......
-#. ./scripts/script_medium.sh
-echo Benchmarking CALock Spinning......
-. ./scripts/script_calock_spinning.sh
-echo Benchmarking Domlock......
-. ./scripts/script_domlock.sh
-pwd
-g++ plotter.cpp
-./a.out
 
-python3 ./graphImageGenerator.py
+echo Step 1 of 6: Read Dominated load without modifications
+./scripts/read.sh
+echo Step 2 of 6: Read Dominated load with modifications
+./scripts/readModifications.sh
+echo Step 3 of 6: Write Dominated load without modifications
+./scripts/write.sh
+echo Step 4 of 6: Write Dominated load with modifications
+./scripts/writeModifications.sh
+echo Step 5 of 6: Balanced load without modifications
+./scripts/balanced.sh
+echo Step 6 of 6: Balanced load with modifications
+./scripts/writeModifications.sh
