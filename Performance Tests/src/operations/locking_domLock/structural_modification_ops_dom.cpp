@@ -5,7 +5,7 @@
 #include "../../thread/thread.h"
 #include "../../interval.h"
 #include "../../DomRelabelling.h"
-
+#include "../../dominatorHelper.h"
 extern IntervalCheck ICheck;
 
 /////////////////////////////
@@ -33,8 +33,11 @@ int sb7::DomStructuralModification2::run(int tid) const {
 		throw Sb7Exception();
 	}
     auto *inv = new interval(cpart->m_pre_number,cpart->m_post_number,1);
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(cpart->m_pre_number),&(cpart->m_post_number));
     if(!ICheck.IsOverlap(inv, 1, tid)) {
+        pthread_rwlock_wrlock(lock);
         dataHolder->deleteCompositePart(cpart);
+        pthread_rwlock_unlock(lock);
         ICheck.Delete(tid);
     }
 	return 0;
@@ -69,11 +72,13 @@ int sb7::DomStructuralModification3::run(int tid) const {
         max = cpart-> m_post_number;
 
     auto *inv = new interval(min,max,1);
-
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
     if(!ICheck.IsOverlap(inv, 1, tid)) {
+        pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
         auto *r = new DomRelabelling(dataHolder);
         r->traverse(dataHolder->getModule()->getDesignRoot());
+        pthread_rwlock_unlock(lock);
         ICheck.Delete(tid);
     }
 	return 0;

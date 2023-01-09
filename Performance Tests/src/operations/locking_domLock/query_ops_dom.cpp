@@ -4,7 +4,7 @@
 #include "../../parameters.h"
 #include "../../interval.h"
 #include "../../sb7_exception.h"
-
+#include "../../dominatorHelper.h"
 extern IntervalCheck ICheck;
 
 ////////////
@@ -31,20 +31,26 @@ int sb7::DomQuery1::innerRun(int tid) const {
 
     if(query.found && query.val->m_pre_number!=0 && query.val->m_post_number!=0){
         if(string(name) == "Q1"){
+            pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(query.val->m_pre_number),&(query.val->m_post_number));
             auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
             if(!ICheck.IsOverlap(inv, 0, threadID))
             {
+                pthread_rwlock_rdlock(lock);
                 performOperationOnAtomicPart(query.val);
                 count++;
+                pthread_rwlock_unlock(lock);
                 ICheck.Delete(threadID);
             }
         }
         else if(string(name) == "OP9" || string(name) == "OP15"){
+            pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(query.val->m_pre_number),&(query.val->m_post_number));
             auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,1);
             if(!ICheck.IsOverlap(inv, 1, threadID))
             {
+                pthread_rwlock_wrlock(lock);
                 performOperationOnAtomicPart(query.val);
                 count++;
+                pthread_rwlock_unlock(lock);
                 ICheck.Delete(threadID);
             }
         }
@@ -117,12 +123,20 @@ int sb7::DomQuery2::innerRun(int tid) const {
         if(string(name) == "OP10")
             mode = 1;
 
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,mode);
         if(!ICheck.IsOverlap(inv, mode, tid)) {
+            if(mode==0){
+                pthread_rwlock_rdlock(lock);
+            } else {
+                pthread_rwlock_wrlock(lock);
+            }
+
             for(auto * apart: aparts){
                 performOperationOnAtomicPart(apart);
                 count++;
             }
+            pthread_rwlock_unlock(lock);
             ICheck.Delete(tid);
         }
 	}

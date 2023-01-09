@@ -3,7 +3,7 @@ project(sb7_lock)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(sb7_lock src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
+add_executable(src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
         src/helpers.cpp src/id_pool.cpp src/parameters.cpp src/random.cpp src/operations/operations.cpp
 
         src/operations/locking_coarse/lock_srv_lc.cpp src/operations/locking_coarse/operation_ops_lc.cpp
@@ -36,6 +36,7 @@ add_executable(sb7_lock src/sb7_lock.cpp src/sb7_lock.cpp src/benchmark.cpp  src
         src/operations/locking_domLock/operation_ops_dom.cpp
         src/operations/locking_domLock/query_ops_dom.cpp src/operations/locking_domLock/short_traversal_ops_dom.cpp
         src/operations/locking_domLock/structural_modification_ops_dom.cpp src/operations/locking_domLock/traversal_ops_dom.cpp
+        src/dominatorHelper.cpp src/dominatorHelper.h
 
 
         src/interval.cpp src/interval.h src/intervalAssignment.cpp src/intervalAssignment.h src/CArelabelling.cpp src/CArelabelling.h src/DomRelabelling.cpp src/DomRelabelling.h)
