@@ -20,4 +20,4 @@ g++ plotter.cpp
 
 cp ./benchmarkResults/Results.csv ./benchmarkCharts/ReadWithoutModifications.csv
 
-python ./graphImageGenerator.py './benchmarkResults/Results.csv' 'ReadWithoutModifications'
+python3 ./graphImageGenerator.py './benchmarkResults/Results.csv' 'ReadWithoutModifications'
