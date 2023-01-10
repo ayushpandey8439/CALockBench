@@ -28,7 +28,7 @@ for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l c -n 32 -w $LOAD_T
 cut -d ' ' -f3 ./benchmarkResults/coarse32.txt >./benchmarkResults/Results.txt
 mv ./benchmarkResults/Results.txt ./benchmarkResults/coarse32.txt
 
-echo "Thread count 64"
-for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l c -n 64 -w $LOAD_TYPE -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i "throughput";done >>./benchmarkResults/coarse64.txt
-cut -d ' ' -f3 ./benchmarkResults/coarse64.txt >./benchmarkResults/Results.txt
-mv ./benchmarkResults/Results.txt ./benchmarkResults/coarse64.txt
+#echo "Thread count 64"
+#for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l c -n 64 -w $LOAD_TYPE -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i "throughput";done >>./benchmarkResults/coarse64.txt
+#cut -d ' ' -f3 ./benchmarkResults/coarse64.txt >./benchmarkResults/Results.txt
+#mv ./benchmarkResults/Results.txt ./benchmarkResults/coarse64.txt

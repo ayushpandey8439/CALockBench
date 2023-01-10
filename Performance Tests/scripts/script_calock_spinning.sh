@@ -27,8 +27,8 @@ echo "Thread count 32"
 for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l ca -n 32 -w $LOAD_TYPE -b n -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i "throughput";done >>./benchmarkResults/caspinning32.txt
 cut -d ' ' -f3 ./benchmarkResults/caspinning32.txt >./benchmarkResults/Results.txt
 mv ./benchmarkResults/Results.txt ./benchmarkResults/caspinning32.txt
-
-echo "Thread count 64"
-for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l ca -n 64 -w $LOAD_TYPE -b n -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i "throughput";done >>./benchmarkResults/caspinning64.txt
-cut -d ' ' -f3 ./benchmarkResults/caspinning64.txt >./benchmarkResults/Results.txt
-mv ./benchmarkResults/Results.txt ./benchmarkResults/caspinning64.txt
+#
+#echo "Thread count 64"
+#for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./sb7_lock -s b -l ca -n 64 -w $LOAD_TYPE -b n -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i "throughput";done >>./benchmarkResults/caspinning64.txt
+#cut -d ' ' -f3 ./benchmarkResults/caspinning64.txt >./benchmarkResults/Results.txt
+#mv ./benchmarkResults/Results.txt ./benchmarkResults/caspinning64.txt
