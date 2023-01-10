@@ -33,6 +33,8 @@ int sb7::DomOperation6::innerRun(int tid) const {
 	query.key = cassmId;
 	cassmInd->get(query);
 
+
+
 	// If complex assembly is not found throw an exception.
 	// This is an easy way to get out of the transaction.
 	if(!query.found|| query.val->m_pre_number==0 || query.val->m_post_number==0) {
@@ -44,11 +46,14 @@ int sb7::DomOperation6::innerRun(int tid) const {
 	// if complex assembly was found process it
 	ComplexAssembly *cassm = query.val;
 	ComplexAssembly *superAssm = cassm->getSuperAssembly();
-
+    long int min = query.val->m_pre_number;
+    long int max = query.val->m_post_number;
 	// if this assembly is root perform operation on it
 	if(superAssm == NULL || superAssm->m_pre_number==0 || superAssm->m_post_number==0) {
-        auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,0);
-        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(cassm->m_pre_number),&(cassm->m_post_number));
+        min = cassm->m_pre_number;
+        max = cassm->m_post_number;
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+        auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
             performOperationOnComplexAssembly(cassm);
@@ -62,8 +67,10 @@ int sb7::DomOperation6::innerRun(int tid) const {
 		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
 		SetIterator<Assembly *> iter = siblingAssms->getIter();
 		ret = 0;
-        auto *inv = new interval(superAssm->m_pre_number,superAssm->m_post_number,0);
-        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(superAssm->m_pre_number),&(superAssm->m_post_number));
+        min = superAssm->m_pre_number;
+        max = superAssm->m_post_number;
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+        auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
             while(iter.has_next()) {
@@ -97,10 +104,10 @@ int sb7::DomOperation7::innerRun(int tid) const {
 	// identifiers. It is used to look up base assembly from index.
 	//
 	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
+	// so this operation fails only if it is really
 	//
 	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-	
+
 	// lookup base assembly using base assembly index
 	Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
 	Map<int, BaseAssembly *>::Query query;

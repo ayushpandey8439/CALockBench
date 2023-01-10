@@ -11,15 +11,12 @@ using namespace sb7;
 class dominatorHelper{
 public:
     static pthread_rwlock_t *getDominatorLock(DataHolder* dh, long int *min, long int *max) {
-        cout<<"Find dominator called";
+        //cout<<"Find dominator called";
         return Dom_traverse(dh->getModule()->getDesignRoot(), min, max);
     }
 
 
     static pthread_rwlock_t * Dom_traverse(ComplexAssembly *cassm, long int *min, long int *max) {
-
-
-
         Set<Assembly *> *subAssm = cassm->getSubAssemblies();
         SetIterator<Assembly *> iter = subAssm->getIter();
         bool childrenAreBase = cassm->areChildrenBaseAssemblies();
@@ -29,7 +26,6 @@ public:
             Assembly *assm = iter.next();
             if(assm -> m_pre_number <= *min && assm -> m_post_number >= *max)
             {
-
                 if(!childrenAreBase) {
                     return Dom_traverse((ComplexAssembly *)assm,min , max);
                 } else {
@@ -74,14 +70,9 @@ public:
         AtomicPart *rootPart = cpart->getRootPart();
         Set<AtomicPart *> visitedPartSet;
         return Dom_traverse(rootPart, visitedPartSet, min, max);
-
-        //cpart -> m_post_number = dfscounter++;
     }
 
-    static pthread_rwlock_t * Dom_traverse(AtomicPart *apart,
-                                                            Set<AtomicPart *> &visitedPartSet,long int *min, long int *max) {
-        long int ret;
-
+    static pthread_rwlock_t * Dom_traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet,long int *min, long int *max) {
         if(apart == NULL) {
 
             return &(apart -> NodeLock);

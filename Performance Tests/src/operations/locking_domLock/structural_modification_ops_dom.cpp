@@ -32,8 +32,11 @@ int sb7::DomStructuralModification2::run(int tid) const {
 	if(cpart == NULL|| cpart->m_post_number==0 || cpart->m_pre_number==0) {
 		throw Sb7Exception();
 	}
-    auto *inv = new interval(cpart->m_pre_number,cpart->m_post_number,1);
-    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(cpart->m_pre_number),&(cpart->m_post_number));
+    long int min=5000000, max=0;
+    min = cpart->m_pre_number;
+    max = cpart->m_post_number;
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+    auto *inv = new interval(min,max,1);
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         pthread_rwlock_wrlock(lock);
         dataHolder->deleteCompositePart(cpart);
@@ -71,8 +74,8 @@ int sb7::DomStructuralModification3::run(int tid) const {
     if(cpart-> m_post_number > max )
         max = cpart-> m_post_number;
 
-    auto *inv = new interval(min,max,1);
     pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+    auto *inv = new interval(min,max,1);
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
