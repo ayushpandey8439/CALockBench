@@ -128,6 +128,9 @@ int sb7::DomQuery2::innerRun(int tid) const {
         if(string(name) == "OP10")
             mode = 1;
 
+    if(aparts.empty()){
+        throw Sb7Exception();
+    }
         pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,mode);
         if(!ICheck.IsOverlap(inv, mode, tid)) {

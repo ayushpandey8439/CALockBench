@@ -108,7 +108,9 @@ int sb7::CAQuery2::innerRun(int tid) const {
                 aparts.push_back(apart);
             }
         }
-        if(!aparts.empty()){
+        if(aparts.empty()){
+            throw Sb7Exception();
+        }
             pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
             int mode = 0;
             if(string(name) == "Q2")
@@ -127,7 +129,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
 
               }
             }
-        }
+
     return count;
 }
 
