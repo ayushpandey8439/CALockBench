@@ -250,15 +250,15 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
     //ops.push_back(new DomShortTraversal10(dh));
 
     ops.push_back(new DomQuery1(dh));
-//    ops.push_back(new DomQuery2(dh));
+    ops.push_back(new DomQuery2(dh));
     //ops.push_back(new DomQuery3(dh)); Not implemented
     //ops.push_back(new DomTraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new DomTraversal9(dh)); Trivial and does not need locks.
-//    ops.push_back(new DomOperation6(dh));
-//    ops.push_back(new DomOperation7(dh));
+    ops.push_back(new DomOperation6(dh));
+    ops.push_back(new DomOperation7(dh));
     //ops.push_back(new DomOperation8(dh));
-//     ops.push_back(new DomOperation9(dh));
-//    ops.push_back(new DomOperation10(dh));
+     ops.push_back(new DomOperation9(dh));
+    ops.push_back(new DomOperation10(dh));
 //    ops.push_back(new DomOperation11(dh)); Traversal operation
 //    ops.push_back(new DomOperation12(dh));
 //    ops.push_back(new DomOperation13(dh));
@@ -266,8 +266,8 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
 //    ops.push_back(new DomOperation15(dh)); Index update
 //
 //    ops.push_back(new DomStructuralModification1(dh)); Node creation
-//    ops.push_back(new DomStructuralModification2(dh));
-//    ops.push_back(new DomStructuralModification3(dh));
+    ops.push_back(new DomStructuralModification2(dh));
+    ops.push_back(new DomStructuralModification3(dh));
     //    ops.push_back(new DomStructuralModification4(dh));
 //    ops.push_back(new DomStructuralModification5(dh));
 //    ops.push_back(new DomStructuralModification6(dh));
