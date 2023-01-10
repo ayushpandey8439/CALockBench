@@ -18,4 +18,6 @@ pwd
 g++ plotter.cpp
 ./a.out
 
+cp ./benchmarkResults/Results.csv ./benchmarkCharts/ReadWithoutModifications.csv
+
 python ./graphImageGenerator.py './benchmarkResults/Results.csv' 'ReadWithoutModifications'

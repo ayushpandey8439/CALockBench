@@ -18,4 +18,7 @@ pwd
 g++ plotter.cpp
 ./a.out
 
+cp ./benchmarkResults/Results.csv ./benchmarkCharts/WriteWithoutModifications.csv
+
+
 python3 ./graphImageGenerator.py './benchmarkResults/Results.csv' 'WriteWithoutModifications'

@@ -9,7 +9,7 @@ data = pd.read_csv(sys.argv[1])
 df = pd.DataFrame(data)
 df.columns = df.columns.str.strip() #For column names
 df.columns = [col.strip() for col in df.columns] #For data in each column
-df.to_csv("./benchmarkCharts/"+sys.argv[2]+".csv")
+
 print(df)
 barWidth = 0
 
