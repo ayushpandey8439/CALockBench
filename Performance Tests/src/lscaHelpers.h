@@ -24,13 +24,13 @@ public:
         else return false;
     }
 
-    static pair<DesignObj *, bool> getLockObject(list<int> objectLabel, sb7::DataHolder * dh){
+    static pair<DesignObj *, bool> getLockObject(list<int> *objectLabel, sb7::DataHolder * dh){
         pair<DesignObj *, bool> res;
         int objectId;
-        if(objectLabel.size()==1){
-            objectId = objectLabel.front();
+        if(objectLabel->size()==1){
+            objectId = objectLabel->front();
         } else {
-            objectId = objectLabel.back();
+            objectId = objectLabel->back();
         }
         int typeIdentifier = objectId%10;
         int id = objectId/10;

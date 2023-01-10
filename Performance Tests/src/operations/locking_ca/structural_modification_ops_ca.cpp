@@ -89,7 +89,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
         ++it;
     }
 //    lockLabel= pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
-    pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockLabel, dataHolder);
+    pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(&lockLabel, dataHolder);
     /// When adding a component, it is possible that the composite part we are going to add isn't connected.
     /// This means. a lock on the base assembly is enough.
     if(!lo.second){

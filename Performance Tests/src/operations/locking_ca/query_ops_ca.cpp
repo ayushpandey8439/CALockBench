@@ -111,7 +111,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
         if(aparts.empty()){
             throw Sb7Exception();
         }
-            pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
+            pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(&lockRequest,dataHolder);
             int mode = 0;
             if(string(name) == "Q2")
                 mode = 0;

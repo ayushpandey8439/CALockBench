@@ -66,11 +66,7 @@ int sb7::CAOperation6::innerRun(int tid) const {
         auto * l = new lockObject(superAssm->getLabellingId(), &superAssm->criticalAncestors, 0);
         if(pool.acquireLock(l,tid)){
             while (iter.has_next()) {
-                auto * bassm = (BaseAssembly*) iter.next();
-                if(bassm->hasLabel) {
-                    bassm->nullOperation();
-                    ret++;
-                }
+                performOperationOnComplexAssembly((ComplexAssembly*)iter.next());
             }
             pool.releaseLock(l,tid);
         }
@@ -112,8 +108,6 @@ int sb7::CAOperation7::innerRun(int tid) const {
         throw Sb7Exception();
     }
     list<BaseAssembly *> bassms;
-    DesignObj * lockRequest;
-
     // process all sibling base assemblies
     ComplexAssembly *superAssm = query.val->getSuperAssembly();
     Set<Assembly *> *siblingSet = superAssm->getSubAssemblies();
@@ -123,11 +117,7 @@ int sb7::CAOperation7::innerRun(int tid) const {
     auto * l = new lockObject(superAssm->getLabellingId(), &superAssm->criticalAncestors, 0);
     if(pool.acquireLock(l,tid)){
         while (iter.has_next()) {
-            auto * bassm = (BaseAssembly*) iter.next();
-            if(bassm->hasLabel) {
-                bassm->nullOperation();
-                ret++;
-            }
+            performOperationOnBaseAssembly((BaseAssembly*) iter.next());
         }
         pool.releaseLock(l,tid);
     }
