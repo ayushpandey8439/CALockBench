@@ -1,3 +1,9 @@
+echo Setting up python dependencies
+
+pip install matplotlib  || exit 1
+pip install pandas  || exit 1
+pip install numpy  || exit 1
+
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
