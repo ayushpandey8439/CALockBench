@@ -18,4 +18,4 @@ pwd
 g++ plotter.cpp
 ./a.out
 
-python ./graphImageGenerator.py './benchmarkResults/Results.csv' './ReadWithoutModifications.png'
+python ./graphImageGenerator.py './benchmarkResults/Results.csv' 'ReadWithoutModifications'

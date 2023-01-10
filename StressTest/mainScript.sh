@@ -8,15 +8,15 @@ cd ../..
 g++ NoBucket_Plotter.cpp -o NoBucket_Plotter
 g++ Skewness_Plotter.cpp -o Skewness_Plotter
 
-echo Stage 1 of 2: Benchmarking execution time against number of nodes locked.
+#echo Stage 1 of 2: Benchmarking execution time against number of nodes locked.
 cd Hierarchical-locks-Tree
-echo Step:1 of 6: Executing DomLock over tree......
-	./domscript_noBucket.sh
-echo Step:2 of 6: Executing Intention Lock over tree......
-  ./ILscript_noBucket.sh
-echo Step:3 of 6: Executing CALock over tree......
-	./CALockScript_noBucket.sh
-
+#echo Step:1 of 6: Executing DomLock over tree......
+#	./domscript_noBucket.sh
+#echo Step:2 of 6: Executing Intention Lock over tree......
+#  ./ILscript_noBucket.sh
+#echo Step:3 of 6: Executing CALock over tree......
+#	./CALockScript_noBucket.sh
+#
 cd ../Hierarchical-locks-Graph
 echo Step:4 of 6: Executing DomLock over graph......
 	./domscript_noBucket.sh
@@ -36,13 +36,9 @@ echo Step:2 of 6: Executing Intention Lock over tree......
   ./ILscript_Bucket.sh
 echo Step:3 of 6: Executing CALock over tree......
 	./CALockScript_Bucket.sh
-
-cd ../Hierarchical-locks-Graph
-echo Step:4 of 6: Executing DomLock over graph......
-	./domscript_Bucket.sh
-echo Step:5 of 6: Executing Intention Lock over graph......
-	./ILscript_Bucket.sh
-echo Step:6 of 6: Executing CALock over graph......
-	./CALockScript_Bucket.sh
 cd ..
 ./Skewness_Plotter
+
+
+python NodesLockedImage.py
+python SkewnessImage.py
