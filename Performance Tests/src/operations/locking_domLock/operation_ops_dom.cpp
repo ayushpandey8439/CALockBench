@@ -49,15 +49,15 @@ int sb7::DomOperation6::innerRun(int tid) const {
     long int min = query.val->m_pre_number;
     long int max = query.val->m_post_number;
 	// if this assembly is root perform operation on it
-	if(superAssm == NULL || superAssm->m_pre_number==0 || superAssm->m_post_number==0) {
+	if(superAssm == NULL) {
         min = cassm->m_pre_number;
         max = cassm->m_post_number;
-        //pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
-            //pthread_rwlock_rdlock(lock);
+            pthread_rwlock_rdlock(lock);
             performOperationOnComplexAssembly(cassm);
-            //pthread_rwlock_unlock(lock);
+            pthread_rwlock_unlock(lock);
             ret = 1;
             ICheck.Delete(tid);
         }
@@ -69,15 +69,15 @@ int sb7::DomOperation6::innerRun(int tid) const {
 		ret = 0;
         min = superAssm->m_pre_number;
         max = superAssm->m_post_number;
-        //pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
-            //pthread_rwlock_rdlock(lock);
+            pthread_rwlock_rdlock(lock);
             while(iter.has_next()) {
                 performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
                 ret++;
             }
-            //pthread_rwlock_unlock(lock);
+            pthread_rwlock_unlock(lock);
             ICheck.Delete(tid);
         }
 	}
@@ -125,14 +125,14 @@ int sb7::DomOperation7::innerRun(int tid) const {
 	int ret = 0;
 
     auto *inv = new interval(superAssm->m_pre_number,superAssm->m_post_number,0);
-    //pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(superAssm->m_pre_number),&(superAssm->m_post_number));
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(superAssm->m_pre_number),&(superAssm->m_post_number));
     if(!ICheck.IsOverlap(inv, 0, tid)) {
-        //pthread_rwlock_rdlock(lock);
+        pthread_rwlock_rdlock(lock);
         while(iter.has_next()) {
             performOperationOnBaseAssembly((BaseAssembly *)iter.next());
             ret++;
         }
-        //pthread_rwlock_unlock(lock);
+        pthread_rwlock_unlock(lock);
         ICheck.Delete(tid);
     }
 

@@ -21,7 +21,6 @@ int sb7::DomQuery1::run(int tid) const {
 int sb7::DomQuery1::innerRun(int tid) const {
 	int count = 0;
     int threadID = tid;
-    long int min=0, max=0;
     int apartId= get_random()->nextInt(
             parameters.getMaxAtomicParts()) + 1;
     Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
@@ -31,10 +30,8 @@ int sb7::DomQuery1::innerRun(int tid) const {
 
     if(query.found && query.val->m_pre_number!=0 && query.val->m_post_number!=0){
         if(string(name) == "Q1"){
-            min = query.val->m_pre_number;
-            max = query.val->m_post_number;
             //pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
-            auto *inv = new interval(min,max,0);
+            auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
             //cout<<query.val->m_pre_number<<", "<<query.val->m_post_number<<".........."<<min<<", "<<max<<endl;
             if(!ICheck.IsOverlap(inv, 0, threadID))
             {
@@ -46,10 +43,8 @@ int sb7::DomQuery1::innerRun(int tid) const {
             }
         }
         else if(string(name) == "OP9" || string(name) == "OP15"){
-            min = query.val->m_pre_number;
-            max = query.val->m_post_number;
             //pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
-            auto *inv = new interval(min,max,1);
+            auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
             if(!ICheck.IsOverlap(inv, 1, threadID))
             {
                 //pthread_rwlock_wrlock(lock);
@@ -89,7 +84,7 @@ int sb7::DomQuery2::run(int tid) const {
 
 int sb7::DomQuery2::innerRun(int tid) const {
 	int count = 0;
-    long min=0, max=0;
+    long int min= INFINITY, max=-1;
 
     int range = percent* (parameters.getMaxAtomicDate() -
                           parameters.getMinAtomicDate())/100;
@@ -108,17 +103,10 @@ int sb7::DomQuery2::innerRun(int tid) const {
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->m_pre_number!=0 && apart->m_post_number!=0) {
-                if(min == 0 && max == 0)
-                {
+                if(apart-> m_pre_number < min )
                     min = apart-> m_pre_number;
+                if(apart-> m_post_number > max )
                     max = apart-> m_post_number;
-                }
-                else {
-                    if(apart-> m_pre_number < min )
-                        min = apart-> m_pre_number;
-                    if(apart-> m_post_number > max )
-                        max = apart-> m_post_number;
-                }
                 aparts.push_back(apart);
             }
         }
@@ -130,20 +118,20 @@ int sb7::DomQuery2::innerRun(int tid) const {
     if(aparts.empty()){
         throw Sb7Exception();
     }
-        //pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,mode);
         if(!ICheck.IsOverlap(inv, mode, tid)) {
             if(mode==0){
-                //pthread_rwlock_rdlock(lock);
+                pthread_rwlock_rdlock(lock);
             } else {
-                //pthread_rwlock_wrlock(lock);
+                pthread_rwlock_wrlock(lock);
             }
 
             for(auto * apart: aparts){
                 performOperationOnAtomicPart(apart);
                 count++;
             }
-            //pthread_rwlock_unlock(lock);
+            pthread_rwlock_unlock(lock);
             ICheck.Delete(tid);
         }
 	}
