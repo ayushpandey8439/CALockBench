@@ -18,10 +18,13 @@ class lscaHelpers {
 
 public:
     static bool hasCriticalAncestor(unordered_set<int> * A, int d){
-        if(!A->empty() && A->find(d) !=A->end()){
-            return true;
+        for(auto a :*A){
+            if(a==d) return true;
         }
-        else return false;
+//        if(A->find(d) !=A->end()){
+//            return true;
+//        }
+        return false;
     }
 
     static pair<DesignObj *, bool> getLockObject(list<int> *objectLabel, sb7::DataHolder * dh){

@@ -85,32 +85,40 @@ int sb7::CAQuery2::innerRun(int tid) const {
     while (iter.has_next()) {
         Set<AtomicPart *> *apartSet = iter.next();
         SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-        list<AtomicPart*> aparts;
-        list<int> lockRequest;
+        vector<AtomicPart*> aparts;
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel && !apart->isDeleted) {
                 //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
-                    if(lockRequest.empty()){
-                        lockRequest = apart->pathLabel;
-                    }
-                    else {
-                        auto it = lockRequest.begin();
-                        auto end = lockRequest.end();
-                        while (it != end) {
-                            if (!lscaHelpers::hasCriticalAncestor(&apart->criticalAncestors, *it)) {
-                                it = lockRequest.erase(it);
-                            } else {
-                                ++it;
-                            }
-                        }
-                    }
                 aparts.push_back(apart);
             }
         }
         if(aparts.empty()){
             throw Sb7Exception();
         }
+        list<int> lockRequest{};
+        int i=0;
+        while(lockRequest.empty() && i< aparts.size()){
+            lockRequest= aparts[i]->pathLabel;
+            i++;
+        }
+
+        auto it = lockRequest.begin();
+        auto end = lockRequest.end();
+        while (it != end) {
+            bool exists=true;
+            while(i<aparts.size() && exists){
+                exists&= lscaHelpers::hasCriticalAncestor(&aparts[i]->criticalAncestors, *it);
+                i++;
+            }
+            if (!exists) {
+                it = lockRequest.erase(it);
+            } else {
+                ++it;
+            }
+        }
+
+
             pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(&lockRequest,dataHolder);
             int mode = 0;
             if(string(name) == "Q2")
