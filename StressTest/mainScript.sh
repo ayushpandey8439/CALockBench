@@ -39,6 +39,6 @@ echo Step:3 of 6: Executing Intention Lock over tree......
 cd ..
 ./Skewness_Plotter
 
-
-python NodesLockedImage.py
+python NodesLockedTree.py
+python NodesLockedGraph.py
 python SkewnessImage.py
