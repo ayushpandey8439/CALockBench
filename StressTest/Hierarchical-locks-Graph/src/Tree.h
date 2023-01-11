@@ -936,7 +936,7 @@ void Tree::DummyTask(int node)
 	else if( caseParameter == 5)
 	{//printf("\nhere tid %d\n",threadID);
 		
-		int min=0, max=0;
+		int min=INFINITY, max=0;
 		for(int i = 0;i < NoOfRequestedNode;i++)
 		{
 			NodeArray[i] = (NoOfLeafNodes-1)+SlotSize*SlotNo+((rand()%SlotSize)+1);
@@ -964,17 +964,13 @@ void Tree::DummyTask(int node)
 		TreeNode *ptr = head;
 		TreeNode *nodePtr1 = Array[node];
 		TreeNode *nodePtr2 = Array[node2];
-		while( ptr->preNumber <= min && ptr->postNumber >= max)
-		{
-            for(int i=0;i<ptr->neighbour.size();i++)
-			{
-				if(ptr->neighbour[i] != NULL && ptr->neighbour[i]->preNumber <= min && ptr->neighbour[i]->postNumber >= max)
-				{
-					ptr = ptr->neighbour[i];
-      				}
-
-			}
-		}
+        for(int i=0;i<ptr->neighbour.size();i++)
+        {
+            if(ptr->neighbour[i] != NULL && ptr->neighbour[i]->preNumber <= min && ptr->neighbour[i]->postNumber >= max)
+            {
+                ptr = ptr->neighbour[i];
+            }
+        }
     
 		//printf("dominator of %d is %d \n",threadID,ptr->data);
 		//Inserts interval of dominator into interval data structure. ptr is a dominator node.
