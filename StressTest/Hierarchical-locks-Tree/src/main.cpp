@@ -17,6 +17,7 @@ int distribution;
 IntervalCheck ICheck;
 lockPool pool;
 int N;
+int threads;
 char CSSize;
 
 TreeNode** Array;
@@ -33,6 +34,7 @@ int main(int argc, char *argv[])
 	distribution = atoi(argv[5]);
 	CSSize = argv[6][0];
 	N=atoi(argv[1]);
+    threads = NoOfThreads;
     
 	Array = new TreeNode*[N];
 

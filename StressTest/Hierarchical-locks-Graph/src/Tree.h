@@ -981,7 +981,7 @@ void Tree::DummyTask(int node)
 		//Inserts interval of dominator into interval data structure. ptr is a dominator node.
 		
 		interval *inv = new interval(min,max,accessType);
-		xy:	if(!ICheck.IsOverlap(inv, 1, threadID))
+		xy:	if(!ICheck.IsOverlap(inv, accessType, threadID))
 		{	
 //			pthread_rwlock_wrlock(&ptr->rwlock);
 	
@@ -1035,7 +1035,7 @@ void Tree::DummyTask(int node)
                 auto it = lockRequest.begin();
                 auto end = lockRequest.end();
                 while (it != end) {
-                    if (Array[NodeArray[i]]->criticalAncestors.find(*it) == Array[NodeArray[i]]->criticalAncestors.end() ) {
+                    if (!lockPool::hasCriticalAncestor(&Array[NodeArray[i]]->criticalAncestors, *it)) {
                         it = lockRequest.erase(it);
                     } else {
                         ++it;

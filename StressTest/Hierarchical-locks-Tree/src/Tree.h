@@ -546,51 +546,12 @@ void Tree::DummyTask(int node)
 			
 			
 		}
-
-		//cout <<"\n min and max \n"<< min <<" "<<max;
-		
-
-
-	//accessType = 1;
-		//TreeNode *ptr = head;
-//		TreeNode *nodePtr1 = Array[node];
-//		TreeNode *nodePtr2 = Array[node2];
-//		while( ptr->preNumber <= min && ptr->postNumber >= max)
-//		{
-//
-//
-//			if(ptr->left != NULL && ptr->left->preNumber <= min && ptr->left->postNumber >= max)
-//			{
-//				ptr = ptr->left;
-//      			}
-//      			else if ( ptr->right != NULL && ptr->right->preNumber <= min && ptr->right->postNumber >= max)
-//				{
-//
-//					ptr = ptr->right;
-//      				}
-//      				else
-//				{
-//					break;
-//				}
-//		}
-    
-		//printf("dominator of %d is %d \n",threadID,ptr->data);
-		//Inserts interval of dominator into interval data structure 
-		
-		interval *inv = new interval(min,max,accessType);
-		xy:	if(!ICheck.IsOverlap(inv, 1, threadID))
-		{	
-			//pthread_rwlock_wrlock(&ptr->rwlock);
-	
-			//ICheck.Insert(inv, threadID);
-			
-			//Call dummay null operation
+		auto *inv = new interval(min,max,accessType);
+		xy:	if(!ICheck.IsOverlap(inv, accessType, threadID))
+		{
 			NullOperation();
 			
 			ICheck.Delete(threadID);
-			//cout<<"\n deleted by "<<threadID;
-//			pthread_rwlock_unlock(&ptr->rwlock);
-
 		}
 		else{goto xy;}
 
@@ -628,7 +589,7 @@ void Tree::DummyTask(int node)
                 auto it = lockRequest.begin();
                 auto end = lockRequest.end();
                 while (it != end) {
-                    if (Array[NodeArray[i]]->criticalAncestors.find(*it) == Array[NodeArray[i]]->criticalAncestors.end() ) {
+                    if (!lockPool::hasCriticalAncestor(&Array[NodeArray[i]]->criticalAncestors, *it)) {
                         it = lockRequest.erase(it);
                     } else {
                         ++it;
