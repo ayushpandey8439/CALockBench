@@ -961,29 +961,28 @@ void Tree::DummyTask(int node)
 
 
 //	//accessType = 1;
-//		TreeNode *ptr = head;
-//		TreeNode *nodePtr1 = Array[node];
-//		TreeNode *nodePtr2 = Array[node2];
-//	//	while( ptr->preNumber <= min && ptr->postNumber >= max)
-//	//	{
-//
-//      			for(int i=0;i<ptr->neighbour.size();i++)
-//			{
-//				if(ptr->neighbour[i] != NULL && ptr->neighbour[i]->preNumber <= min && ptr->neighbour[i]->postNumber >= max)
-//				{
-//					ptr = ptr->neighbour[i];
-//      				}
-//
-//			}
-//	//	}
+		TreeNode *ptr = head;
+		TreeNode *nodePtr1 = Array[node];
+		TreeNode *nodePtr2 = Array[node2];
+		while( ptr->preNumber <= min && ptr->postNumber >= max)
+		{
+            for(int i=0;i<ptr->neighbour.size();i++)
+			{
+				if(ptr->neighbour[i] != NULL && ptr->neighbour[i]->preNumber <= min && ptr->neighbour[i]->postNumber >= max)
+				{
+					ptr = ptr->neighbour[i];
+      				}
+
+			}
+		}
     
 		//printf("dominator of %d is %d \n",threadID,ptr->data);
 		//Inserts interval of dominator into interval data structure. ptr is a dominator node.
 		
-		interval *inv = new interval(min,max,accessType);
+		interval *inv = new interval(ptr->preNumber,ptr->postNumber,accessType);
 		xy:	if(!ICheck.IsOverlap(inv, accessType, threadID))
 		{	
-//			pthread_rwlock_wrlock(&ptr->rwlock);
+			pthread_rwlock_wrlock(&ptr->rwlock);
 	
 			//ICheck.Insert(inv, threadID);
 			
@@ -992,7 +991,7 @@ void Tree::DummyTask(int node)
 			
 			ICheck.Delete(threadID);
 			//cout<<"\n deleted by "<<threadID;
-//			pthread_rwlock_unlock(&ptr->rwlock);
+			pthread_rwlock_unlock(&ptr->rwlock);
 
 		}
 		else {;goto xy;}

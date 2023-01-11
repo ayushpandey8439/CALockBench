@@ -546,7 +546,31 @@ void Tree::DummyTask(int node)
 			
 			
 		}
-		auto *inv = new interval(min,max,accessType);
+
+        TreeNode *ptr = head;
+        TreeNode *nodePtr1 = Array[node];
+        TreeNode *nodePtr2 = Array[node2];
+        while( ptr->preNumber <= min && ptr->postNumber >= max)
+        {
+
+
+            if(ptr->left != NULL && ptr->left->preNumber <= min && ptr->left->postNumber >= max)
+            {
+                ptr = ptr->left;
+            }
+            else if ( ptr->right != NULL && ptr->right->preNumber <= min && ptr->right->postNumber >= max)
+            {
+
+                ptr = ptr->right;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+
+		auto *inv = new interval(ptr->preNumber,ptr->postNumber,accessType);
 		xy:	if(!ICheck.IsOverlap(inv, accessType, threadID))
 		{
 			NullOperation();

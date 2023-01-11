@@ -11,7 +11,7 @@ int main()
     ofstream output("./benchmarkResults/Results.csv");
     int Iterations = 5;
     output<<"ThreadCount, Coarse, Medium, Domlock, CALock"<<"\n";
-    for(int i=0;i<7;i++)
+    for(int i=0;i<6;i++)
     {
         string threadCount = to_string((int)pow(2,i));
         ifstream c_file("./benchmarkResults/coarse"+threadCount+".txt");

@@ -41,6 +41,7 @@ public:
 
 class lockPool {
 public:
+    const uint processor_Count = std::thread::hardware_concurrency();
     mutex lockPoolLock;
     lockObject* locks[SIZE];
     mutex threadMutexes[SIZE];
@@ -97,7 +98,7 @@ public:
                      (reqObj->Id == l->Id || lscaHelpers::hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) &&
                      /// It isn't my turn to take the lock
                      (reqObj->Oseq > l->Oseq)) {
-                        this_thread::yield();
+                        if(processor_Count<parameters.getThreadNum()) this_thread::yield();
                         l=locks[i];
                     }
                 }
@@ -105,7 +106,6 @@ public:
         }
         return true;
     }
-
     void releaseLock(lockObject *l, int threadId){
         if(parameters.threadBlockingAllowed()){
             {
