@@ -1,9 +1,6 @@
 #include"TreeNode.h"
 #include<map>
 #include<vector>
-#include<stdio.h>
-#include<string.h>
-#include <stdlib.h>
 #include <pthread.h>
 #include<algorithm>
 #include<unistd.h>//For usleep()
@@ -11,6 +8,7 @@
 #include"lock.h"
 #include "interval.h"
 #include "lockPool.h"
+#include "random"
 using namespace std;
 
 
@@ -116,7 +114,7 @@ TreeNode* Tree::CreateTree(long int start, long int end)
         return nullptr;
 
     long int mid = (long int)(start+end)/2;
-    TreeNode *newNode=new TreeNode(mid);
+    auto *newNode=new TreeNode(mid);
     Array[newNode->data]=newNode;
     if(start==end){
         size++;
@@ -375,11 +373,6 @@ void Tree::DummyTask(int node)
 	//node = (node % 30) +8000;
 
 
-
-	int node2 = (rand()%size)+1; //second node to access.
-	//node2 = node + 1;
-	// cout<<" \n A am in dummy task working of node:"<<node;
-  
 	extern int caseParameter;
 	extern int NoOfRequestedNode;
 	extern int distribution;
@@ -403,14 +396,14 @@ void Tree::DummyTask(int node)
 		// sort nodes in increasing order to lock  them in order to avoid deadlock
 		//sort(NodeArray, NodeArray + NoOfRequestedNode);
         counter=0;//keeps track of *ptr array indexes
-        TreeNode *ptr[NodeArray.size()];
+        list<TreeNode *>lockNodes;
         for(auto lockObj: NodeArray)
 		{
                 it = PathRef.find(lockObj);
 				//if(it == PathRef.end())
 				//cout<<"\n"<<ReqNode;
 				string path=it->second;
-				ptr[counter] = head;
+                TreeNode* pathNode = this->head;
 		   
 		     
 				//if(accessType == 0)//read request
@@ -418,24 +411,25 @@ void Tree::DummyTask(int node)
 				for(int i =0; i< path.length(); i++)
 				{ 
 					if(accessType == 0)
-					ISLock(ptr[counter]);
+					ISLock(pathNode);
 					else
-					IXLock(ptr[counter]);
+					IXLock(pathNode);
 					if(path[i]== 'l')
 					{
-						ptr[counter] = ptr[counter]->left;
+                        pathNode = pathNode->left;
 					}
 					else
 					{
-						ptr[counter] = ptr[counter]->right;
+                        pathNode = pathNode->right;
 					}
 				}
+
+                lockNodes.push_back(pathNode);
 	
 				if(accessType == 0)
-				SLock(ptr[counter]);
+				SLock(pathNode);
 				else
-				XLock(ptr[counter]);
-				counter++;
+				XLock(pathNode);
 		}
 			//Call dummay null operation
 			NullOperation();
@@ -443,16 +437,13 @@ void Tree::DummyTask(int node)
 			//usleep(1000);
 			//cout<<" coarse \n";
 		
-		for(int i = 0;i < counter;i++)
+		for(auto lockedNode: lockNodes)
 		{
-			//TreeNode *ptr = NodeArray[i];
-			IUnLock(ptr[i]);
-			ptr[i] = ptr[i]-> parent;
-			while(ptr[i] != NULL)
+			TreeNode * pathNode = lockedNode;
+			while(pathNode != nullptr)
 			{ 
-				IUnLock(ptr[i]);
-				ptr[i] = ptr[i]->parent;
-	      
+				IUnLock(pathNode);
+                pathNode = pathNode->parent;
 			}
 		}
 	}
@@ -479,17 +470,13 @@ void Tree::DummyTask(int node)
 		}
 
         TreeNode *ptr = head;
-        TreeNode *nodePtr1 = Array[node];
-        TreeNode *nodePtr2 = Array[node2];
         while( ptr->preNumber <= min && ptr->postNumber >= max)
         {
-
-
-            if(ptr->left != NULL && ptr->left->preNumber <= min && ptr->left->postNumber >= max)
+            if(ptr->left != nullptr && ptr->left->preNumber <= min && ptr->left->postNumber >= max)
             {
                 ptr = ptr->left;
             }
-            else if ( ptr->right != NULL && ptr->right->preNumber <= min && ptr->right->postNumber >= max)
+            else if ( ptr->right != nullptr && ptr->right->preNumber <= min && ptr->right->postNumber >= max)
             {
 
                 ptr = ptr->right;

@@ -33,12 +33,12 @@ int main(int argc, char *argv[])
 	CSSize = argv[6][0];
 	N=atoi(argv[1]);
     threads = NoOfThreads;
-    
+
 	Array = new TreeNode*[N+1];
 //cout<<"Data Structure creation started \n";
 	if(e->errCheck(argc, argv))
 	{
-		T->CreateGraph(NoOfNodesDS);//defined in "tree.h"
+		T->CreateGraph(50);//defined in "tree.h"
 	}
   //cout<<"Data Structure creation finished \n";  
 	//T->setPathToNode(NoOfNodesDS);//defined in "tree.h"

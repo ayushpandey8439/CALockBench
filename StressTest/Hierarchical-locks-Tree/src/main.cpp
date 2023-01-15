@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     using std::chrono::duration;
     using std::chrono::milliseconds;
 
-	srand(123);
+	srand(1111);
 	err *e=new err();
 	Tree *T=new Tree();
     ParallelThread *th=new ParallelThread();
