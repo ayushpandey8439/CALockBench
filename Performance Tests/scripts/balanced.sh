@@ -19,6 +19,8 @@ g++ plotter.cpp
 ./a.out
 
 cp ./benchmarkResults/Results.csv ./benchmarkCharts/BalancedWithoutModifications.csv
+cp ./benchmarkResults/IdlenssResults.csv ./benchmarkCharts/BalancedWithoutModificationsIdleness.csv
+cp ./benchmarkResults/ModificationResults.csv ./benchmarkCharts/BalancedWithoutModificationsModifications.csv
 
 
-python3 ./graphImageGenerator.py './benchmarkResults/Results.csv' 'BalancedWithoutModifications'
+python3 ./graphImageGenerator.py 'BalancedWithoutModifications'
