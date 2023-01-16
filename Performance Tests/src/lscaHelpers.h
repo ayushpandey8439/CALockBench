@@ -17,13 +17,13 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static bool hasCriticalAncestor(unordered_set<int> * A, int d){
-        for(auto a :*A){
-            if(a==d) return true;
-        }
-//        if(A->find(d) !=A->end()){
-//            return true;
+    static bool hasCriticalAncestor(unordered_set<int> * AncSet, int d){
+//        for(int a :*AncSet){
+//            if(a==d) return true;
 //        }
+        if(AncSet->contains(d)){
+            return true;
+        }
         return false;
     }
 

@@ -80,15 +80,17 @@ int sb7::CAStructuralModification3::run(int tid) const {
     list<int> lockLabel = {};
 
 
-    auto it = bassm->pathLabel.begin();
-    auto end = bassm->pathLabel.end();
-    while(it != end){
-        if(lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
-            lockLabel.push_back(*it);
+    for(auto it : cpart->pathLabel){
+        if(bassm->criticalAncestors.contains(it)){
+            lockLabel.push_back(it);
         }
-        ++it;
+//        if(lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
+//            lockLabel.push_back(*it);
+//        }
+
     }
 //    lockLabel= pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
+//    set_intersection(bassm->pathLabel.begin(), bassm->pathLabel.end(), cpart->pathLabel.begin(), cpart->pathLabel.end(),back_inserter(lockLabel));
     pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(&lockLabel, dataHolder);
     /// When adding a component, it is possible that the composite part we are going to add isn't connected.
     /// This means. a lock on the base assembly is enough.
