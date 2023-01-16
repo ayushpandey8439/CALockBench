@@ -4,7 +4,7 @@ import pandas as pd
 
 
 # Initialize the lists for X and Y
-mediumCSTree = pd.read_csv('./dataForPlots/TreeCS.csv')
+mediumCSTree = pd.read_csv('./dataForPlots/TreeModifications.csv')
 dfMT = pd.DataFrame(mediumCSTree)
 
 # ax = plt.subplot(3,2,3, figsize=(15, 15))

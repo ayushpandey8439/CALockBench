@@ -14,12 +14,12 @@ using namespace std;
 
 class lockObject{
 public:
-    unordered_set<int>* criticalAncestors;
+    unordered_set<long int>* criticalAncestors;
     int Id;
     int mode;
     long Oseq;
 
-    lockObject(int pId, unordered_set<int> * ancestors, int m){
+    lockObject(int pId, unordered_set<long int> * ancestors, long int m){
         Id = pId;
         criticalAncestors = ancestors;
         mode = m;
@@ -45,7 +45,7 @@ public:
         }
     }
 
-    static bool hasCriticalAncestor(unordered_set<int> * A, int d){
+    static bool hasCriticalAncestor(unordered_set<long int> * A, int d){
         for(auto a :*A){
             if(a==d) return true;
         }

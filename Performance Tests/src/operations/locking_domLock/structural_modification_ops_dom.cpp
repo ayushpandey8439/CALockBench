@@ -74,14 +74,14 @@ int sb7::DomStructuralModification3::run(int tid) const {
     if(cpart-> m_post_number > max )
         max = cpart-> m_post_number;
 
-    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
-    auto *inv = new interval(min,max,1);
+    auto *inv = new interval(dataHolder->getModule()->getDesignRoot()->m_pre_number,dataHolder->getModule()->getDesignRoot()->m_post_number,1);
     if(!ICheck.IsOverlap(inv, 1, tid)) {
-        pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
+        auto t1 = std::chrono::high_resolution_clock::now();
         auto *r = new DomRelabelling(dataHolder);
         r->traverse(dataHolder->getModule()->getDesignRoot());
-        pthread_rwlock_unlock(lock);
+        auto t2 = std::chrono::high_resolution_clock::now();
+        ICheck.modificationTimeDom+= t2-t1;
         ICheck.Delete(tid);
     }
 	return 0;
@@ -120,7 +120,7 @@ int sb7::DomStructuralModification4::run(int tid) const {
 		CompositePart *cpart = iter.next();
 
 		if(nextId == i) {
-            auto *inv = new interval(bassm->m_pre_number,bassm->m_post_number,1);
+            auto *inv = new interval(dataHolder->getModule()->getDesignRoot()->m_pre_number,dataHolder->getModule()->getDesignRoot()->m_post_number,1);
             if(!ICheck.IsOverlap(inv, 1, tid)) {
                 bassm->removeComponent(cpart);
                 auto *r = new DomRelabelling(dataHolder);

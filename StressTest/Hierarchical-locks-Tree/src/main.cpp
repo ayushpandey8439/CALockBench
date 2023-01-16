@@ -14,6 +14,7 @@ using namespace std;
 int caseParameter;
 int NoOfRequestedNode;
 int distribution;
+bool modifications = false;
 IntervalCheck ICheck;
 lockPool pool;
 int N;
@@ -38,6 +39,10 @@ int main(int argc, char *argv[])
 	NoOfRequestedNode = atoi(argv[4]);
 	distribution = atoi(argv[5]);
 	CSSize = argv[6][0];
+    string m = argv[7];
+    if(m=="true"){
+        modifications = true;
+    }
 	N=atoi(argv[1]);
     threads = NoOfThreads;
     

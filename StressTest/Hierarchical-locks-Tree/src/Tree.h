@@ -60,7 +60,8 @@ class Tree
 
 	//Concurrent function
 	void DummyTask(int node);
-  
+    void structuralModification(int tid);
+    void relabelDom(TreeNode* node);
 	//Depth first search
 	void DFS(TreeNode *ptr);
 
@@ -69,6 +70,7 @@ class Tree
 
 	//New interval numbering algorithm
 	void ModifiedDFS(TreeNode *ptr);
+
 
 	
 
@@ -290,10 +292,9 @@ bool Tree::UpdateParent(TreeNode *par, TreeNode *ptr)
 		
 	}
 	
-	if(par->parentUpdated == true)
+	if(par->parentUpdated)
 	UpdateParent(par->parent, par);
 	return true;
-
 }
 
 
@@ -316,7 +317,7 @@ void Tree::ModifiedDFS(TreeNode* ptr)
 	}
 
 	//if node is a leaf node or node is a part of some cycle, consider it as leaf node and assign intervals
-	if((ptr->left == NULL && ptr->right == NULL) || ptr->active == true)
+	if((ptr->left == NULL && ptr->right == NULL) || ptr->active)
 	{
 		counter++;
 		ptr->preNumber = counter;
@@ -327,9 +328,9 @@ void Tree::ModifiedDFS(TreeNode* ptr)
 		ptr->active = true;
 		//call recursively modifiedDfS() function for all the child nodes. 
 		//As we use binary tree, here for left and right pointers only.
-		if(ptr->left !=NULL && (ptr->left)->IsExplored == false)
+		if(ptr->left !=NULL && !(ptr->left)->IsExplored)
 		ModifiedDFS(ptr->left);
-		if(ptr->right !=NULL && (ptr->right)->IsExplored == false)
+		if(ptr->right !=NULL && !(ptr->right)->IsExplored)
 		ModifiedDFS(ptr->right);
 	}
 
@@ -360,7 +361,6 @@ void Tree::CALabelling(TreeNode* ptr)
     CALabelling(ptr->left);
     CALabelling(ptr->right);
 }
-
 
 
 //This function used by ModifiedDFS() to forward the node interval information to parent
@@ -501,7 +501,7 @@ void Tree::DummyTask(int node)
    	
 	}
     else if(caseParameter==7){
-        list<int> lockRequest{};
+        list<long int> lockRequest{};
         for(auto lockObj: NodeArray)
         {
             if(lockRequest.empty()){
@@ -527,9 +527,64 @@ void Tree::DummyTask(int node)
     }
     	//cout<<" \n A am in dummy task **DONE** of node:"<<node;
 }
+void Tree::relabelDom(TreeNode* node){
 
+    int min = 0, max = 0;
+    if(node->left != nullptr && node->right != nullptr) {
+        min = node->left->preNumber;
+        max = node->right->postNumber;
+    }
+    if(node->right !=nullptr && node->left ==nullptr) {
+        min = node->right->preNumber;
+        max = node->right->postNumber;
+    }
+    if(node->left !=nullptr && node->right ==nullptr) {
+        min = node->left->preNumber;
+        max = node->left->postNumber;
+    }
+    if(max>0 && min>0){
+        node->preNumber = min;
+        node->postNumber = max;
+    }
+    if(node->parent!= nullptr){
+        relabelDom(node->parent);
+    }
 
+}
+void Tree::structuralModification(int threadID){
+    long int nodeInsert = NodeRef.size()+1;
+    auto *newNode=new TreeNode(nodeInsert);
+    newNode->pathLabel.push_back(nodeInsert);
+    newNode->preNumber=nodeInsert;
+    newNode->postNumber = nodeInsert;
 
+    Array[newNode->data]=newNode;
+    LeafNodes.push_back(newNode);
+    setNodeRef(newNode);
+    extern int caseParameter;
+
+    if( caseParameter == 5)
+    {
+        //Lock the root to relabel
+        auto *inv = new interval(head->preNumber,head->postNumber,1);
+        xy:	if(!ICheck.IsOverlap(inv, 1, threadID))
+        {
+            relabelDom(newNode);
+            ICheck.Delete(threadID);
+        }
+        else{goto xy;}
+    }
+    else if(caseParameter==7){
+        auto l = new lockObject(newNode->data, &newNode->criticalAncestors, 1);
+        pool.acquireLock(l, threadID);
+        //No relabelling required since leaf insertion.
+        pool.releaseLock(threadID);
+//        auto lo = Array[lockRequest.back()];
+//        pool.acquireLock(l, threadID);
+//        NullOperation();
+//        pool.releaseLock(threadID);
+    }
+}
 
 
 

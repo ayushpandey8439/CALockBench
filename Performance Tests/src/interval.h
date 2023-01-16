@@ -17,7 +17,7 @@
 using namespace std;
 
 
-#define S 256
+#define S 64
 #define leafNodes = 300;
 class interval{
 
@@ -41,7 +41,8 @@ public:
     pthread_mutex_t mutex;
     long Seq;
     //Lock pool for Multi-DomLock, .i.e., multiple lock node per thread
-    vector<interval**>MultiLockPool;
+    std::chrono::duration<double, std::nano> Totalidleness[S];
+    std::chrono::duration<double, std::nano> modificationTimeDom;
 
     //Sequence number per thread for fairness and less contention
     int MySeq[S];
@@ -58,10 +59,6 @@ public:
             Array[i] = nullptr;
             pthread_rwlock_t ArrayLock[i];
         }
-        MultiLockPool.resize(S, nullptr);
-
-
-
     }
 
     bool IsOverlap(interval *inv, int m, int threadID)
@@ -71,14 +68,14 @@ public:
         inv->MySeq = ++Seq;
         Array[threadID] = inv;
         pthread_mutex_unlock(&mutex);
-
+        auto t1 = std::chrono::high_resolution_clock::now();
         for(int i=0; i< S; i++)
         {
-            if(Array[i] != nullptr)
+            if(Array[i] != nullptr && i!=threadID)
             {
                 interval *ptr = Array[i];
                 //wait untill there is an overlap and my sequence number is greater
-                while(ptr !=NULL &&
+                while(ptr != nullptr &&
                     (inv->mode==1 || (inv->mode == 0 && ptr->mode == 1)) &&
                     ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
                       && ptr->MySeq < inv->MySeq)
@@ -87,10 +84,9 @@ public:
                 }
             }
         }
-
+        auto t2 = std::chrono::high_resolution_clock::now();
+        Totalidleness[threadID] += t2-t1;
         return false;
-
-
     }
 
     void Delete(int index)
@@ -98,61 +94,6 @@ public:
 
         Array[index] = nullptr;
 
-
-    }
-
-    //*****************************************************************************
-    //This function checks whether the multiple query nodes overlap with the lock pool
-    //*****************************************************************************
-    bool MultiOverlap(interval **QueryNodes, int Qsize, int m, int threadID)
-    {
-
-        VectorSize[threadID] = Qsize;
-
-        pthread_mutex_lock(&mutex);
-        MySeq[threadID] = ++Seq;
-        MultiLockPool[threadID] = QueryNodes;
-        pthread_mutex_unlock(&mutex);
-
-        for(int i=0; i< S; i++)
-        {
-            interval** ptr = MultiLockPool[i];
-            if(ptr != NULL)
-            {
-                for(int j=0;j<VectorSize[i];j++)
-                {
-                    for(int k=0;k<Qsize;k++)
-                    {
-                        while(ptr!=NULL && MySeq[threadID] > MySeq[i] && (m == 1 || (m == 0 && ptr[j]->mode == 1)) && ptr[j]->pre <= QueryNodes[k]->post && ptr[j]->post >= QueryNodes[k]->pre)
-                        {
-                            ptr = MultiLockPool[i];
-                            if(ptr == NULL){
-                                k = Qsize;
-                                break;
-                            }
-
-
-                        }
-                    }
-
-                }
-            }
-
-        }
-
-
-        return false;
-
-
-    }
-
-
-    //This function deletes the vector entry from MultiLockPool, i.e., UnLock
-    void MultiDelete(int index)
-    {
-
-
-        MultiLockPool[index] = NULL;
 
     }
 };

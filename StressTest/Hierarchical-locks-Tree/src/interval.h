@@ -9,9 +9,9 @@ using namespace std;
 #define SIZE 20
 class interval{
 
-public: int pre, post, mode;
+public: long int pre, post, mode;
     long MySeq;
-	interval( int a, int b, int m){
+	interval( long int a, long int b, long int m){
 	pre = a; post = b; mode = m;
 	}
 };
@@ -25,7 +25,7 @@ pthread_rwlock_t ArrayLock[SIZE];
 pthread_mutex_t mutex;
 IntervalCheck()
 {
-	for(int i = 0;i<SIZE; i++)
+	for(long int i = 0;i<SIZE; i++)
 	{
 		
 		Array[i] = NULL;
@@ -36,7 +36,7 @@ IntervalCheck()
 
 }
 
-bool IsOverlap(interval *inv, int m, int threadID)
+bool IsOverlap(interval *inv, long int m, long int threadID)
 {
     //cout<<"m=1";
     pthread_mutex_lock(&mutex);
@@ -44,7 +44,7 @@ bool IsOverlap(interval *inv, int m, int threadID)
     Array[threadID] = inv;
     pthread_mutex_unlock(&mutex);
 
-    for(int i=0; i< SIZE; i++)
+    for(long int i=0; i< SIZE; i++)
     {
         if(Array[i] != nullptr)
         {
@@ -64,7 +64,7 @@ bool IsOverlap(interval *inv, int m, int threadID)
 }
 
 
-//void Insert(interval *inv, int index)
+//void Insert(interval *inv, long int index)
 //{
 //
 //	//pthread_rwlock_wrlock(&ArrayLock[index]);
@@ -73,12 +73,12 @@ bool IsOverlap(interval *inv, int m, int threadID)
 //
 //}
 
-void Delete(int index)
+void Delete(long int index)
 {//index=0;
     pthread_mutex_lock(&mutex);
 	Array[index] = NULL;
     pthread_mutex_unlock(&mutex);
-	
+
 
 }
 

@@ -17,8 +17,9 @@
 #include <shared_mutex>
 #include "atomic"
 #include "memory"
+#include "chrono"
 
-#define SIZE 256
+#define SIZE 64
 using namespace std;
 using namespace sb7;
 
@@ -26,6 +27,7 @@ using namespace sb7;
 
 class lockObject{
 public:
+
     unordered_set<int>* criticalAncestors;
     int Id;
     int mode;
@@ -47,6 +49,8 @@ public:
     mutex threadMutexes[SIZE];
     shared_mutex threadGuards[SIZE];
     condition_variable threadConditions[SIZE];
+    std::chrono::duration<double, std::nano> idleness[SIZE];
+    std::chrono::duration<double, std::nano> modificationTimeCA;
     long int Gseq;
     ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
     //bool blockingAllowed = parameters.threadBlockingAllowed();
@@ -83,6 +87,7 @@ public:
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
         lockPoolLock.unlock();
+        auto t1 = std::chrono::high_resolution_clock::now();
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
             if(locks[i] != nullptr && i!= threadID){
@@ -104,6 +109,8 @@ public:
                 }
             }
         }
+        auto t2 = std::chrono::high_resolution_clock::now();
+        idleness[threadID] += t2-t1;
         return true;
     }
     void releaseLock(lockObject *l, int threadId){

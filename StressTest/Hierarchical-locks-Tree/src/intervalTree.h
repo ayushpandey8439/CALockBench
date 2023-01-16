@@ -13,7 +13,7 @@ struct Interval
 
 {
 
-    int low, high;
+    long int low, high;
 
 };
 

@@ -10,7 +10,9 @@
 #include "labelAssignmentTest.h"
 #include "intervalAssignment.h"
 #include "lockPool.h"
+#include "interval.h"
 #include <thread>
+
 
 
 
@@ -18,7 +20,8 @@
 
 using namespace std;
 
-
+extern lockPool pool;
+extern IntervalCheck ICheck;
 sb7::Benchmark::Benchmark() : operations(&dataHolder) {
     // initialize thread local data
     global_thread_init();
@@ -242,6 +245,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
             << "  failed = " << right << setw(6) << optype.failure
             << "  total = " << right << setw(6) << totalTypeOps
             << endl;
+
     }
 
     out << endl;
@@ -258,6 +262,33 @@ void sb7::Benchmark::reportStats(ostream &out) {
     out << "Total throughput: " << totalThroughput << " op/s"
         << "  (" << totalTThroughput << " op/s including failed)"
         << endl;
+    std::chrono::duration<double, std::nano> totalTimeSpentIdle{};
+    if(parameters.getLockType()==Parameters::lock_ca){
+        int count = 1;
+        if(optypes[6].success>0){
+            count = optypes[6].success;
+        }
+        out << "Total relabelling: " << pool.modificationTimeCA.count()/count << " ns"<<endl;
+        for(auto i: pool.idleness){
+            if(i.count() >0){
+                totalTimeSpentIdle+= i;
+            }
+        }
+    } else if(parameters.getLockType()==Parameters::lock_dom){
+        int count = 1;
+        if(optypes[6].success>0){
+            count = optypes[6].success;
+        }
+        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/count << " ns"<<endl;
+        for(auto i: ICheck.Totalidleness){
+            if(i.count() >0){
+                totalTimeSpentIdle+= i;
+            }
+        }
+    }
+
+
+    out << "Total idleness: " << totalTimeSpentIdle.count()/(totalThroughput) << " ns"<<endl;
 
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
 
