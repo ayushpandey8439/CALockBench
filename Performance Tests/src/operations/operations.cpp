@@ -94,11 +94,11 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
     //ops.push_back(new LCQuery3(dh)); Not implemented
     //ops.push_back(new LCTraversal8(dh)); Trivial and does not need locks.
 //    ops.push_back(new LCTraversal9(dh)); Trivial and does not need locks.
-//    ops.push_back(new LCOperation6(dh));
-//    ops.push_back(new LCOperation7(dh));
+    ops.push_back(new LCOperation6(dh));
+    ops.push_back(new LCOperation7(dh));
     //ops.push_back(new LCOperation8(dh));
-//    ops.push_back(new LCOperation9(dh));
-//    ops.push_back(new LCOperation10(dh));
+    ops.push_back(new LCOperation9(dh));
+    ops.push_back(new LCOperation10(dh));
 //    ops.push_back(new LCOperation11(dh)); Traversal operation
 //    ops.push_back(new LCOperation12(dh));
 //    ops.push_back(new LCOperation13(dh));
