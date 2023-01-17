@@ -98,7 +98,7 @@ void CArelabelling::traverse(CompositePart *cpart) {
 
 
 void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, bool isRoot) {
-    if(apart->isDeleted) return;
+    if(apart== nullptr || apart->isDeleted) return;
     if (isRoot) {
         visitedPartSet.add(apart);
         Set<Connection *> *toConns = apart->getToConnections();

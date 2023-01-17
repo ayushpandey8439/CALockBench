@@ -28,14 +28,14 @@ using namespace sb7;
 class lockObject{
 public:
 
-    unordered_set<int>* criticalAncestors;
+    unordered_set<int> criticalAncestors;
     int Id;
     int mode;
     long Oseq;
 
     lockObject(int pId, unordered_set<int> * ancestors, int m){
         Id = pId;
-        criticalAncestors = ancestors;
+        criticalAncestors.insert(ancestors->begin(), ancestors->end());
         mode = m;
         Oseq=-1;
     }
@@ -76,8 +76,11 @@ public:
             while (l!= nullptr &&
              /// If a read lock is requested for an object that is read locked, only then allow it.
              (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
-             /// Someone else has requested a lock on my LSCA before me.
-             (reqObj->Id == l->Id || reqObj->criticalAncestors->contains(l->Id)) &&
+             /// Someone else has requested a lock on my LSCA before me (locked Sub-Hierarchy)or
+             /// I am the LSCA of some node that is locked already (locked Super-hierarchy).
+             (locks[threadID]->Id==l->Id ||
+             l->criticalAncestors.contains(locks[threadID]->Id) ||
+             locks[threadID]->criticalAncestors.contains(l->Id)) &&
              /// It isn't my turn to take the lock
              (reqObj->Oseq > l->Oseq)) {
                 if(processor_Count<parameters.getThreadNum()) this_thread::yield();

@@ -25,9 +25,11 @@ int main()
         ifstream casp_file("./benchmarkResults/caspinning"+threadCount+".txt");
         ifstream dom_file("./benchmarkResults/dom"+threadCount+".txt");
 
-        vector<double> c,m,cas,dom;
-        vector<double> casi,domi;
-        vector<double> casm,domm;
+        int c=0,m=0,cas=0,dom=0;
+        int casi=0,domi=0;
+        int casm=0,domm=0;
+        int cc=0, mc=0,casc=0, domc=0;
+
         for(int j=0;j<Iterations;j++)
         {
             double cval=0,mval=0,caspval=0, domval=0;
@@ -41,33 +43,24 @@ int main()
             casp_file>>caspval;
             casp_file>>caspvalm;
             casp_file>>caspvali;
+            c+=cval;m+=mval;cas+=caspval;dom+=domval;
+            casi+=caspvali; domi+=domvali;
+            casm+=caspvalm; domm+=domvalm;
 
-            c.push_back(cval);
-            m.push_back(mval);
-            dom.push_back(domval);
-            cas.push_back(caspval);
-
-            casm.push_back(caspvalm);
-            domm.push_back(domvalm);
-
-            casi.push_back(caspvali);
-            domi.push_back(domvali);
+            if(cval>0) cc++;
+            if(mval>0) mc++;
+            if(caspval>0) casc++;
+            if(domval>0) domc++;
         }
 
-        nth_element(c.begin(),c.begin()+2, c.end());
-        nth_element(m.begin(),m.begin()+2, m.end());
-        nth_element(dom.begin(),dom.begin()+2, dom.end());
-        nth_element(cas.begin(),cas.begin()+2, cas.end());
+        if(cc==0) cc++;
+        if(mc==0) mc++;
+        if(casc==0) casc++;
+        if(domc==0) domc++;
 
-        nth_element(domi.begin(),domi.begin()+2, domi.end());
-        nth_element(casi.begin(),casi.begin()+2, casi.end());
-
-        nth_element(domm.begin(),domm.begin()+2, domm.end());
-        nth_element(casm.begin(),casm.begin()+2, casm.end());
-
-        output<<threadCount<<","<<c[2]<<","<<m[2]<<","<<dom[2]<<","<<cas[2]<<"\n";
-        outputi<<threadCount<<","<<domi[2]<<","<<casi[2]<<"\n";
-        outputm<<threadCount<<","<<domm[2]<<","<<casm[2]<<"\n";
+        output<<threadCount<<","<<c/cc<<","<<m/mc<<","<<dom/domc<<","<<cas/casc<<"\n";
+        outputi<<threadCount<<","<<domi/domc<<","<<casi/casc<<"\n";
+        outputm<<threadCount<<","<<domm/domc<<","<<casm/casc<<"\n";
         c_file.close();
         m_file.close();
         casp_file.close();

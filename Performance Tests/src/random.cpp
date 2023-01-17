@@ -3,7 +3,7 @@
 #include "thread/thread.h"
 #include "random.h"
 //The seed should allow us to get duplicable results such that the same hierarchy is created and benchmarked for all the lock types and locking strategies.
-unsigned seed = 123456778;
+unsigned seed = 12345;
 namespace sb7 {
     Random::Random() : generator(seed){
     }

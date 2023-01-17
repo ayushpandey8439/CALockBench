@@ -79,11 +79,14 @@ int sb7::CAStructuralModification3::run(int tid) const {
 
     list<int> lockLabel = {};
 
-
-    for(auto it : cpart->pathLabel){
-        if(bassm->criticalAncestors.contains(it)){
-            lockLabel.push_back(it);
+    auto it = cpart->pathLabel.end();
+    while(it!=cpart->pathLabel.begin()){
+        int val = *it;
+        if(bassm->criticalAncestors.contains(val)){
+            lockLabel.push_back(*it);
+            break;
         }
+        --it;
 //        if(lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
 //            lockLabel.push_back(*it);
 //        }
