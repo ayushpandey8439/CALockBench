@@ -41,8 +41,8 @@ public:
     pthread_mutex_t mutex;
     long Seq;
     //Lock pool for Multi-DomLock, .i.e., multiple lock node per thread
-    std::chrono::duration<double, std::nano> Totalidleness[S];
-    std::chrono::duration<double, std::nano> modificationTimeDom;
+    std::chrono::duration<long double, std::micro> Totalidleness[S];
+    std::chrono::duration<long double, std::micro> modificationTimeDom;
 
     //Sequence number per thread for fairness and less contention
     int MySeq[S];
