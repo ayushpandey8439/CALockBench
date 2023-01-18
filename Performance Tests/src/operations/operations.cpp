@@ -214,7 +214,7 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 //    ops.push_back(new CAOperation15(dh)); Index update
 //
 //    ops.push_back(new CAStructuralModification1(dh)); Node creation
-      ops.push_back(new CAStructuralModification2(dh));
+//      ops.push_back(new CAStructuralModification2(dh));
       ops.push_back(new CAStructuralModification3(dh));
       //      ops.push_back(new CAStructuralModification4(dh));
 //      ops.push_back(new CAStructuralModification5(dh));
@@ -333,15 +333,14 @@ void sb7::Operations::generateCdf() {
             structuralModificationsRatio * updateOperationsRatio /
             optypes[STRUCTURAL_MODIFICATION].count;
 
-    // Before calculating the CDF, find the operations that are improbable. Since their probability if zero.
+    // Before calculating the CDF, find the operations that are improbable.
     auto it = std::remove_if(ops.begin(), ops.end(),[this](Operation * o){return optypes[o->type].probability==0;});
     ops.erase(it,ops.end());
 
     // calculate cdf
     double currCdf = 0;
 
-    for(std::vector<Operation *>::iterator iter = ops.begin();
-        iter != ops.end();iter++) {
+    for(auto iter = ops.begin(); iter != ops.end();iter++) {
         Operation *op = *iter;
         currCdf += optypes[op->type].probability;
         cdf.push_back(currCdf);

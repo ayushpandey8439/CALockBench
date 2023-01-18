@@ -96,27 +96,35 @@ int sb7::CAQuery2::innerRun(int tid) const {
         if(aparts.empty()){
             throw Sb7Exception();
         }
+
         list<int> lockRequest{};
-        int i=0;
-        while(lockRequest.empty() && i< aparts.size()){
-            lockRequest= aparts[i]->pathLabel;
-            i++;
+        _List_iterator<int> it;
+        for (it = (*aparts.begin())->pathLabel.begin(); it != (*aparts.begin())->pathLabel.end(); ++it){
+            bool contains = true;
+            for(auto a:aparts){
+                if(!a->criticalAncestors.contains(*it)){
+                    contains = false;
+                    break;
+                }
+            }
+            if(contains)  lockRequest.push_back(*it);
         }
 
-        auto it = lockRequest.begin();
-        auto end = lockRequest.end();
-        while (it != end) {
-            bool exists=true;
-            while(i<aparts.size() && exists){
-                exists&= lscaHelpers::hasCriticalAncestor(&aparts[i]->criticalAncestors, *it);
-                i++;
-            }
-            if (!exists) {
-                it = lockRequest.erase(it);
-            } else {
-                ++it;
-            }
-        }
+//        auto it = lockRequest.begin();
+//        auto end = lockRequest.end();
+//        while (it != end) {
+//            bool exists=true;
+//            while(i<aparts.size() && exists){
+//                exists&= lscaHelpers::hasCriticalAncestor(&aparts[i]->criticalAncestors, *it);
+//                i++;
+//            }
+//            if (!exists) {
+//                it = lockRequest.erase(it);
+//                ++it;
+//            } else {
+//                ++it;
+//            }
+//        }
 
 
             pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(&lockRequest,dataHolder);

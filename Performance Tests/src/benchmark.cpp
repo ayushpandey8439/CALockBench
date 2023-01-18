@@ -256,11 +256,11 @@ void sb7::Benchmark::reportStats(ostream &out) {
         << endl;
 
     // TODO use constant for 1000 - ms in s
-    double totalThroughput = (double) totalSuccess / elapsedTime * 1000;
-    double totalTThroughput = (double) total / elapsedTime * 1000;
+    double totalThroughput = (double) totalSuccess;
+    double totalTThroughput = (double) total;
 
-    out << "Total throughput: " << totalThroughput << " op/s"
-        << "  (" << totalTThroughput << " op/s including failed)"
+    out << "Total throughput: " << totalThroughput << " ops"
+        << "  (" << totalTThroughput << " ops including failed)"
         << endl;
     std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
     if(parameters.getLockType()==Parameters::lock_ca){
