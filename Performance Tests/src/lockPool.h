@@ -64,11 +64,11 @@ public:
     }
 
     bool acquireLock(lockObject * reqObj, int threadID) {
+        auto t1 = std::chrono::high_resolution_clock::now();
         lockPoolLock.lock();
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
         lockPoolLock.unlock();
-        auto t1 = std::chrono::high_resolution_clock::now();
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
             /// Spin waiting on the condition.

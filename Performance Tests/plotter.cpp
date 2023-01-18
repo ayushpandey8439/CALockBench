@@ -28,7 +28,7 @@ int main()
         long int c=0,m=0,cas=0,dom=0;
         long int casi=0,domi=0;
         long int casm=0,domm=0;
-        long int cc=0, mc=0,casc=0, domc=0;
+        int cc=0, mc=0,casc=0, domc=0;
 
         for(int j=0;j<Iterations;j++)
         {

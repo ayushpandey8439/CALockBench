@@ -63,12 +63,13 @@ public:
 
     bool IsOverlap(interval *inv, int m, int threadID)
     {
+        auto t1 = std::chrono::high_resolution_clock::now();
         //cout<<"m=1";
         pthread_mutex_lock(&mutex);
         inv->MySeq = ++Seq;
         Array[threadID] = inv;
         pthread_mutex_unlock(&mutex);
-        auto t1 = std::chrono::high_resolution_clock::now();
+
         for(int i=0; i< S; i++)
         {
             if(Array[i] != nullptr && i!=threadID)

@@ -42,7 +42,8 @@ int sb7::CAStructuralModification2::run(int tid) const {
         throw Sb7Exception();
     }
 
-    auto *l = new lockObject (cpart->getLabellingId(), &cpart->criticalAncestors, 1);
+
+    auto *l = new lockObject (*(--cpart->pathLabel.end()), &cpart->criticalAncestors, 1);
     pool.acquireLock(l, tid);
     //// Between when the lock was created and the actual deletion happens,
     /// If some other thread races to delete this object, Then, deleting will raise an exception.
@@ -78,19 +79,20 @@ int sb7::CAStructuralModification3::run(int tid) const {
     }
 
     list<int> lockLabel = {};
+//    for(int i: cpart->pathLabel){
+//        if(bassm->criticalAncestors.contains(i)){
+//            lockLabel.push_back(i);
+//        }
+//    }
 
-    auto it = cpart->pathLabel.end();
-    while(it!=cpart->pathLabel.begin()){
+    auto it = cpart->pathLabel.rbegin();
+    while(it!=cpart->pathLabel.rend()){
         int val = *it;
         if(bassm->criticalAncestors.contains(val)){
             lockLabel.push_back(*it);
             break;
         }
-        --it;
-//        if(lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
-//            lockLabel.push_back(*it);
-//        }
-
+        ++it;
     }
 //    lockLabel= pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
 //    set_intersection(bassm->pathLabel.begin(), bassm->pathLabel.end(), cpart->pathLabel.begin(), cpart->pathLabel.end(),back_inserter(lockLabel));
