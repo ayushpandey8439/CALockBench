@@ -49,8 +49,8 @@ public:
     mutex threadMutexes[SIZE];
     shared_mutex threadGuards[SIZE];
     condition_variable threadConditions[SIZE];
-    std::chrono::duration<long double, std::micro> idleness[SIZE];
-    std::chrono::duration<long double, std::micro> modificationTimeCA;
+    std::chrono::duration<long double, std::nano> idleness[SIZE];
+    std::chrono::duration<long double, std::nano> modificationTimeCA;
     long int Gseq;
     ///CAnnot initialise here because the pool is created and initialised before the parameters are read from the console.
     //bool blockingAllowed = parameters.threadBlockingAllowed();

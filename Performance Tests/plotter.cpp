@@ -25,16 +25,16 @@ int main()
         ifstream casp_file("./benchmarkResults/caspinning"+threadCount+".txt");
         ifstream dom_file("./benchmarkResults/dom"+threadCount+".txt");
 
-        int c=0,m=0,cas=0,dom=0;
-        int casi=0,domi=0;
-        int casm=0,domm=0;
-        int cc=0, mc=0,casc=0, domc=0;
+        long int c=0,m=0,cas=0,dom=0;
+        long int casi=0,domi=0;
+        long int casm=0,domm=0;
+        long int cc=0, mc=0,casc=0, domc=0;
 
         for(int j=0;j<Iterations;j++)
         {
-            double cval=0,mval=0,caspval=0, domval=0;
-            double caspvali=0, domvali=0;
-            double caspvalm=0, domvalm=0;
+            long double cval=0,mval=0,caspval=0, domval=0;
+            long double caspvali=0, domvali=0;
+            long double caspvalm=0, domvalm=0;
             c_file>>cval;
             m_file>>mval;
             dom_file>>domval;

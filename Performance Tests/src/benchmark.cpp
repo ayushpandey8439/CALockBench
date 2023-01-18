@@ -262,13 +262,13 @@ void sb7::Benchmark::reportStats(ostream &out) {
     out << "Total throughput: " << totalThroughput << " op/s"
         << "  (" << totalTThroughput << " op/s including failed)"
         << endl;
-    std::chrono::duration<long double, std::micro> totalTimeSpentIdle{};
+    std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
     if(parameters.getLockType()==Parameters::lock_ca){
         int count = 1;
         if(optypes[6].success>0){
             count = optypes[6].success;
         }
-        out << "Total relabelling: " << pool.modificationTimeCA.count()/count << " micros"<<endl;
+        out << "Total relabelling: " << pool.modificationTimeCA.count()/count << " nanos"<<endl;
         for(auto i: pool.idleness){
             if(i.count() >0){
                 totalTimeSpentIdle=  (totalTimeSpentIdle+i)/2;
@@ -279,7 +279,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
         if(optypes[6].success>0){
             count = optypes[6].success;
         }
-        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/count << " micros"<<endl;
+        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/count << " nanos"<<endl;
         for(auto i: ICheck.Totalidleness){
             if(i.count() >0){
                 totalTimeSpentIdle=  (totalTimeSpentIdle+i)/2;
@@ -288,7 +288,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
     }
 
 
-    out << "Total idleness: " << totalTimeSpentIdle.count()/(totalThroughput) << " micros"<<endl;
+    out << "Total idleness: " << totalTimeSpentIdle.count()/(totalThroughput) << " nanos"<<endl;
 
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
 
