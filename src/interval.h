@@ -45,6 +45,9 @@ public:
 
     //Sequence number per thread for fairness and less contention
     int MySeq[S];
+    std::chrono::duration<long double, std::nano> Totalidleness[S];
+    std::chrono::duration<long double, std::nano> modificationTimeDom;
+
 
     //*****************************************************************************
     //Constructor for initialization of class variables
@@ -66,6 +69,7 @@ public:
 
     bool IsOverlap(interval *inv, int m, int threadID)
     {
+        auto t1 = std::chrono::high_resolution_clock::now();
         //cout<<"m=1";
         pthread_mutex_lock(&mutex);
         inv->MySeq = ++Seq;
@@ -80,13 +84,14 @@ public:
                 //wait untill there is an overlap and my sequence number is greater
                 while(ptr !=NULL &&
                       (m == 1 || (m == 0 && ptr->mode == 1)) &&
-                      (ptr->pre <= inv->post && ptr->post >= inv->pre)
-                      && ptr->MySeq < inv->MySeq)
-                {
-                    ptr = Array[i];
-                }
+                    ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))                      && ptr->MySeq < inv->MySeq)
+                    {
+                        ptr = Array[i];
+                    }
             }
         }
+        auto t2 = std::chrono::high_resolution_clock::now();
+        Totalidleness[threadID] += t2-t1;
 
         return false;
 
@@ -95,10 +100,9 @@ public:
 
     void Delete(int index)
     {
-
+        pthread_mutex_lock(&mutex);
         Array[index] = nullptr;
-
-
+        pthread_mutex_unlock(&mutex);
     }
 
     //*****************************************************************************

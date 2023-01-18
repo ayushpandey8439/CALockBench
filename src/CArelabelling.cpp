@@ -131,7 +131,7 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
         }
 
         containerLabel.push_back((apart->getId()*10)+4);
-        vector<int> myLabelSet(containerLabel.begin(), containerLabel.end());
+        unordered_set<int> myLabelSet(containerLabel.begin(), containerLabel.end());
 
         if (myLabelSet != apart->criticalAncestors) {
             apart->setPathLabel(containerLabel);

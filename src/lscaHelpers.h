@@ -17,8 +17,8 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static bool hasCriticalAncestor(vector<int> * A, int d){
-        if(!A->empty() && find(A->begin(), A->end(), d) !=A->end()){
+    static bool hasCriticalAncestor(unordered_set<int> * A, int d){
+        if(A->contains(d)){
             return true;
         }
         else return false;

@@ -73,6 +73,5 @@ int sb7::WorkerThreadData::getOperationRndInd() const {
     while (opRat[opind] < oprnd && opind < opRat.size()-1) {
         opind++;
     }
-
     return opind;
 }

@@ -61,7 +61,7 @@ namespace sb7 {
             pathLabel = label;
             criticalAncestors.clear();
             for(const auto& d: label){
-                criticalAncestors.push_back(d);
+                criticalAncestors.insert(d);
             }
         }
 
@@ -78,7 +78,7 @@ namespace sb7 {
         pthread_rwlock_t NodeLock;
         bool hasLabel;
         list<int> pathLabel{};
-        vector<int> criticalAncestors;
+        unordered_set<int> criticalAncestors;
         bool isDeleted;
     protected:
         int m_id;
