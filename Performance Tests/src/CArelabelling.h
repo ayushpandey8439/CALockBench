@@ -14,7 +14,7 @@ using namespace sb7;
 class CArelabelling {
     DataHolder *dataHolder;
 public:
-    CArelabelling(DataHolder * dh = nullptr){
+    CArelabelling(DataHolder * dh){
         dataHolder = dh;
     }
     queue<ComplexAssembly *> cassmQ;
