@@ -102,12 +102,14 @@ int sb7::CAStructuralModification3::run(int tid) const {
     if(!lo.second){
         lo.first = bassm;
     }
+    bool executed = false;
 
     auto * l = new lockObject (lo.first->getLabellingId(), &lo.first->criticalAncestors, 1);
     if(pool.acquireLock(l, tid)) {
         /// Similar to SM2, If some thread as deleted the element we are going to modify then we cannot progress with the addition.
         /// This also needs the ability to convert a read lock into a write lock.
         if(bassm->hasLabel && cpart->hasLabel){
+            executed = true;
             bassm->addComponent(cpart);
             auto t1 = std::chrono::high_resolution_clock::now();
             auto * r = new CArelabelling(dataHolder);
@@ -117,6 +119,10 @@ int sb7::CAStructuralModification3::run(int tid) const {
             pool.modificationTimeCA+= t2-t1;
         }
         pool.releaseLock(l,tid);
+    }
+
+    if(!executed){
+        throw Sb7Exception();
     }
 
 
