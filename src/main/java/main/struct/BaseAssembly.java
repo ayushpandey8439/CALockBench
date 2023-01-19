@@ -1,9 +1,12 @@
-package struct;
+package main.struct;
+
+import main.struct.assembly_type;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class BaseAssembly extends Assembly{
+public class BaseAssembly extends Assembly {
+    public String type = "ba";
     Set<CompositePart> compositePartSet = new HashSet<>();
 
     public BaseAssembly(long id, int buildDate, ComplexAssembly superAssembly) {

@@ -1,13 +1,7 @@
+package main;
+
 import org.apache.commons.cli.*;
 
-
-enum lockingType {
-    lock_coarse,
-    lock_medium,
-    lock_fine,
-    lock_ca,
-    lock_dom
-}
 
 public class parameters {
    static int numAtomicPerComp;
@@ -33,8 +27,8 @@ public class parameters {
     static int maxModuleDate;
     static int minAssmDate;
     static int maxAssmDate;
-    static int minAtomicDate;
-    static int maxAtomicDate;
+    public static int minAtomicDate;
+    public static int maxAtomicDate;
     static int minOldCompDate;
     static int maxOldCompDate;
     static int minYoungCompDate;
@@ -47,13 +41,13 @@ public class parameters {
 
     private static int traversalRatio;
     private static int shortTraversalRatio;
-    private static int operationsRatio;
-    private static int structuralModificationsRatio;
+    public static int operationsRatio;
+    public static int structuralModificationsRatio;
 
-    private static int readOnlyOperationsRatio;
+    public static int readOnlyOperationsRatio;
 
-    static int threadNum;
-    static int experimentLengthMs;
+    public static int threadNum;
+    public static int experimentLengthMs;
 
     //Parameters of the output TTC histograms.
     private static int maxLowTtc;
@@ -65,7 +59,7 @@ public class parameters {
 
     final double MAX_TO_INITIAL_RATIO = 1.05;
 
-    private static lockingType lockType;
+    public static lockingType lockType;
 
     parameters(){
 //        this.numAtomicPerComp=20;
@@ -114,7 +108,7 @@ public class parameters {
 //        this.reportTtcHistograms=false;
 //
 //
-//        this.lockType= lockingType.lock_coarse;
+//        this.lockType= main.lockingType.lock_coarse;
 //        boolean threadBlocking;
         initDefault();
     }
@@ -235,7 +229,7 @@ public class parameters {
         System.out.println("Atomic parts per component: "+ numAtomicPerComp);
         System.out.println("Components per module: "+numCompPerModule);
         System.out.println("Operations ratio: "+ operationsRatio);
-        System.out.println("Readonly operations ratio: "+ readOnlyOperationsRatio);
+        System.out.println("Readonly main.operations ratio: "+ readOnlyOperationsRatio);
         System.out.println("Structural modifications ratio: "+ structuralModificationsRatio);
         System.out.println("Number of threads: "+ threadNum);
         System.out.println("Experiment length: "+ experimentLengthMs);

@@ -1,9 +1,8 @@
-package struct;
+package main.struct;
 
 public class Connection {
     AtomicPart from;
     AtomicPart to;
-
 
     public Connection(AtomicPart f, AtomicPart t) {
         from = f;
@@ -15,10 +14,10 @@ public class Connection {
     }
 
     public AtomicPart getDestination() {
-        return this.to;
+        return to;
     }
 
     public AtomicPart getSource() {
-        return this.from;
+        return from;
     }
 }

@@ -1,11 +1,13 @@
+package main;
+
 public class constants {
     static final  int DEFAULT_NUM_ATOMIC_PER_COMP = 200;
-    static final  int DEFAULT_NUM_CONN_PER_ATOMIC = 6;
+    static final  int DEFAULT_NUM_CONN_PER_ATOMIC = 5;
     static final  int DEFAULT_DOCUMENT_SIZE = 20000;
     static final  int DEFAULT_MANUAL_SIZE = 1000000;
-    static final  int DEFAULT_NUM_COMP_PER_MODULE = 50;
+    static final  int DEFAULT_NUM_COMP_PER_MODULE = 1000;
     static final  int DEFAULT_NUM_ASSM_PER_ASSM = 3;
-    static final  int DEFAULT_NUM_ASSM_LEVELS = 7;
+    static final  int DEFAULT_NUM_ASSM_LEVELS = 15;
     static final  int DEFAULT_NUM_COMP_PER_ASSM = 3;
     static final  int DEFAULT_NUM_MODULES = 1;
 

@@ -1,4 +1,4 @@
-package struct;
+package main.struct;
 
 public enum assembly_type {
         assembly_type_complex,

@@ -1,6 +1,7 @@
-package struct;
+package main.struct;
 
-public class Module extends designObject{
+
+public class Module extends designObject {
     ComplexAssembly designRoot;
     public Module(long id, int buildDate) {
         super(id, buildDate);

@@ -1,9 +1,11 @@
-package struct;
+package main.struct;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class AtomicPart extends designObject{
+public class AtomicPart extends designObject {
+    public String type = "ap";
     Set<Connection> connectionsFrom = new HashSet<>();
     Set<Connection> connectionsTo = new HashSet<>();
     int m_x;

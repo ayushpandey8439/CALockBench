@@ -1,10 +1,12 @@
-package struct;
+package main.struct;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ComplexAssembly extends Assembly{
-    Set<Assembly> m_subAssemblies = new HashSet<>();
+public class ComplexAssembly extends main.struct.Assembly {
+    public String type = "ca";
+    Set<main.struct.Assembly> m_subAssemblies = new HashSet<>();
     int m_level;
     public ComplexAssembly(long id, int buildDate, ComplexAssembly superAssembly, int maxChildren) {
         super(id, buildDate, superAssembly);
@@ -12,14 +14,14 @@ public class ComplexAssembly extends Assembly{
     }
 
     public assembly_type getType(){
-        return assembly_type.assembly_type_complex;
+        return main.struct.assembly_type.assembly_type_complex;
     }
 
-    public Set<Assembly> getSubAssemblies(){
+    public Set<main.struct.Assembly> getSubAssemblies(){
         return m_subAssemblies;
     }
 
-    public boolean addSubAssembly(Assembly a){
+    public boolean addSubAssembly(main.struct.Assembly a){
         return m_subAssemblies.add(a);
     }
 

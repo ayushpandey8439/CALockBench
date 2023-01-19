@@ -1,4 +1,4 @@
-package struct;
+package main.struct;
 
 import java.util.List;
 import java.util.Set;

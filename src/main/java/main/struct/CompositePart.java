@@ -1,9 +1,12 @@
-package struct;
+package main.struct;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class CompositePart extends designObject{
+public class CompositePart extends designObject {
+    public String type = "cp";
+
     Set<BaseAssembly> usedIn = new HashSet<>();
     Set<AtomicPart> atomicParts = new HashSet<>();
     AtomicPart rootPart;

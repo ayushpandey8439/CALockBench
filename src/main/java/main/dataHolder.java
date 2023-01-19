@@ -1,18 +1,23 @@
-import struct.*;
-import struct.Module;
+package main;
 
+
+import main.struct.AtomicPart;
+import main.struct.BaseAssembly;
+import main.struct.ComplexAssembly;
+import main.struct.CompositePart;
+import main.struct.Module;
 import java.util.*;
 
 public class dataHolder {
     public Module module;
     ComplexAssembly designRoot;
 
-    Map<Long, AtomicPart> atomicPartIndex = new HashMap<>();
-    Map<Long, CompositePart> compositePartIndex= new HashMap<>();
-    Map<Long, BaseAssembly> baseAssemblyIndex= new HashMap<>();
-    Map<Long, ComplexAssembly> complexAssemblyIndex= new HashMap<>();
+    public Map<Long, AtomicPart> atomicPartIndex = new HashMap<>();
+    public Map<Long, CompositePart> compositePartIndex= new HashMap<>();
+    public Map<Long, BaseAssembly> baseAssemblyIndex= new HashMap<>();
+    public Map<Long, ComplexAssembly> complexAssemblyIndex= new HashMap<>();
 
-    Map<Integer, Set<AtomicPart>> apartBuildDateIndex= new HashMap<>();
+    public Map<Integer, Set<AtomicPart>> apartBuildDateIndex= new HashMap<>();
 
 
 
@@ -79,7 +84,7 @@ public class dataHolder {
             buildDate = createBuildDate(parameters.minOldCompDate, parameters.maxOldCompDate);
         }
 
-        CompositePart cpart = new CompositePart(id, buildDate);
+        CompositePart cpart = new main.struct.CompositePart(id, buildDate);
 
         ArrayList<AtomicPart> aparts = new ArrayList<>(parameters.numAtomicPerComp);
         for (int i = 0; i < parameters.numAtomicPerComp; i++) {

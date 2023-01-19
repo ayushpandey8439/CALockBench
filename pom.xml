@@ -49,7 +49,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>sb7_lock</mainClass>
+                            <mainClass>main.sb7_lock</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
