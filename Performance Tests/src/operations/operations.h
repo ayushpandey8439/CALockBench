@@ -59,7 +59,6 @@ namespace sb7 {
 
         // TODO make this abstract after all operations are implemented
         virtual int run(int tid) const {
-            sleep(1);
             return 0;
         }
 

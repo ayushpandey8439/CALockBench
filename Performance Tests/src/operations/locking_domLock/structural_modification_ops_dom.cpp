@@ -155,7 +155,7 @@ int sb7::DomStructuralModification5::run(int tid) const {
 
     auto * cassm =  bassm->getSuperAssembly();
 
-    auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,1);
+    auto *inv = new interval(dataHolder->getModule()->getDesignRoot()->m_pre_number,dataHolder->getModule()->getDesignRoot()->m_post_number,1);
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         // create sibling base assembly
         dataHolder->createBaseAssembly(bassm->getSuperAssembly());

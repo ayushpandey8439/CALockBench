@@ -106,7 +106,7 @@ void sb7::Operations::initOperationsLockCoarse(DataHolder *dh) {
 //    ops.push_back(new LCOperation15(dh)); Index update
 //
 //    ops.push_back(new LCStructuralModification1(dh)); Node creation
-    ops.push_back(new LCStructuralModification2(dh));
+//    ops.push_back(new LCStructuralModification2(dh));
     ops.push_back(new LCStructuralModification3(dh));
     //    ops.push_back(new LCStructuralModification4(dh));
 //    ops.push_back(new LCStructuralModification5(dh));
@@ -160,7 +160,7 @@ void sb7::Operations::initOperationsLockMedium(DataHolder *dh) {
 //    ops.push_back(new LMOperation15(dh)); Index update
 //
 //    ops.push_back(new LMStructuralModification1(dh)); Node creation
-    ops.push_back(new LMStructuralModification2(dh));
+//    ops.push_back(new LMStructuralModification2(dh));
     ops.push_back(new LMStructuralModification3(dh));
     //ops.push_back(new LMStructuralModification4(dh));
 //    ops.push_back(new LMStructuralModification5(dh));
@@ -266,7 +266,7 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
 //    ops.push_back(new DomOperation15(dh)); Index update
 //
 //    ops.push_back(new DomStructuralModification1(dh)); Node creation
-    ops.push_back(new DomStructuralModification2(dh));
+//    ops.push_back(new DomStructuralModification2(dh));
     ops.push_back(new DomStructuralModification3(dh));
     //    ops.push_back(new DomStructuralModification4(dh));
 //    ops.push_back(new DomStructuralModification5(dh));

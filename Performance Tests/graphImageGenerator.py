@@ -31,7 +31,7 @@ plt.plot(df['Domlock'], color='#ed553b', label='Domlock', marker='d')
 plt.plot(df['CALock'], color='#173f5f', label='CALock', marker='+')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('Throughput(Op/s)', fontweight='bold')
-plt.ylim(-9000,320000)
+# plt.ylim(-9000,320000)
 plt.xticks([0,1,2,3,4,5], ['1', '2', '4', '8', '16','32'])
 
 # Create legend & Show graphic

@@ -104,6 +104,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
     }
 
     auto * l = new lockObject (lo.first->getLabellingId(), &lo.first->criticalAncestors, 1);
+//    cout<<lo.first->getLabellingId()<<endl;
     if(pool.acquireLock(l, tid)) {
         /// Similar to SM2, If some thread as deleted the element we are going to modify then we cannot progress with the addition.
         /// This also needs the ability to convert a read lock into a write lock.
@@ -114,7 +115,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
             r->cpartQ.push(cpart);
             r->run();
             auto t2 = std::chrono::high_resolution_clock::now();
-            pool.modificationTimeCA+= t2-t1;
+            pool.modificationTimeCA+= (t2-t1);
         }
         pool.releaseLock(l,tid);
     }

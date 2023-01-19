@@ -1,5 +1,4 @@
 LOAD_TYPE=rw
-READ_ONLY_PERCENT=100
 DURATION=2000
 SIZE=b
 ITERATIONS_PER_THREAD=5
@@ -16,7 +15,7 @@ echo Benchmarking Domlock......
 . ./scripts/script_domlock.sh
 pwd
 g++ plotter.cpp
-./a.out
+./a.out $COUNT
 
 cp ./benchmarkResults/Results.csv ./benchmarkCharts/BalancedWithModifications.csv
 cp ./benchmarkResults/IdlenssResults.csv ./benchmarkCharts/BalancedWithModificationsIdleness.csv
