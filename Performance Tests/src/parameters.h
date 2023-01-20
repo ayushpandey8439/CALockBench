@@ -59,7 +59,7 @@ namespace sb7 {
         static const int DEFAULT_TRAVERSAL_RATIO;
         static const int DEFAULT_SHORT_TRAVERSAL_RATIO;
         static const int DEFAULT_OPERATIONS_RATIO;
-        static const int DEFAULT_STRUCTURAL_MODIFICATIONS_RATIO;
+        static const double DEFAULT_STRUCTURAL_MODIFICATIONS_RATIO;
 
         static const int DEFAULT_READ_ONLY_OPERATIONS_RATIO;
 
@@ -122,7 +122,7 @@ namespace sb7 {
         int traversalRatio;
         int shortTraversalRatio;
         int operationsRatio;
-        int structuralModificationsRatio;
+        double structuralModificationsRatio;
 
         int readOnlyOperationsRatio;
 
@@ -504,7 +504,7 @@ namespace sb7 {
             operationsRatio = val;
         }
 
-        void setStructuralModificationsRatio(int val) {
+        void setStructuralModificationsRatio(double val) {
             structuralModificationsRatio = val;
         }
 

@@ -11,7 +11,6 @@ using namespace sb7;
 class dominatorHelper{
 public:
     static pthread_rwlock_t *getDominatorLock(DataHolder* dh, long int *min, long int *max) {
-        cout<<"Find dominator called";
         return Dom_traverse(dh->getModule()->getDesignRoot(), min, max);
     }
 

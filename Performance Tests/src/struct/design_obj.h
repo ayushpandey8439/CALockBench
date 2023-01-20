@@ -14,7 +14,8 @@
 #include "set"
 #include "unordered_set"
 #include <thread>
-
+#include "boost/container/flat_set.hpp"
+#include "boost/container/list.hpp"
 
 using namespace std;
 
@@ -55,7 +56,7 @@ namespace sb7 {
             m_pre_number=0;
         }
 
-        void setPathLabel(const list<int>& label){
+        void setPathLabel(const boost::container::list<int>& label){
             hasLabel=true;
             //pathLabel.clear();
             pathLabel = label;
@@ -77,8 +78,8 @@ namespace sb7 {
         long int m_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
-        list<int> pathLabel{};
-        unordered_set<int> criticalAncestors;
+        boost::container::list<int> pathLabel{};
+        boost::container::flat_set<int> criticalAncestors;
         bool isDeleted;
     protected:
         int m_id;

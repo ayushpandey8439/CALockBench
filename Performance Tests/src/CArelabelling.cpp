@@ -35,8 +35,8 @@ void CArelabelling::traverse(ComplexAssembly *cassm) {
     if(cassm->isDeleted){
         return;
     }
-    list<int> currLabel = cassm->pathLabel;
-    list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
+    boost::container::list<int> currLabel = cassm->pathLabel;
+    boost::container::list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
     superLabel.push_back((cassm->getId()*10)+1);
 
     if(currLabel == superLabel){
@@ -61,7 +61,7 @@ void CArelabelling::traverse(ComplexAssembly *cassm) {
 void CArelabelling::traverse(BaseAssembly *bassm) {
     if(bassm->isDeleted) return;
 
-    list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
+    boost::container::list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
     currLabel.push_back((bassm->getId()*10)+1);
     bassm->setPathLabel(currLabel);
     SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
@@ -76,11 +76,11 @@ void CArelabelling::traverse(CompositePart *cpart) {
     if(cpart->isDeleted) return;
     Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
     SetIterator<BaseAssembly *> biter = usedIn->getIter();
-    list<int> firstLabel = biter.next()->pathLabel;
+    boost::container::list<int> firstLabel = biter.next()->pathLabel;
 
     while(biter.has_next()){
-        list<int> common;
-        list<int> testLabel = biter.next()->pathLabel;
+        boost::container::list<int> common;
+        boost::container::list<int> testLabel = biter.next()->pathLabel;
         set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
         firstLabel = common;
     }
@@ -115,7 +115,7 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
 
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<int> containerLabel(10,-1);
+        boost::container::list<int> containerLabel(10,-1);
         while (containerLabel.empty() && fiter.has_next()) {
             auto s = fiter.next();
             if(s->getSource()->hasLabel)
@@ -124,14 +124,14 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
         while (fiter.has_next()) {
             Connection *conn = fiter.next();
             if (conn->getSource()->hasLabel) {
-                list<int> common;
+                boost::container::list<int> common;
                 set_intersection(containerLabel.begin(), containerLabel.end(), conn->getSource()->pathLabel.begin(),conn->getSource()->pathLabel.end(), back_inserter(common));
                 containerLabel = common;
             }
         }
 
         containerLabel.push_back((apart->getId()*10)+4);
-        unordered_set<int> myLabelSet(containerLabel.begin(), containerLabel.end());
+        boost::container::flat_set<int> myLabelSet(containerLabel.begin(), containerLabel.end());
 
         if (myLabelSet != apart->criticalAncestors) {
             apart->setPathLabel(containerLabel);

@@ -6,7 +6,6 @@
 #ifndef STMBENCH_LSCAHELPERS_H
 #define STMBENCH_LSCAHELPERS_H
 #include <string>
-#include <list>
 #include <algorithm>    // std::find
 #include "./struct/design_obj.h"
 #include "data_holder.h"
@@ -17,14 +16,7 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static bool hasCriticalAncestor(unordered_set<int> * A, int d){
-        if(!A->empty() && A->find(d) !=A->end()){
-            return true;
-        }
-        else return false;
-    }
-
-    static pair<DesignObj *, bool> getLockObject(list<int> objectLabel, sb7::DataHolder * dh){
+    static pair<DesignObj *, bool> getLockObject(boost::container::list<int> &objectLabel, sb7::DataHolder * dh){
         pair<DesignObj *, bool> res;
         int objectId;
         if(objectLabel.size()==1){

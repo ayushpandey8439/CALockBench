@@ -21,7 +21,7 @@ int sb7::CALockTraversal::run(int tid) const {
 
     ComplexAssembly * root = dataHolder->getModule()->getDesignRoot();
 
-    list<int>rootLabel = root->pathLabel;
+    boost::container::list<int>rootLabel = root->pathLabel;
     rootLabel.push_back((root->getId()*10)+1);
     root->setPathLabel(rootLabel);
     cassmQ.push(root);
@@ -48,7 +48,7 @@ int sb7::CALockTraversal::run(int tid) const {
 }
 
 void sb7::CALockTraversal::traverse(ComplexAssembly *cassm, queue<ComplexAssembly *> *cassmQ, queue<BaseAssembly *> *bassmQ) const {
-    list<int> currLabel = cassm->pathLabel;
+    boost::container::list<int> currLabel = cassm->pathLabel;
 
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
@@ -83,10 +83,10 @@ void sb7::CALockTraversal::traverse(BaseAssembly *bassm, queue<CompositePart*> *
 void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *apartQ) const {
     Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
     SetIterator<BaseAssembly *> biter = usedIn->getIter();
-    list<int> firstLabel = biter.next()->pathLabel;
+    boost::container::list<int> firstLabel = biter.next()->pathLabel;
 
     while(biter.has_next()){
-        list<int> tempPathLabel = biter.next()->pathLabel;
+        boost::container::list<int> tempPathLabel = biter.next()->pathLabel;
         std::set<int> tempPathSet(tempPathLabel.begin(), tempPathLabel.end());
         auto newEnd = remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
         firstLabel.erase(newEnd, firstLabel.end());
@@ -122,14 +122,14 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
         visitedPartSet.add(apart);
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<int> containerLabel;
+        boost::container::list<int> containerLabel;
 
         while(containerLabel.empty()){
             containerLabel = fiter.next()->getSource()->pathLabel;
         }
         while(fiter.has_next()){
             Connection *conn = fiter.next();
-            list<int> parentLabel = conn->getSource()->pathLabel;
+            boost::container::list<int> parentLabel = conn->getSource()->pathLabel;
             if(!parentLabel.empty()){
                 std::set<int> tempPathSet(parentLabel.begin(), parentLabel.end());
                 auto newEnd = remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
@@ -138,7 +138,7 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
         }
 
         containerLabel.push_back((apart->getId()*10)+4);
-        list<int> apartLabel = apart->pathLabel;
+        boost::container::list<int> apartLabel = apart->pathLabel;
         std::set<int> myLabelSet(containerLabel.begin(),containerLabel.end());
         std::set<int> originalLabelSet(apartLabel.begin(),apartLabel.end());
 

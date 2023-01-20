@@ -38,7 +38,7 @@ int sb7::CAStructuralModification2::run(int tid) const {
     int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
     CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
-    if (cpart == nullptr || cpart->isDeleted) {
+    if (cpart == nullptr || cpart->isDeleted || !cpart->hasLabel) {
         throw Sb7Exception();
     }
 
@@ -77,16 +77,16 @@ int sb7::CAStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    list<int> lockLabel = {};
+    boost::container::list<int> lockLabel = {};
 
 
-    auto it = bassm->pathLabel.begin();
-    auto end = bassm->pathLabel.end();
-    while(it != end){
-        if(lscaHelpers::hasCriticalAncestor(&cpart->criticalAncestors, *it)){
-            lockLabel.push_back(*it);
+    for(int a : bassm->pathLabel){
+        if(cpart->criticalAncestors.contains(a)){
+            lockLabel.push_back(a);
         }
-        ++it;
+    }
+    if(lockLabel.empty()){
+        throw Sb7Exception();
     }
 //    lockLabel= pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
     pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockLabel, dataHolder);
@@ -147,7 +147,7 @@ int sb7::CAStructuralModification4::run(int tid) const {
 //        /// Should we take read locks?
 //        CompositePart *cpart = iter.next();
 //        if (nextId == i && cpart->hasLabel && bassm->hasLabel) {
-//            list<int> lockRequest = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
+//            boost::container::list<int> lockRequest = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
 //            DesignObj * lo = lscaHelpers::getLockObject(lockRequest, dataHolder);
 //            auto *l = new lockObject (lo->getLabellingId(), &lo->criticalAncestors, 1);
 //            if(pool.acquireLock(l, tid)) {

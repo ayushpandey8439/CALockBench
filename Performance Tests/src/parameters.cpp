@@ -38,7 +38,7 @@ namespace sb7 {
     const int Parameters::DEFAULT_TRAVERSAL_RATIO = 5;
     const int Parameters::DEFAULT_SHORT_TRAVERSAL_RATIO = 40;
     const int Parameters::DEFAULT_OPERATIONS_RATIO = 45;
-    const int Parameters::DEFAULT_STRUCTURAL_MODIFICATIONS_RATIO = 20;
+    const double Parameters::DEFAULT_STRUCTURAL_MODIFICATIONS_RATIO = 1;
 
     // just for testing make it 70%
     const int Parameters::DEFAULT_READ_ONLY_OPERATIONS_RATIO = 70;

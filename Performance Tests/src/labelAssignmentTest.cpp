@@ -22,7 +22,7 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
-    list<int> cassmPathLabel = cassm->pathLabel;
+    boost::container::list<int> cassmPathLabel = cassm->pathLabel;
     //cout<<"Size: "<< cassmPathLabel.size()<< endl;
     if(cassmPathLabel.front() != 01 || cassmPathLabel.back() != (cassm->getId()*10)+1){
         std::cout << std::endl << "Incorrect Complex Assembly Label: ";
@@ -43,7 +43,7 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
 }
 
 void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
-    list<int> bassmPathlabel = bassm->pathLabel;
+    boost::container::list<int> bassmPathlabel = bassm->pathLabel;
     //cout<<"Size: "<< bassmPathlabel.size()<< endl;
     if(bassmPathlabel.front() != 01 || bassmPathlabel.back() != (bassm->getId()*10)+2){
 
@@ -62,7 +62,7 @@ void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
 }
 
 void sb7::CALockLabelTest::traverse(CompositePart *cpart) const {
-    list<int> cpartPathLabel = cpart->pathLabel;
+    boost::container::list<int> cpartPathLabel = cpart->pathLabel;
     //cout<<"Size: "<< cpartPathLabel.size()<< endl;
     if(cpartPathLabel.front()!=01 || cpartPathLabel.back() != (cpart->getId()*10)+3){
         std::cout << std::endl << "Incorrect Composite part Label: ";
@@ -86,7 +86,7 @@ void sb7::CALockLabelTest::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
         std::cout<< std::endl << "Null atomic part";
         return;
     } else {
-        list<int> apartPathLabel = apart->pathLabel;
+        boost::container::list<int> apartPathLabel = apart->pathLabel;
         //cout<<"Size: "<< apartPathLabel.size()<< endl;
         if(apartPathLabel.empty() ||apartPathLabel.front() != 01 || apartPathLabel.back() != (apart->getId()*10)+4){
             std::cout << std::endl << "Incorrect Atomic part Label: ";
