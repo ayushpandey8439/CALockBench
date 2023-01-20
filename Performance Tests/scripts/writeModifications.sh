@@ -18,7 +18,7 @@ g++ plotter.cpp
 ./a.out $COUNT
 
 cp ./benchmarkResults/Results.csv ./benchmarkCharts/WriteWithModifications.csv
-cp ./benchmarkResults/IdlenssResults.csv ./benchmarkCharts/WriteWithModificationsIdleness.csv
+cp ./benchmarkResults/IdlenessResults.csv ./benchmarkCharts/WriteWithModificationsIdleness.csv
 cp ./benchmarkResults/ModificationResults.csv ./benchmarkCharts/WriteWithModificationsModifications.csv
 
 

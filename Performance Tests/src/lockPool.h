@@ -78,8 +78,7 @@ public:
              (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
              /// Someone else has requested a lock on my LSCA before me (locked Sub-Hierarchy)or
              /// I am the LSCA of some node that is locked already (locked Super-hierarchy).
-             (l->criticalAncestors.contains(locks[threadID]->Id) ||
-             locks[threadID]->criticalAncestors.contains(l->Id)) &&
+             (l->criticalAncestors.contains(reqObj->Id)) &&
              /// It isn't my turn to take the lock
              (reqObj->Oseq > l->Oseq)) {
                 if(processor_Count<parameters.getThreadNum()) this_thread::yield();

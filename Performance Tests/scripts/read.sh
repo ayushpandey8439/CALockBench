@@ -18,7 +18,7 @@ g++ plotter.cpp
 ./a.out $COUNT
 
 cp ./benchmarkResults/Results.csv ./benchmarkCharts/ReadWithoutModifications.csv
-cp ./benchmarkResults/IdlenssResults.csv ./benchmarkCharts/ReadWithoutModificationsIdleness.csv
+cp ./benchmarkResults/IdlenessResults.csv ./benchmarkCharts/ReadWithoutModificationsIdleness.csv
 cp ./benchmarkResults/ModificationResults.csv ./benchmarkCharts/ReadWithoutModificationsModifications.csv
 
 python3 ./graphImageGenerator.py 'ReadWithoutModifications'

@@ -23,7 +23,7 @@ namespace sb7 {
     const int Parameters::DEFAULT_MAX_MODULE_DATE = 1999;
     const int Parameters::DEFAULT_MIN_ASSM_DATE = 1000;
     const int Parameters::DEFAULT_MAX_ASSM_DATE = 1999;
-    const int Parameters::DEFAULT_MIN_ATOMIC_DATE = 1000;
+    const int Parameters::DEFAULT_MIN_ATOMIC_DATE = 1900;
     const int Parameters::DEFAULT_MAX_ATOMIC_DATE = 1999;
     const int Parameters::DEFAULT_MIN_OLD_COMP_DATE = 0;
     const int Parameters::DEFAULT_MAX_OLD_COMP_DATE = 999;

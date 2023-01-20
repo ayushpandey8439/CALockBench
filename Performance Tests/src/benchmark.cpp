@@ -264,22 +264,14 @@ void sb7::Benchmark::reportStats(ostream &out) {
         << endl;
     std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
     if(parameters.getLockType()==Parameters::lock_ca){
-        int count = 1;
-        if(optypes[6].success>0){
-            count = optypes[6].success;
-        }
-        out << "Total relabelling: " << pool.modificationTimeCA.count()/count << " nanos"<<endl;
+        out << "Total relabelling: " << pool.modificationTimeCA.count()/threadNum << " nanos"<<endl;
         for(auto i: pool.idleness){
             if(i.count() >0){
                 totalTimeSpentIdle=  (totalTimeSpentIdle+i)/2;
             }
         }
     } else if(parameters.getLockType()==Parameters::lock_dom){
-        int count = 1;
-        if(optypes[6].success>0){
-            count = optypes[6].success;
-        }
-        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/count << " nanos"<<endl;
+        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/threadNum << " nanos"<<endl;
         for(auto i: ICheck.Totalidleness){
             if(i.count() >0){
                 totalTimeSpentIdle=  (totalTimeSpentIdle+i)/2;
