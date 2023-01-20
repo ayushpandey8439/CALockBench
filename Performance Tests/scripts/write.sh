@@ -4,8 +4,8 @@ DURATION=2000
 SIZE=b
 ITERATIONS_PER_THREAD=5
 STRUCTURAL_MODIFICATIONS=false
-rm -rf ./benchmarkResults
-mkdir benchmarkResults
+rm -rf ./benchmarkResults/
+mkdir ./benchmarkResults
 echo Benchmarking coarse-grain locking......
 . ./scripts/script_coarse.sh
 echo Benchmarking medium-grain locking......
@@ -16,6 +16,6 @@ echo Benchmarking Domlock......
 . ./scripts/script_domlock.sh
 pwd
 g++ plotter.cpp
-./a.out
+./a.out $COUNT
 
-python3 ./graphImageGenerator.py './benchmarkResults/Results.csv' './WriteWithoutModifications.png'
+python3 ./graphImageGenerator.py 'WriteWithoutModifications'

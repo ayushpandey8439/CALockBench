@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import sys
 # Initialize the lists for X and Y
-data = pd.read_csv(sys.argv[1])
+data = pd.read_csv("./benchmarkResults/Results.csv")
 
 df = pd.DataFrame(data)
 df.columns = df.columns.str.strip() #For column names
@@ -27,8 +27,8 @@ plt.plot(r4, df['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('Op/s', fontweight='bold')
 
-plt.xticks([r + barWidth for r in range(len(df['ThreadCount']))], ['1', '2', '4', '8', '16','32','64'])
+plt.xticks([0,1,2,3,4,5], ['1', '2', '4', '8', '16','32'])
 
 # Create legend & Show graphic
 plt.legend()
-plt.savefig(sys.argv[2])
+plt.savefig("./benchmarkCharts/"+sys.argv[1]+".png")

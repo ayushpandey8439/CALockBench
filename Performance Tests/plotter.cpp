@@ -6,12 +6,13 @@
 #include<math.h>
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
     ofstream output("./benchmarkResults/Results.csv");
     int Iterations = 5;
     output<<"ThreadCount, Coarse, Medium, Domlock, CALock"<<"\n";
-    for(int i=0;i<7;i++)
+    int count = atoi(argv[1]);
+    for(int i=0;i<count;i++)
     {
         string threadCount = to_string((int)pow(2,i));
         ifstream c_file("./benchmarkResults/coarse"+threadCount+".txt");

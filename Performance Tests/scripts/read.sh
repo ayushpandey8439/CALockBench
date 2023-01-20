@@ -16,6 +16,6 @@ echo Benchmarking Domlock......
 . ./scripts/script_domlock.sh
 pwd
 g++ plotter.cpp
-./a.out
+./a.out $COUNT
 
-python3 ./graphImageGenerator.py './benchmarkResults/Results.csv' './ReadWithoutModifications.png'
+python3 ./graphImageGenerator.py 'ReadWithoutModifications'
