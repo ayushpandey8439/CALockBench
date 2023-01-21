@@ -64,7 +64,7 @@ namespace sb7 {
             m_pre_number=0;
         }
 
-        void setPathLabel(const boost::container::list<int>& label){
+        void setPathLabel(const list<int> label){
             hasLabel=true;
             //pathLabel.clear();
             pathLabel = label;
@@ -86,7 +86,7 @@ namespace sb7 {
         long int m_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
-        boost::container::list<int> pathLabel{};
+        list<int> pathLabel{};
         boost::container::flat_set<int> criticalAncestors;
         bool isDeleted;
     protected:

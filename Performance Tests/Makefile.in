@@ -1,4 +1,4 @@
-CPP = /usr/bin/g++ -std=c++17
+CPP = /usr/bin/g++ -std=c++20
 
 ### Add nodebug and optimization
 

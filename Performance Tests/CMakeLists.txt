@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.23)
 project(sb7_lock)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 include_directories(libraries/boost_1_81_0)
 
 add_executable(sb7_lock src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
