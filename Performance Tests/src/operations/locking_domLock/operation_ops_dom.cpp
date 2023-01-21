@@ -49,7 +49,7 @@ int sb7::DomOperation6::innerRun(int tid) const {
 	if(superAssm == NULL || superAssm->m_pre_number==0 || superAssm->m_post_number==0) {
         long min=INFINITY, max=0;
         min=cassm->m_pre_number; max= cassm->m_post_number;
-        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max);
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
@@ -66,7 +66,7 @@ int sb7::DomOperation6::innerRun(int tid) const {
 		ret = 0;
         long min=INFINITY, max=0;
         min=superAssm->m_pre_number; max= superAssm->m_post_number;
-        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max);
+        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
@@ -123,7 +123,7 @@ int sb7::DomOperation7::innerRun(int tid) const {
 
     long min=INFINITY, max=0;
     min=superAssm->m_pre_number; max= superAssm->m_post_number;
-    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max);
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
     auto *inv = new interval(min,max,0);
 
     if(!ICheck.IsOverlap(inv, 0, tid)) {
