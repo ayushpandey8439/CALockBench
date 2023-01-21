@@ -1,15 +1,14 @@
 #include"TreeNode.h"
 #include<map>
 #include<vector>
-#include<stdio.h>
-#include<string.h>
-#include <stdlib.h>
 #include <pthread.h>
 #include<algorithm>
 #include<unistd.h>//For usleep()
+#include <set>
 #include"lock.h"
 #include "interval.h"
 #include "lockPool.h"
+#include "random"
 using namespace std;
 
 
@@ -26,8 +25,9 @@ class Tree
 	TreeNode *head,*nextNode;
 	int counter;//dfs counting
 	vector<TreeNode *> NodeVector;
-	map<int,TreeNode *> NodeRef;  //map of <key,address> for each tree node.
-	map<int,string> PathRef;  //Path to  a nade.
+	map<long int,TreeNode *> NodeRef;  //map of <key,address> for each tree node.
+    vector<TreeNode *> LeafNodes;  //map of <key,address> for each tree node.
+	map<long int,string> PathRef;  //Path to  a nade.
   
   
 	//Member functions************
@@ -47,7 +47,7 @@ class Tree
 	void setNodeRef(TreeNode *ptr);
   
 	//Save path from head to node
-	void setPathToNode(int n);
+	void setPathToNode(TreeNode* n, string currpath);
   
 	//Print reference map
 	void printMap();
@@ -56,11 +56,12 @@ class Tree
 	void printPath();
   
 	//Create Tree
-	void CreateTree(int);
+	TreeNode* CreateTree(long int start, long int end);
 
 	//Concurrent function
 	void DummyTask(int node);
-  
+    void structuralModification(int tid);
+    void relabelDom(TreeNode* node);
 	//Depth first search
 	void DFS(TreeNode *ptr);
 
@@ -69,6 +70,7 @@ class Tree
 
 	//New interval numbering algorithm
 	void ModifiedDFS(TreeNode *ptr);
+
 
 	
 
@@ -108,42 +110,34 @@ Tree::Tree()
 
 
 //This function creates Tree with number of nodes as parameter
-void Tree::CreateTree(int n)
+TreeNode* Tree::CreateTree(long int start, long int end)
 {
-	for(int i=1;i<=n;i++)
-	{
-		TreeNode *newNode=new TreeNode(i);
-  
-		this->insert(newNode);
-	}
+    if(start>end)
+        return nullptr;
+
+    long int mid = (long int)(start+end)/2;
+    auto *newNode=new TreeNode(mid);
+    Array[newNode->data]=newNode;
+    if(start==end){
+        size++;
+        LeafNodes.push_back(newNode);
+    }
+    setNodeRef(newNode);
+    newNode->left = CreateTree(start, mid-1);
+    if(newNode->left!=nullptr) newNode->left->parent = newNode;
+    newNode->right = CreateTree(mid+1, end);
+    if(newNode->right!=nullptr) newNode->right->parent = newNode;
+
+    return newNode;
 }
 
 //This function saves path from root to perticular node: l=letf pointer r=right pointer
 //stores path in string e.g. node 5=lr i.e "root->right->left" starts from end of string.
-void Tree::setPathToNode(int n)
+void Tree::setPathToNode(TreeNode* node, string currpath)
 {
-  
-	for(int i=1;i<=n;i++)
-	{
-		string path="";
-		int no=i;
-		while(no>1)
-		{
-			if(no%2==0)
-			{
-				path=path+"l";
-				no=no/2;
-			}
-			else
-			{
-				path=path+"r";
-				no=no/2;
-			}
-      
-		}
-		//cout<<path<<"\n";
-		PathRef.insert(std::pair<int,string>(i,path));
-	}
+    PathRef.insert(std::pair<int,string>(node->data,currpath));
+	if(node->left!= nullptr) setPathToNode(node->left, currpath+"l");
+	if(node->right!= nullptr) setPathToNode(node->right, currpath+"r");
 }
 
 
@@ -159,86 +153,86 @@ void Tree::setNodeRef(TreeNode *ptr)
 
 
 
-//This function inserts new node in tree
-void Tree::insert(TreeNode *ptr)
-{
-	// NodeVector.push_back(head);// save node address in vector
-  
-	Array[ptr->data]=ptr;
-	setNodeRef(ptr);   //Save reference to each inserted node
-	//setPathToNode(ptr); //Save path from head to inserted node
-	//Insertion operation :
-	if(nextNode == NULL)//if tree is empty
-	{
-		nextNode=ptr;
-		head=ptr;
-		// cout<<" "<<nextNode->data;
-	}
-	else if(nextNode->left == NULL)
-	{
-		ptr->parent = nextNode;
-		nextNode->left = ptr;
-		//cout<<" "<<nextNode->left->data;
-	}
-	else if(nextNode->right == NULL)
-	{
-		ptr->parent=nextNode;
-		nextNode->right=ptr;
-		//cout<<" "<<nextNode->right->data;
-	}
+////This function inserts new node in tree
+//void Tree::insert(TreeNode *ptr)
+//{
+//	// NodeVector.push_back(head);// save node address in vector
+//
+//	Array[ptr->data]=ptr;
+//	setNodeRef(ptr);   //Save reference to each inserted node
+//	//setPathToNode(ptr); //Save path from head to inserted node
+//	//Insertion operation :
+//	if(nextNode == NULL)//if tree is empty
+//	{
+//		nextNode=ptr;
+//		head=ptr;
+//		// cout<<" "<<nextNode->data;
+//	}
+//	else if(nextNode->left == NULL)
+//	{
+//		ptr->parent = nextNode;
+//		nextNode->left = ptr;
+//		//cout<<" "<<nextNode->left->data;
+//	}
+//	else if(nextNode->right == NULL)
+//	{
+//		ptr->parent=nextNode;
+//		nextNode->right=ptr;
+//		//cout<<" "<<nextNode->right->data;
+//	}
+//
+//	setNextNode();
+//
+//	size++;
+//}
 
-	setNextNode();
-    
-	size++;
-}
 
 
+////This function updates pointer to a node for next insert operation
+//void Tree::setNextNode()
+//{
+//	if(nextNode->left != NULL && nextNode->right != NULL)
+//	{
+//		while(nextNode->parent && nextNode->parent->right == nextNode && nextNode != head)
+//		nextNode = nextNode->parent;
+//
+//		if(nextNode!= head)
+//		{
+//		nextNode=nextNode->parent;
+//		nextNode=nextNode->right;
+//		while(nextNode->left)
+//		nextNode=nextNode->left;
+//		}
+//		else
+//		{
+//			while(nextNode->left)
+//			nextNode=nextNode->left;
+//		}
+//
+//
+//	}
+//}
 
-//This function updates pointer to a node for next insert operation
-void Tree::setNextNode()
-{
-	if(nextNode->left != NULL && nextNode->right != NULL)
-	{
-		while(nextNode->parent && nextNode->parent->right == nextNode && nextNode != head)
-		nextNode = nextNode->parent;
-
-		if(nextNode!= head)
-		{
-		nextNode=nextNode->parent;
-		nextNode=nextNode->right;
-		while(nextNode->left)
-		nextNode=nextNode->left;
-		}
-		else
-		{
-			while(nextNode->left)
-			nextNode=nextNode->left;
-		}
-    
-    
-	}
-}
-
-//Prints references to each node
-void Tree::printMap()
-{
-	extern TreeNode** Array;
-	//for (std::map<int, TreeNode *>::iterator it=NodeRef.begin(); it!=NodeRef.end(); ++it)
-	//  std::cout << it->first << " => " << it->second->data << '\n';
-
-	for(int i=1;i<=10000;i++)
-	{
-	TreeNode *p = Array[i];
-	cout<< p->data <<"\n";
-	}
-}
+////Prints references to each node
+//void Tree::printMap()
+//{
+//	extern TreeNode** Array;
+//	//for (std::map<int, TreeNode *>::iterator it=NodeRef.begin(); it!=NodeRef.end(); ++it)
+//	//  std::cout << it->first << " => " << it->second->data << '\n';
+//
+//	for(int i=1;i<=10000;i++)
+//	{
+//	TreeNode *p = Array[i];
+//	cout<< p->data <<"\n";
+//	}
+//}
 
 //Prints path in lr string form
 void Tree::printPath()
 {
   
 
-	for (std::map<int, string>::iterator it=PathRef.begin(); it!=PathRef.end(); ++it)
+	for (std::map<long int, string>::iterator it=PathRef.begin(); it!=PathRef.end(); ++it)
 	std::cout << it->first << " => " << it->second << '\n';
 
 }
@@ -298,10 +292,9 @@ bool Tree::UpdateParent(TreeNode *par, TreeNode *ptr)
 		
 	}
 	
-	if(par->parentUpdated == true)
+	if(par->parentUpdated)
 	UpdateParent(par->parent, par);
 	return true;
-
 }
 
 
@@ -324,7 +317,7 @@ void Tree::ModifiedDFS(TreeNode* ptr)
 	}
 
 	//if node is a leaf node or node is a part of some cycle, consider it as leaf node and assign intervals
-	if((ptr->left == NULL && ptr->right == NULL) || ptr->active == true)
+	if((ptr->left == NULL && ptr->right == NULL) || ptr->active)
 	{
 		counter++;
 		ptr->preNumber = counter;
@@ -335,9 +328,9 @@ void Tree::ModifiedDFS(TreeNode* ptr)
 		ptr->active = true;
 		//call recursively modifiedDfS() function for all the child nodes. 
 		//As we use binary tree, here for left and right pointers only.
-		if(ptr->left !=NULL && (ptr->left)->IsExplored == false)
+		if(ptr->left !=NULL && !(ptr->left)->IsExplored)
 		ModifiedDFS(ptr->left);
-		if(ptr->right !=NULL && (ptr->right)->IsExplored == false)
+		if(ptr->right !=NULL && !(ptr->right)->IsExplored)
 		ModifiedDFS(ptr->right);
 	}
 
@@ -370,7 +363,6 @@ void Tree::CALabelling(TreeNode* ptr)
 }
 
 
-
 //This function used by ModifiedDFS() to forward the node interval information to parent
 
 
@@ -381,127 +373,64 @@ void Tree::DummyTask(int node)
 	//node = (node % 30) +8000;
 
 
-
-	int node2 = (rand()%size)+1; //second node to access.
-	//node2 = node + 1;
-	// cout<<" \n A am in dummy task working of node:"<<node;
-  
 	extern int caseParameter;
 	extern int NoOfRequestedNode;
 	extern int distribution;
 	int accessType = 1;
   
 
-	int NodeArray[NoOfRequestedNode];
-	int NoOfLeafNodes = (size/2)+1;
+	set<int>NodeArray;
+	int NoOfLeafNodes = LeafNodes.size()-1;
 	int SlotSize = NoOfLeafNodes/distribution;
+//    int SlotNo = threadID;
 	int SlotNo = rand()%distribution;
-	//Coarse grain locking**********************************************case 1
-	if(caseParameter == 1)
-	{
-		Lock(&rootLock);
-		//usleep((rand()%1000)*1000);
-		for(int i = 0;i < NoOfRequestedNode;i++)
-		{
-			NodeArray[i] = (NoOfLeafNodes-1)+SlotSize*SlotNo+((rand()%SlotSize)+1);
-			if(NodeArray[i] >= 10001)
-				NodeArray[i] = 10000;
-		}
-		NullOperation();
-		UnLock(&rootLock);
-		//cout<<" \n A am in dummy task working of node:"<<node;
-  	}
-  	//Fine grained locking through path traversal from root to node.************************* case 2
-  	else if(caseParameter == 2)
-  	{
-  		std::map<int,string>::iterator it;
-  		it = PathRef.find(node);
-  		string path=it->second;
-  		TreeNode *ptr = head;
-  		for(int i = path.length()-1; i >=0; i--)
-  		{
-			if(path[i]== 'l')
-			{
-				ptr = ptr->left;
-			}
-			else
-			{
-				ptr = ptr->right;
-			}
-		}
-		Lock(&ptr->Lock);
-		//usleep((rand()%1000)*1000);
-		usleep(1000);
-		//cout<<" coarse \n";
-		UnLock(&ptr->Lock);
-  
-	} 
-	// Fine grained locking with direct reference to node ********************** case 3
-  
-	else if( caseParameter == 3)
-	{
-		//TreeNode *NodePtr = NodeRef.find(node)->second;
-		//TreeNode *NodePtr = NodeVector[node-1];
-		TreeNode *NodePtr = Array[node];
-		Lock(&NodePtr->Lock);
-		// usleep((rand()%1000)*1000);
-		usleep(1000);
-		//cout<<" Direct reference";
-		UnLock(&NodePtr->Lock);
+    int selectStart=SlotSize*SlotNo;
+    for(int i = 0;i < NoOfRequestedNode;i++)
+    {
+        NodeArray.insert(LeafNodes[selectStart+i]->data);
+    }
 
-	}
-	// Intention locking ***************************************case 4  
-
-	else if( caseParameter == 4)
+	// Intention locking ***************************************case 4
+	if( caseParameter == 4)
 	{
-		std::map<int,string>::iterator it;
-		TreeNode *ptr[NoOfRequestedNode];
-		int counter=0;//keeps track of *ptr array indexes
-		for(int i = 0;i < NoOfRequestedNode;i++)
-		{	
-			NodeArray[i] = (NoOfLeafNodes-1)+SlotSize*SlotNo+((rand()%SlotSize)+1);
-			if(NodeArray[i] >= size+1)
-				NodeArray[i] = size;
-		}
+		std::map<long int,string>::iterator it;
 		// sort nodes in increasing order to lock  them in order to avoid deadlock
-		sort(NodeArray, NodeArray + NoOfRequestedNode);
-		
-		
-		for(int j = 0;j < NoOfRequestedNode;j++)
+		//sort(NodeArray, NodeArray + NoOfRequestedNode);
+        counter=0;//keeps track of *ptr array indexes
+        list<TreeNode *>lockNodes;
+        for(auto lockObj: NodeArray)
 		{
-			if(j==0 || j>0&&NodeArray[j] != NodeArray[j-1])
-			{
-				it = PathRef.find(NodeArray[j]);
+                it = PathRef.find(lockObj);
 				//if(it == PathRef.end())
 				//cout<<"\n"<<ReqNode;
 				string path=it->second;
-				ptr[counter] = head;
+                TreeNode* pathNode = this->head;
 		   
 		     
 				//if(accessType == 0)//read request
 				//{
-				for(int i = path.length()-1; i >=0; i--)
+				for(int i =0; i< path.length(); i++)
 				{ 
 					if(accessType == 0)
-					ISLock(ptr[counter]);
+					ISLock(pathNode);
 					else
-					IXLock(ptr[counter]);
+					IXLock(pathNode);
 					if(path[i]== 'l')
 					{
-						ptr[counter] = ptr[counter]->left;
+                        pathNode = pathNode->left;
 					}
 					else
 					{
-						ptr[counter] = ptr[counter]->right;
+                        pathNode = pathNode->right;
 					}
 				}
+
+                lockNodes.push_back(pathNode);
 	
 				if(accessType == 0)
-				SLock(ptr[counter]);
+				SLock(pathNode);
 				else
-				XLock(ptr[counter]);
-				counter++;
-			}
+				XLock(pathNode);
 		}
 			//Call dummay null operation
 			NullOperation();
@@ -509,16 +438,13 @@ void Tree::DummyTask(int node)
 			//usleep(1000);
 			//cout<<" coarse \n";
 		
-		for(int i = 0;i < counter;i++)
+		for(auto lockedNode: lockNodes)
 		{
-			//TreeNode *ptr = NodeArray[i];
-			IUnLock(ptr[i]);
-			ptr[i] = ptr[i]-> parent;
-			while(ptr[i] != NULL)
+			TreeNode * pathNode = lockedNode;
+			while(pathNode != nullptr)
 			{ 
-				IUnLock(ptr[i]);
-				ptr[i] = ptr[i]->parent;
-	      
+				IUnLock(pathNode);
+                pathNode = pathNode->parent;
 			}
 		}
 	}
@@ -528,114 +454,86 @@ void Tree::DummyTask(int node)
 	{//printf("\nhere tid %d\n",threadID);
 		
 		int min=0, max=0;
-		for(int i = 0;i < NoOfRequestedNode;i++)
+		for(auto lockObj: NodeArray)
 		{
-			NodeArray[i] = (NoOfLeafNodes-1)+SlotSize*SlotNo+((rand()%SlotSize)+1);
-			if(NodeArray[i] >= size+1)
-				NodeArray[i] = size;
 			//cout<<"\n nodes are"<<NodeArray[i]<<"\n"; 
-			if(min == 0 || Array[NodeArray[i]]->preNumber < min)
+			if(min == 0 || Array[lockObj]->preNumber < min)
 			{
-				min = Array[NodeArray[i]]->preNumber;
+				min = Array[lockObj]->preNumber;
 				//cout<<NodeArray[i]<<"\n";
 			}
-			if(max == 0 || Array[NodeArray[i]]->postNumber > max)
+			if(max == 0 || Array[lockObj]->postNumber > max)
 			{
-				max = 	Array[NodeArray[i]]->postNumber;
+				max = 	Array[lockObj]->postNumber;
 			}
 			
 			
 		}
 
-		//cout <<"\n min and max \n"<< min <<" "<<max;
-		
+        TreeNode *ptr = head;
+        while( ptr->preNumber <= min && ptr->postNumber >= max)
+        {
+            if(ptr->left != nullptr && ptr->left->preNumber <= min && ptr->left->postNumber >= max)
+            {
+                ptr = ptr->left;
+            }
+            else if ( ptr->right != nullptr && ptr->right->preNumber <= min && ptr->right->postNumber >= max)
+            {
+
+                ptr = ptr->right;
+            }
+            else
+            {
+                break;
+            }
+        }
 
 
-	//accessType = 1;
-		TreeNode *ptr = head;
-//		TreeNode *nodePtr1 = Array[node];
-//		TreeNode *nodePtr2 = Array[node2];
-		while( ptr->preNumber <= min && ptr->postNumber >= max)
+		auto *inv = new interval(ptr->preNumber,ptr->postNumber,accessType);
+		xy:	if(!ICheck.IsOverlap(inv, accessType, threadID))
 		{
-       
-      
-			if(ptr->left != NULL && ptr->left->preNumber <= min && ptr->left->postNumber >= max)
-			{   
-				ptr = ptr->left;
-      			}
-      			else if ( ptr->right != NULL && ptr->right->preNumber <= min && ptr->right->postNumber >= max)
-				{  
-				
-					ptr = ptr->right;
-      				}
-      				else
-				{
-					break;
-				}
-		}
-    
-		//printf("dominator of %d is %d \n",threadID,ptr->data);
-		//Inserts interval of dominator into interval data structure 
-		
-		interval *inv = new interval(ptr->preNumber,ptr->postNumber,accessType);
-		xy:	if(!ICheck.IsOverlap(inv, 1, threadID))
-		{	
-			pthread_rwlock_wrlock(&ptr->rwlock);
-	
-			//ICheck.Insert(inv, threadID);
-			
-			//Call dummay null operation
 			NullOperation();
 			
 			ICheck.Delete(threadID);
-			//cout<<"\n deleted by "<<threadID;
-			pthread_rwlock_unlock(&ptr->rwlock);
-
 		}
-		else { usleep(10);goto xy;}
+		else{goto xy;}
 
 
    	
 	}
-  
-    
-	//Interval trees implementation ****************************case 6
-   
-	else if( caseParameter == 6)
-	{ 
-		//accessType = 0;
-		TreeNode *NodePtr = Array[node];
-		if(accessType == 0)
-		RdLock(NodePtr);
-		else
-		WrLock(NodePtr);
-		// usleep((rand()%1000)*1000);
-		usleep(1000);
-		RdWrUnLock(NodePtr);
+    else if(caseParameter==7){
+        list<long int> temp{};
+        list<long int> lockRequest{};
+        temp = Array[*NodeArray.begin()]->pathLabel;
 
-    //Common Ancestor Locking
-	} else if(caseParameter==7){
-        list<int> lockRequest{};
-        for(int i = 0;i < NoOfRequestedNode;i++)
-        {
-            NodeArray[i] = (NoOfLeafNodes-1)+SlotSize*SlotNo+((rand()%SlotSize)+1);
-            if(NodeArray[i] >= size+1)
-                NodeArray[i] = size;
-
-            if(lockRequest.empty()){
-                lockRequest = Array[NodeArray[i]]->pathLabel;
-            } else {
-                auto it = lockRequest.begin();
-                auto end = lockRequest.end();
-                while (it != end) {
-                    if (Array[NodeArray[i]]->criticalAncestors.find(*it) == Array[NodeArray[i]]->criticalAncestors.end() ) {
-                        it = lockRequest.erase(it);
-                    } else {
-                        ++it;
-                    }
+        for(int i : temp){
+            bool allContain = true;
+            for(auto lockObj: NodeArray){
+                if(!Array[lockObj]->criticalAncestors.contains(i)){
+                    allContain = false;
+                    break;
                 }
             }
+            if(allContain){
+                lockRequest.push_back(i);
+            }
         }
+//        for(auto lockObj: NodeArray)
+//        {
+//            if(lockRequest.empty()){
+//                lockRequest = Array[lockObj]->pathLabel;
+//            } else {
+//                auto it = lockRequest.begin();
+//                auto end = lockRequest.end();
+//                while (it != end) {
+//                    if (!lockPool::hasCriticalAncestor(&Array[lockObj]->criticalAncestors, *it)) {
+//                        it = lockRequest.erase(it);
+//                    } else {
+//                        ++it;
+//                    }
+//                }
+//            }
+//        }
 
         auto lo = Array[lockRequest.back()];
         auto l = new lockObject(lo->data, &lo->criticalAncestors, accessType);
@@ -645,9 +543,64 @@ void Tree::DummyTask(int node)
     }
     	//cout<<" \n A am in dummy task **DONE** of node:"<<node;
 }
+void Tree::relabelDom(TreeNode* node){
 
+    int min = 0, max = 0;
+    if(node->left != nullptr && node->right != nullptr) {
+        min = node->left->preNumber;
+        max = node->right->postNumber;
+    }
+    if(node->right !=nullptr && node->left ==nullptr) {
+        min = node->right->preNumber;
+        max = node->right->postNumber;
+    }
+    if(node->left !=nullptr && node->right ==nullptr) {
+        min = node->left->preNumber;
+        max = node->left->postNumber;
+    }
+    if(max>0 && min>0){
+        node->preNumber = min;
+        node->postNumber = max;
+    }
+    if(node->parent!= nullptr){
+        relabelDom(node->parent);
+    }
 
+}
+void Tree::structuralModification(int threadID){
+    long int nodeInsert = NodeRef.size()+1;
+    auto *newNode=new TreeNode(nodeInsert);
+    newNode->pathLabel.push_back(nodeInsert);
+    newNode->preNumber=nodeInsert;
+    newNode->postNumber = nodeInsert;
 
+    Array[newNode->data]=newNode;
+    LeafNodes.push_back(newNode);
+    setNodeRef(newNode);
+    extern int caseParameter;
+
+    if( caseParameter == 5)
+    {
+        //Lock the root to relabel
+        auto *inv = new interval(head->preNumber,head->postNumber,1);
+        xy:	if(!ICheck.IsOverlap(inv, 1, threadID))
+        {
+            relabelDom(newNode);
+            ICheck.Delete(threadID);
+        }
+        else{goto xy;}
+    }
+    else if(caseParameter==7){
+        auto l = new lockObject(newNode->data, &newNode->criticalAncestors, 1);
+        pool.acquireLock(l, threadID);
+        //No relabelling required since leaf insertion.
+        pool.releaseLock(threadID);
+//        auto lo = Array[lockRequest.back()];
+//        pool.acquireLock(l, threadID);
+//        NullOperation();
+//        pool.releaseLock(threadID);
+    }
+}
 
 
 

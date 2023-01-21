@@ -1,6 +1,7 @@
 #ifndef ParallelPthread_H
 #define ParallelPthread_H
 #include <pthread.h>
+extern bool modifications;
 
 using namespace std;
 class threadData
@@ -30,7 +31,11 @@ class ParallelThread
 		Tree *p = data->TreePtr;
 		int threadID = data->threadID;
 		for(int i=0;i<1000;i++)
-		{	
+		{
+            if(modifications && i%100==0){
+                //cout<<"Modifications allowed"<<endl;
+                p->structuralModification(threadID);
+            }
 			p->DummyTask(threadID);
 		}
         return nullptr;

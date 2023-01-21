@@ -13,6 +13,10 @@
 #include"lock.h"
 #include "interval.h"
 #include "lockPool.h"
+
+#include <fstream>
+#include <sstream>
+
 using namespace std;
 
 
@@ -190,29 +194,6 @@ void Tree::insert(TreeNode *ptr)
   
 	Array[ptr->data]=ptr;
 	setNodeRef(ptr);   //Save reference to each inserted node
-	//setPathToNode(ptr); //Save path from head to inserted node
-	//Insertion operation :
-	if(nextNode == NULL)//if tree is empty
-	{
-		nextNode=ptr;
-		head=ptr;
-		// cout<<" "<<nextNode->data;
-	}
-	else if(nextNode->left == NULL)
-	{
-		ptr->parent = nextNode;
-		nextNode->left = ptr;
-		//cout<<" "<<nextNode->left->data;
-	}
-	else if(nextNode->right == NULL)
-	{
-		ptr->parent=nextNode;
-		nextNode->right=ptr;
-		//cout<<" "<<nextNode->right->data;
-	}
-
-	setNextNode();
-    
 	size++;
 }
 
@@ -220,29 +201,29 @@ void Tree::insert(TreeNode *ptr)
 //************************************************************************************
 //This function updates pointer to a node for next insert operation
 //************************************************************************************
-void Tree::setNextNode()
-{
-	if(nextNode->left != NULL && nextNode->right != NULL)
-	{
-		while(nextNode->parent && nextNode->parent->right == nextNode && nextNode != head)
-		nextNode = nextNode->parent;
-
-		if(nextNode!= head)
-		{
-		nextNode=nextNode->parent;
-		nextNode=nextNode->right;
-		while(nextNode->left)
-		nextNode=nextNode->left;
-		}
-		else
-		{
-			while(nextNode->left)
-			nextNode=nextNode->left;
-		}
-    
-    
-	}
-}
+//void Tree::setNextNode()
+//{
+//	if(nextNode->left != NULL && nextNode->right != NULL)
+//	{
+//		while(nextNode->parent && nextNode->parent->right == nextNode && nextNode != head)
+//		nextNode = nextNode->parent;
+//
+//		if(nextNode!= head)
+//		{
+//		nextNode=nextNode->parent;
+//		nextNode=nextNode->right;
+//		while(nextNode->left)
+//		nextNode=nextNode->left;
+//		}
+//		else
+//		{
+//			while(nextNode->left)
+//			nextNode=nextNode->left;
+//		}
+//
+//
+//	}
+//}
 
 
 //************************************************************************************
@@ -610,131 +591,151 @@ void Tree::CALabelling(TreeNode* ptr)
 //************************************************************************************
 //This function generates random directed-graph
 //************************************************************************************
-void Tree::CreateGraph( int n)
-{	size = n;
-	int MAX_NODES = n;
-	int ht = log2(MAX_NODES);
-
-	//random height between "log(n)/2" to "logn + log(n)/2"
-	int height = 1+(ht/2) + rand()%ht;
-	//int height = ht;	
-	int BHT = height;
-	//cout<<"MAX HEIGHT"<<height<<endl;
-	int base = 0;
-	
-	//Array stores the max number of nodes present per level
-	int NodesAtHeight[height];
-	
-	int sum = 1;
-	n=n-1;
-	//for loop specifies the number of nodes present per level
-	NodesAtHeight[0] = 1;	
-	int newht = 0;
-	//cout<<"Height 0:"<<NodesAtHeight[0]<<endl;
-	int height_checker=0;	
-	int rem = n-1;
-	for(int i=1; i<height; i++)
+void Tree::CreateGraph( int n) {
+    fstream fin;
+    fin.open("../inputGraph/Graph.csv", ios::in);
+    for(int i = 0; i<n;i++)
 	{
-		if(i==height-1)
-		{
-			NodesAtHeight[i] = rem;
-			newht = i;
-			//cout<<"Height "<<i<<":"<<NodesAtHeight[i]<<endl;
-		}
-		if(rem>0)
-		{
-			int exp = 1 + 2 * NodesAtHeight[i-1] + rand()%(5);
-			NodesAtHeight[i] = min(rem,exp);
-			rem = rem - NodesAtHeight[i];
-			newht = i;
-			//cout<<"Height "<<i<<":"<<NodesAtHeight[i]<<endl;
-			if(rem == 0)
-			break;
-		}
+		TreeNode *node=new TreeNode(i);
+		Array[node->data] = node;
 	}
-
-
-	leafNodes = NodesAtHeight[newht];
-	height = newht + 1;
-	//cout<<"leaf nodes"<<leafNodes<<endl;
-
-
-
-
-	
-
-
-	
-	
-	/**Generate the graph vertices, store their addresses to Array of vertiecs
-	assign vertex index from 1 to N****/
-	for(int i = 1; i<=MAX_NODES;i++)
-	{
-		TreeNode *temp=new TreeNode(i);
-		Array[temp->data] = temp;
-	}
-	head = Array[1];
-
-	sum = 1;//offset
-	int backupsum = sum;
-	int vertex_u = 1;
-	
-
-	for(int i = 2; i < 2+NodesAtHeight[1]; i++)
-	{
-	//	cout<<"Attach "<<1<<" to "<<i<<endl;
-	
-		//Attach u->v i.e. Array[1]->Array[i]
-		Array[1]->neighbour.push_back(Array[i]);
-		Array[i]->parents.push_back(Array[1]);
-	}
-	vertex_u = 2;	
-	for(int i = 1; i < height-1; i++)
-	{	backupsum = sum;
-		sum+=NodesAtHeight[i];
-		for(int j = 0; j< NodesAtHeight[i]; j++)
-		{
-			int outdegree = 1+ min(i*rand()%10,rand() % NodesAtHeight[i+1]);
-			while(outdegree > 0)
-			{
-				int vertex_v = sum + 1 + rand() % NodesAtHeight[i+1];
-				//cout<<"Attach "<<vertex_u<<" to "<<vertex_v<<endl;				
-				//Attach u -> v 
-				//connect disconnected node to the data structure
-				if(Array[vertex_u]->parents.size()==0)
-				{
-					int temp_par = 1 + rand() % vertex_u;
-					//cout<<"Attach "<<temp_par<<" to "<<vertex_u<<endl;
-					Array[temp_par]->neighbour.push_back(Array[vertex_u]);
-					Array[vertex_u]->parents.push_back(Array[temp_par]);
-				}				
-				Array[vertex_u]->neighbour.push_back(Array[vertex_v]);
-				Array[vertex_v]->parents.push_back(Array[vertex_u]);				
-				
-				outdegree--;
-			}
-			vertex_u++;
-		}
-		
-
-	}
-
-	
-	/*for(int j = 0; j< NodesAtHeight[height -1] - 1 ; j++)
-	{
-		int vertex = sum + 1 + j;
-		if(Array[vertex]->parents.size()==0)
-		{
-			int temp_par = backupsum +1 + rand() % NodesAtHeight[height -2];
-			//cout<<"Attach "<<temp_par<<" to "<<vertex_u<<endl;
-			Array[temp_par]->neighbour.push_back(Array[vertex]);
-			Array[vertex]->parents.push_back(Array[temp_par]);		
-		}
-	}*/
+    head = Array[0];
+    vector<string> row;
+    string line, word, temp;
+    while(!fin.eof()){
+        row.clear();
+        getline(fin, line);
+        stringstream s(line);
+        while(getline(s, word, ',')){
+            row.push_back(word);
+        }
+        cout<<row[0]<<", "<<row[1];
+    }
+}
+//{	size = n;
+//	int MAX_NODES = n;
+//	int ht = log2(MAX_NODES);
+//
+//	//random height between "log(n)/2" to "logn + log(n)/2"
+//	int height = 1+(ht/2) + rand()%ht;
+//	//int height = ht;
+//	int BHT = height;
+//	//cout<<"MAX HEIGHT"<<height<<endl;
+//	int base = 0;
+//
+//	//Array stores the max number of nodes present per level
+//	int NodesAtHeight[height];
+//
+//	int sum = 1;
+//	n=n-1;
+//	//for loop specifies the number of nodes present per level
+//	NodesAtHeight[0] = 1;
+//	int newht = 0;
+//	//cout<<"Height 0:"<<NodesAtHeight[0]<<endl;
+//	int height_checker=0;
+//	int rem = n-1;
+//	for(int i=1; i<height; i++)
+//	{
+//		if(i==height-1)
+//		{
+//			NodesAtHeight[i] = rem;
+//			newht = i;
+//			//cout<<"Height "<<i<<":"<<NodesAtHeight[i]<<endl;
+//		}
+//		if(rem>0)
+//		{
+//			int exp = 1 + 2 * NodesAtHeight[i-1] + rand()%(5);
+//			NodesAtHeight[i] = min(rem,exp);
+//			rem = rem - NodesAtHeight[i];
+//			newht = i;
+//			//cout<<"Height "<<i<<":"<<NodesAtHeight[i]<<endl;
+//			if(rem == 0)
+//			break;
+//		}
+//	}
+//
+//
+//	leafNodes = NodesAtHeight[newht];
+//	height = newht + 1;
+//	//cout<<"leaf nodes"<<leafNodes<<endl;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//	/**Generate the graph vertices, store their addresses to Array of vertiecs
+//	assign vertex index from 1 to N****/
+//	for(int i = 1; i<=MAX_NODES;i++)
+//	{
+//		TreeNode *temp=new TreeNode(i);
+//		Array[temp->data] = temp;
+//	}
+//	head = Array[1];
+//
+//	sum = 1;//offset
+//	int backupsum = sum;
+//	int vertex_u = 1;
+//
+//
+//	for(int i = 2; i < 2+NodesAtHeight[1]; i++)
+//	{
+//	//	cout<<"Attach "<<1<<" to "<<i<<endl;
+//
+//		//Attach u->v i.e. Array[1]->Array[i]
+//		Array[1]->neighbour.push_back(Array[i]);
+//		Array[i]->parents.push_back(Array[1]);
+//	}
+//	vertex_u = 2;
+//	for(int i = 1; i < height-1; i++)
+//	{	backupsum = sum;
+//		sum+=NodesAtHeight[i];
+//		for(int j = 0; j< NodesAtHeight[i]; j++)
+//		{
+//			int outdegree = 1+ min(i*rand()%10,rand() % NodesAtHeight[i+1]);
+//			while(outdegree > 0)
+//			{
+//				int vertex_v = sum + 1 + rand() % NodesAtHeight[i+1];
+//				//cout<<"Attach "<<vertex_u<<" to "<<vertex_v<<endl;
+//				//Attach u -> v
+//				//connect disconnected node to the data structure
+//				if(Array[vertex_u]->parents.size()==0)
+//				{
+//					int temp_par = 1 + rand() % vertex_u;
+//					//cout<<"Attach "<<temp_par<<" to "<<vertex_u<<endl;
+//					Array[temp_par]->neighbour.push_back(Array[vertex_u]);
+//					Array[vertex_u]->parents.push_back(Array[temp_par]);
+//				}
+//				Array[vertex_u]->neighbour.push_back(Array[vertex_v]);
+//				Array[vertex_v]->parents.push_back(Array[vertex_u]);
+//
+//				outdegree--;
+//			}
+//			vertex_u++;
+//		}
+//
+//
+//	}
+//
+//
+//	/*for(int j = 0; j< NodesAtHeight[height -1] - 1 ; j++)
+//	{
+//		int vertex = sum + 1 + j;
+//		if(Array[vertex]->parents.size()==0)
+//		{
+//			int temp_par = backupsum +1 + rand() % NodesAtHeight[height -2];
+//			//cout<<"Attach "<<temp_par<<" to "<<vertex_u<<endl;
+//			Array[temp_par]->neighbour.push_back(Array[vertex]);
+//			Array[vertex]->parents.push_back(Array[temp_par]);
+//		}
+//	}*/
 	
 //cout<<"GRAPH GENERATED head vector "<< head->neighbour[1]->neighbour.size();
 	
-}//end of CreateGraph()
+//end of CreateGraph()
 
 
 
@@ -936,7 +937,7 @@ void Tree::DummyTask(int node)
 	else if( caseParameter == 5)
 	{//printf("\nhere tid %d\n",threadID);
 		
-		int min=0, max=0;
+		int min=INFINITY, max=0;
 		for(int i = 0;i < NoOfRequestedNode;i++)
 		{
 			NodeArray[i] = (NoOfLeafNodes-1)+SlotSize*SlotNo+((rand()%SlotSize)+1);
@@ -960,28 +961,23 @@ void Tree::DummyTask(int node)
 		
 
 
-	//accessType = 1;
+//	//accessType = 1;
 		TreeNode *ptr = head;
 		TreeNode *nodePtr1 = Array[node];
 		TreeNode *nodePtr2 = Array[node2];
-	//	while( ptr->preNumber <= min && ptr->postNumber >= max)
-	//	{
-       
-      			for(int i=0;i<ptr->neighbour.size();i++)
-			{
-				if(ptr->neighbour[i] != NULL && ptr->neighbour[i]->preNumber <= min && ptr->neighbour[i]->postNumber >= max)
-				{   
-					ptr = ptr->neighbour[i];
-      				}
-      				
-			}
-	//	}
+        for(int i=0;i<ptr->neighbour.size();i++)
+        {
+            if(ptr->neighbour[i] != NULL && ptr->neighbour[i]->preNumber <= min && ptr->neighbour[i]->postNumber >= max)
+            {
+                ptr = ptr->neighbour[i];
+            }
+        }
     
 		//printf("dominator of %d is %d \n",threadID,ptr->data);
 		//Inserts interval of dominator into interval data structure. ptr is a dominator node.
 		
 		interval *inv = new interval(ptr->preNumber,ptr->postNumber,accessType);
-		xy:	if(!ICheck.IsOverlap(inv, 1, threadID))
+		xy:	if(!ICheck.IsOverlap(inv, accessType, threadID))
 		{	
 			pthread_rwlock_wrlock(&ptr->rwlock);
 	
@@ -995,7 +991,7 @@ void Tree::DummyTask(int node)
 			pthread_rwlock_unlock(&ptr->rwlock);
 
 		}
-		else { usleep(10);goto xy;}
+		else {;goto xy;}
 
 
    	
@@ -1035,7 +1031,7 @@ void Tree::DummyTask(int node)
                 auto it = lockRequest.begin();
                 auto end = lockRequest.end();
                 while (it != end) {
-                    if (Array[NodeArray[i]]->criticalAncestors.find(*it) == Array[NodeArray[i]]->criticalAncestors.end() ) {
+                    if (!lockPool::hasCriticalAncestor(&Array[NodeArray[i]]->criticalAncestors, *it)) {
                         it = lockRequest.erase(it);
                     } else {
                         ++it;

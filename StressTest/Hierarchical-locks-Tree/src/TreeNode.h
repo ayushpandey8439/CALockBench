@@ -4,31 +4,34 @@
 #include "list"
 #include "unordered_set"
 using namespace std;
-int nodeId=1;
+long int nodeId=1;
 class TreeNode {
 public:
-	
+
 	bool IsExplored;
 	bool active;
 	bool parentUpdated;
-	int data;
+	long int data;
 	pthread_mutex_t Lock;
 	pthread_rwlock_t rwlock;
-	int IsIx;
-	int refCounter;
-	int preNumber;
-	int postNumber;
+	long int IsIx;
+	long int refCounter;
+	long long int preNumber;
+	long long int postNumber;
 	class TreeNode *left;
 	class TreeNode *right;
 	class TreeNode *parent;
-    list<int> pathLabel{};
-    unordered_set<int> criticalAncestors;
-	TreeNode(int);
+    list<long int> pathLabel{};
+    unordered_set<long int> criticalAncestors;
+	TreeNode(long int);
+    bool operator< (const TreeNode &other) const {
+        return data < other.data;
+    }
 };
 
-TreeNode::TreeNode(int key)
+TreeNode::TreeNode(long int key)
 {
-  int rc = pthread_rwlock_init(&rwlock, NULL);
+  long int rc = pthread_rwlock_init(&rwlock, NULL);
   
 	IsExplored = 0;
 	bool active = 0;
@@ -36,7 +39,7 @@ TreeNode::TreeNode(int key)
 	data=key;
   	IsIx=0;
   	refCounter=0;
-    //this->pathLabel.push_back(id);
+    //this->pathLabel.push_back(key);
     this->criticalAncestors.insert(key);
 }
 

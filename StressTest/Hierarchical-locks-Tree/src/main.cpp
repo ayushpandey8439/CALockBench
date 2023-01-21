@@ -14,15 +14,24 @@ using namespace std;
 int caseParameter;
 int NoOfRequestedNode;
 int distribution;
+bool modifications = false;
 IntervalCheck ICheck;
 lockPool pool;
 int N;
+int threads;
 char CSSize;
 
 TreeNode** Array;
+
+bool myfunction (TreeNode* i,TreeNode* j) { return (i->data<j->data); }
 int main(int argc, char *argv[])
-{	
-	srand(12345);
+{
+    using std::chrono::high_resolution_clock;
+    using std::chrono::duration_cast;
+    using std::chrono::duration;
+    using std::chrono::milliseconds;
+
+	srand(1111);
 	err *e=new err();
 	Tree *T=new Tree();
     ParallelThread *th=new ParallelThread();
@@ -32,16 +41,24 @@ int main(int argc, char *argv[])
 	NoOfRequestedNode = atoi(argv[4]);
 	distribution = atoi(argv[5]);
 	CSSize = argv[6][0];
+    string m = argv[7];
+    if(m=="true"){
+        modifications = true;
+    }
 	N=atoi(argv[1]);
+    threads = NoOfThreads;
     
 	Array = new TreeNode*[N];
 
 	if(e->errCheck(argc, argv))
 	{
-		T->CreateTree(NoOfNodesDS);//defined in "tree.h"
+		TreeNode* h = T->CreateTree(1,NoOfNodesDS);//defined in "tree.h"
+        T->head = h;
+//        std::sort(T->LeafNodes.begin(), T->LeafNodes.end());
+        std::sort(T->LeafNodes.begin(), T->LeafNodes.end(), myfunction);
 	}
-    
-	T->setPathToNode(NoOfNodesDS);//defined in "tree.h"
+    //T->preorder(T->head);
+	T->setPathToNode(T->head, "");//defined in "tree.h"
 	
 	//cout<<"\nHead data\n"<<T->head->left->data;
 	//T->DFS(T->head);
@@ -53,31 +70,18 @@ int main(int argc, char *argv[])
         T->CALabelling(T->head);
     }
 
-	//T->preorder(T->head);
-
-	double average=0;
 	//cout<<"\nThread creation start";
 	//create threads
-	for(int i=0;i<5;i++)
-	{  
-		struct timeval tp;
-		gettimeofday(&tp,NULL);
-		double start = tp.tv_sec + tp.tv_usec/1000000.0;
+
+    auto t1 = high_resolution_clock::now();
     
     
-		th->CreateThread(NoOfThreads,T);
-    
-    
-    
-		gettimeofday(&tp,NULL);
-		double finish = tp.tv_sec + tp.tv_usec/1000000.0;
-		double result = finish - start;
-		average += result;    
+	th->CreateThread(NoOfThreads,T);
+    auto t2 = high_resolution_clock::now();
+    duration<double, std::milli> ms_double = t2 - t1;
 		//cout<<"\n"<<result;
 		ITNode *root = NULL;
-	}
-	
-	cout<<average/5<<" ";
+	cout<<ms_double.count()<<" ";
 	//Print node reference and paths
 	// T->printMap();
    

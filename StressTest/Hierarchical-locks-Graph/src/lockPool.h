@@ -9,7 +9,7 @@
 #include "thread"
 
 using namespace std;
-
+extern int threads;
 
 class lockObject{
 public:
@@ -28,6 +28,7 @@ public:
 
 class lockPool {
 public:
+    const uint processor_Count = std::thread::hardware_concurrency();
     mutex lockPoolLock;
     lockObject* locks[SIZE];
     long int Gseq;
@@ -40,6 +41,13 @@ public:
         {
             locks[i] = nullptr;
         }
+    }
+
+    static bool hasCriticalAncestor(unordered_set<int> * A, int d){
+        for(auto a :*A){
+            if(a==d) return true;
+        }
+        return false;
     }
 
 
@@ -55,10 +63,12 @@ public:
              /// If a read lock is requested for an object that is read locked, only then allow it.
              (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
              /// Someone else has requested a lock on my LSCA before me.
-             (reqObj->Id == l->Id || (reqObj->criticalAncestors->find(l->Id) != reqObj->criticalAncestors->end())) &&
+             (reqObj->Id == l->Id ||
+             (hasCriticalAncestor(reqObj->criticalAncestors, l->Id)) ||
+             (hasCriticalAncestor(l->criticalAncestors, reqObj->Id)) &&
              /// It isn't my turn to take the lock
              (reqObj->Oseq > l->Oseq)) {
-                this_thread::yield();
+                if(threads>processor_Count) this_thread::yield();
                 l=locks[i];
             }
         }

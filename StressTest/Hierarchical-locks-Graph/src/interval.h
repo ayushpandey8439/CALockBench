@@ -51,8 +51,8 @@ public:
                 interval *ptr = Array[i];
                 //wait untill there is an overlap and my sequence number is greater
                 while(ptr !=NULL &&
-                      (m == 1 || (m == 0 && ptr->mode == 1)) &&
-                      (ptr->pre <= inv->post && ptr->post >= inv->pre)
+                        (inv->mode==1 || (inv->mode == 0 && ptr->mode == 1)) &&
+                        ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
                       && ptr->MySeq < inv->MySeq)
                 {
                     ptr = Array[i];
@@ -75,12 +75,9 @@ public:
 
     void Delete(int index)
     {//index=0;
-        pthread_rwlock_wrlock(&ArrayLock[0]);
-
+        pthread_mutex_lock(&mutex);
         Array[index] = NULL;
-        pthread_rwlock_unlock(&ArrayLock[0]);
-
-
+        pthread_mutex_unlock(&mutex);
     }
 
 };
