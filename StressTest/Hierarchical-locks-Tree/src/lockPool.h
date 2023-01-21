@@ -55,7 +55,7 @@ public:
              /// If a read lock is requested for an object that is read locked, only then allow it.
              (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
              /// Someone else has requested a lock on my LSCA before me.
-             (reqObj->Id == l->Id || (reqObj->criticalAncestors->find(l->Id) != reqObj->criticalAncestors->end())) &&
+             (reqObj->Id == l->Id || (reqObj->criticalAncestors->contains(l->Id)) || l->criticalAncestors->contains(reqObj->Id)) &&
              /// It isn't my turn to take the lock
              (reqObj->Oseq > l->Oseq)) {
                 this_thread::yield();
