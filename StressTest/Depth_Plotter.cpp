@@ -19,7 +19,7 @@ int main()
 
     //iterate for different number of nodes to be locked from 1 to 128
     TreeOutput<<"Domlock,Intention Lock,CALock\n";
-    for(int j=0;j<12;j++)
+    for(int j=0;j<8;j++)
     {
 
         //iterate for different distribution from 1 to 16
@@ -30,7 +30,6 @@ int main()
             DomFile>>DomVal;
             ILFile>>ILVal;
             CAFile>>CAVal;
-
             DomAvg.push_back(DomVal);
             ILAvg.push_back(ILVal);
             CAAvg.push_back(CAVal);

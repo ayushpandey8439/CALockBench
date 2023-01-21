@@ -65,7 +65,7 @@ public:
         for(int i=0;i< SIZE; i++){
             /// Spin waiting on the condition.
             auto l = locks[i];
-            while (l!= nullptr &&
+            while (i!=threadID && l!= nullptr &&
              /// If a read lock is requested for an object that is read locked, only then allow it.
              (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
              /// Someone else has requested a lock on my LSCA before me.

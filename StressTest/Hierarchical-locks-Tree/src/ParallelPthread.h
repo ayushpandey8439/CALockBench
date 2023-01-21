@@ -32,10 +32,6 @@ class ParallelThread
 		int threadID = data->threadID;
 		for(int i=0;i<1000;i++)
 		{
-            if(modifications && i%100==0){
-                //cout<<"Modifications allowed"<<endl;
-                p->structuralModification(threadID);
-            }
 			p->DummyTask(threadID);
 		}
         return nullptr;

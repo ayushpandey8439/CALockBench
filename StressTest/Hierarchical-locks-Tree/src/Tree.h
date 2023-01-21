@@ -379,7 +379,7 @@ void Tree::DummyTask(int node)
 	int accessType = 1;
   
 
-	set<int>NodeArray;
+	vector<int>NodeArray;
 	int NoOfLeafNodes = LeafNodes.size()-1;
 	int SlotSize = NoOfLeafNodes/distribution;
 //    int SlotNo = threadID;
@@ -387,7 +387,7 @@ void Tree::DummyTask(int node)
     int selectStart=SlotSize*SlotNo;
     for(int i = 0;i < NoOfRequestedNode;i++)
     {
-        NodeArray.insert(LeafNodes[selectStart+i]->data);
+        NodeArray.push_back(LeafNodes[selectStart+i]->data);
     }
 
 	// Intention locking ***************************************case 4
@@ -502,22 +502,27 @@ void Tree::DummyTask(int node)
    	
 	}
     else if(caseParameter==7){
-        list<long int> temp{};
         list<long int> lockRequest{};
-        temp = Array[*NodeArray.begin()]->pathLabel;
+        TreeNode* lo;
 
-        for(int i : temp){
-            bool allContain = true;
-            for(auto lockObj: NodeArray){
-                if(!Array[lockObj]->criticalAncestors.contains(i)){
-                    allContain = false;
-                    break;
+        if(NodeArray.size()>1){
+            for(int i : Array[NodeArray[0]]->pathLabel){
+                bool allContain = true;
+                for(auto lockObj: NodeArray){
+                    if(!Array[lockObj]->criticalAncestors.contains(i)){
+                        allContain = false;
+                        break;
+                    }
+                }
+                if(allContain){
+                    lockRequest.push_back(i);
                 }
             }
-            if(allContain){
-                lockRequest.push_back(i);
-            }
+            lo = Array[lockRequest.back()];
+        } else {
+            lo = Array[NodeArray[0]];
         }
+
 //        for(auto lockObj: NodeArray)
 //        {
 //            if(lockRequest.empty()){
@@ -535,7 +540,6 @@ void Tree::DummyTask(int node)
 //            }
 //        }
 
-        auto lo = Array[lockRequest.back()];
         auto l = new lockObject(lo->data, &lo->criticalAncestors, accessType);
         pool.acquireLock(l, threadID);
         NullOperation();
