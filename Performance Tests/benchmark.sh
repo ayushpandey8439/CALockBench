@@ -1,7 +1,9 @@
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
-COUNT=3
+COUNT=4
+rm -rf ./benchmarkCharts
+mkdir ./benchmarkCharts
 
 echo Step 1 of 6: Read Dominated load without modifications
 . ./scripts/read.sh

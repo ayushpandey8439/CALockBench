@@ -10,8 +10,11 @@
 #include "labelAssignmentTest.h"
 #include "intervalAssignment.h"
 #include "lockPool.h"
+#include "interval.h"
 #include <thread>
 
+extern lockPool pool;
+extern IntervalCheck ICheck;
 
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
@@ -260,6 +263,30 @@ void sb7::Benchmark::reportStats(ostream &out) {
         << endl;
 
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
+    std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
+    if(parameters.getLockType()==Parameters::lock_ca){
+        out << "Total relabelling: " << pool.modificationTimeCA.count()/(optypes[6].success+1) << " nanos"<<endl;
+        int count=1;
+        for(auto i: pool.idleness){
+            if(i> std::chrono::duration<long double, std::nano>::zero()){
+                count++;
+                totalTimeSpentIdle=  (totalTimeSpentIdle+i);
+            }
+        }
+        totalTimeSpentIdle/=count;
+    } else if(parameters.getLockType()==Parameters::lock_dom){
+        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/(optypes[6].success+1) << " nanos"<<endl;
+        int count=1;
+        for(auto i: ICheck.Totalidleness){
+            if(i>std::chrono::duration<long double, std::nano>::zero()){
+                count++;
+                totalTimeSpentIdle=  (totalTimeSpentIdle+i);
+            }
+        }
+        totalTimeSpentIdle /=count;
+    }
+
+    out << "Total idleness: " << totalTimeSpentIdle.count()/100000 << " micros"<<endl;
 
     out << endl;
 }

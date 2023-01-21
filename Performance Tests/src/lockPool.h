@@ -48,7 +48,9 @@ public:
     shared_mutex threadGuards[SIZE];
     condition_variable threadConditions[SIZE];
     long int Gseq;
-
+    std::chrono::duration<long double, std::nano> idleness[SIZE];
+    std::chrono::duration<long double, std::nano> modificationTimeCA;
+    const uint processor_Count = std::thread::hardware_concurrency();
     lockPool(){
         Gseq = 0;
         for(int i=0; i<SIZE;i++)
@@ -59,13 +61,14 @@ public:
 
 
     bool acquireLock(lockObject * reqObj, int threadID) {
+        auto t1 = std::chrono::high_resolution_clock::now();
         lockPoolLock.lock();
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
         lockPoolLock.unlock();
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
-            if(locks[i] != nullptr && i!= threadID){
+            if(locks[i] != nullptr){
 
                     /// Spin waiting on the condition.
                     auto l = locks[i];
@@ -76,11 +79,13 @@ public:
                      (reqObj->Id == l->Id || reqObj->criticalAncestors->contains(l->Id) || l->criticalAncestors->contains(reqObj->Id)) &&
                      /// It isn't my turn to take the lock
                      (reqObj->Oseq > l->Oseq)) {
-                        this_thread::yield();
+                        if(processor_Count<parameters.getThreadNum()) this_thread::yield();
                         l=locks[i];
                     }
             }
         }
+        auto t2 = std::chrono::high_resolution_clock::now();
+        idleness[threadID] += (t2-t1);
         return true;
     }
 

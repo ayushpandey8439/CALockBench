@@ -42,7 +42,8 @@ public:
     long Seq;
     //Lock pool for Multi-DomLock, .i.e., multiple lock node per thread
     vector<interval**>MultiLockPool;
-
+    std::chrono::duration<long double, std::nano> Totalidleness[S];
+    std::chrono::duration<long double, std::nano> modificationTimeDom;
     //Sequence number per thread for fairness and less contention
     int MySeq[S];
 
@@ -66,6 +67,7 @@ public:
 
     bool IsOverlap(interval *inv, int m, int threadID)
     {
+        auto t1 = std::chrono::high_resolution_clock::now();
         //cout<<"m=1";
         pthread_mutex_lock(&mutex);
         inv->MySeq = ++Seq;
@@ -87,7 +89,8 @@ public:
                 }
             }
         }
-
+        auto t2 = std::chrono::high_resolution_clock::now();
+        Totalidleness[threadID] += (t2-t1);
         return false;
 
 

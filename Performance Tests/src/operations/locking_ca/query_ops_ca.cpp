@@ -72,28 +72,62 @@ int sb7::CAQuery2::run(int tid) const {
 }
 
 int sb7::CAQuery2::innerRun(int tid) const {
-    int count = 0;
-
     int range = percent* (parameters.getMaxAtomicDate() -
                           parameters.getMinAtomicDate())/100;
     int min = get_random()->nextInt(parameters.getMaxAtomicDate()-range);
     int max = min+range;
+    int count = 0;
 
     Map<int, Set<AtomicPart *> *> *setInd =
             dataHolder->getAtomicPartBuildDateIndex();
     MapIterator<int, Set<AtomicPart *> *> iter =
             setInd->getRange(min, max);
 
-    while(iter.has_next()) {
+    while (iter.has_next()) {
         Set<AtomicPart *> *apartSet = iter.next();
         SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-
-        while(apartIter.has_next()) {
+        vector<AtomicPart*> aparts;
+        while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
-            if(apart->hasLabel) {
+            if(apart->hasLabel && !apart->isDeleted) {
+                //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
+                aparts.push_back(apart);
+            }
+        }
+        if(aparts.empty()){
+            throw Sb7Exception();
+        }
+
+        boost::container::list<int> lockRequest{};
+        auto it = aparts[0]->pathLabel.rbegin();
+        auto end = aparts[0]->pathLabel.rend();
+        for(auto i: aparts[0]->pathLabel){
+            for(auto a: aparts){
+                if(a->criticalAncestors.contains(i)){
+                    lockRequest.push_back(i);
+                }
+            }
+        }
+
+
+        pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
+
+        int mode = 0;
+        if(string(name) == "Q2")
+            mode = 0;
+        if(string(name) == "OP10")
+            mode = 1;
+
+        if(lo.second && lo.first->hasLabel){
+//            cout<<lo.first->getId()<<endl;
+            auto * l = new lockObject(lo.first->getLabellingId(), &lo.first->criticalAncestors, mode);
+            pool.acquireLock(l, tid);
+            for(auto * apart: aparts){
                 performOperationOnAtomicPart(apart);
                 count++;
             }
+            pool.releaseLock(l, tid);
+
         }
     }
 

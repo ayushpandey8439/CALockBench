@@ -152,6 +152,6 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
                 traverse(conn->getDestination(), visitedPartSet, false);
             }
         }
-        //visitedPartSet.remove(apart);
+        visitedPartSet.remove(apart);
     }
 }

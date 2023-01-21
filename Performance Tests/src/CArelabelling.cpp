@@ -4,12 +4,16 @@
 
 #include "CArelabelling.h"
 #include "./struct/connection.h"
+#include "lockPool.h"
+#include "interval.h"
 #include <algorithm>
 
 using namespace sb7;
+extern lockPool pool;
 
 
 void CArelabelling::run() {
+    auto t1 = std::chrono::high_resolution_clock::now();
     //cout<< "pre-post" << dataHolder->getModule()->getDesignRoot() -> m_pre_number<<" and "<<dataHolder->getModule()->getDesignRoot() -> m_post_number;
     while(!cassmQ.empty()){
         traverse(cassmQ.front());
@@ -28,6 +32,8 @@ void CArelabelling::run() {
         traverse(apartQ.front(), visitedPartSet, true);
         apartQ.pop();
     }
+    auto t2 = std::chrono::high_resolution_clock::now();
+    pool.modificationTimeCA+= (t2-t1);
 }
 
 
@@ -143,6 +149,6 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
                 traverse(conn->getDestination(), visitedPartSet, false);
             }
         }
-        //visitedPartSet.remove(apart);
+        visitedPartSet.remove(apart);
     }
 }
