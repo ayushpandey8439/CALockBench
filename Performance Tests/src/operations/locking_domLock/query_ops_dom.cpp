@@ -21,7 +21,7 @@ int sb7::DomQuery1::run(int tid) const {
 int sb7::DomQuery1::innerRun(int tid) const {
 	int count = 0;
     int threadID = tid;
-    int min=500000,max=0;
+    long min=INFINITY,max=-1;
     int apartId= get_random()->nextInt(
             parameters.getMaxAtomicParts()) + 1;
     Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
@@ -30,9 +30,12 @@ int sb7::DomQuery1::innerRun(int tid) const {
     apartInd->get(query);
 
     if(query.found && query.val->m_pre_number!=0 && query.val->m_post_number!=0){
+        min=query.val->m_pre_number;
+        max=query.val->m_post_number;
+
         if(string(name) == "Q1"){
-            pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(query.val->m_pre_number),&(query.val->m_post_number));
-            auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,0);
+            pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+            auto *inv = new interval(min,max,0);
             if(!ICheck.IsOverlap(inv, 0, threadID))
             {
                 pthread_rwlock_rdlock(lock);
@@ -43,8 +46,8 @@ int sb7::DomQuery1::innerRun(int tid) const {
             }
         }
         else if(string(name) == "OP9" || string(name) == "OP15"){
-            pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(query.val->m_pre_number),&(query.val->m_post_number));
-            auto *inv = new interval(query.val->m_pre_number,query.val->m_post_number,1);
+            pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &min,&(max));
+            auto *inv = new interval(min,max,1);
             if(!ICheck.IsOverlap(inv, 1, threadID))
             {
                 pthread_rwlock_wrlock(lock);
