@@ -38,11 +38,11 @@ int sb7::CALockTraversal::run(int tid) const {
         traverse(cpartQ.front(), &apartQ);
         cpartQ.pop();
     }
-    while(!apartQ.empty()){
-        Set<AtomicPart *> visitedPartSet;
-        traverse(apartQ.front(), visitedPartSet, true);
-        apartQ.pop();
-    }
+//    while(!apartQ.empty()){
+//        Set<AtomicPart *> visitedPartSet;
+//        traverse(apartQ.front(), visitedPartSet, apartQ.front()->pathLabel);
+//        apartQ.pop();
+//    }
 
     return 0;
 }
@@ -83,7 +83,10 @@ void sb7::CALockTraversal::traverse(BaseAssembly *bassm, queue<CompositePart*> *
 void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *apartQ) const {
     Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
     SetIterator<BaseAssembly *> biter = usedIn->getIter();
-    boost::container::list<int> firstLabel = biter.next()->pathLabel;
+    BaseAssembly *b = biter.next();
+
+    boost::container::list<int> firstLabel = b->pathLabel;
+//    firstLabel.push_back((b->getId()*10)+2);
 
     while(biter.has_next()){
         boost::container::list<int> tempPathLabel = biter.next()->pathLabel;
@@ -92,64 +95,58 @@ void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *ap
         firstLabel.erase(newEnd, firstLabel.end());
     }
 
-    int labelIdentifier = (cpart->getId()*10)+3;
-    firstLabel.push_back(labelIdentifier);
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
+    firstLabel.push_back((cpart->getId()*10)+3);
     firstLabel.push_back((rootPart->getId()*10)+4);
-    rootPart->setPathLabel(firstLabel);
-    apartQ->push(rootPart);
+//    rootPart->setPathLabel(firstLabel);
+//    apartQ->push(rootPart);
 
-    //traverse(rootPart, visitedPartSet,true, currPath);
+    Set<AtomicPart *> visitedPartSet;
+    traverse(rootPart, visitedPartSet, firstLabel);
 }
 
 
-void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, bool isRoot) const {
-    if(isRoot){
-        visitedPartSet.add(apart);
-        Set<Connection *> *toConns = apart->getToConnections();
-        SetIterator<Connection *> iter = toConns->getIter();
-        while(iter.has_next()) {
-            Connection *conn = iter.next();
-            traverse(conn->getDestination(), visitedPartSet, false);
-        }
-        visitedPartSet.remove(apart);
-    }
-    else if(apart == NULL || visitedPartSet.contains(apart)) {
+void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, boost::container::list<int> currLabel) const {
+    if(apart == NULL || visitedPartSet.contains(apart)) {
         return;
     } else {
         visitedPartSet.add(apart);
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        boost::container::list<int> containerLabel;
+//        boost::container::list<int> containerLabel = apart->pathLabel;
+//        containerLabel.push_back((apart->getId()*10)+4);
 
-        while(containerLabel.empty()){
-            containerLabel = fiter.next()->getSource()->pathLabel;
-        }
         while(fiter.has_next()){
             Connection *conn = fiter.next();
             boost::container::list<int> parentLabel = conn->getSource()->pathLabel;
             if(!parentLabel.empty()){
                 std::set<int> tempPathSet(parentLabel.begin(), parentLabel.end());
-                auto newEnd = remove_if(containerLabel.begin(), containerLabel.end(), [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
-                containerLabel.erase(newEnd, containerLabel.end());
+                auto newEnd = remove_if(currLabel.begin(), currLabel.end(), [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
+                currLabel.erase(newEnd, currLabel.end());
             }
         }
 
-        containerLabel.push_back((apart->getId()*10)+4);
+//        containerLabel.push_back((apart->getId()*10)+4);
         boost::container::list<int> apartLabel = apart->pathLabel;
-        std::set<int> myLabelSet(containerLabel.begin(),containerLabel.end());
+        std::set<int> myLabelSet(currLabel.begin(),currLabel.end());
         std::set<int> originalLabelSet(apartLabel.begin(),apartLabel.end());
 
         if(myLabelSet != originalLabelSet){
-            apart->setPathLabel(containerLabel);
+            apart->setPathLabel(currLabel);
+//            for (auto i: currLabel)
+//                std::cout << i << ' ';
+//            std::cout<< std::endl;
             // visit all connected parts
             Set<Connection *> *toConns = apart->getToConnections();
             SetIterator<Connection *> iter = toConns->getIter();
             while(iter.has_next()) {
                 Connection *conn = iter.next();
-                traverse(conn->getDestination(), visitedPartSet, false);
+                currLabel.push_back((conn->getDestination()->getId()*10)+4);
+//                conn->getDestination()->setPathLabel(containerLabel);
+                traverse(conn->getDestination(), visitedPartSet, currLabel);
+                currLabel.pop_back();
             }
         }
         visitedPartSet.remove(apart);

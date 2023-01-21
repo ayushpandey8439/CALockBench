@@ -44,6 +44,14 @@ namespace sb7 {
             return pathLabel.back();
         }
 
+        int getLSCA()const {
+            if(pathLabel.size()==1){
+                return *(--pathLabel.rbegin());
+            } else {
+                return *pathLabel.rbegin();
+            }
+        }
+
         void Delete() {
             this->isDeleted = true;
             this->hasLabel = false;

@@ -362,8 +362,8 @@ void Tree::CALabelling(TreeNode* ptr)
     } else {
         ptr->pathLabel = ptr->parent->pathLabel;
         ptr->criticalAncestors = ptr->parent->criticalAncestors;
-        ptr->pathLabel.push_back(ptr->data);
-        ptr->criticalAncestors.insert(ptr->data);
+//        ptr->pathLabel.push_back(ptr->data);
+//        ptr->criticalAncestors.insert(ptr->data);
     }
     CALabelling(ptr->left);
     CALabelling(ptr->right);

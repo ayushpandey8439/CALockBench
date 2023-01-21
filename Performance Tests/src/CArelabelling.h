@@ -29,7 +29,7 @@ protected:
     void traverse(BaseAssembly *baseAssembly);
     virtual void traverse(CompositePart *component );
     virtual void traverse(AtomicPart *part,
-                          Set<AtomicPart *> &setOfVisitedParts, bool isRoot);
+                          Set<AtomicPart *> &setOfVisitedParts,boost::container::list<int> currLabel);
 };
 
 

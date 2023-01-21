@@ -27,7 +27,7 @@ namespace sb7 {
         void traverse(BaseAssembly *baseAssembly, queue<CompositePart*> *cpartQ) const;
         virtual void traverse(CompositePart *component,queue<AtomicPart*> *apartQ ) const;
         virtual void traverse(AtomicPart *part,
-                              Set<AtomicPart *> &setOfVisitedParts, bool isRoot) const;
+                              Set<AtomicPart *> &setOfVisitedParts,boost::container::list<int> currLabel) const;
     };
 }
 
