@@ -18,6 +18,7 @@
 #include "atomic"
 #include "memory"
 #include "../../libraries/boost_1_81_0/boost/container/flat_set.hpp"
+#include "pthread.h"
 
 #define SIZE 256
 using namespace std;
@@ -44,9 +45,7 @@ class lockPool {
 public:
     mutex lockPoolLock;
     lockObject* locks[SIZE];
-    mutex threadMutexes[SIZE];
-    shared_mutex threadGuards[SIZE];
-    condition_variable threadConditions[SIZE];
+    shared_mutex threadMutexes[SIZE];
     long int Gseq;
     std::chrono::duration<long double, std::nano> idleness[SIZE];
     std::chrono::duration<long double, std::nano> modificationTimeCA;
@@ -65,27 +64,32 @@ public:
         lockPoolLock.lock();
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
+
         lockPoolLock.unlock();
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
-            if(locks[i] != nullptr){
+           if(locks[i] != nullptr) {
+                /// Spin waiting on the condition.
+                auto l = locks[i];
+                if (l!= nullptr &&
+                 /// If a read lock is requested for an object that is read locked, only then allow it.
+                 (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
+                 /// Someone else has requested a lock on my LSCA before me.
+                 (reqObj->Id == l->Id || reqObj->criticalAncestors->contains(l->Id) || l->criticalAncestors->contains(reqObj->Id)) &&
+                 /// It isn't my turn to take the lock
+                 (reqObj->Oseq > l->Oseq)) {
+                    //cout<<i<<endl;
+                    threadMutexes[i].lock_shared();
+                    threadMutexes[i].unlock_shared();
 
-                    /// Spin waiting on the condition.
-                    auto l = locks[i];
-                    while (l!= nullptr &&
-                     /// If a read lock is requested for an object that is read locked, only then allow it.
-                     (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
-                     /// Someone else has requested a lock on my LSCA before me.
-                     (reqObj->Id == l->Id || reqObj->criticalAncestors->contains(l->Id) || l->criticalAncestors->contains(reqObj->Id)) &&
-                     /// It isn't my turn to take the lock
-                     (reqObj->Oseq > l->Oseq)) {
-                        if(processor_Count<parameters.getThreadNum()) this_thread::yield();
-                        l=locks[i];
-                    }
+                    //if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+                    //l=locks[i];
+                }
             }
         }
         auto t2 = std::chrono::high_resolution_clock::now();
         idleness[threadID] += (t2-t1);
+        threadMutexes[threadID].lock();
         return true;
     }
 
@@ -93,6 +97,7 @@ public:
         lockPoolLock.lock();
             locks[threadId] = nullptr;
         lockPoolLock.unlock();
+        threadMutexes[threadId].unlock();
     }
 //
 //    list<int> addToLockRequest(DataHolder*dh, list<int> & lockRequest, DesignObj & label){
