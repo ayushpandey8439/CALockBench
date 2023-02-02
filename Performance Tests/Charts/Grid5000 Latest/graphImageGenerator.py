@@ -55,9 +55,9 @@ plt.figure()
 plt.plot(df2['Domlock'], color='#173f5f', label='Domlock', marker='+')
 plt.plot(df2['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
-plt.ylabel('ns', fontweight='bold')
+plt.ylabel('ns(LogScale)', fontweight='bold')
 plt.xticks([0,1,2,3,4,5], ['1', '2', '4', '8', '16','32'])
-
+plt.yscale('log')
 # Create legend & Show graphic
 plt.legend()
 plt.savefig("./benchmarkCharts/"+sys.argv[1]+"Relabelling.png")
