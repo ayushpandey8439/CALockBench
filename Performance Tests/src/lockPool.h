@@ -61,21 +61,18 @@ public:
 
     void waitResolve(int i, int threadID){
         /// Threads are blocked until the condition is true;
-        abc:
         std::shared_lock<shared_mutex> ul (threadMutexes[i]);
-        bool waitstatus = threadConditions[i].wait_for(ul,1ms, [this, i, threadID] {
-            return (locks[i] == nullptr ||
-                    /// Read vs Read is not a conflict
-                    (locks[threadID]->mode == 0 && locks[i]->mode == 0) ||
-                    /// The hierarchies do not overlap
-                    (locks[threadID]->Id != locks[i]->Id &&
-                     !locks[threadID]->criticalAncestors->contains(locks[i]->Id)) ||
-                    /// If all else fails, then at least it should be my turn.
-                    locks[threadID]->Oseq <= locks[i]->Oseq);
+        threadConditions[i].wait(ul, [this, i, threadID] {
+            return !(locks[i]!= nullptr &&
+                 /// If a read lock is requested for an object that is read locked, only then allow it.
+                 (locks[threadID]->mode == 1 || (locks[threadID]->mode==0 && locks[i]->mode == 1)) &&
+                 /// Someone else has requested a lock on my LSCA before me.
+                 (locks[threadID]->Id == locks[i]->Id
+                 || locks[threadID]->criticalAncestors->contains(locks[i]->Id)
+                 || locks[i]->criticalAncestors->contains(locks[threadID]->Id)) &&
+                 /// It isn't my turn to take the lock
+                 (locks[threadID]->Oseq > locks[i]->Oseq));
         });
-        if(!waitstatus) {
-            goto abc;
-        }
     }
 
     bool acquireLock(lockObject * reqObj, int threadID) {
@@ -83,7 +80,6 @@ public:
         lockPoolLock.lock();
         reqObj->Oseq = ++Gseq;
         locks[threadID] = reqObj;
-
         lockPoolLock.unlock();
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
@@ -110,15 +106,13 @@ public:
         }
         auto t2 = std::chrono::high_resolution_clock::now();
         idleness[threadID] += (t2-t1);
-        threadMutexes[threadID].lock();
         return true;
     }
 
     void releaseLock(lockObject *l, int threadId){
-        lockPoolLock.lock();
-            locks[threadId] = nullptr;
-        lockPoolLock.unlock();
-        threadMutexes[threadId].unlock();
+        std::unique_lock<std::shared_mutex> lk (threadMutexes[threadId]);
+        locks[threadId] = nullptr;
+        threadConditions[threadId].notify_all();
     }
 //
 //    list<int> addToLockRequest(DataHolder*dh, list<int> & lockRequest, DesignObj & label){
