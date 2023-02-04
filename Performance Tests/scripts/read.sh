@@ -18,4 +18,4 @@ pwd
 g++ plotter.cpp
 ./a.out $COUNT
 
-python3 ./graphImageGenerator.py 'ReadWithoutModifications'
+python3 ./graphImageGenerator.py 'ReadWithoutModifications' $COUNT

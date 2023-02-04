@@ -7,6 +7,7 @@ import sys
 data = pd.read_csv("./benchmarkResults/Results.csv")
 data1 = pd.read_csv("./benchmarkResults/IdlenessResults.csv")
 data2 = pd.read_csv("./benchmarkResults/RelabellingResults.csv")
+threadCount = int(sys.argv[2])
 
 df = pd.DataFrame(data)
 df.columns = df.columns.str.strip() #For column names
@@ -37,7 +38,7 @@ plt.plot(df['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('Op/s', fontweight='bold')
 
-plt.xticks([0,1,2,3,4,5], ['1', '2', '4', '8', '16','32'])
+plt.xticks(np.arange(0,threadCount), 2**np.arange(0,threadCount))
 
 # Create legend & Show graphic
 plt.legend()
@@ -48,7 +49,7 @@ plt.plot(df1['Domlock'], color='#173f5f', label='Domlock', marker='+')
 plt.plot(df1['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('ns', fontweight='bold')
-plt.xticks([0,1,2,3,4,5], ['1', '2', '4', '8', '16','32'])
+plt.xticks(np.arange(0,threadCount), 2**np.arange(0,threadCount))
 
 # Create legend & Show graphic
 plt.legend()
@@ -60,7 +61,7 @@ plt.plot(df2['Domlock'], color='#173f5f', label='Domlock', marker='+')
 plt.plot(df2['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('ns', fontweight='bold')
-plt.xticks([0,1,2,3,4,5], ['1', '2', '4', '8', '16','32'])
+plt.xticks(np.arange(0,threadCount), 2**np.arange(0,threadCount))
 
 # Create legend & Show graphic
 plt.legend()
