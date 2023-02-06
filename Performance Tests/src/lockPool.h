@@ -83,25 +83,23 @@ public:
         lockPoolLock.unlock();
         for(int i=0;i< SIZE; i++){
             /// A thread won't run into conflict with itself.
-           if(locks[i] != nullptr) {
-               waitResolve(i, threadID);
+            /// A thread won't run into conflict with itself.
+            if(locks[i] != nullptr){
 
                 /// Spin waiting on the condition.
-//                auto l = locks[i];
-//                if (l!= nullptr &&
-//                 /// If a read lock is requested for an object that is read locked, only then allow it.
-//                 (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
-//                 /// Someone else has requested a lock on my LSCA before me.
-//                 (reqObj->Id == l->Id || reqObj->criticalAncestors->contains(l->Id) || l->criticalAncestors->contains(reqObj->Id)) &&
-//                 /// It isn't my turn to take the lock
-//                 (reqObj->Oseq > l->Oseq)) {
-//                    //cout<<i<<endl;
-//                    threadMutexes[i].lock_shared();
-//                    threadMutexes[i].unlock_shared();
-//
-//                    //if(processor_Count<parameters.getThreadNum()) this_thread::yield();
-//                    //l=locks[i];
-//                }
+                auto l = locks[i];
+                while (l!= nullptr &&
+                       /// If a read lock is requested for an object that is read locked, only then allow it.
+                       (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
+                       /// Someone else has requested a lock on my LSCA before me.
+                       (reqObj->Id == l->Id
+                       || reqObj->criticalAncestors->contains(l->Id)
+                       || l->criticalAncestors->contains(reqObj->Id)) &&
+                       /// It isn't my turn to take the lock
+                       (reqObj->Oseq > l->Oseq)) {
+                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+                    l=locks[i];
+                }
             }
         }
         auto t2 = std::chrono::high_resolution_clock::now();

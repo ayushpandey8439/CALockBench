@@ -82,8 +82,9 @@ public:
                 //wait untill there is an overlap and my sequence number is greater
                 while(ptr !=NULL &&
                       (m == 1 || (m == 0 && ptr->mode == 1)) &&
-                      ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
-                      && ptr->MySeq < inv->MySeq)
+                      (ptr->post >= inv->pre && inv->post>= ptr->pre)&&
+//                      ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
+                      ptr->MySeq < inv->MySeq)
                 {
                     ptr = Array[i];
                 }

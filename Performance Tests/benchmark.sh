@@ -4,7 +4,7 @@ make all
 COUNT=4
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
-echo Stage 1 of 2 : Running standard workload benchmarks
+echo Stage 1 of 3 : Running standard workload benchmarks
 echo Step 1 of 6: Read Dominated load without modifications
 . ./scripts/read.sh
 echo Step 2 of 6: Read Dominated load with modifications
@@ -18,6 +18,9 @@ echo Step 5 of 6: Balanced load without modifications
 echo Step 6 of 6: Balanced load with modifications
 . ./scripts/balancedModifications.sh
 
-echo Stage 2 of 2: Running benchmark to find the intersection between domlock and CALock
+echo Stage 2 of 3: Running benchmark to find the intersection between domlock and CALock
 echo Step 1 of 1: Running 10 to 90 percent reads
 . ./scripts/VariableReadPercentage.sh
+
+echo Stage 3 of 3: Running benchmark to find number of vertices locked per vertex type
+. ./scripts/script_lockProportions.sh

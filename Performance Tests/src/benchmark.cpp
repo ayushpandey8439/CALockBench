@@ -12,7 +12,9 @@
 #include "lockPool.h"
 #include "interval.h"
 #include <thread>
-
+#include "containmentBenchmarkTraversal.h"
+#include "fstream"
+#include<iostream>
 extern lockPool pool;
 extern IntervalCheck ICheck;
 
@@ -20,7 +22,6 @@ extern IntervalCheck ICheck;
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
 using namespace std;
-
 
 sb7::Benchmark::Benchmark() : operations(&dataHolder) {
     // initialize thread local data
@@ -106,59 +107,70 @@ void sb7::Benchmark::init() {
     /// The CALabels are also used to check if the component is actually connected during random selection
     /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
     auto *dfs = new CALockTraversal(&dataHolder);
-    cout << "Creating labels for nodes"<< std::endl;
+    cout << "Creating labels for nodes" << std::endl;
     dfs->run(0);
-    cout << "Creation complete"<< std::endl;
+    cout << "Creation complete" << std::endl;
     auto *dts = new CALockLabelTest(&dataHolder);
-    cout<< "Testing labels"<< endl;
+    cout << "Testing labels" << endl;
     dts->run(1);
-    cout<< "Testing complete" <<endl;
+    cout << "Testing complete" << endl;
 
-    if(parameters.getLockType() == Parameters::lock_dom){
-        auto * dfs = new DomLockTraversal(&dataHolder);
+    if (parameters.getLockType() == Parameters::lock_dom || parameters.getBenchmarkContainment()) {
+        auto *dfs = new DomLockTraversal(&dataHolder);
         dfs->run(0);
-        cout<<"Interval assignment complete"<< endl;
+        cout << "Interval assignment complete" << endl;
 
     }
 }
-
 void sb7::Benchmark::start() {
-    cout << "Start benchmark."<< std::endl;
-    long start_time = get_time_ms();
+    if(parameters.getBenchmarkContainment()){
+        auto c = new containmentBenchmarkTraversal(dataHolder);
+        c->traverse(this->dataHolder.getModule()->getDesignRoot());
+        ofstream file("../benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
+        file <<"Type, CALock, Domlock\n";
+        for(auto& kv : c->containedCount) {
+            file <<(kv.first%10)<<","<< kv.second.first<<","<<kv.second.second << '\n';
+        }
+        file.close();
+    } else {
+        cout << "Start benchmark."<< std::endl;
+        long start_time = get_time_ms();
 
-    // create and run threads
-    for (int i = 0; i < parameters.getThreadNum(); i++) {
-        // initialize worker thread data
-        threads[i].wtdata.stopped = false;
+        // create and run threads
+        for (int i = 0; i < parameters.getThreadNum(); i++) {
+            // initialize worker thread data
+            threads[i].wtdata.stopped = false;
 
-        // TODO catch errors
-        pthread_create(&(threads[i].tid), nullptr, worker_thread,
-                       &(threads[i].wtdata));
+            // TODO catch errors
+            pthread_create(&(threads[i].tid), nullptr, worker_thread,
+                           &(threads[i].wtdata));
+        }
+
+        // wait for experiment to finish
+        sleep(parameters.getExperimentLengthMs());
+
+        // signal all threads to stop
+        for (int i = 0; i < parameters.getThreadNum(); i++) {
+            threads[i].wtdata.stopped = true;
+        }
+
+        // wait for all threads to stop
+        for (int i = 0; i < parameters.getThreadNum(); i++) {
+            // TODO catch errors
+            pthread_join(threads[i].tid, nullptr);
+        }
+
+        long end_time = get_time_ms();
+        elapsedTime = end_time - start_time;
     }
 
-    // wait for experiment to finish
-    sleep(parameters.getExperimentLengthMs());
 
-    // signal all threads to stop
-    for (int i = 0; i < parameters.getThreadNum(); i++) {
-        threads[i].wtdata.stopped = true;
-    }
-
-    // wait for all threads to stop
-    for (int i = 0; i < parameters.getThreadNum(); i++) {
-        // TODO catch errors
-        pthread_join(threads[i].tid, nullptr);
-    }
-
-    long end_time = get_time_ms();
-    elapsedTime = end_time - start_time;
 }
 
 void sb7::Benchmark::report(ostream &out) {
     if (parameters.shouldReportTtcHistograms()) {
         reportTtcHistograms(out);
     }
-
     reportStats(out);
 }
 

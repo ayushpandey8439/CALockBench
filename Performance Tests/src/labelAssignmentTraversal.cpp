@@ -94,11 +94,10 @@ void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *ap
         auto newEnd = remove_if(firstLabel.begin(), firstLabel.end(), [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
         firstLabel.erase(newEnd, firstLabel.end());
     }
-
+    firstLabel.push_back((cpart->getId()*10)+3);
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
-    firstLabel.push_back((cpart->getId()*10)+3);
     firstLabel.push_back((rootPart->getId()*10)+4);
 //    rootPart->setPathLabel(firstLabel);
 //    apartQ->push(rootPart);
