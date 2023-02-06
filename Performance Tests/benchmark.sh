@@ -1,7 +1,7 @@
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
-COUNT=6
+COUNT=4
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
 echo Stage 1 of 2 : Running standard workload benchmarks
