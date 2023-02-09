@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     outputm<<"ThreadCount,Domlock, CALock"<<"\n";
 
     int count = atoi(argv[1]);
-    for(int i=0;i<count;i++)
+    for(int i=0;i<=count;i++)
     {
         string threadCount = to_string((int)pow(2,i));
         ifstream c_file("./benchmarkResults/coarse"+threadCount+".txt");
