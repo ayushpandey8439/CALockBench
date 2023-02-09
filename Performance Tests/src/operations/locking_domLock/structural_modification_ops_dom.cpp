@@ -85,6 +85,7 @@ int sb7::DomStructuralModification3::run(int tid) const {
         r->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
         ICheck.modificationTimeDom+= (t2-t1);
+        ICheck.count.fetch_add(1);
         pthread_rwlock_unlock(lock);
         ICheck.Delete(tid);
     }

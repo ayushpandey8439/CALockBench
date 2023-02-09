@@ -287,7 +287,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
         }
         totalTimeSpentIdle/=count;
     } else if(parameters.getLockType()==Parameters::lock_dom){
-        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/(pool.count) << " nanos"<<endl;
+        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/(ICheck.count) << " nanos"<<endl;
         int count=1;
         for(auto i: ICheck.Totalidleness){
             if(i>std::chrono::duration<long double, std::nano>::zero()){
