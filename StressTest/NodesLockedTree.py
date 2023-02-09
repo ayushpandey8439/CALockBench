@@ -13,9 +13,9 @@ plt.plot(dfMT['Intention Lock'], color='#f6d55c', label='Intention Lock', marker
 plt.plot(dfMT['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xticks([0, 1, 2, 3, 4, 5, 6, 7], ['2', '4', '8', '16', '32', '64', '128', '256'])
 #plt.yscale("log")
-plt.xlabel("No. of nodes locked")
-plt.ylabel("Execution time(ms)")
+plt.xlabel("Vertices per lock request")
+plt.ylabel("Execution time for 1K lock requests (ms)")
 plt.legend()
-plt.title("1 thread \n consecutive nodes selected from leaves of a balanced binary tree\n with all paths known for Intention locking")
+# plt.title("1 thread \n consecutive nodes selected from leaves of a balanced binary tree\n with all paths known for Intention locking")
 
 plt.savefig('./NodesPerLockRequestTree.png')

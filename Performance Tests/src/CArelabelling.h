@@ -13,9 +13,12 @@ using namespace sb7;
 
 class CArelabelling {
     DataHolder *dataHolder;
+    int tid;
 public:
-    CArelabelling(DataHolder * dh = nullptr){
+    CArelabelling(DataHolder * dh = nullptr, int id = -1){
         dataHolder = dh;
+        tid = id;
+
     }
     queue<ComplexAssembly *> cassmQ;
     queue<BaseAssembly *> bassmQ;

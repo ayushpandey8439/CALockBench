@@ -65,6 +65,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
 
     // generate random composite part id
     int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
+    cpartId = (cpartId *(tid+1)) % parameters.getMaxCompParts();
     CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
     if (cpart == nullptr || cpart->isDeleted) {
@@ -73,8 +74,8 @@ int sb7::CAStructuralModification3::run(int tid) const {
 
     // generate random base assembly id
     int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
+    bassmId = (bassmId *(tid+1)) % parameters.getMaxBaseAssemblies();
     BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
-
     if (bassm == nullptr || bassm->isDeleted) {
         throw Sb7Exception();
     }
@@ -103,7 +104,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
         /// This also needs the ability to convert a read lock into a write lock.
         if(bassm->hasLabel && cpart->hasLabel){
             bassm->addComponent(cpart);
-            auto * r = new CArelabelling(dataHolder);
+            auto * r = new CArelabelling(dataHolder, tid);
             r->cpartQ.push(cpart);
             r->run();
         }

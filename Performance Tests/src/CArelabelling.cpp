@@ -33,7 +33,9 @@ void CArelabelling::run() {
 //        apartQ.pop();
 //    }
     auto t2 = std::chrono::high_resolution_clock::now();
-    pool.modificationTimeCA+= (t2-t1);
+    pool.modificationTimeCA += (t2-t1);
+    pool.count.fetch_add(1);
+//    cout<<(t2-t1).count()<<endl;
 }
 
 
@@ -92,11 +94,10 @@ void CArelabelling::traverse(CompositePart *cpart) {
         set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
         firstLabel = common;
     }
-
+    firstLabel.push_back((cpart->getId()+10)+3);
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
-    firstLabel.push_back((cpart->getId()+10)+3);
     firstLabel.push_back((rootPart->getId()*10)+4);
     rootPart->setPathLabel(firstLabel);
     apartQ.push(rootPart);
@@ -125,22 +126,6 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
                                         [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
                 currLabel.erase(newEnd, currLabel.end());
             }
-
-//            Connection *conn = fiter.next();
-//            if (!conn->getSource()->pathLabel.empty()) {
-//                for (auto i: currLabel)
-//                    std::cout << i << ' ';
-//                std::cout<< std::endl;
-//
-//                for(auto i: currLabel){
-//                    if(!conn->getSource()->criticalAncestors.contains(i)){
-//                        currLabel.remove(i);
-//                    }
-//                }
-////                boost::container::list<int> common;
-////                set_intersection(currLabel.begin(), currLabel.end(), conn->getSource()->pathLabel.begin(),conn->getSource()->pathLabel.end(), back_inserter(common));
-////                currLabel = common;
-//            }
         }
 
 //        containerLabel.push_back((apart->getId()*10)+4);
