@@ -32,12 +32,14 @@ public:
     int Id;
     int mode;
     long Oseq;
+    shared_mutex lock;
 
     lockObject(int pId, boost::container::flat_set<int> * ancestors, int m){
         Id = pId;
         criticalAncestors = ancestors;
         mode = m;
         Oseq=-1;
+        lock.lock();
     }
 };
 
@@ -60,21 +62,21 @@ public:
         }
     }
 
-    void waitResolve(int i, int threadID){
-        /// Threads are blocked until the condition is true;
-        std::shared_lock<shared_mutex> ul (threadMutexes[i]);
-        threadConditions[i].wait(ul, [this, i, threadID] {
-            return !(locks[i]!= nullptr &&
-                 /// If a read lock is requested for an object that is read locked, only then allow it.
-                 (locks[threadID]->mode == 1 || (locks[threadID]->mode==0 && locks[i]->mode == 1)) &&
-                 /// Someone else has requested a lock on my LSCA before me.
-                 (locks[threadID]->Id == locks[i]->Id
-                 || locks[threadID]->criticalAncestors->contains(locks[i]->Id)
-                 || locks[i]->criticalAncestors->contains(locks[threadID]->Id)) &&
-                 /// It isn't my turn to take the lock
-                 (locks[threadID]->Oseq > locks[i]->Oseq));
-        });
-    }
+//    void waitResolve(int i, int threadID){
+//        /// Threads are blocked until the condition is true;
+//        std::shared_lock<shared_mutex> ul (threadMutexes[i]);
+//        threadConditions[i].wait(ul, [this, i, threadID] {
+//            return !(locks[i]!= nullptr &&
+//                 /// If a read lock is requested for an object that is read locked, only then allow it.
+//                 (locks[threadID]->mode == 1 || (locks[threadID]->mode==0 && locks[i]->mode == 1)) &&
+//                 /// Someone else has requested a lock on my LSCA before me.
+//                 (locks[threadID]->Id == locks[i]->Id
+//                 || locks[threadID]->criticalAncestors->contains(locks[i]->Id)
+//                 || locks[i]->criticalAncestors->contains(locks[threadID]->Id)) &&
+//                 /// It isn't my turn to take the lock
+//                 (locks[threadID]->Oseq > locks[i]->Oseq));
+//        });
+//    }
 
     bool acquireLock(lockObject * reqObj, int threadID) {
         auto t1 = std::chrono::high_resolution_clock::now();
@@ -89,7 +91,7 @@ public:
 
                 /// Spin waiting on the condition.
                 auto l = locks[i];
-                while (l!= nullptr &&
+                if (l!= nullptr &&
                        /// If a read lock is requested for an object that is read locked, only then allow it.
                        (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
                        /// Someone else has requested a lock on my LSCA before me.
@@ -98,8 +100,10 @@ public:
                        || l->criticalAncestors->contains(reqObj->Id)) &&
                        /// It isn't my turn to take the lock
                        (reqObj->Oseq > l->Oseq)) {
-                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
-                    l=locks[i];
+//                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+//                    l=locks[i];
+                    l->lock.lock_shared();
+                    l->lock.unlock_shared();
                 }
             }
         }
@@ -109,9 +113,10 @@ public:
     }
 
     void releaseLock(lockObject *l, int threadId){
-        std::unique_lock<std::shared_mutex> lk (threadMutexes[threadId]);
+//        std::unique_lock<std::shared_mutex> lk (threadMutexes[threadId]);
         locks[threadId] = nullptr;
-        threadConditions[threadId].notify_all();
+        l->lock.unlock();
+//        threadConditions[threadId].notify_all();
     }
 //
 //    list<int> addToLockRequest(DataHolder*dh, list<int> & lockRequest, DesignObj & label){
