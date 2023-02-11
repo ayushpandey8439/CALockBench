@@ -94,17 +94,16 @@ int sb7::LCQuery2::innerRun(int tid) const {
 	while(iter.has_next()) {
 		Set<AtomicPart *> *apartSet = iter.next();
 		SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-
+        auto * c = new coarseLock(mode);
+        cPool.acquire(c,tid);
 		while(apartIter.has_next()) {
 			AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
-                auto * c = new coarseLock(mode);
-                cPool.acquire(c,tid);
                 performOperationOnAtomicPart(apart);
-                cPool.release(tid);
                 count++;
             }
 		}
+        cPool.release(tid);
 	}
 
 	return count;

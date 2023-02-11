@@ -47,7 +47,10 @@ int sb7::LCOperation6::innerRun(int tid) const {
 
 	// if this assembly is root perform operation on it
 	if(superAssm == NULL) {
+        auto * c = new coarseLock(0);
+        cPool.acquire(c,tid);
 		performOperationOnComplexAssembly(cassm);
+        cPool.release(tid);
 		ret = 1;
 	} else {
 		// else perform operation on all it's siblings (including itself)

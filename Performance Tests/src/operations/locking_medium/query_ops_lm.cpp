@@ -93,13 +93,11 @@ int sb7::LMQuery2::innerRun(int tid) const {
         mode = 0;
     if(string(name) == "OP10")
         mode = 1;
-
-    auto * c = new mediumLock(mode, 4);
-    mPool.acquire(c,tid);
 	while(iter.has_next()) {
 		Set<AtomicPart *> *apartSet = iter.next();
 		SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-
+        auto * c = new mediumLock(mode, 4);
+        mPool.acquire(c,tid);
 		while(apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
@@ -107,8 +105,8 @@ int sb7::LMQuery2::innerRun(int tid) const {
                 count++;
             }
 		}
+        mPool.release(tid);
 	}
-    mPool.release(tid);
 
 	return count;
 }

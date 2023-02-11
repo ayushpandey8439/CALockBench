@@ -35,16 +35,35 @@ int sb7::LMOperation6::run(int tid) const {
 	if(!query.found || !query.val->hasLabel) {
 		throw Sb7Exception();
 	}
+    int ret;
 
-	// if complex assembly was found process it
-	ComplexAssembly *cassm = query.val;
-    if(cassm->hasLabel){
+    // if complex assembly was found process it
+    ComplexAssembly *cassm = query.val;
+    ComplexAssembly *superAssm = cassm->getSuperAssembly();
+    // if this assembly is root perform operation on it
+    if(superAssm == NULL || !superAssm->hasLabel) {
         ComplexAssembly *superAssm = cassm->getSuperAssembly();
         int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
         int lockType = (lockLvl*10)+1;
         auto * c = new mediumLock(0,lockType);
         mPool.acquire(c,tid);
-        processComplexAssembly(cassm);
+        performOperationOnComplexAssembly(cassm);
+        mPool.release(tid);
+        return 0;
+    } else {
+        // else perform operation on all it's siblings (including itself)
+        Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
+        SetIterator<Assembly *> iter = siblingAssms->getIter();
+        ret = 0;
+        ComplexAssembly *superAssm = cassm->getSuperAssembly();
+        int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
+        int lockType = (lockLvl*10)+1;
+        auto * c = new mediumLock(0,lockType);
+        mPool.acquire(c,tid);
+        while(iter.has_next()) {
+            performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
+            ret++;
+        }
         mPool.release(tid);
         return 0;
     }
@@ -52,33 +71,8 @@ int sb7::LMOperation6::run(int tid) const {
     return 0;
 }
 
-int sb7::LMOperation6::processComplexAssemblyWrap(
-		ComplexAssembly *cassm) const {
-	ComplexAssembly *superAssm = cassm->getSuperAssembly();
-	return processComplexAssembly(cassm);
-}
-
-int sb7::LMOperation6::processComplexAssembly(ComplexAssembly *cassm) const {
-	ComplexAssembly *superAssm = cassm->getSuperAssembly();
-	int ret;
-
-	// if this assembly is root perform operation on it
-	if(superAssm == NULL ) {
-		performOperationOnComplexAssembly(cassm);
-		ret = 1;
-	} else {
-		// else perform operation on all it's siblings (including itself)
-		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
-		SetIterator<Assembly *> iter = siblingAssms->getIter();
-		ret = 0;
-
-		while(iter.has_next()) {
-			performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
-			ret++;
-		}
-	}
-
-	return ret;
+int sb7::LMOperation6::processComplexAssemblyWrap(sb7::ComplexAssembly *cassm) const {
+    return 0;
 }
 
 void sb7::LMOperation6::performOperationOnComplexAssembly(
@@ -253,8 +247,9 @@ int sb7::LMOperation12::processComplexAssemblyWrap(
 	ComplexAssembly *superAssm = cassm->getSuperAssembly();
 	int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
 	WriteLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
-	
-	return processComplexAssembly(cassm);
+
+	performOperationOnComplexAssembly(cassm);
+    return 0;
 }
 
 void sb7::LMOperation12::performOperationOnComplexAssembly(
@@ -269,7 +264,6 @@ void sb7::LMOperation12::performOperationOnComplexAssembly(
 int sb7::LMOperation13::run(int tid) const {
 	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 	WriteLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
-
 	return innerRun(tid);
 }
 
