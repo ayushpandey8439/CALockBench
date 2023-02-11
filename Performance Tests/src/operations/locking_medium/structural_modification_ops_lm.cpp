@@ -4,7 +4,9 @@
 #include "../../sb7_exception.h"
 #include "lock_srv_lm.h"
 #include "../../thread/thread.h"
+#include "../../mediumPool.h"
 
+extern mediumPool mPool;
 /////////////////////////////
 // StructuralModification1 //
 /////////////////////////////
@@ -21,7 +23,7 @@ int sb7::LMStructuralModification1::run(int tid) const {
 /////////////////////////////
 
 int sb7::LMStructuralModification2::run(int tid) const {
-	WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+//	WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
 	// generate random composite part id and try to look it up
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
@@ -31,8 +33,10 @@ int sb7::LMStructuralModification2::run(int tid) const {
 		throw Sb7Exception();
 	}
 
+    auto * c = new mediumLock(1,0);
+    mPool.acquire(c,tid);
 	dataHolder->deleteCompositePart(cpart);
-
+    mPool.release(tid);
 	return 0;
 }
 
@@ -41,7 +45,7 @@ int sb7::LMStructuralModification2::run(int tid) const {
 /////////////////////////////
 
 int sb7::LMStructuralModification3::run(int tid) const {
-	WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+//	WriteLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
 	// generate random composite part id
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
@@ -57,9 +61,12 @@ int sb7::LMStructuralModification3::run(int tid) const {
 
 	if(bassm == NULL|| bassm->isDeleted ||!bassm->hasLabel) {
 		throw Sb7Exception();
-	}	
+	}
+    auto * c = new mediumLock(1,0);
+    mPool.acquire(c,tid);
+    bassm->addComponent(cpart);
+    mPool.release(tid);
 
-	bassm->addComponent(cpart);
 
 	return 0;
 }

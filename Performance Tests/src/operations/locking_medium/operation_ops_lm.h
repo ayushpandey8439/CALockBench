@@ -40,7 +40,7 @@ namespace sb7 {
 			virtual int run(int tid) const;
 
 		protected:
-			int innerRun() const;
+			int innerRun(int tid) const;
 			virtual void performOperationOnBaseAssembly(
 				BaseAssembly *bassm) const;
 	};
