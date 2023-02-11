@@ -12,7 +12,7 @@
 #include "parameters.h"
 #include <mutex>              // std::mutex, std::unique_lock
 #include <condition_variable> // std::condition_variable
-#include "shared_mutex"
+
 
 using namespace std;
 
@@ -24,10 +24,8 @@ class interval{
 public: double pre, post;
     int mode;
     long MySeq;
-    shared_mutex lock;
     interval( long a, long b, int m){
         pre = a; post = b; mode = m;
-        lock.lock();
     }
 };
 
@@ -37,7 +35,7 @@ class IntervalCheck{
 public:
     interval *Array[S];
     int VectorSize[S];
-    atomic<long int> count = 1;
+    atomic<long int> count;
     //Lock variable, one per lock-pool location
     pthread_rwlock_t ArrayLock[S];
 
@@ -83,14 +81,13 @@ public:
             {
                 interval *ptr = Array[i];
                 //wait untill there is an overlap and my sequence number is greater
-                if(ptr !=NULL &&
+                while(ptr !=NULL &&
                       (m == 1 || (m == 0 && ptr->mode == 1)) &&
                       (ptr->post >= inv->pre && inv->post>= ptr->pre)&&
 //                      ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
                       ptr->MySeq < inv->MySeq)
                 {
-                    ptr->lock.lock_shared();
-                    ptr->lock.unlock_shared();
+                    ptr = Array[i];
                 }
             }
         }
@@ -103,7 +100,7 @@ public:
 
     void Delete(int index)
     {
-        Array[index]->lock.unlock();
+
         Array[index] = nullptr;
 
 

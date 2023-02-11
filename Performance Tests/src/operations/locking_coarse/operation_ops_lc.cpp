@@ -4,14 +4,20 @@
 
 #include "../../parameters.h"
 #include "../../sb7_exception.h"
-
+#include "../../coarsePool.h"
 ////////////////
 // Operation6 //
 ////////////////
-
+extern coarsePool cPool;
 int sb7::LCOperation6::run(int tid) const {
-	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
-	return innerRun(tid);
+//	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+//	return innerRun(tid);
+    auto * c = new coarseLock(0);
+    cPool.acquire(c,tid);
+    int count = innerRun(tid);
+    cPool.release(tid);
+    return count;
+
 }
 
 int sb7::LCOperation6::innerRun(int tid) const {
@@ -71,8 +77,13 @@ void sb7::LCOperation6::performOperationOnComplexAssembly(
 ////////////////
 
 int sb7::LCOperation7::run(int tid) const {
-	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
-	return innerRun(tid);
+//	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+//	return innerRun(tid);
+    auto * c = new coarseLock(0);
+    cPool.acquire(c,tid);
+    int count = innerRun(tid);
+    cPool.release(tid);
+    return count;
 }
 
 int sb7::LCOperation7::innerRun(int tid) const {
@@ -163,8 +174,13 @@ void sb7::LCOperation8::performOperationOnComponent(CompositePart *comp) const {
 ////////////////
 
 int sb7::LCOperation9::run(int tid) const {
-	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
-	return LCQuery1::innerRun(tid);
+//	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
+//	return LCQuery1::innerRun(tid);
+    auto * c = new coarseLock(1);
+    cPool.acquire(c,tid);
+    int count = innerRun(tid);
+    cPool.release(tid);
+    return count;
 }
 
 void sb7::LCOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
@@ -176,8 +192,13 @@ void sb7::LCOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 ////////////////
 
 int sb7::LCOperation10::run(int tid) const {
-	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
-	return LCQuery2::innerRun(tid);
+//	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
+//	return LCQuery2::innerRun(tid);
+    auto * c = new coarseLock(1);
+    cPool.acquire(c,tid);
+    int count = innerRun(tid);
+    cPool.release(tid);
+    return count;
 }
 
 void sb7::LCOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {

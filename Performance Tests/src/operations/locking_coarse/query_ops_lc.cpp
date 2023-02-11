@@ -7,16 +7,23 @@
 #include "../../parameters.h"
 #include "../../struct/assembly.h"
 #include "../../sb7_exception.h"
+#include "../../coarsePool.h"
 
 ////////////
 // Query1 //
 ////////////
 
 #define QUERY1_ITER 10
+extern coarsePool cPool;
 
 int sb7::LCQuery1::run(int tid) const {
-	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
-	return innerRun(tid);
+//	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+//    return innerRun(tid);
+    auto * c = new coarseLock(0);
+    cPool.acquire(c,tid);
+	int count = innerRun(tid);
+    cPool.release(tid);
+    return count;
 }
 
 int sb7::LCQuery1::innerRun(int tid) const {
@@ -57,8 +64,13 @@ sb7::LCQuery2::LCQuery2(DataHolder *dh, optype t, const char *n, int p)
 }
 
 int sb7::LCQuery2::run(int tid) const {
-	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
-	return innerRun(tid);
+//	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+//	return innerRun(tid);
+    auto * c = new coarseLock(0);
+    cPool.acquire(c,tid);
+    int count = innerRun(tid);
+    cPool.release(tid);
+    return count;
 }
 
 int sb7::LCQuery2::innerRun(int tid) const {
