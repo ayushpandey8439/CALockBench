@@ -1,6 +1,17 @@
 echo Compiling Benchmark implementation on STMBench7......
-make clean
-make all
+#make clean
+#make all
+#rm -rf build
+#mkdir build
+#
+#cd ./build
+#
+#cmake ../CMakeLists.txt
+#cmake --build .
+#cp sb7_lock ../
+#cd ..
+#
+
 COUNT=5
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
