@@ -71,6 +71,9 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
 
     list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
     currLabel.push_back((bassm->getId()*10)+2);
+    if(currLabel == bassm->pathLabel){
+        return;
+    }
     bassm->setPathLabel(currLabel);
     SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
     while(iter.has_next()) {
@@ -82,19 +85,39 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
 void CArelabelling::traverse(CompositePart *cpart) {
     string type = "cp";
     if(cpart->isDeleted) return;
+
     Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
     SetIterator<BaseAssembly *> biter = usedIn->getIter();
     BaseAssembly *b = biter.next();
     list<int> firstLabel = b->pathLabel;
-    firstLabel.push_back((b->getId()*10)+2);
-
-    while(biter.has_next()){
-        list<int> common;
-        list<int> testLabel = biter.next()->pathLabel;
-        set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
-        firstLabel = common;
+    set<int> removals{};
+    for(int a: firstLabel){
+        bool allContain = true;
+        while(biter.has_next()){
+            if(!biter.next()->criticalAncestors.contains(a)){
+                allContain = false;
+                break;
+            }
+        }
+        if(!allContain){
+            removals.insert(a);
+        }
+        biter = usedIn->getIter();
     }
+
+    firstLabel.remove_if([removals](int l){return removals.contains(l);});
+
+//    while(biter.has_next()){
+//        list<int> common;
+//        list<int> testLabel = biter.next()->pathLabel;
+//        set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
+//        firstLabel = common;
+//    }
+
     firstLabel.push_back((cpart->getId()+10)+3);
+    if(firstLabel == cpart->pathLabel){
+        return;
+    }
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
@@ -116,17 +139,32 @@ void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSe
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
 //        boost::container::list<int> containerLabel(10,-1);
-
-        while (fiter.has_next()) {
-            Connection *conn = fiter.next();
-            list<int> tempLabel = (conn->getSource()->pathLabel);
-            if(!tempLabel.empty()){
-                std::set<int> tempPathSet(tempLabel.begin(), tempLabel.end());
-                auto newEnd = remove_if(currLabel.begin(), currLabel.end(),
-                                        [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
-                currLabel.erase(newEnd, currLabel.end());
+        set<int> removals;
+        for(int a: currLabel){
+            bool allContain = true;
+            while(fiter.has_next()){
+                if(!fiter.next()->getSource()->criticalAncestors.contains(a)){
+                    allContain = false;
+                    break;
+                }
             }
+            if(!allContain){
+                removals.insert(a);
+            }
+            fiter = fromConns->getIter();
         }
+        currLabel.remove_if([removals](int l){return removals.contains(l);});
+
+//        while (fiter.has_next()) {
+//            Connection *conn = fiter.next();
+//            list<int> tempLabel = (conn->getSource()->pathLabel);
+//            if(!tempLabel.empty()){
+//                std::set<int> tempPathSet(tempLabel.begin(), tempLabel.end());
+//                auto newEnd = remove_if(currLabel.begin(), currLabel.end(),
+//                                        [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
+//                currLabel.erase(newEnd, currLabel.end());
+//            }
+//        }
 
 //        containerLabel.push_back((apart->getId()*10)+4);
 //        boost::container::flat_set<int> myLabelSet(currLabel.begin(), currLabel.end());

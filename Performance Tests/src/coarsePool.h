@@ -51,7 +51,7 @@ public:
                        (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
                        /// It isn't my turn to take the lock
                        (reqObj->Oseq > l->Oseq)) {
-                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+//                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
                     l=locks[i];
                 }
             }

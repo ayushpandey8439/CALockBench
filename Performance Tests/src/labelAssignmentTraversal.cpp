@@ -95,6 +95,10 @@ void sb7::CALockTraversal::traverse(CompositePart *cpart, queue<AtomicPart*> *ap
         firstLabel.erase(newEnd, firstLabel.end());
     }
     firstLabel.push_back((cpart->getId()*10)+3);
+    if(cpart->pathLabel==firstLabel){
+        return;
+    }
+
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
@@ -128,11 +132,11 @@ void sb7::CALockTraversal::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
         }
 
 //        containerLabel.push_back((apart->getId()*10)+4);
-        list<int> apartLabel = apart->pathLabel;
-        std::set<int> myLabelSet(currLabel.begin(),currLabel.end());
-        std::set<int> originalLabelSet(apartLabel.begin(),apartLabel.end());
+//        list<int> apartLabel = apart->pathLabel;
+//        std::set<int> myLabelSet(currLabel.begin(),currLabel.end());
+//        std::set<int> originalLabelSet(apartLabel.begin(),apartLabel.end());
 
-        if(myLabelSet != originalLabelSet){
+        if(currLabel != apart->pathLabel){
             apart->setPathLabel(currLabel);
 //            for (auto i: currLabel)
 //                std::cout << i << ' ';
