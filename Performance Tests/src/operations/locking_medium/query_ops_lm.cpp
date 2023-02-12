@@ -7,20 +7,18 @@
 #include "lock_srv_lm.h"
 #include "../../thread/thread.h"
 #include "../../sb7_exception.h"
-#include "../../mediumPool.h"
 
 ////////////
 // Query1 //
 ////////////
-extern mediumPool mPool;
+
 #define QUERY1_ITER 10
 
 int sb7::LMQuery1::run(int tid) const {
-//	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-//	ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
-    	return innerRun(tid);
+	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+	ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
-
+	return innerRun(tid);
 }
 
 int sb7::LMQuery1::innerRun(int tid) const {
@@ -32,19 +30,10 @@ int sb7::LMQuery1::innerRun(int tid) const {
     Map<int, AtomicPart *>::Query query;
     query.key = apartId;
     apartInd->get(query);
-    int mode = 0;
-    if(string(name) == "Q1")
-        mode = 0;
-    if(string(name) == "OP9")
-        mode = 1;
 
     if(query.found && query.val->hasLabel) {
-        auto * c = new mediumLock(mode, 4);
-        mPool.acquire(c,tid);
         performOperationOnAtomicPart(query.val);
         count++;
-        mPool.release(tid);
-
     } else {
         throw Sb7Exception();
     }
@@ -69,8 +58,8 @@ sb7::LMQuery2::LMQuery2(DataHolder *dh, optype t, const char *n, int p)
 }
 
 int sb7::LMQuery2::run(int tid) const {
-//	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-//	ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+	ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
 	return innerRun(tid);
 }
@@ -88,16 +77,10 @@ int sb7::LMQuery2::innerRun(int tid) const {
 	MapIterator<int, Set<AtomicPart *> *> iter =
 		setInd->getRange(min, max);
 
-    int mode = 0;
-    if(string(name) == "Q2")
-        mode = 0;
-    if(string(name) == "OP10")
-        mode = 1;
 	while(iter.has_next()) {
 		Set<AtomicPart *> *apartSet = iter.next();
 		SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-        auto * c = new mediumLock(mode, 4);
-        mPool.acquire(c,tid);
+
 		while(apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
@@ -105,7 +88,6 @@ int sb7::LMQuery2::innerRun(int tid) const {
                 count++;
             }
 		}
-        mPool.release(tid);
 	}
 
 	return count;

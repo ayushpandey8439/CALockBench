@@ -4,12 +4,11 @@
 #include "../../sb7_exception.h"
 #include "lock_srv_lc.h"
 #include "../../thread/thread.h"
-#include "../../coarsePool.h"
 
 /////////////////////////////
 // StructuralModification1 //
 /////////////////////////////
-extern coarsePool cPool;
+
 int sb7::LCStructuralModification1::run(int tid) const {
 	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
 	dataHolder->createCompositePart();
@@ -21,8 +20,7 @@ int sb7::LCStructuralModification1::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification2::run(int tid) const {
-//	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
-
+	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
 
 	// generate random composite part id and try to look it up
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
@@ -31,11 +29,9 @@ int sb7::LCStructuralModification2::run(int tid) const {
 	if(cpart == NULL || cpart->isDeleted || !cpart->hasLabel) {
 		throw Sb7Exception();
 	}
-    auto * c = new coarseLock(1);
-    cPool.acquire(c,tid);
+
 	dataHolder->deleteCompositePart(cpart);
 
-    cPool.release(tid);
 	return 0;
 }
 
@@ -44,8 +40,7 @@ int sb7::LCStructuralModification2::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification3::run(int tid) const {
-//	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
-
+	WriteLockHandle writeLockHandle(lc_lock_srv.getLock());
 
 	// generate random composite part id
 	int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
@@ -61,13 +56,10 @@ int sb7::LCStructuralModification3::run(int tid) const {
 
 	if(bassm == NULL || bassm->isDeleted || !bassm->hasLabel) {
 		throw Sb7Exception();
-	}
-
-    auto * c = new coarseLock(1);
-    cPool.acquire(c,tid);
+	}	
 
 	bassm->addComponent(cpart);
-    cPool.release(tid);
+
 	return 0;
 }
 

@@ -24,8 +24,11 @@ class interval{
 public: double pre, post;
     int mode;
     long MySeq;
+    atomic_flag accessController = ATOMIC_FLAG_INIT;
+
     interval( long a, long b, int m){
         pre = a; post = b; mode = m;
+        accessController.test_and_set();
     }
 };
 
@@ -81,13 +84,14 @@ public:
             {
                 interval *ptr = Array[i];
                 //wait untill there is an overlap and my sequence number is greater
-                while(ptr !=NULL &&
+                if(ptr !=NULL &&
                       (m == 1 || (m == 0 && ptr->mode == 1)) &&
                       (ptr->post >= inv->pre && inv->post>= ptr->pre)&&
 //                      ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
                       ptr->MySeq < inv->MySeq)
                 {
-                    ptr = Array[i];
+//                    ptr = Array[i];
+                        ptr->accessController.wait(true);
                 }
             }
         }
@@ -100,8 +104,11 @@ public:
 
     void Delete(int index)
     {
-
+        auto i = Array[index];
+        i->accessController.clear();
         Array[index] = nullptr;
+        i->accessController.notify_all();
+
 
 
     }

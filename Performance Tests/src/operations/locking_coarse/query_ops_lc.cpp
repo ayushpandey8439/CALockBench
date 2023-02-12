@@ -7,19 +7,16 @@
 #include "../../parameters.h"
 #include "../../struct/assembly.h"
 #include "../../sb7_exception.h"
-#include "../../coarsePool.h"
 
 ////////////
 // Query1 //
 ////////////
 
 #define QUERY1_ITER 10
-extern coarsePool cPool;
 
 int sb7::LCQuery1::run(int tid) const {
-//	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
-    return innerRun(tid);
-
+	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+	return innerRun(tid);
 }
 
 int sb7::LCQuery1::innerRun(int tid) const {
@@ -31,18 +28,10 @@ int sb7::LCQuery1::innerRun(int tid) const {
     Map<int, AtomicPart *>::Query query;
     query.key = apartId;
     apartInd->get(query);
-    int mode = 0;
-    if(string(name) == "Q1")
-        mode = 0;
-    if(string(name) == "OP9")
-        mode = 1;
 
     if(query.found && query.val->hasLabel) {
         //cout<<".";
-        auto * c = new coarseLock(mode);
-        cPool.acquire(c,tid);
         performOperationOnAtomicPart(query.val);
-        cPool.release(tid);
         count++;
     } else {
         throw Sb7Exception();
@@ -68,13 +57,11 @@ sb7::LCQuery2::LCQuery2(DataHolder *dh, optype t, const char *n, int p)
 }
 
 int sb7::LCQuery2::run(int tid) const {
-//	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+	ReadLockHandle readLockHandle(lc_lock_srv.getLock());
 	return innerRun(tid);
-
 }
 
 int sb7::LCQuery2::innerRun(int tid) const {
-
 	int count = 0;
 
     int range = percent* (parameters.getMaxAtomicDate() -
@@ -86,16 +73,11 @@ int sb7::LCQuery2::innerRun(int tid) const {
 		dataHolder->getAtomicPartBuildDateIndex();
 	MapIterator<int, Set<AtomicPart *> *> iter =
 		setInd->getRange(min, max);
-    int mode = 0;
-    if(string(name) == "Q2")
-        mode = 0;
-    if(string(name) == "OP10")
-        mode = 1;
+
 	while(iter.has_next()) {
 		Set<AtomicPart *> *apartSet = iter.next();
 		SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-        auto * c = new coarseLock(mode);
-        cPool.acquire(c,tid);
+
 		while(apartIter.has_next()) {
 			AtomicPart *apart = apartIter.next();
             if(apart->hasLabel) {
@@ -103,7 +85,6 @@ int sb7::LCQuery2::innerRun(int tid) const {
                 count++;
             }
 		}
-        cPool.release(tid);
 	}
 
 	return count;

@@ -32,12 +32,14 @@ public:
     int Id;
     int mode;
     long Oseq;
+    atomic_flag accessController = ATOMIC_FLAG_INIT;
 
     lockObject(int pId, boost::container::flat_set<int> * ancestors, int m){
         Id = pId;
         criticalAncestors = ancestors;
         mode = m;
         Oseq=-1;
+        accessController.test_and_set();
     }
 };
 
@@ -89,7 +91,7 @@ public:
 
                 /// Spin waiting on the condition.
                 auto l = locks[i];
-                while (l!= nullptr &&
+                if (l!= nullptr &&
                        /// If a read lock is requested for an object that is read locked, only then allow it.
                        (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
                        /// Someone else has requested a lock on my LSCA before me.
@@ -98,8 +100,9 @@ public:
                        || l->criticalAncestors->contains(reqObj->Id)) &&
                        /// It isn't my turn to take the lock
                        (reqObj->Oseq > l->Oseq)) {
-                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
-                    l=locks[i];
+//                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+//                    l=locks[i];
+                    l->accessController.wait(true);
                 }
             }
         }
@@ -111,6 +114,8 @@ public:
     void releaseLock(lockObject *l, int threadId){
 //        std::unique_lock<std::shared_mutex> lk (threadMutexes[threadId]);
         locks[threadId] = nullptr;
+        l->accessController.clear();
+        l->accessController.notify_all();
 //        threadConditions[threadId].notify_all();
     }
 //

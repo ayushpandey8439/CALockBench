@@ -4,15 +4,13 @@
 #include "../../sb7_exception.h"
 #include "lock_srv_lm.h"
 #include "../../thread/thread.h"
-#include "../../mediumPool.h"
 
 ////////////////
 // Operation6 //
 ////////////////
-extern mediumPool mPool;
 
 int sb7::LMOperation6::run(int tid) const {
-//	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
 	// Generate one random number that is in range of possible complex assembly
 	// identifiers. It is used to look up complex assembly.
@@ -35,44 +33,45 @@ int sb7::LMOperation6::run(int tid) const {
 	if(!query.found || !query.val->hasLabel) {
 		throw Sb7Exception();
 	}
-    int ret;
 
-    // if complex assembly was found process it
-    ComplexAssembly *cassm = query.val;
-    ComplexAssembly *superAssm = cassm->getSuperAssembly();
-    // if this assembly is root perform operation on it
-    if(superAssm == NULL || !superAssm->hasLabel) {
-        ComplexAssembly *superAssm = cassm->getSuperAssembly();
-        int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
-        int lockType = (lockLvl*10)+1;
-        auto * c = new mediumLock(0,lockType);
-        mPool.acquire(c,tid);
-        performOperationOnComplexAssembly(cassm);
-        mPool.release(tid);
-        return 0;
-    } else {
-        // else perform operation on all it's siblings (including itself)
-        Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
-        SetIterator<Assembly *> iter = siblingAssms->getIter();
-        ret = 0;
-        ComplexAssembly *superAssm = cassm->getSuperAssembly();
-        int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
-        int lockType = (lockLvl*10)+1;
-        auto * c = new mediumLock(0,lockType);
-        mPool.acquire(c,tid);
-        while(iter.has_next()) {
-            performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
-            ret++;
-        }
-        mPool.release(tid);
-        return 0;
+	// if complex assembly was found process it
+	ComplexAssembly *cassm = query.val;
+    if(cassm->hasLabel){
+        return processComplexAssemblyWrap(cassm);
     }
-
     return 0;
 }
 
-int sb7::LMOperation6::processComplexAssemblyWrap(sb7::ComplexAssembly *cassm) const {
-    return 0;
+int sb7::LMOperation6::processComplexAssemblyWrap(
+		ComplexAssembly *cassm) const {
+	ComplexAssembly *superAssm = cassm->getSuperAssembly();
+	int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
+	ReadLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
+	
+	return processComplexAssembly(cassm);
+}
+
+int sb7::LMOperation6::processComplexAssembly(ComplexAssembly *cassm) const {
+	ComplexAssembly *superAssm = cassm->getSuperAssembly();
+	int ret;
+
+	// if this assembly is root perform operation on it
+	if(superAssm == NULL ) {
+		performOperationOnComplexAssembly(cassm);
+		ret = 1;
+	} else {
+		// else perform operation on all it's siblings (including itself)
+		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
+		SetIterator<Assembly *> iter = siblingAssms->getIter();
+		ret = 0;
+
+		while(iter.has_next()) {
+			performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
+			ret++;
+		}
+	}
+
+	return ret;
 }
 
 void sb7::LMOperation6::performOperationOnComplexAssembly(
@@ -85,13 +84,13 @@ void sb7::LMOperation6::performOperationOnComplexAssembly(
 ////////////////
 
 int sb7::LMOperation7::run(int tid) const {
-//	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-//	ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
+	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+	ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
 
-	return innerRun(tid);
+	return innerRun();
 }
 
-int sb7::LMOperation7::innerRun(int tid) const {
+int sb7::LMOperation7::innerRun() const {
 	// Generate one random number that is in range of possible base assembly
 	// identifiers. It is used to look up base assembly from index.
 	//
@@ -115,14 +114,11 @@ int sb7::LMOperation7::innerRun(int tid) const {
 	Set<Assembly *> *siblingSet = superAssm->getSubAssemblies();
 	SetIterator<Assembly *> iter = siblingSet->getIter();
 	int ret = 0;
-    auto * c = new mediumLock(0,2);
-    mPool.acquire(c,tid);
 
 	while(iter.has_next()) {
 		performOperationOnBaseAssembly((BaseAssembly *)iter.next());
 		ret++;
 	}
-    mPool.release(tid);
 
 	return ret;
 }
@@ -184,8 +180,8 @@ void sb7::LMOperation8::performOperationOnComponent(CompositePart *comp) const {
 ////////////////
 
 int sb7::LMOperation9::run(int tid) const {
-//	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-//	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
 	return LMQuery1::innerRun(tid);
 }
@@ -199,8 +195,8 @@ void sb7::LMOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 ////////////////
 
 int sb7::LMOperation10::run(int tid) const {
-//	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-//	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
 	return LMQuery2::innerRun(tid);
 }
@@ -247,9 +243,8 @@ int sb7::LMOperation12::processComplexAssemblyWrap(
 	ComplexAssembly *superAssm = cassm->getSuperAssembly();
 	int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
 	WriteLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
-
-	performOperationOnComplexAssembly(cassm);
-    return 0;
+	
+	return processComplexAssembly(cassm);
 }
 
 void sb7::LMOperation12::performOperationOnComplexAssembly(
@@ -264,7 +259,8 @@ void sb7::LMOperation12::performOperationOnComplexAssembly(
 int sb7::LMOperation13::run(int tid) const {
 	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 	WriteLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
-	return innerRun(tid);
+
+	return innerRun();
 }
 
 void sb7::LMOperation13::performOperationOnBaseAssembly(

@@ -2,8 +2,9 @@
 #define SB7_LOCK_SRV_LC_H_
 
 #include <pthread.h>
-using namespace std;
+
 namespace sb7 {
+
 	class LCLockSrv {
 		public:
 			LCLockSrv() {
