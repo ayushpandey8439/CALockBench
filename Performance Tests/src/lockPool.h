@@ -52,7 +52,7 @@ public:
     long int Gseq;
     std::chrono::duration<long double, std::nano> idleness[SIZE];
     std::chrono::duration<long double, std::nano> modificationTimeCA;
-    atomic<long int> count;
+    atomic<long int> count = 1;
     const uint processor_Count = std::thread::hardware_concurrency();
     lockPool(){
         Gseq = 0;

@@ -38,7 +38,7 @@ class IntervalCheck{
 public:
     interval *Array[S];
     int VectorSize[S];
-    atomic<long int> count;
+    atomic<long int> count = 1;
     //Lock variable, one per lock-pool location
     pthread_rwlock_t ArrayLock[S];
 

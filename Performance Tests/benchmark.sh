@@ -1,11 +1,7 @@
 echo Compiling Benchmark implementation on STMBench7......
 make clean
 make all
-<<<<<<< HEAD
-COUNT=1
-=======
-COUNT=4
->>>>>>> parent of 654d21b (set initial count for relabelling to 1)
+COUNT=5
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
 echo Stage 1 of 3 : Running standard workload benchmarks
