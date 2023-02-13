@@ -1,4 +1,4 @@
-echo Compiling Benchmark implementation on STMBench7......
+#echo Compiling Benchmark implementation on STMBench7......
 #make clean
 #make all
 #rm -rf build
@@ -11,7 +11,6 @@ echo Compiling Benchmark implementation on STMBench7......
 #cp sb7_lock ../
 #cd ..
 #
-
 COUNT=5
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
