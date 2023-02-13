@@ -88,10 +88,9 @@ public:
             /// A thread won't run into conflict with itself.
             /// A thread won't run into conflict with itself.
             if(locks[i] != nullptr){
-
                 /// Spin waiting on the condition.
                 auto l = locks[i];
-                if (l!= nullptr &&
+                while (l!= nullptr &&
                        /// If a read lock is requested for an object that is read locked, only then allow it.
                        (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
                        /// Someone else has requested a lock on my LSCA before me.
@@ -100,9 +99,9 @@ public:
                        || l->criticalAncestors->contains(reqObj->Id)) &&
                        /// It isn't my turn to take the lock
                        (reqObj->Oseq > l->Oseq)) {
-//                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
-//                    l=locks[i];
-                    l->accessController.wait(true);
+                    if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+                    l=locks[i];
+//                    l->accessController.wait(true);
                 }
             }
         }
