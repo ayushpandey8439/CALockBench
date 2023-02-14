@@ -7,7 +7,7 @@ import sys
 data = pd.read_csv("./benchmarkResults/Results.csv")
 data1 = pd.read_csv("./benchmarkResults/IdlenessResults.csv")
 data2 = pd.read_csv("./benchmarkResults/RelabellingResults.csv")
-threadCount = int(sys.argv[2])
+threadCount = int(sys.argv[2])+1
 
 df = pd.DataFrame(data)
 df.columns = df.columns.str.strip() #For column names

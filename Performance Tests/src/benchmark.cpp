@@ -124,6 +124,7 @@ void sb7::Benchmark::init() {
 }
 void sb7::Benchmark::start() {
     if(parameters.getBenchmarkContainment()){
+        cout<<"Benchmarking locked vertex proportions"<<endl;
         auto c = new containmentBenchmarkTraversal(dataHolder);
         c->traverse(this->dataHolder.getModule()->getDesignRoot());
         ofstream file("../benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
