@@ -42,3 +42,4 @@ add_executable(sb7_lock src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
 
 
         src/interval.cpp src/interval.h src/intervalAssignment.cpp src/intervalAssignment.h src/CArelabelling.cpp src/CArelabelling.h src/DomRelabelling.cpp src/DomRelabelling.h)
+set_target_properties( sb7_lock PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../ )
