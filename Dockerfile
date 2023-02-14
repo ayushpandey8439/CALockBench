@@ -7,7 +7,7 @@ ARG src="Performance Tests/"
 COPY ${src} /usr/CALockBench/
 WORKDIR /usr/CALockBench/
 RUN cmake -S "/usr/CALockBench/" -B "/usr/CALockBench/build"
-RUN cmake --build "/usr/CALockBench/build" --target sb7_lock
+RUN cmake --build "/usr/CALockBench/build" --target sb7_lock -j6
 #RUN cp /usr/CALockBench/build/sb7_lock ../
 RUN chmod +x benchmark.sh
 RUN ls -l ./scripts
