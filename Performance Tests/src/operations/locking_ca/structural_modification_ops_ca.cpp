@@ -163,23 +163,23 @@ int sb7::CAStructuralModification5::run(int tid) const {
 /////////////////////////////
 
 int sb7::CAStructuralModification6::run(int tid) const {
-    /// Add a base assembly
-    ///Add to a random complex assembly
-    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-    cassmId = (cassmId *(tid+1)) % parameters.getMaxBaseAssemblies();
-    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
-    if (cassm == nullptr || cassm->isDeleted) {
-        throw Sb7Exception();
-    }
-
-
-    auto * l = new lockObject (dataHolder->getModule()->getDesignRoot()->getLabellingId(), &dataHolder->getModule()->getDesignRoot()->criticalAncestors, 1);
-    pool.acquireLock(l, tid);
-    dataHolder->createSubAssembly(cassm, 1);
-    auto * r = new CArelabelling(dataHolder);
-    r->cassmQ.push(cassm);
-    r->run();
-    pool.releaseLock(l,tid);
+//    /// Add a base assembly
+//    ///Add to a random complex assembly
+//    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
+//    cassmId = (cassmId *(tid+1)) % parameters.getMaxBaseAssemblies();
+//    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+//    if (cassm == nullptr || cassm->isDeleted) {
+//        throw Sb7Exception();
+//    }
+//
+//
+//    auto * l = new lockObject (dataHolder->getModule()->getDesignRoot()->getLabellingId(), &dataHolder->getModule()->getDesignRoot()->criticalAncestors, 1);
+//    pool.acquireLock(l, tid);
+//    dataHolder->createSubAssembly(cassm, 1);
+//    auto * r = new CArelabelling(dataHolder);
+//    r->cassmQ.push(cassm);
+//    r->run();
+//    pool.releaseLock(l,tid);
 
     return 0;
 

@@ -115,7 +115,7 @@ int sb7::DomStructuralModification4::run(int tid) const {
         ICheck.count.fetch_add(1);
         ICheck.Delete(tid);
     }
-
+    return 0;
 }
 
 /////////////////////////////
