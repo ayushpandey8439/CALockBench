@@ -15,11 +15,14 @@ df.to_csv("./benchmarkCharts/ContainmentRatio.csv", index=False)
 x = df.groupby('Type', as_index=False).agg('mean')
 print(x)
 
+n=4
+r = np.arange(n)
+width = 0.25
 
-plt.plot(x['Domlock'], color='#173f5f', label='Domlock', marker='+')
-plt.plot(x['CALock'], color='#3caea3', label='CALock', marker='o')
+plt.bar(r, x['Domlock'], width=width,color='#173f5f', label='Domlock')
+plt.bar(r+width, x['CALock'], width=width,color='#3caea3', label='CALock')
 plt.xlabel('Vertex type', fontweight='bold')
-plt.ylabel('Vertices locked (LogScale)', fontweight='bold')
+plt.ylabel('Vertices locked (log scale)', fontweight='bold')
 
 plt.xticks([0,1,2,3], ['Complex Assembly', 'Base Assembly', 'Composite Part', 'Atomic Part'])
 plt.yscale('log')

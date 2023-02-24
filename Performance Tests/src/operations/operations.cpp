@@ -216,8 +216,10 @@ void sb7::Operations::initOperationsLockCA(DataHolder *dh) {
 //    ops.push_back(new CAStructuralModification1(dh)); Node creation
       ops.push_back(new CAStructuralModification2(dh));
       ops.push_back(new CAStructuralModification3(dh));
-      //      ops.push_back(new CAStructuralModification4(dh));
-//      ops.push_back(new CAStructuralModification5(dh));
+      /// These operations are only used for isolated structural modifications.
+      /// Do not use them in a performance benchmark. Correctness is not guaranteed
+//    ops.push_back(new CAStructuralModification4(dh));
+//    ops.push_back(new CAStructuralModification5(dh));
 //    ops.push_back(new CAStructuralModification6(dh));
 //    ops.push_back(new CAStructuralModification7(dh));
 //    ops.push_back(new CAStructuralModification8(dh));
@@ -268,12 +270,13 @@ void sb7::Operations::initOperationsLockDom(DataHolder *dh) {
 //    ops.push_back(new DomStructuralModification1(dh)); Node creation
     ops.push_back(new DomStructuralModification2(dh));
     ops.push_back(new DomStructuralModification3(dh));
-    //    ops.push_back(new DomStructuralModification4(dh));
+    /// These operations are only used for isolated structural modifications.
+    /// Do not use them in a performance benchmark. These are performed under a mutex to get absolute performance measure
+//        ops.push_back(new DomStructuralModification4(dh));
 //    ops.push_back(new DomStructuralModification5(dh));
 //    ops.push_back(new DomStructuralModification6(dh));
 //    ops.push_back(new DomStructuralModification7(dh));
 //    ops.push_back(new DomStructuralModification8(dh));
-
 }
 
 

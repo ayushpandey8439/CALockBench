@@ -44,12 +44,14 @@ void CArelabelling::traverse(ComplexAssembly *cassm) {
         return;
     }
     list<int> currLabel = cassm->pathLabel;
-    list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
-    superLabel.push_back((cassm->getId()*10)+1);
-
-    if(currLabel == superLabel){
-        return;
+    if(cassm != dataHolder->getModule()->getDesignRoot()){
+        list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
+        superLabel.push_back((cassm->getId()*10)+1);
+        if(currLabel == superLabel){
+            return;
+        }
     }
+
 
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();

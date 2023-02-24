@@ -97,49 +97,25 @@ int sb7::DomStructuralModification3::run(int tid) const {
 /////////////////////////////
 
 int sb7::DomStructuralModification4::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    int cassmId = get_random()->nextInt(parameters.getMaxComplexAssemblies()) + 1;
+    cassmId = (cassmId *(tid+1)) % parameters.getMaxComplexAssemblies();
+    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+    if (cassm == nullptr || cassm->isDeleted) {
+        throw Sb7Exception();
+    }
 
-	// generate random base assembly id
-	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-	BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
+    auto * l = new interval (dataHolder->getModule()->getDesignRoot()->m_pre_number, dataHolder->getModule()->getDesignRoot()->m_post_number, 1);
+    if(!ICheck.IsOverlap(l, 1, tid)) {
+        dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
+        auto *r = new DomRelabelling(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        auto t2 = std::chrono::high_resolution_clock::now();
+        ICheck.modificationTimeDom+= (t2-t1);
+        ICheck.count.fetch_add(1);
+        ICheck.Delete(tid);
+    }
 
-	if(bassm == nullptr) {
-		throw Sb7Exception();
-	}	
-
-	// select one of composite parts used in the base assembly
-	Set<CompositePart *> *cpartBag = bassm->getComponents();
-	int compNum = cpartBag->size();
-
-	if(compNum == 0) {
-		throw Sb7Exception();
-	}
-
-	int nextId = get_random()->nextInt(compNum);
-
-	// find component with that ordinal number
-	SetIterator<CompositePart *> iter = cpartBag->getIter();
-	int i = 0;
-
-	while(iter.has_next()) {
-		CompositePart *cpart = iter.next();
-
-		if(nextId == i) {
-            auto *inv = new interval(bassm->m_pre_number,bassm->m_post_number,1);
-            if(!ICheck.IsOverlap(inv, 1, tid)) {
-                bassm->removeComponent(cpart);
-                auto *r = new DomRelabelling(dataHolder);
-                r->traverse(dataHolder->getModule()->getDesignRoot());
-                ICheck.Delete(tid);
-            }
-			return 0;
-		}
-
-		i++;
-	}
-
-	throw Sb7Exception(
-		"SM4: concurrent modification of BaseAssembly.components!");
 }
 
 /////////////////////////////
@@ -147,30 +123,18 @@ int sb7::DomStructuralModification4::run(int tid) const {
 /////////////////////////////
 
 int sb7::DomStructuralModification5::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-
-	// generate random base assembly id
-	int bassmId = get_random()->nextInt(
-		parameters.getMaxBaseAssemblies()) + 1;
-	BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
-
-	if(bassm == NULL) {
-		throw Sb7Exception();
-	}
-
-    auto * cassm =  bassm->getSuperAssembly();
-
-    auto *inv = new interval(cassm->m_pre_number,cassm->m_post_number,1);
-    if(!ICheck.IsOverlap(inv, 1, tid)) {
-        // create sibling base assembly
-        dataHolder->createBaseAssembly(bassm->getSuperAssembly());
+    auto * l = new interval (dataHolder->getModule()->getDesignRoot()->m_pre_number, dataHolder->getModule()->getDesignRoot()->m_post_number, 1);
+    if(!ICheck.IsOverlap(l, 1, tid)) {
+        dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
         auto *r = new DomRelabelling(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
+        auto t2 = std::chrono::high_resolution_clock::now();
+        ICheck.modificationTimeDom+= (t2-t1);
+        ICheck.count.fetch_add(1);
         ICheck.Delete(tid);
     }
-
-
-	return 0;
+    return 0;
 }
 
 /////////////////////////////

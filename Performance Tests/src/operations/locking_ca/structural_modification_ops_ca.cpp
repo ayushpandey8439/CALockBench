@@ -121,59 +121,15 @@ int sb7::CAStructuralModification3::run(int tid) const {
 /////////////////////////////
 
 int sb7::CAStructuralModification4::run(int tid) const {
-//    //WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
-//
-//    // generate random base assembly id
-//    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-//    BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
-//
-//    if (bassm == nullptr || !bassm->hasLabel) {
-//        throw Sb7Exception();
-//    }
-//
-//    // select one of composite parts used in the base assembly
-//    Bag<CompositePart *> *cpartBag = bassm->getComponents();
-//    int compNum = cpartBag->size();
-//
-//    if (compNum == 0) {
-//        throw Sb7Exception();
-//    }
-//
-//    int nextId = get_random()->nextInt(compNum);
-//
-//    // find component with that ordinal number
-//    BagIterator<CompositePart *> iter = cpartBag->getIter();
-//    int i = 0;
-//
-//    while (iter.has_next()) {
-//        /// Delete composite part and iterating over it to make locks is a trouble.
-//        /// Should we take read locks?
-//        CompositePart *cpart = iter.next();
-//        if (nextId == i && cpart->hasLabel && bassm->hasLabel) {
-//            boost::container::list<int> lockRequest = pool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
-//            DesignObj * lo = lscaHelpers::getLockObject(lockRequest, dataHolder);
-//            auto *l = new lockObject (lo->getLabellingId(), &lo->criticalAncestors, 1);
-//            if(pool.acquireLock(l, tid)) {
-//                /// Only issue the delete if the component has not be concurrently disconnected before the lock request was granted.
-//                if(bassm->hasLabel && cpart->hasLabel){
-//                    bassm->removeComponent(cpart);
-//                    //relabelling should only be done if the component is actually connected to anything. If not, we can avoid relabelling.
-//                    if(cpart->getUsedIn()->size()>0){
-//                        auto * r = new CArelabelling(dataHolder);
-//                        r->cpartQ.push(cpart);
-//                        r->run();
-//                    }
-//                }
-//                pool.releaseLock(l,tid);
-//            }
-//            return 0;
-//        }
-//
-//        i++;
-//    }
+    /// Add at the root
+    auto * l = new lockObject (dataHolder->getModule()->getDesignRoot()->getLabellingId(), &dataHolder->getModule()->getDesignRoot()->criticalAncestors, 1);
+    pool.acquireLock(l, tid);
+    dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
+    auto * r = new CArelabelling(dataHolder);
+    r->cassmQ.push(dataHolder->getModule()->getDesignRoot());
+    r->run();
+    pool.releaseLock(l,tid);
 
-//    throw Sb7Exception(
-//            "SM4: concurrent modification of BaseAssembly.components!");
 return 0;
 }
 
@@ -182,29 +138,22 @@ return 0;
 /////////////////////////////
 
 int sb7::CAStructuralModification5::run(int tid) const {
-    // generate random base assembly id
-    int bassmId = get_random()->nextInt(
-            parameters.getMaxBaseAssemblies()) + 1;
-    BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
-
-    if (bassm == nullptr || !bassm->hasLabel) {
+    ///Add to a random complex assembly
+    int cassmId = get_random()->nextInt(parameters.getMaxComplexAssemblies()) + 1;
+    cassmId = (cassmId *(tid+1)) % parameters.getMaxComplexAssemblies();
+    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+    if (cassm == nullptr || cassm->isDeleted) {
         throw Sb7Exception();
     }
 
-    auto * cassm =  bassm->getSuperAssembly();
 
-    auto * l = new lockObject (cassm->getLabellingId(), &cassm->criticalAncestors, 1);
+    auto * l = new lockObject (dataHolder->getModule()->getDesignRoot()->getLabellingId(), &dataHolder->getModule()->getDesignRoot()->criticalAncestors, 1);
     pool.acquireLock(l, tid);
-    /// Create sibling base assembly only if both the base and complex assembly exist and the complex assembly has a label.
-    if(bassm != nullptr && cassm->hasLabel){
-        dataHolder->createBaseAssembly(cassm);
-        auto * r = new CArelabelling(dataHolder);
-        r->bassmQ.push(bassm);
-        r->run();
-    }
+    dataHolder->createSubAssembly(cassm, 1);
+    auto * r = new CArelabelling(dataHolder);
+    r->cassmQ.push(cassm);
+    r->run();
     pool.releaseLock(l,tid);
-
-
 
     return 0;
 }
@@ -214,6 +163,27 @@ int sb7::CAStructuralModification5::run(int tid) const {
 /////////////////////////////
 
 int sb7::CAStructuralModification6::run(int tid) const {
+    /// Add a base assembly
+    ///Add to a random complex assembly
+    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
+    cassmId = (cassmId *(tid+1)) % parameters.getMaxBaseAssemblies();
+    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+    if (cassm == nullptr || cassm->isDeleted) {
+        throw Sb7Exception();
+    }
+
+
+    auto * l = new lockObject (dataHolder->getModule()->getDesignRoot()->getLabellingId(), &dataHolder->getModule()->getDesignRoot()->criticalAncestors, 1);
+    pool.acquireLock(l, tid);
+    dataHolder->createSubAssembly(cassm, 1);
+    auto * r = new CArelabelling(dataHolder);
+    r->cassmQ.push(cassm);
+    r->run();
+    pool.releaseLock(l,tid);
+
+    return 0;
+
+
 //   // WriteLockHandle writeLockHandle(CA_lock_srv.getLock());
 //
 //    // generate random base assembly id

@@ -108,7 +108,11 @@ void sb7::Benchmark::init() {
     /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
     auto *dfs = new CALockTraversal(&dataHolder);
     cout << "Creating labels for nodes" << std::endl;
+    auto t1 = std::chrono::high_resolution_clock::now();
     dfs->run(0);
+    auto t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<long double, std::nano> initialLabellingTime = t2-t1;
+    cout<<"Labelling time for CALock: "<<initialLabellingTime.count()<<endl;
     cout << "Creation complete" << std::endl;
     auto *dts = new CALockLabelTest(&dataHolder);
     cout << "Testing labels" << endl;
@@ -117,7 +121,11 @@ void sb7::Benchmark::init() {
 
     if (parameters.getLockType() == Parameters::lock_dom || parameters.getBenchmarkContainment()) {
         auto *dfs = new DomLockTraversal(&dataHolder);
+        auto tD1 = std::chrono::high_resolution_clock::now();
         dfs->run(0);
+        auto tD2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2-tD1;
+        cout<<"Labelling time for DomLock: "<<initialLabellingTimeDom.count()<<endl;
         cout << "Interval assignment complete" << endl;
 
     }
