@@ -17,7 +17,7 @@
 #include<iostream>
 extern lockPool pool;
 extern IntervalCheck ICheck;
-
+std::chrono::duration<long double, std::nano> idlenessTimeCM;
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
@@ -285,7 +285,9 @@ void sb7::Benchmark::reportStats(ostream &out) {
 
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
     std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
-    if(parameters.getLockType()==Parameters::lock_ca){
+    if(parameters.getLockType()==Parameters::lock_coarse || parameters.getLockType()==Parameters::lock_medium){
+        totalTimeSpentIdle = (idlenessTimeCM/parameters.getThreadNum());
+    } else if(parameters.getLockType()==Parameters::lock_ca){
         out << "Total relabelling: " << pool.modificationTimeCA.count()/(pool.count) << " nanos"<<endl;
         int count=1;
         for(auto i: pool.idleness){

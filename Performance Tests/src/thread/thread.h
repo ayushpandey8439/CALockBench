@@ -21,6 +21,10 @@
 #include <pthread.h>
 
 #include "../random.h"
+#include "../lockPool.h"
+
+extern lockPool pool;
+extern std::chrono::duration<long double, std::nano> idlenessTimeCM;
 
 namespace sb7 {
 
@@ -54,18 +58,24 @@ namespace sb7 {
     class ReadLockHandle : public LockHandle {
     public:
         explicit ReadLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+            auto t1 = std::chrono::high_resolution_clock::now();
             for (int i = size - 1; i >= 0; i--) {
                 pthread_rwlock_rdlock(lock + i);
             }
+            auto t2 = std::chrono::high_resolution_clock::now();
+            idlenessTimeCM +=(t2-t1);
         }
     };
 
     class WriteLockHandle : public LockHandle {
     public:
         explicit WriteLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+            auto t1 = std::chrono::high_resolution_clock::now();
             for (int i = size - 1; i >= 0; i--) {
                 pthread_rwlock_wrlock(lock + i);
             }
+            auto t2 = std::chrono::high_resolution_clock::now();
+            idlenessTimeCM +=(t2-t1);
         }
     };
 

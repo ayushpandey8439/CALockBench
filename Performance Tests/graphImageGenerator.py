@@ -45,6 +45,9 @@ plt.legend()
 plt.savefig("./benchmarkCharts/"+sys.argv[1]+"Throughput.png")
 
 plt.figure()
+
+plt.plot(df['Coarse'], color='#ed553b', label='Coarse', marker='d')
+plt.plot(df['Medium'], color='#f6d55c', label='Medium', marker='s')
 plt.plot(df1['Domlock'], color='#173f5f', label='Domlock', marker='+')
 plt.plot(df1['CALock'], color='#3caea3', label='CALock', marker='o')
 plt.xlabel('ThreadCount', fontweight='bold')
