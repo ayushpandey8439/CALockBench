@@ -6,7 +6,7 @@ rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
 echo Stage 1 of 3 : Running standard workload benchmarks
 echo Step 1 of 6: Read Dominated load without modifications
-. ./scripts/read.sh
+#. ./scripts/read.sh
 #echo Step 2 of 6: Read Dominated load with modifications
 #. ./scripts/readModifications.sh
 #echo Step 3 of 6: Write Dominated load without modifications
@@ -23,4 +23,4 @@ echo Step 1 of 6: Read Dominated load without modifications
 #. ./scripts/VariableReadPercentage.sh
 #
 #echo Stage 3 of 3: Running benchmark to find number of vertices locked per vertex type
-#. ./scripts/script_lockProportions.sh
+. ./scripts/script_lockProportions.sh

@@ -12,7 +12,7 @@ int main(int argc, char** argv)
     ofstream outputi("./benchmarkResults/IdlenessResults.csv");
     ofstream outputm("./benchmarkResults/RelabellingResults.csv");
 
-    int Iterations = 5;
+    int Iterations = 3;
     output<<"ThreadCount, Coarse, Medium, Domlock, CALock"<<"\n";
     outputi<<"ThreadCount,Coarse,Medium, Domlock, CALock"<<"\n";
     outputm<<"ThreadCount,Domlock, CALock"<<"\n";

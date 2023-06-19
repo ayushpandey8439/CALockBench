@@ -135,11 +135,15 @@ void sb7::Benchmark::start() {
         cout<<"Benchmarking locked vertex proportions"<<endl;
         auto c = new containmentBenchmarkTraversal(dataHolder);
         c->traverse(this->dataHolder.getModule()->getDesignRoot());
-        ofstream file("../benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
-        file <<"Type, CALock, Domlock\n";
-        for(auto& kv : c->containedCount) {
-            file <<(kv.first%10)<<","<< kv.second.first<<","<<kv.second.second << '\n';
-        }
+//        ofstream file("../benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
+//        file <<"Type, CALock, Domlock\n";
+//        for(auto& kv : c->containedCount) {
+//            file <<(kv.first%10)<<","<< kv.second.first<<","<<kv.second.second << '\n';
+//        }
+
+        cout<<"Size of labels in memory for DomLock" << c->totalLabelSizeDomLock<<"\n";
+        cout<<"Size of labels in memory for CALock" << c->totalLabelSizeCALock<< "\n";
+
         file.close();
     } else {
         cout << "Start benchmark."<< std::endl;
