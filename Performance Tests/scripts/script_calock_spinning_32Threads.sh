@@ -1,3 +1,5 @@
+echo $((2**$COUNT))
+
 for ((j=9;j>0;j--))
 do
   echo "Read Percentage "$((j*10))
