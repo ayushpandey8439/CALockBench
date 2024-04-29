@@ -14,6 +14,8 @@ namespace sb7 {
     public:
         DataHolder dh;
         map<long int, pair< int, int>> containedCount{};
+        long int totalLabelSizeCALock=0;
+        long int totalLabelSizeDomLock=0;
         containmentBenchmarkTraversal(DataHolder &d){
             dh=d;
         }
@@ -25,6 +27,8 @@ namespace sb7 {
             int CACount=0, DomCount=0;
             tie(CACount,DomCount)=findContained(dh.getModule()->getDesignRoot(), complexAssembly->getLabellingId(), complexAssembly->m_pre_number, complexAssembly->m_post_number, visitedVertices);
             containedCount.insert({complexAssembly->getLabellingId(), {CACount, DomCount}});
+            totalLabelSizeCALock+= sizeof complexAssembly->pathLabel;
+            totalLabelSizeDomLock+= (sizeof complexAssembly->m_post_number) + (sizeof complexAssembly->m_pre_number);
             Set<Assembly *> *subAssm = complexAssembly->getSubAssemblies();
             SetIterator<Assembly *> iter = subAssm->getIter();
             if(complexAssembly->areChildrenBaseAssemblies()){
@@ -46,6 +50,8 @@ namespace sb7 {
             int CACount=0, DomCount=0;
             tie(CACount,DomCount)=findContained(dh.getModule()->getDesignRoot(), baseAssembly->getLabellingId(), baseAssembly->m_pre_number, baseAssembly->m_post_number, visitedVertices);
             containedCount.insert({baseAssembly->getLabellingId(), {CACount, DomCount}});
+            totalLabelSizeCALock+= sizeof baseAssembly->pathLabel;
+            totalLabelSizeDomLock+= (sizeof baseAssembly->m_post_number) + (sizeof baseAssembly->m_pre_number);
             SetIterator<CompositePart *> iter = baseAssembly->getComponents()->getIter();
             while(iter.has_next()){
                 traverse((CompositePart*) iter.next());
@@ -60,6 +66,8 @@ namespace sb7 {
             int CACount=0, DomCount=0;
             tie(CACount,DomCount)=findContained(dh.getModule()->getDesignRoot(), compositePart->getLabellingId(), compositePart->m_pre_number, compositePart->m_post_number, visitedVertices);
             containedCount.insert({compositePart->getLabellingId(), {CACount, DomCount}});
+            totalLabelSizeCALock+= sizeof compositePart->pathLabel;
+            totalLabelSizeDomLock+= (sizeof compositePart->m_post_number) + (sizeof compositePart->m_pre_number);
             AtomicPart *rootPart = compositePart->getRootPart();
             traverse(rootPart);
         }
@@ -72,6 +80,8 @@ namespace sb7 {
             int CACount=0, DomCount=0;
             tie(CACount,DomCount)=findContained(dh.getModule()->getDesignRoot(), apart->getLabellingId(), apart->m_pre_number, apart->m_post_number, visitedVertices);
             containedCount.insert({apart->getLabellingId(), {CACount, DomCount}});
+            totalLabelSizeCALock+= sizeof apart->pathLabel;
+            totalLabelSizeDomLock+= (sizeof apart->m_post_number) + (sizeof apart->m_pre_number);
             Set<Connection *> *toConns = apart->getToConnections();
             SetIterator<Connection *> iter = toConns->getIter();
             while(iter.has_next()) {

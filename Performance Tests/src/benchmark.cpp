@@ -140,6 +140,10 @@ void sb7::Benchmark::start() {
         for(auto& kv : c->containedCount) {
             file <<(kv.first%10)<<","<< kv.second.first<<","<<kv.second.second << '\n';
         }
+
+        cout<<"Size of labels in memory for DomLock" << c->totalLabelSizeDomLock<<"\n";
+        cout<<"Size of labels in memory for CALock" << c->totalLabelSizeCALock<< "\n";
+
         file.close();
     } else {
         cout << "Start benchmark."<< std::endl;
