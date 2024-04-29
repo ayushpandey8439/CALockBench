@@ -23,7 +23,7 @@ Directory structure
 
 Sanity Testing
 ---
-To ensure that the benchmark is setup properly, set the `COUNT` parameter in the `run_performance.sh` script to 0. This will run the benchmark for 1 thread. The benchmark should complete in a few minutes. After which, there should be a few charts in the `Performance Tests/benchmarkCharts<TIMESTAMP>` directory. The charts should show the performance of the different locking algorithms for 1 thread.
+To ensure that the benchmark is set up properly, set the `COUNT` parameter in the `Performance Tests/benchmark.sh` script to 0. This will run the benchmark for 1 thread. The benchmark should finish in a few minutes. After that, there should be a few charts in the `Performance Tests/benchmarkCharts<TIMESTAMP>` directory. The charts should show the performance of the different locking algorithms for 1 thread.
 
 Setting up the benchmark
 ---

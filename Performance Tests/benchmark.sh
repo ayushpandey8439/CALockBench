@@ -1,7 +1,7 @@
 echo Compiling Benchmark implementation on STMBench7......
 cmake -S "./" -B "./build"
 cmake --build "./build" --target sb7_lock -j6
-COUNT=0
+COUNT=6
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
 echo Stage 1 of 2 : Running standard workload benchmarks
