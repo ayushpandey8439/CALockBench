@@ -18,7 +18,7 @@ Directory structure
 * `Performance Tests/benchmarkCharts` - Contains the generated charts from the benchmark.
 * `Performance Tests/benchmarkCharts<TIMESTAMP>` - Contains the generated charts from the benchmark. The timestamp is the time when the benchmark was run using the docker container. It is copied to the host machine.
 * `Performance Tests/benchmark.sh` - The main script to run the benchmark without docker. The environment setup is not handled by this script. It is recommended to use the docker container to run the benchmark.
-* `Performance Tests/run_performance.sh` - The main script to run the benchmark using the docker container. It sets up the environment and runs the benchmark.
+* `run_performance.sh` - The main script to run the benchmark using the docker container. It sets up the environment and runs the benchmark.
 * `Performance Tests/scripts` - Scripts that are used for different benchmarking steps.
 
 Sanity Testing
