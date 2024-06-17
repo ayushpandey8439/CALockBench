@@ -5,9 +5,9 @@ STRUCTURAL_MODIFICATIONS=false
 rm -rf ./benchmarkResults/
 mkdir ./benchmarkResults
 echo Benchmarking CALock......
-. ./scripts/script_calock_spinning_32Threads.sh
+. ./scripts/script_calock_32Threads.sh
 echo Benchmarking Domlock......
-. ./scripts/script_domlock_spinning_32Threads.sh
+. ./scripts/script_domlock_32Threads.sh
 pwd
 g++ ReadPercentageplotter.cpp
 ./a.out
