@@ -1,6 +1,5 @@
 FROM ubuntu:latest
-RUN apt-get -y update && apt-get install make cmake g++ python3 python3-pip -y
-RUN pip3 install matplotlib numpy pandas
+RUN apt-get -y update && apt-get install make cmake g++ python3 python3-pip python3-matplotlib python3-numpy python3-pandas -y
 
 ARG src="Performance Tests/"
 

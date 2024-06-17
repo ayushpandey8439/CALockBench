@@ -1,6 +1,6 @@
 DURATION=2000
 SIZE=b
-ITERATIONS_PER_THREAD=5
+ITERATIONS_PER_THREAD=2
 STRUCTURAL_MODIFICATIONS=false
 rm -rf ./benchmarkResults/
 mkdir ./benchmarkResults
