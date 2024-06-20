@@ -1,5 +1,0 @@
-version: "1.0"
-services:
-  benchmark:
-    container_name: LockBenchmark
-    build: .
