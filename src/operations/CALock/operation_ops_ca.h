@@ -6,7 +6,6 @@
 #define STMBENCH_OPERATION_OPS_CA_H
 
 
-
 #include "../operations.h"
 #include "query_ops_ca.h"
 #include "traversal_ops_ca.h"
@@ -28,6 +27,7 @@ namespace sb7 {
 
     protected:
         virtual int innerRun(int tid) const;
+
         virtual void performOperationOnComplexAssembly(
                 ComplexAssembly *cassm) const;
     };
@@ -46,6 +46,7 @@ namespace sb7 {
 
     protected:
         virtual int innerRun(int tid) const;
+
         virtual void performOperationOnBaseAssembly(
                 BaseAssembly *bassm) const;
     };
@@ -64,6 +65,7 @@ namespace sb7 {
 
     protected:
         virtual int innerRun(int tid) const;
+
         virtual void performOperationOnComponent(
                 CompositePart *comp) const;
     };
@@ -157,7 +159,6 @@ namespace sb7 {
     };
 
 }
-
 
 
 #endif //STMBENCH_OPERATION_OPS_CA_H

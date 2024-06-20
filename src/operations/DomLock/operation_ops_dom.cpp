@@ -5,86 +5,89 @@
 #include "../../sb7_exception.h"
 #include "./DomPool.h"
 #include "./dominatorHelper.h"
-extern DomPool ICheck;
+
+extern DomPool domPool;
 
 ////////////////
 // Operation6 //
 ////////////////
 
 int sb7::DomOperation6::run(int tid) const {
-	//ReadLockHandle readLockHandle(dom_lock_srv.getLock());
-	return innerRun(tid);
+    //ReadLockHandle readLockHandle(dom_lock_srv.getLock());
+    return innerRun(tid);
 }
 
 int sb7::DomOperation6::innerRun(int tid) const {
-	// Generate one random number that is in range of possible complex assembly
-	// identifiers. It is used to look up complex assembly.
-	//
-	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
-	//
-	int cassmId = get_random()->nextInt(
-		parameters.getMaxComplexAssemblies()) + 1;
+    // Generate one random number that is in range of possible complex assembly
+    // identifiers. It is used to look up complex assembly.
+    //
+    // TODO try to figure out how to generate these ids in a more precise way
+    // so this operation fails only if it is really
+    //
+    int cassmId = get_random()->nextInt(
+            parameters.getMaxComplexAssemblies()) + 1;
 
-	// lookup complex assembly using complex assembly index
-	Map<int, ComplexAssembly *> *cassmInd =
-		dataHolder->getComplexAssemblyIdIndex();
-	Map<int, ComplexAssembly *>::Query query;
-	query.key = cassmId;
-	cassmInd->get(query);
+    // lookup complex assembly using complex assembly index
+    Map<int, ComplexAssembly *> *cassmInd =
+            dataHolder->getComplexAssemblyIdIndex();
+    Map<int, ComplexAssembly *>::Query query;
+    query.key = cassmId;
+    cassmInd->get(query);
 
-	// If complex assembly is not found throw an exception.
-	// This is an easy way to get out of the transaction.
-	if(!query.found|| query.val->m_pre_number==0 || query.val->m_post_number==0) {
-		throw Sb7Exception();
-	}
+    // If complex assembly is not found throw an exception.
+    // This is an easy way to get out of the transaction.
+    if (!query.found || query.val->m_pre_number == 0 || query.val->m_post_number == 0) {
+        throw Sb7Exception();
+    }
 
-	int ret;
+    int ret;
 
-	// if complex assembly was found process it
-	ComplexAssembly *cassm = query.val;
-	ComplexAssembly *superAssm = cassm->getSuperAssembly();
+    // if complex assembly was found process it
+    ComplexAssembly *cassm = query.val;
+    ComplexAssembly *superAssm = cassm->getSuperAssembly();
 
-	// if this assembly is root perform operation on it
-	if(superAssm == NULL || superAssm->m_pre_number==0 || superAssm->m_post_number==0) {
-        float min=INFINITY, max=0;
-        min=cassm->m_pre_number; max= cassm->m_post_number;
-        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
-        auto *inv = new interval(min,max,0);
-        if(!ICheck.IsOverlap(inv, 0, tid)) {
+    // if this assembly is root perform operation on it
+    if (superAssm == NULL || superAssm->m_pre_number == 0 || superAssm->m_post_number == 0) {
+        float min = INFINITY, max = 0;
+        min = cassm->m_pre_number;
+        max = cassm->m_post_number;
+        pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
+        auto *inv = new interval(min, max, 0);
+        if (!domPool.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
             performOperationOnComplexAssembly(cassm);
             pthread_rwlock_unlock(lock);
             ret = 1;
-            ICheck.Delete(tid);
+            domPool.Delete(tid);
         }
         ret = 0;
-	} else {
-		// else perform operation on all it's siblings (including itself)
-		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
-		SetIterator<Assembly *> iter = siblingAssms->getIter();
-		ret = 0;
-        float min=INFINITY, max=0;
-        min=superAssm->m_pre_number; max= superAssm->m_post_number;
-        pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
-        auto *inv = new interval(min,max,0);
-        if(!ICheck.IsOverlap(inv, 0, tid)) {
+    } else {
+        // else perform operation on all it's siblings (including itself)
+        Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
+        SetIterator<Assembly *> iter = siblingAssms->getIter();
+        ret = 0;
+        float min = INFINITY, max = 0;
+        min = superAssm->m_pre_number;
+        max = superAssm->m_post_number;
+        pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
+        auto *inv = new interval(min, max, 0);
+        if (!domPool.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
-            while(iter.has_next()) {
-                performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
+            while (iter.has_next()) {
+                performOperationOnComplexAssembly((ComplexAssembly *) iter.next());
                 ret++;
             }
             pthread_rwlock_unlock(lock);
-            ICheck.Delete(tid);
+            domPool.Delete(tid);
         }
-	}
+    }
 
-	return ret;
+    return ret;
 }
 
 void sb7::DomOperation6::performOperationOnComplexAssembly(
-		ComplexAssembly *cassm) const {
-	cassm->nullOperation();
+        ComplexAssembly *cassm) const {
+    cassm->nullOperation();
 }
 
 ////////////////
@@ -92,57 +95,58 @@ void sb7::DomOperation6::performOperationOnComplexAssembly(
 ////////////////
 
 int sb7::DomOperation7::run(int tid) const {
-	//ReadLockHandle readLockHandle(dom_lock_srv.getLock());
-	return innerRun(tid);
+    //ReadLockHandle readLockHandle(dom_lock_srv.getLock());
+    return innerRun(tid);
 }
 
 int sb7::DomOperation7::innerRun(int tid) const {
-	// Generate one random number that is in range of possible base assembly
-	// identifiers. It is used to look up base assembly from index.
-	//
-	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
-	//
-	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-	
-	// lookup base assembly using base assembly index
-	Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
-	Map<int, BaseAssembly *>::Query query;
-	query.key = bassmId;
-	bassmInd->get(query);
+    // Generate one random number that is in range of possible base assembly
+    // identifiers. It is used to look up base assembly from index.
+    //
+    // TODO try to figure out how to generate these ids in a more precise way
+    // so this operation fails only if it is really
+    //
+    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
 
-	if(!query.found || query.val->m_pre_number==0 || query.val->m_post_number==0) {
-		throw Sb7Exception();
-	}
+    // lookup base assembly using base assembly index
+    Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
+    Map<int, BaseAssembly *>::Query query;
+    query.key = bassmId;
+    bassmInd->get(query);
 
-	// process all sibling base assemblies
-	ComplexAssembly *superAssm = query.val->getSuperAssembly();
-	Set<Assembly *> *siblingSet = superAssm->getSubAssemblies();
-	SetIterator<Assembly *> iter = siblingSet->getIter();
-	int ret = 0;
+    if (!query.found || query.val->m_pre_number == 0 || query.val->m_post_number == 0) {
+        throw Sb7Exception();
+    }
 
-    float min=INFINITY, max=0;
-    min=superAssm->m_pre_number; max= superAssm->m_post_number;
-    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
-    auto *inv = new interval(min,max,0);
+    // process all sibling base assemblies
+    ComplexAssembly *superAssm = query.val->getSuperAssembly();
+    Set<Assembly *> *siblingSet = superAssm->getSubAssemblies();
+    SetIterator<Assembly *> iter = siblingSet->getIter();
+    int ret = 0;
 
-    if(!ICheck.IsOverlap(inv, 0, tid)) {
+    float min = INFINITY, max = 0;
+    min = superAssm->m_pre_number;
+    max = superAssm->m_post_number;
+    pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
+    auto *inv = new interval(min, max, 0);
+
+    if (!domPool.IsOverlap(inv, 0, tid)) {
         pthread_rwlock_rdlock(lock);
-        while(iter.has_next()) {
-            performOperationOnBaseAssembly((BaseAssembly *)iter.next());
+        while (iter.has_next()) {
+            performOperationOnBaseAssembly((BaseAssembly *) iter.next());
             ret++;
         }
         pthread_rwlock_unlock(lock);
-        ICheck.Delete(tid);
+        domPool.Delete(tid);
     }
 
 
-	return ret;
+    return ret;
 }
 
 void sb7::DomOperation7::performOperationOnBaseAssembly(
-		BaseAssembly *bassm) const {
-	bassm->nullOperation();
+        BaseAssembly *bassm) const {
+    bassm->nullOperation();
 }
 
 ////////////////
@@ -150,64 +154,64 @@ void sb7::DomOperation7::performOperationOnBaseAssembly(
 ////////////////
 
 int sb7::DomOperation8::run(int tid) const {
-	//ReadLockHandle readLockHandle(dom_lock_srv.getLock());
-	return innerRun(tid);
+    //ReadLockHandle readLockHandle(dom_lock_srv.getLock());
+    return innerRun(tid);
 }
 
 int sb7::DomOperation8::innerRun(int tid) const {
-	// Generate one random number that is in range of possible base assembly
-	// identifiers. It is used to look up base assembly from index.
-	//
-	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
-	//
-	int bassmId = get_random()->nextInt(
-		parameters.getMaxBaseAssemblies()) + 1;
-	
-	// lookup base assembly using base assembly index
-	Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
-	Map<int, BaseAssembly *>::Query query;
-	query.key = bassmId;
-	bassmInd->get(query);
+    // Generate one random number that is in range of possible base assembly
+    // identifiers. It is used to look up base assembly from index.
+    //
+    // TODO try to figure out how to generate these ids in a more precise way
+    // so this operation fails only if it is really
+    //
+    int bassmId = get_random()->nextInt(
+            parameters.getMaxBaseAssemblies()) + 1;
 
-	if(!query.found) {
-		throw Sb7Exception();
-	}
+    // lookup base assembly using base assembly index
+    Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
+    Map<int, BaseAssembly *>::Query query;
+    query.key = bassmId;
+    bassmInd->get(query);
 
-	Bag<CompositePart *> *componentBag = query.val->getComponents();
+    if (!query.found) {
+        throw Sb7Exception();
+    }
+
+    Bag<CompositePart *> *componentBag = query.val->getComponents();
     BagIterator<CompositePart *> iter = componentBag->getIter();
-	int ret = 0;
+    int ret = 0;
 
     list<CompositePart *> cparts;
-    long min=0, max=0;
+    long min = 0, max = 0;
 
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();
-        if(cpart->m_pre_number!=0){
+        if (cpart->m_pre_number != 0) {
             cparts.push_back(cpart);
-            if(min==0 || min< cpart->m_pre_number){
-                min=cpart->m_pre_number;
+            if (min == 0 || min < cpart->m_pre_number) {
+                min = cpart->m_pre_number;
             }
-            if(max ==0 || max > cpart->m_post_number){
+            if (max == 0 || max > cpart->m_post_number) {
                 max = cpart->m_post_number;
             }
         }
     }
 
-    auto *inv = new interval(min, max,0);
-    if(!ICheck.IsOverlap(inv, 0, tid)) {
-       for(auto * cpart: cparts){
-           performOperationOnComponent(cpart);
-           ret++;
-       }
-        ICheck.Delete(tid);
+    auto *inv = new interval(min, max, 0);
+    if (!domPool.IsOverlap(inv, 0, tid)) {
+        for (auto *cpart: cparts) {
+            performOperationOnComponent(cpart);
+            ret++;
+        }
+        domPool.Delete(tid);
     }
 
-	return ret;
+    return ret;
 }
 
 void sb7::DomOperation8::performOperationOnComponent(CompositePart *comp) const {
-	comp->nullOperation();
+    comp->nullOperation();
 }
 
 ////////////////
@@ -215,12 +219,12 @@ void sb7::DomOperation8::performOperationOnComponent(CompositePart *comp) const 
 ////////////////
 
 int sb7::DomOperation9::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomQuery1::innerRun(tid);
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomQuery1::innerRun(tid);
 }
 
 void sb7::DomOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
-	apart->swapXY();
+    apart->swapXY();
 }
 
 ////////////////
@@ -228,12 +232,12 @@ void sb7::DomOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 ////////////////
 
 int sb7::DomOperation10::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomQuery2::innerRun(tid);
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomQuery2::innerRun(tid);
 }
 
 void sb7::DomOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
-	apart->swapXY();
+    apart->swapXY();
 }
 
 /////////////////
@@ -244,22 +248,22 @@ void sb7::DomOperation10::performOperationOnAtomicPart(AtomicPart *apart) const 
 #define MANUAL_TEXT_START_2 'i'
 
 int sb7::DomOperation11::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomTraversal8::traverse(dataHolder->getModule()->getManual());
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomTraversal8::traverse(dataHolder->getModule()->getManual());
 }
 
 int sb7::DomOperation11::traverse(Manual *manual) const {
-	int ret;
+    int ret;
 
-	if(manual->startsWith(MANUAL_TEXT_START_1)) {
-		ret = manual->replaceChar(MANUAL_TEXT_START_1, MANUAL_TEXT_START_2);
-	} else if(manual->startsWith(MANUAL_TEXT_START_2)) {
-		ret = manual->replaceChar(MANUAL_TEXT_START_2, MANUAL_TEXT_START_1);
-	} else {
-		throw Sb7Exception("OP11: unexpected Manual.text!");
-	}
+    if (manual->startsWith(MANUAL_TEXT_START_1)) {
+        ret = manual->replaceChar(MANUAL_TEXT_START_1, MANUAL_TEXT_START_2);
+    } else if (manual->startsWith(MANUAL_TEXT_START_2)) {
+        ret = manual->replaceChar(MANUAL_TEXT_START_2, MANUAL_TEXT_START_1);
+    } else {
+        throw Sb7Exception("OP11: unexpected Manual.text!");
+    }
 
-	return ret;
+    return ret;
 }
 
 /////////////////
@@ -267,13 +271,13 @@ int sb7::DomOperation11::traverse(Manual *manual) const {
 /////////////////
 
 int sb7::DomOperation12::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomOperation6::innerRun(tid);
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomOperation6::innerRun(tid);
 }
 
 void sb7::DomOperation12::performOperationOnComplexAssembly(
-		ComplexAssembly *cassm) const {
-	cassm->updateBuildDate();
+        ComplexAssembly *cassm) const {
+    cassm->updateBuildDate();
 }
 
 /////////////////
@@ -281,13 +285,13 @@ void sb7::DomOperation12::performOperationOnComplexAssembly(
 /////////////////
 
 int sb7::DomOperation13::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomOperation7::innerRun(tid);
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomOperation7::innerRun(tid);
 }
 
 void sb7::DomOperation13::performOperationOnBaseAssembly(
-		BaseAssembly *bassm) const {
-	bassm->updateBuildDate();
+        BaseAssembly *bassm) const {
+    bassm->updateBuildDate();
 }
 
 /////////////////
@@ -295,13 +299,13 @@ void sb7::DomOperation13::performOperationOnBaseAssembly(
 /////////////////
 
 int sb7::DomOperation14::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomOperation8::innerRun(tid);
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomOperation8::innerRun(tid);
 }
 
 void sb7::DomOperation14::performOperationOnComponent(
-		CompositePart *cpart) const {
-	cpart->updateBuildDate();
+        CompositePart *cpart) const {
+    cpart->updateBuildDate();
 }
 
 /////////////////
@@ -309,12 +313,12 @@ void sb7::DomOperation14::performOperationOnComponent(
 /////////////////
 
 int sb7::DomOperation15::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-	return DomQuery1::innerRun(tid);
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    return DomQuery1::innerRun(tid);
 }
 
 void sb7::DomOperation15::performOperationOnAtomicPart(AtomicPart *apart) const {
-	dataHolder->removeAtomicPartFromBuildDateIndex(apart);
-	apart->updateBuildDate();
-	dataHolder->addAtomicPartToBuildDateIndex(apart);
+    dataHolder->removeAtomicPartFromBuildDateIndex(apart);
+    apart->updateBuildDate();
+    dataHolder->addAtomicPartToBuildDateIndex(apart);
 }

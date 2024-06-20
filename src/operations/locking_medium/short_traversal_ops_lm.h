@@ -8,115 +8,124 @@
 
 namespace sb7 {
 
-	class LMShortTraversal1 : public Operation {
-		protected:
-			LMShortTraversal1(enum optype type, const char *name,
-					DataHolder *dh)
-				: Operation(type, name, dh) {
-			}
+    class LMShortTraversal1 : public Operation {
+    protected:
+        LMShortTraversal1(enum optype type, const char *name,
+                          DataHolder *dh)
+                : Operation(type, name, dh) {
+        }
 
-		public:
-			LMShortTraversal1(DataHolder *dh)
-				: Operation(SHORT_TRAVERSAL_RO, "ST1", dh) {
-			}
+    public:
+        LMShortTraversal1(DataHolder *dh)
+                : Operation(SHORT_TRAVERSAL_RO, "ST1", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			int traverse(Assembly *assm) const;
-			int traverse(ComplexAssembly *cassm) const;
-			int traverse(BaseAssembly *bassm) const;
-			virtual int traverse(CompositePart *cpart) const;
-			virtual int traverse(AtomicPart *apart) const;
-	};
+    protected:
+        int traverse(Assembly *assm) const;
 
-	class LMShortTraversal2 : public LMShortTraversal1 {
-		protected:
-			LMShortTraversal2(enum optype type, const char *name,
-					DataHolder *dh)
-				: LMShortTraversal1(type, name, dh) {
-			}
+        int traverse(ComplexAssembly *cassm) const;
 
-		public:
-			LMShortTraversal2(DataHolder *dh) :
-				LMShortTraversal1(SHORT_TRAVERSAL_RO, "ST2", dh) {
-			}
+        int traverse(BaseAssembly *bassm) const;
 
-			virtual int run() const;
+        virtual int traverse(CompositePart *cpart) const;
 
-		protected:
-			virtual int traverse(CompositePart *cpart) const;
-			virtual int traverse(AtomicPart *apart) const;
-			virtual int traverse(Document *documentation) const;
-	};
+        virtual int traverse(AtomicPart *apart) const;
+    };
 
-	class LMShortTraversal6 : public LMShortTraversal1 {
-		public:
-			LMShortTraversal6(DataHolder *dh) :
-				LMShortTraversal1(SHORT_TRAVERSAL, "ST6", dh) {
-			}
+    class LMShortTraversal2 : public LMShortTraversal1 {
+    protected:
+        LMShortTraversal2(enum optype type, const char *name,
+                          DataHolder *dh)
+                : LMShortTraversal1(type, name, dh) {
+        }
 
-			virtual int run() const;
+    public:
+        LMShortTraversal2(DataHolder *dh) :
+                LMShortTraversal1(SHORT_TRAVERSAL_RO, "ST2", dh) {
+        }
 
-		protected:
-			virtual int traverse(AtomicPart *apart) const;
-	};
+        virtual int run() const;
 
-	class LMShortTraversal7 : public LMShortTraversal2 {
-		public:
-			LMShortTraversal7(DataHolder *dh) :
-				LMShortTraversal2(SHORT_TRAVERSAL, "ST7", dh) {
-			}
+    protected:
+        virtual int traverse(CompositePart *cpart) const;
 
-			virtual int run() const;
+        virtual int traverse(AtomicPart *apart) const;
 
-		protected:
-			virtual int traverse(Document *documentation) const;
-	};
+        virtual int traverse(Document *documentation) const;
+    };
 
-	class LMShortTraversal8 : public LMTraversal7 {
-		public:
-			LMShortTraversal8(DataHolder *dh) :
-				LMTraversal7(SHORT_TRAVERSAL, "ST8", dh) {
-			}
+    class LMShortTraversal6 : public LMShortTraversal1 {
+    public:
+        LMShortTraversal6(DataHolder *dh) :
+                LMShortTraversal1(SHORT_TRAVERSAL, "ST6", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual void performOperationOnAssembly(Assembly *assembly) const;
-	};
+    protected:
+        virtual int traverse(AtomicPart *apart) const;
+    };
 
-	class LMShortTraversal9 : public LMShortTraversal1 {
-		protected:
-			LMShortTraversal9(enum optype type, const char *name,
-					DataHolder *dh)
-				: LMShortTraversal1(type, name, dh) {
-			}
+    class LMShortTraversal7 : public LMShortTraversal2 {
+    public:
+        LMShortTraversal7(DataHolder *dh) :
+                LMShortTraversal2(SHORT_TRAVERSAL, "ST7", dh) {
+        }
 
-		public:
-			LMShortTraversal9(DataHolder *dh) :
-				LMShortTraversal1(SHORT_TRAVERSAL_RO, "ST9", dh) {
-			}
+        virtual int run() const;
 
-		protected:
-			virtual int traverse(CompositePart *cpart) const;
-			virtual int traverse(AtomicPart *apart) const;
-			int traverse(AtomicPart *apart,
-				Set<AtomicPart *> &visitedParts) const;
-			virtual int performOperationOnAtomicPart(AtomicPart *apart) const;
-	};
+    protected:
+        virtual int traverse(Document *documentation) const;
+    };
 
-	class LMShortTraversal10 : public LMShortTraversal9 {
-		public:
-			LMShortTraversal10(DataHolder *dh) :
-				LMShortTraversal9(SHORT_TRAVERSAL, "ST10", dh) {
-			}
+    class LMShortTraversal8 : public LMTraversal7 {
+    public:
+        LMShortTraversal8(DataHolder *dh) :
+                LMTraversal7(SHORT_TRAVERSAL, "ST8", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart) const;
-	};
+    protected:
+        virtual void performOperationOnAssembly(Assembly *assembly) const;
+    };
+
+    class LMShortTraversal9 : public LMShortTraversal1 {
+    protected:
+        LMShortTraversal9(enum optype type, const char *name,
+                          DataHolder *dh)
+                : LMShortTraversal1(type, name, dh) {
+        }
+
+    public:
+        LMShortTraversal9(DataHolder *dh) :
+                LMShortTraversal1(SHORT_TRAVERSAL_RO, "ST9", dh) {
+        }
+
+    protected:
+        virtual int traverse(CompositePart *cpart) const;
+
+        virtual int traverse(AtomicPart *apart) const;
+
+        int traverse(AtomicPart *apart,
+                     Set<AtomicPart *> &visitedParts) const;
+
+        virtual int performOperationOnAtomicPart(AtomicPart *apart) const;
+    };
+
+    class LMShortTraversal10 : public LMShortTraversal9 {
+    public:
+        LMShortTraversal10(DataHolder *dh) :
+                LMShortTraversal9(SHORT_TRAVERSAL, "ST10", dh) {
+        }
+
+        virtual int run() const;
+
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart) const;
+    };
 }
 
 #endif // SB7_LM_SHORT_TRAVERSAL_OPS_H_

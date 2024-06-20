@@ -24,19 +24,19 @@ int DomLockRelabeling::traverse(ComplexAssembly *cassm) const {
     int pre = INT_MAX, post = 0;
 
     // think about transforming this into a nicer oo design
-    while(iter.has_next()) {
+    while (iter.has_next()) {
         Assembly *assm = iter.next();
 
-        if(!childrenAreBase) {
-            partsVisited += traverse((ComplexAssembly *)assm);
+        if (!childrenAreBase) {
+            partsVisited += traverse((ComplexAssembly *) assm);
 
         } else {
-            partsVisited += traverse((BaseAssembly *)assm);
+            partsVisited += traverse((BaseAssembly *) assm);
         }
 
-        if(assm->m_pre_number < pre)
+        if (assm->m_pre_number < pre)
             pre = assm->m_pre_number;
-        if(assm->m_post_number > post)
+        if (assm->m_post_number > post)
             post = assm->m_post_number;
 
     }
@@ -56,7 +56,7 @@ int DomLockRelabeling::traverse(BaseAssembly *bassm) const {
 
     BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
 
-    while(iter.has_next()) {
+    while (iter.has_next()) {
         partsVisited += traverse(iter.next());
     }
     return partsVisited;
@@ -73,12 +73,11 @@ int DomLockRelabeling::traverse(CompositePart *cpart) const {
     Set<AtomicPart *> visitedPartSet;
 
 
-
-    int retval =  traverse(rootPart, visitedPartSet);
+    int retval = traverse(rootPart, visitedPartSet);
 
     // Assign intervals to all connected atomic parts
-    SetIterator<AtomicPart *> iter	= visitedPartSet.getIter();
-    while(iter.has_next()) {
+    SetIterator<AtomicPart *> iter = visitedPartSet.getIter();
+    while (iter.has_next()) {
         AtomicPart *ap = iter.next();
         ap->m_pre_number = cpart->m_pre_number;
         ap->m_post_number = cpart->m_post_number;
@@ -87,12 +86,12 @@ int DomLockRelabeling::traverse(CompositePart *cpart) const {
 }
 
 int DomLockRelabeling::traverse(AtomicPart *apart,
-                             Set<AtomicPart *> &visitedPartSet) const {
+                                Set<AtomicPart *> &visitedPartSet) const {
     int ret;
 
-    if(apart == NULL) {
+    if (apart == NULL) {
         ret = 0;
-    } else if(visitedPartSet.contains(apart)) {
+    } else if (visitedPartSet.contains(apart)) {
         ret = 0;
 
 //		dfscounter++;
@@ -107,7 +106,7 @@ int DomLockRelabeling::traverse(AtomicPart *apart,
         Set<Connection *> *toConns = apart->getToConnections();
         SetIterator<Connection *> iter = toConns->getIter();
 
-        while(iter.has_next()) {
+        while (iter.has_next()) {
             Connection *conn = iter.next();
             ret += traverse(conn->getDestination(), visitedPartSet);
         }
@@ -117,7 +116,7 @@ int DomLockRelabeling::traverse(AtomicPart *apart,
 }
 
 int DomLockRelabeling::performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &visitedPartSet) const {
+                                                    Set<AtomicPart *> &visitedPartSet) const {
     apart->nullOperation();
     return 1;
 }

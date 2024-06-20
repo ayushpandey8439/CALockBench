@@ -7,12 +7,13 @@
 
 #include <queue>
 #include "../operations/operations.h"
+
 using namespace sb7;
 
-class output : public Operation{
+class output : public Operation {
 protected:
     output(optype t, const char *n, DataHolder *dh)
-    : Operation(t, n, dh) {
+            : Operation(t, n, dh) {
     }
 
 public:
@@ -21,10 +22,18 @@ public:
 
 
     virtual int run(int tid) const;
-    void traverse(ComplexAssembly *complexAssembly, queue<ComplexAssembly *> *cassmQ, std::queue<BaseAssembly *> *bassmQ, Set<DesignObj*> *visited, ofstream * graph) const;
-    void traverse(BaseAssembly *baseAssembly, queue<CompositePart*> *cpartQ,Set<DesignObj*> *visited, ofstream * graph) const;
-    virtual void traverse(CompositePart *component,queue<AtomicPart*> *apartQ,Set<DesignObj*> *visited, ofstream * graph ) const;
-    virtual void traverse(AtomicPart *part, Set<DesignObj*> *visited, ofstream * graph) const;
+
+    void
+    traverse(ComplexAssembly *complexAssembly, queue<ComplexAssembly *> *cassmQ, std::queue<BaseAssembly *> *bassmQ,
+             Set<DesignObj *> *visited, ofstream *graph) const;
+
+    void traverse(BaseAssembly *baseAssembly, queue<CompositePart *> *cpartQ, Set<DesignObj *> *visited,
+                  ofstream *graph) const;
+
+    virtual void
+    traverse(CompositePart *component, queue<AtomicPart *> *apartQ, Set<DesignObj *> *visited, ofstream *graph) const;
+
+    virtual void traverse(AtomicPart *part, Set<DesignObj *> *visited, ofstream *graph) const;
 };
 
 

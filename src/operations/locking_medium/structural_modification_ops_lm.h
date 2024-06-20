@@ -5,77 +5,77 @@
 
 namespace sb7 {
 
-	class LMStructuralModification1 : public Operation {
-		public:
-			LMStructuralModification1(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM1", dh) {
-			}
+    class LMStructuralModification1 : public Operation {
+    public:
+        LMStructuralModification1(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM1", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification2 : public Operation {
-		public:
-			LMStructuralModification2(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
-			}
+    class LMStructuralModification2 : public Operation {
+    public:
+        LMStructuralModification2(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification3 : public Operation {
-		public:
-			LMStructuralModification3(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
-			}
+    class LMStructuralModification3 : public Operation {
+    public:
+        LMStructuralModification3(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification4 : public Operation {
-		public:
-			LMStructuralModification4(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM4", dh) {
-			}
+    class LMStructuralModification4 : public Operation {
+    public:
+        LMStructuralModification4(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM4", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification5 : public Operation {
-		public:
-			LMStructuralModification5(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM5", dh) {
-			}
+    class LMStructuralModification5 : public Operation {
+    public:
+        LMStructuralModification5(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM5", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification6 : public Operation {
-		public:
-			LMStructuralModification6(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM6", dh) {
-			}
+    class LMStructuralModification6 : public Operation {
+    public:
+        LMStructuralModification6(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM6", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification7 : public Operation {
-		public:
-			LMStructuralModification7(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM7", dh) {
-			}
+    class LMStructuralModification7 : public Operation {
+    public:
+        LMStructuralModification7(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM7", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
-	class LMStructuralModification8 : public Operation {
-		public:
-			LMStructuralModification8(DataHolder *dh)
-				: Operation(STRUCTURAL_MODIFICATION, "SM8", dh) {
-			}
+    class LMStructuralModification8 : public Operation {
+    public:
+        LMStructuralModification8(DataHolder *dh)
+                : Operation(STRUCTURAL_MODIFICATION, "SM8", dh) {
+        }
 
-			virtual int run() const;
-	};
+        virtual int run() const;
+    };
 
 }
 

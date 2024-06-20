@@ -113,6 +113,8 @@ namespace sb7 {
 
         void initOperationsLockDom(DataHolder *dh);
 
+        void initOperationsLockMid(DataHolder *dh);
+
         void generateCdf();
 
     private:

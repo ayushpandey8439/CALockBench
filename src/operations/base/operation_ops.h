@@ -7,130 +7,130 @@
 
 namespace sb7 {
 
-	class Operation6 : public Operation {
-		protected:
-			Operation6(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class Operation6 : public Operation {
+    protected:
+        Operation6(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			Operation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
-			}
+    public:
+        Operation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual void performOperationOnComplexAssembly(
-				ComplexAssembly *cassm) const;
-	};
+    protected:
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
+    };
 
-	class Operation7 : public Operation {
-		protected:
-			Operation7(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class Operation7 : public Operation {
+    protected:
+        Operation7(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			Operation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
-			}
+    public:
+        Operation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual void performOperationOnBaseAssembly(
-				BaseAssembly *bassm) const;
-	};
+    protected:
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
+    };
 
-	class Operation8 : public Operation {
-		protected:
-			Operation8(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class Operation8 : public Operation {
+    protected:
+        Operation8(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			Operation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
-			}
+    public:
+        Operation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual void performOperationOnComponent(
-				CompositePart *comp) const;
-	};
+    protected:
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
+    };
 
-	class Operation9 : public Query1 {
-		public:
-			Operation9(DataHolder *dh) : Query1(OPERATION, "OP9", dh) {
-			}
+    class Operation9 : public Query1 {
+    public:
+        Operation9(DataHolder *dh) : Query1(OPERATION, "OP9", dh) {
+        }
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
-	class Operation10 : public Query2 {
-		public:
-			Operation10(DataHolder *dh) : Query2(dh, OPERATION, "OP10", 1) {
-			}
+    class Operation10 : public Query2 {
+    public:
+        Operation10(DataHolder *dh) : Query2(dh, OPERATION, "OP10", 1) {
+        }
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
-	class Operation11 : public Traversal8 {
-		public:
-			Operation11(DataHolder *dh) : Traversal8(OPERATION, "OP11", dh) {
-			}
+    class Operation11 : public Traversal8 {
+    public:
+        Operation11(DataHolder *dh) : Traversal8(OPERATION, "OP11", dh) {
+        }
 
-		protected:
-			virtual int traverse(Manual *manual) const;
-	};
+    protected:
+        virtual int traverse(Manual *manual) const;
+    };
 
-	class Operation12 : public Operation6 {
-		protected:
-			Operation12(optype t, const char *n, DataHolder *dh)
-				: Operation6(t, n, dh) {
-			}
+    class Operation12 : public Operation6 {
+    protected:
+        Operation12(optype t, const char *n, DataHolder *dh)
+                : Operation6(t, n, dh) {
+        }
 
-		public:
-			Operation12(DataHolder *dh) : Operation6(OPERATION, "OP12", dh) {
-			}
+    public:
+        Operation12(DataHolder *dh) : Operation6(OPERATION, "OP12", dh) {
+        }
 
-		protected:
-			virtual void performOperationOnComplexAssembly(
-				ComplexAssembly *cassm) const;
-	};
+    protected:
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
+    };
 
-	class Operation13 : public Operation7 {
-		public:
-			Operation13(DataHolder *dh) : Operation7(OPERATION, "OP13", dh) {
-			}
+    class Operation13 : public Operation7 {
+    public:
+        Operation13(DataHolder *dh) : Operation7(OPERATION, "OP13", dh) {
+        }
 
-		protected:
-			virtual void performOperationOnBaseAssembly(
-				BaseAssembly *bassm) const;
-	};
+    protected:
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
+    };
 
-	class Operation14 : public Operation8 {
-		public:
-			Operation14(DataHolder *dh) : Operation8(OPERATION, "OP14", dh) {
-			}
+    class Operation14 : public Operation8 {
+    public:
+        Operation14(DataHolder *dh) : Operation8(OPERATION, "OP14", dh) {
+        }
 
-		protected:
-			virtual void performOperationOnComponent(
-				CompositePart *comp) const;
-	};
+    protected:
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
+    };
 
-	class Operation15 : public Query1 {
-		public:
-			Operation15(DataHolder *dh) : Query1(OPERATION, "OP15", dh) {
-			}
+    class Operation15 : public Query1 {
+    public:
+        Operation15(DataHolder *dh) : Query1(OPERATION, "OP15", dh) {
+        }
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
 }
 

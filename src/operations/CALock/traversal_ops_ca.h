@@ -215,5 +215,4 @@ namespace sb7 {
 }
 
 
-
 #endif //STMBENCH_TRAVERSAL_OPS_CA_H

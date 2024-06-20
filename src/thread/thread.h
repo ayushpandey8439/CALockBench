@@ -18,96 +18,96 @@
 
 namespace sb7 {
 
-	class ThreadData {
-		public:
-			Random *getRandom() {
-				return &random;
-			}
+    class ThreadData {
+    public:
+        Random *getRandom() {
+            return &random;
+        }
 
-		private:
-			// random
-			Random random;
-	};
+    private:
+        // random
+        Random random;
+    };
 
-	class LockHandle {
-		public:
-			LockHandle(pthread_rwlock_t *l, int s = 1) : lock(l), size(s) {
-			}
-	
-			virtual ~LockHandle() {
-				for(int i = 0;i < size;i++) {
-					pthread_rwlock_unlock(lock + i);
-				}
-			}
+    class LockHandle {
+    public:
+        LockHandle(pthread_rwlock_t *l, int s = 1) : lock(l), size(s) {
+        }
 
-		protected:
-			pthread_rwlock_t *lock;
-			int size;
-	};
+        virtual ~LockHandle() {
+            for (int i = 0; i < size; i++) {
+                pthread_rwlock_unlock(lock + i);
+            }
+        }
 
-	class ReadLockHandle : public LockHandle {
-		public:
-			ReadLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
-				for(int i = size - 1;i >= 0;i--) {
-					pthread_rwlock_rdlock(lock + i);
-				}
-			}
-	};
+    protected:
+        pthread_rwlock_t *lock;
+        int size;
+    };
 
-	class WriteLockHandle : public LockHandle {
-		public:
-			WriteLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
-				for(int i = size - 1;i >= 0;i--) {
-					pthread_rwlock_wrlock(lock + i);
-				}
-			}
-	};
+    class ReadLockHandle : public LockHandle {
+    public:
+        ReadLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+            for (int i = size - 1; i >= 0; i--) {
+                pthread_rwlock_rdlock(lock + i);
+            }
+        }
+    };
 
-	/**
-	 * Initialize data shared by all threads.
-	 */
-	void global_thread_init();
+    class WriteLockHandle : public LockHandle {
+    public:
+        WriteLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+            for (int i = size - 1; i >= 0; i--) {
+                pthread_rwlock_wrlock(lock + i);
+            }
+        }
+    };
 
-	/**
-	 * Initialize specific thread.
-	 */
-	void thread_init();
+    /**
+     * Initialize data shared by all threads.
+     */
+    void global_thread_init();
 
-	/**
-	 * Special initialization for init thread.
-	 */
-	void init_thread_init();
+    /**
+     * Initialize specific thread.
+     */
+    void thread_init();
 
-	/**
-	 * Clean after the thread.
-	 */
-	void thread_clean();
+    /**
+     * Special initialization for init thread.
+     */
+    void init_thread_init();
 
-	/**
-	 * Get thread local thread data.
-	 */
-	ThreadData *get_thread_data();
+    /**
+     * Clean after the thread.
+     */
+    void thread_clean();
 
-	/**
-	 * Shortcut for getting thread local random object.
-	 */
-	Random *get_random();
+    /**
+     * Get thread local thread data.
+     */
+    ThreadData *get_thread_data();
 
-	/**
-	 * Convenience function for delaying thread for time interval
-	 * that is specified in milliseconds.
-	 */
-	bool sleep(int ms);
+    /**
+     * Shortcut for getting thread local random object.
+     */
+    Random *get_random();
 
-	/**
-	 * Get time in ms since epoch. This function might be architecture specific.
-	 */
-	long get_time_ms();
+    /**
+     * Convenience function for delaying thread for time interval
+     * that is specified in milliseconds.
+     */
+    bool sleep(int ms);
 
-	/**
-	 * Get time in us since epoch. This function might be architecture specific.
-	 */
-	long get_time_us();
+    /**
+     * Get time in ms since epoch. This function might be architecture specific.
+     */
+    long get_time_ms();
+
+    /**
+     * Get time in us since epoch. This function might be architecture specific.
+     */
+    long get_time_us();
 }
 
 #endif /*SB7_THREAD_H_*/

@@ -4,19 +4,19 @@
 #include "randomc/randomc.h"
 
 namespace sb7 {
-	class Random {
-		public:
-			Random();
+    class Random {
+    public:
+        Random();
 
-			int nextInt();
+        int nextInt();
 
-			int nextInt(int n);
+        int nextInt(int n);
 
-			double nextDouble();
+        double nextDouble();
 
-		private:
-			TRandomMersenne randomGen;
-	};
+    private:
+        TRandomMersenne randomGen;
+    };
 }
 
 #endif /*SB7_RANDOM_H_*/

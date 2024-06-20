@@ -306,8 +306,8 @@ void sb7::Parameters::parseCommandLine(int argc, char **argv,
             {EXPERIMENT_DURATION_KEY,      1, nullptr, 'd'},
             {SIZE_KEY,                     1, nullptr, 's'},
             {LOCK_TYPE_KEY,                1, nullptr, 'l'},
-            {BENCHMARK_CONTAINMENT,                1, nullptr, 'b'},
-            {nullptr,                            0, nullptr, 0}
+            {BENCHMARK_CONTAINMENT,        1, nullptr, 'b'},
+            {nullptr,                      0, nullptr, 0}
     };
 
     while (true) {
@@ -645,7 +645,7 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
                 configParams.benchmarkContainmentSet = true;
                 configParams.benchmarkContainment = false;
             }
-        }else {
+        } else {
             std::cout << "Unknown parameter at line " << lineNo
                       << ". Ignoring." << std::endl;
         }
@@ -807,8 +807,11 @@ int sb7::Parameters::strToLockType(std::string &val) {
         return Parameters::lock_ca;
     } else if (equalNoCase(val, std::string("domlock")) ||
                equalNoCase(val, std::string("dom"))) {
-        return Parameters::lock_dom;}
-    else {
+        return Parameters::lock_dom;
+    } else if (equalNoCase(val, std::string("mid")) ||
+               equalNoCase(val, std::string("mid"))) {
+        return Parameters::lock_mid;
+    } else {
         return -1;
     }
 }
@@ -826,6 +829,8 @@ std::string sb7::Parameters::lockTypeToStr(lock_type val) {
         return {"Common Ancestor"};
     } else if (val == lock_dom) {
         return {"Domlock"};
+    } else if (val == lock_mid) {
+        return {"MID"};
     } else {
         return {"unknown"};
     }

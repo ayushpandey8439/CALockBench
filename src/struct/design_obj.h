@@ -12,7 +12,14 @@ namespace sb7 {
     class DesignObj {
     public:
         DesignObj(int id, string type, int buildDate)
-                : m_id(id), m_type(type), m_buildDate(buildDate) {}
+                : m_id(id), m_type(type), m_buildDate(buildDate) {
+            m_pre_number = 0;
+            m_post_number = 0;
+            pthread_rwlock_init(&NodeLock, NULL);
+//*********************************************************************************************
+            rlm_pre_number = 0;
+            rlm_post_number = 0;
+        }
 
         virtual ~DesignObj() {}
 
@@ -54,9 +61,9 @@ namespace sb7 {
             }
         }
 
-        string getPathLabel(){
+        string getPathLabel() {
             string labelString;
-            for(auto i: pathLabel){
+            for (auto i: pathLabel) {
                 labelString += to_string(i) + ", ";
             }
             labelString.pop_back();
@@ -75,6 +82,8 @@ namespace sb7 {
 
         long int m_pre_number;
         long int m_post_number;
+        int rlm_pre_number;
+        int rlm_post_number;
         pthread_rwlock_t NodeLock;
         bool hasLabel;
         list<int> pathLabel{};

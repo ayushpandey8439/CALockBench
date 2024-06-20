@@ -6,8 +6,6 @@
 #define STMBENCH_DOMLOCKTRAVERSAL_H
 
 
-
-
 #include "queue"
 #include "../../operations/operations.h"
 
@@ -26,10 +24,14 @@ namespace sb7 {
 
     protected:
         int traverse(ComplexAssembly *complexAssembly) const;
+
         int traverse(BaseAssembly *baseAssembly) const;
+
         virtual int traverse(CompositePart *component) const;
+
         virtual int traverse(AtomicPart *part,
                              Set<AtomicPart *> &setOfVisitedParts) const;
+
         virtual int performOperationOnAtomicPart(AtomicPart *apart,
                                                  Set<AtomicPart *> &setOfVisitedPartIds) const;
     };

@@ -7,21 +7,21 @@
 #include "../../operations/CALock/CAPool.h"
 
 
-extern CAPool pool;
+extern CAPool caPool;
 
 
 void CALockRelabeling::run() {
     auto t1 = std::chrono::high_resolution_clock::now();
     //cout<< "pre-post" << dataHolder->getModule()->getDesignRoot() -> m_pre_number<<" and "<<dataHolder->getModule()->getDesignRoot() -> m_post_number;
-    while(!cassmQ.empty()){
+    while (!cassmQ.empty()) {
         traverse(cassmQ.front());
         cassmQ.pop();
     }
-    while(!bassmQ.empty()){
+    while (!bassmQ.empty()) {
         traverse(bassmQ.front());
         bassmQ.pop();
     }
-    while(!cpartQ.empty()){
+    while (!cpartQ.empty()) {
         traverse(cpartQ.front());
         cpartQ.pop();
     }
@@ -31,21 +31,21 @@ void CALockRelabeling::run() {
 //        apartQ.pop();
 //    }
     auto t2 = std::chrono::high_resolution_clock::now();
-    pool.modificationTimeCA += (t2-t1);
-    pool.count.fetch_add(1);
+    caPool.modificationTimeCA += (t2 - t1);
+    caPool.count.fetch_add(1);
 //    cout<<(t2-t1).count()<<endl;
 }
 
 
 void CALockRelabeling::traverse(ComplexAssembly *cassm) {
-    if(cassm->isDeleted){
+    if (cassm->isDeleted) {
         return;
     }
     list<int> currLabel = cassm->pathLabel;
-    if(cassm != dataHolder->getModule()->getDesignRoot()){
+    if (cassm != dataHolder->getModule()->getDesignRoot()) {
         list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
-        superLabel.push_back((cassm->getId()*10)+1);
-        if(currLabel == superLabel){
+        superLabel.push_back((cassm->getId() * 10) + 1);
+        if (currLabel == superLabel) {
             return;
         }
     }
@@ -56,56 +56,56 @@ void CALockRelabeling::traverse(ComplexAssembly *cassm) {
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
 
     // think about transforming this into a nicer oo design
-    while(iter.has_next()) {
+    while (iter.has_next()) {
         Assembly *assm = iter.next();
-        if(!childrenAreBase) {
-            cassmQ.push((ComplexAssembly *)assm);
+        if (!childrenAreBase) {
+            cassmQ.push((ComplexAssembly *) assm);
         } else {
-            bassmQ.push((BaseAssembly *)assm);
+            bassmQ.push((BaseAssembly *) assm);
         }
     }
 }
 
 void CALockRelabeling::traverse(BaseAssembly *bassm) {
-    if(bassm->isDeleted) return;
+    if (bassm->isDeleted) return;
 
     list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
-    currLabel.push_back((bassm->getId()*10)+2);
-    if(currLabel == bassm->pathLabel){
+    currLabel.push_back((bassm->getId() * 10) + 2);
+    if (currLabel == bassm->pathLabel) {
         return;
     }
     bassm->setPathLabel(currLabel);
     BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
-    while(iter.has_next()) {
-        CompositePart * cp = iter.next();
+    while (iter.has_next()) {
+        CompositePart *cp = iter.next();
         cpartQ.push(cp);
     }
 }
 
 void CALockRelabeling::traverse(CompositePart *cpart) {
     string type = "cp";
-    if(cpart->isDeleted) return;
+    if (cpart->isDeleted) return;
 
     Bag<BaseAssembly *> *usedIn = cpart->getUsedIn();
     BagIterator<BaseAssembly *> biter = usedIn->getIter();
     BaseAssembly *b = biter.next();
     list<int> firstLabel = b->pathLabel;
     set<int> removals{};
-    for(int a: firstLabel){
+    for (int a: firstLabel) {
         bool allContain = true;
-        while(biter.has_next()){
-            if(!biter.next()->criticalAncestors.contains(a)){
+        while (biter.has_next()) {
+            if (!biter.next()->criticalAncestors.contains(a)) {
                 allContain = false;
                 break;
             }
         }
-        if(!allContain){
+        if (!allContain) {
             removals.insert(a);
         }
         biter = usedIn->getIter();
     }
 
-    firstLabel.remove_if([removals](int l){return removals.contains(l);});
+    firstLabel.remove_if([removals](int l) { return removals.contains(l); });
 
 //    while(biter.has_next()){
 //        list<int> common;
@@ -114,14 +114,14 @@ void CALockRelabeling::traverse(CompositePart *cpart) {
 //        firstLabel = common;
 //    }
 
-    firstLabel.push_back((cpart->getId()+10)+3);
-    if(firstLabel == cpart->pathLabel){
+    firstLabel.push_back((cpart->getId() + 10) + 3);
+    if (firstLabel == cpart->pathLabel) {
         return;
     }
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
-    firstLabel.push_back((rootPart->getId()*10)+4);
+    firstLabel.push_back((rootPart->getId() * 10) + 4);
     rootPart->setPathLabel(firstLabel);
     apartQ.push(rootPart);
 
@@ -132,7 +132,7 @@ void CALockRelabeling::traverse(CompositePart *cpart) {
 
 
 void CALockRelabeling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, list<int> currLabel) {
-    if(apart->isDeleted || apart == NULL || visitedPartSet.contains(apart)) {
+    if (apart->isDeleted || apart == NULL || visitedPartSet.contains(apart)) {
         return;
     } else {
         visitedPartSet.add(apart);
@@ -140,20 +140,20 @@ void CALockRelabeling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPar
         SetIterator<Connection *> fiter = fromConns->getIter();
 //        boost::container::list<int> containerLabel(10,-1);
         set<int> removals;
-        for(int a: currLabel){
+        for (int a: currLabel) {
             bool allContain = true;
-            while(fiter.has_next()){
-                if(!fiter.next()->getSource()->criticalAncestors.contains(a)){
+            while (fiter.has_next()) {
+                if (!fiter.next()->getSource()->criticalAncestors.contains(a)) {
                     allContain = false;
                     break;
                 }
             }
-            if(!allContain){
+            if (!allContain) {
                 removals.insert(a);
             }
             fiter = fromConns->getIter();
         }
-        currLabel.remove_if([removals](int l){return removals.contains(l);});
+        currLabel.remove_if([removals](int l) { return removals.contains(l); });
 
 //        while (fiter.has_next()) {
 //            Connection *conn = fiter.next();
@@ -176,7 +176,7 @@ void CALockRelabeling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPar
             SetIterator<Connection *> iter = toConns->getIter();
             while (iter.has_next()) {
                 Connection *conn = iter.next();
-                currLabel.push_back((conn->getDestination()->getId()*10)+4);
+                currLabel.push_back((conn->getDestination()->getId() * 10) + 4);
                 traverse(conn->getDestination(), visitedPartSet, currLabel);
                 currLabel.pop_back();
             }

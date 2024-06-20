@@ -8,80 +8,81 @@ using namespace std;
 
 namespace sb7 {
 
-	class Connection;
-	class CompositePart;
+    class Connection;
 
-	class AtomicPart : public DesignObj {
-		protected:
-			typedef Set<Connection *> connection_set;
+    class CompositePart;
 
-		public:
-			AtomicPart(int id, string type, int buildDate, int x, int y)
-				: DesignObj(id, type, buildDate), m_x(x), m_y(y),
-				m_to(new connection_set()), m_from(new connection_set()) {
-			}
+    class AtomicPart : public DesignObj {
+    protected:
+        typedef Set<Connection *> connection_set;
 
-			virtual ~AtomicPart() {
-				delete m_to;
-				delete m_from;
-			}
+    public:
+        AtomicPart(int id, string type, int buildDate, int x, int y)
+                : DesignObj(id, type, buildDate), m_x(x), m_y(y),
+                  m_to(new connection_set()), m_from(new connection_set()) {
+        }
 
-			void connectTo(AtomicPart *dest, const string &type, int len) const;
+        virtual ~AtomicPart() {
+            delete m_to;
+            delete m_from;
+        }
 
-			void addConnectionFromOtherPart(Connection *conn) const {
-				m_from->add(conn);
-			}
+        void connectTo(AtomicPart *dest, const string &type, int len) const;
 
-			void removeConnectionFromOtherPart(Connection *conn) const {
-				m_from->remove(conn);
-			}
+        void addConnectionFromOtherPart(Connection *conn) const {
+            m_from->add(conn);
+        }
 
-			void removeConnectionToOtherPart(Connection *conn) const {
-				m_to->remove(conn);
-			}
+        void removeConnectionFromOtherPart(Connection *conn) const {
+            m_from->remove(conn);
+        }
 
-			void setCompositePart(CompositePart *cp) {
-				m_partOf = cp;
-			}
+        void removeConnectionToOtherPart(Connection *conn) const {
+            m_to->remove(conn);
+        }
 
-			/**
-			 * Return number of outgoing connections.
-		 	*/
-			int getNumConnections() const {
-				return m_to->size();
-			}
+        void setCompositePart(CompositePart *cp) {
+            m_partOf = cp;
+        }
 
-			connection_set *getToConnections() const {
-				return m_to;
-			}
+        /**
+         * Return number of outgoing connections.
+         */
+        int getNumConnections() const {
+            return m_to->size();
+        }
 
-			connection_set *getFromConnections() const {
-				return m_from;
-			}
+        connection_set *getToConnections() const {
+            return m_to;
+        }
 
-			CompositePart *getPartOf() const {
-				return m_partOf;
-			}
+        connection_set *getFromConnections() const {
+            return m_from;
+        }
 
-			void swapXY() {
-				int tmp = m_y;
-				m_y = m_x;
-				m_x = tmp;
-			}
+        CompositePart *getPartOf() const {
+            return m_partOf;
+        }
 
-			int getX() const {
-				return m_x;
-			}
+        void swapXY() {
+            int tmp = m_y;
+            m_y = m_x;
+            m_x = tmp;
+        }
 
-			int getY() const {
-				return m_y;
-			}
+        int getX() const {
+            return m_x;
+        }
 
-		private:
-			int m_x, m_y;
-			connection_set *m_to, *m_from;
-			CompositePart *m_partOf;
-	};
+        int getY() const {
+            return m_y;
+        }
+
+    private:
+        int m_x, m_y;
+        connection_set *m_to, *m_from;
+        CompositePart *m_partOf;
+    };
 
 }
 

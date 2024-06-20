@@ -10,70 +10,70 @@
 ////////////////
 
 int sb7::LMOperation6::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
-	// Generate one random number that is in range of possible complex assembly
-	// identifiers. It is used to look up complex assembly.
-	//
-	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
-	//
-	int cassmId = get_random()->nextInt(
-		parameters.getMaxComplexAssemblies()) + 1;
+    // Generate one random number that is in range of possible complex assembly
+    // identifiers. It is used to look up complex assembly.
+    //
+    // TODO try to figure out how to generate these ids in a more precise way
+    // so this operation fails only if it is really
+    //
+    int cassmId = get_random()->nextInt(
+            parameters.getMaxComplexAssemblies()) + 1;
 
-	// lookup complex assembly using complex assembly index
-	Map<int, ComplexAssembly *> *cassmInd =
-		dataHolder->getComplexAssemblyIdIndex();
-	Map<int, ComplexAssembly *>::Query query;
-	query.key = cassmId;
-	cassmInd->get(query);
+    // lookup complex assembly using complex assembly index
+    Map<int, ComplexAssembly *> *cassmInd =
+            dataHolder->getComplexAssemblyIdIndex();
+    Map<int, ComplexAssembly *>::Query query;
+    query.key = cassmId;
+    cassmInd->get(query);
 
-	// If complex assembly is not found throw an exception.
-	// This is an easy way to get out of the transaction.
-	if(!query.found) {
-		throw Sb7Exception();
-	}
+    // If complex assembly is not found throw an exception.
+    // This is an easy way to get out of the transaction.
+    if (!query.found) {
+        throw Sb7Exception();
+    }
 
-	// if complex assembly was found process it
-	ComplexAssembly *cassm = query.val;
-	return processComplexAssemblyWrap(cassm);
+    // if complex assembly was found process it
+    ComplexAssembly *cassm = query.val;
+    return processComplexAssemblyWrap(cassm);
 }
 
 int sb7::LMOperation6::processComplexAssemblyWrap(
-		ComplexAssembly *cassm) const {
-	ComplexAssembly *superAssm = cassm->getSuperAssembly();
-	int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
-	ReadLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
-	
-	return processComplexAssembly(cassm);
+        ComplexAssembly *cassm) const {
+    ComplexAssembly *superAssm = cassm->getSuperAssembly();
+    int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
+    ReadLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
+
+    return processComplexAssembly(cassm);
 }
 
 int sb7::LMOperation6::processComplexAssembly(ComplexAssembly *cassm) const {
-	ComplexAssembly *superAssm = cassm->getSuperAssembly();
-	int ret;
+    ComplexAssembly *superAssm = cassm->getSuperAssembly();
+    int ret;
 
-	// if this assembly is root perform operation on it
-	if(superAssm == NULL) {
-		performOperationOnComplexAssembly(cassm);
-		ret = 1;
-	} else {
-		// else perform operation on all it's siblings (including itself)
-		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
-		SetIterator<Assembly *> iter = siblingAssms->getIter();
-		ret = 0;
+    // if this assembly is root perform operation on it
+    if (superAssm == NULL) {
+        performOperationOnComplexAssembly(cassm);
+        ret = 1;
+    } else {
+        // else perform operation on all it's siblings (including itself)
+        Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
+        SetIterator<Assembly *> iter = siblingAssms->getIter();
+        ret = 0;
 
-		while(iter.has_next()) {
-			performOperationOnComplexAssembly((ComplexAssembly *)iter.next());
-			ret++;
-		}
-	}
+        while (iter.has_next()) {
+            performOperationOnComplexAssembly((ComplexAssembly *) iter.next());
+            ret++;
+        }
+    }
 
-	return ret;
+    return ret;
 }
 
 void sb7::LMOperation6::performOperationOnComplexAssembly(
-		ComplexAssembly *cassm) const {
-	cassm->nullOperation();
+        ComplexAssembly *cassm) const {
+    cassm->nullOperation();
 }
 
 ////////////////
@@ -81,48 +81,48 @@ void sb7::LMOperation6::performOperationOnComplexAssembly(
 ////////////////
 
 int sb7::LMOperation7::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
 
-	return innerRun();
+    return innerRun();
 }
 
 int sb7::LMOperation7::innerRun() const {
-	// Generate one random number that is in range of possible base assembly
-	// identifiers. It is used to look up base assembly from index.
-	//
-	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
-	//
-	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
-	
-	// lookup base assembly using base assembly index
-	Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
-	Map<int, BaseAssembly *>::Query query;
-	query.key = bassmId;
-	bassmInd->get(query);
+    // Generate one random number that is in range of possible base assembly
+    // identifiers. It is used to look up base assembly from index.
+    //
+    // TODO try to figure out how to generate these ids in a more precise way
+    // so this operation fails only if it is really
+    //
+    int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
 
-	if(!query.found) {
-		throw Sb7Exception();
-	}
+    // lookup base assembly using base assembly index
+    Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
+    Map<int, BaseAssembly *>::Query query;
+    query.key = bassmId;
+    bassmInd->get(query);
 
-	// process all sibling base assemblies
-	ComplexAssembly *superAssm = query.val->getSuperAssembly();
-	Set<Assembly *> *siblingSet = superAssm->getSubAssemblies();
-	SetIterator<Assembly *> iter = siblingSet->getIter();
-	int ret = 0;
+    if (!query.found) {
+        throw Sb7Exception();
+    }
 
-	while(iter.has_next()) {
-		performOperationOnBaseAssembly((BaseAssembly *)iter.next());
-		ret++;
-	}
+    // process all sibling base assemblies
+    ComplexAssembly *superAssm = query.val->getSuperAssembly();
+    Set<Assembly *> *siblingSet = superAssm->getSubAssemblies();
+    SetIterator<Assembly *> iter = siblingSet->getIter();
+    int ret = 0;
 
-	return ret;
+    while (iter.has_next()) {
+        performOperationOnBaseAssembly((BaseAssembly *) iter.next());
+        ret++;
+    }
+
+    return ret;
 }
 
 void sb7::LMOperation7::performOperationOnBaseAssembly(
-		BaseAssembly *bassm) const {
-	bassm->nullOperation();
+        BaseAssembly *bassm) const {
+    bassm->nullOperation();
 }
 
 ////////////////
@@ -130,46 +130,46 @@ void sb7::LMOperation7::performOperationOnBaseAssembly(
 ////////////////
 
 int sb7::LMOperation8::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
 
-	return innerRun();
+    return innerRun();
 }
 
 int sb7::LMOperation8::innerRun() const {
-	// Generate one random number that is in range of possible base assembly
-	// identifiers. It is used to look up base assembly from index.
-	//
-	// TODO try to figure out how to generate these ids in a more precise way
-	// so this operation fails only if it is really 
-	//
-	int bassmId = get_random()->nextInt(
-		parameters.getMaxBaseAssemblies()) + 1;
-	
-	// lookup base assembly using base assembly index
-	Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
-	Map<int, BaseAssembly *>::Query query;
-	query.key = bassmId;
-	bassmInd->get(query);
+    // Generate one random number that is in range of possible base assembly
+    // identifiers. It is used to look up base assembly from index.
+    //
+    // TODO try to figure out how to generate these ids in a more precise way
+    // so this operation fails only if it is really
+    //
+    int bassmId = get_random()->nextInt(
+            parameters.getMaxBaseAssemblies()) + 1;
 
-	if(!query.found) {
-		throw Sb7Exception();
-	}
+    // lookup base assembly using base assembly index
+    Map<int, BaseAssembly *> *bassmInd = dataHolder->getBaseAssemblyIdIndex();
+    Map<int, BaseAssembly *>::Query query;
+    query.key = bassmId;
+    bassmInd->get(query);
 
-	Bag<CompositePart *> *componentBag = query.val->getComponents();
-	BagIterator<CompositePart *> iter = componentBag->getIter();
-	int ret = 0;
+    if (!query.found) {
+        throw Sb7Exception();
+    }
 
-	while(iter.has_next()) {
-		performOperationOnComponent(iter.next());
-		ret++;
-	}
+    Bag<CompositePart *> *componentBag = query.val->getComponents();
+    BagIterator<CompositePart *> iter = componentBag->getIter();
+    int ret = 0;
 
-	return ret;
+    while (iter.has_next()) {
+        performOperationOnComponent(iter.next());
+        ret++;
+    }
+
+    return ret;
 }
 
 void sb7::LMOperation8::performOperationOnComponent(CompositePart *comp) const {
-	comp->nullOperation();
+    comp->nullOperation();
 }
 
 ////////////////
@@ -177,14 +177,14 @@ void sb7::LMOperation8::performOperationOnComponent(CompositePart *comp) const {
 ////////////////
 
 int sb7::LMOperation9::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
-	return LMQuery1::innerRun();
+    return LMQuery1::innerRun();
 }
 
 void sb7::LMOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
-	apart->swapXY();
+    apart->swapXY();
 }
 
 ////////////////
@@ -192,15 +192,15 @@ void sb7::LMOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 ////////////////
 
 int sb7::LMOperation10::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
-	return LMQuery2::innerRun();
+    return LMQuery2::innerRun();
 }
 
 
 void sb7::LMOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
-	apart->swapXY();
+    apart->swapXY();
 }
 
 /////////////////
@@ -211,24 +211,24 @@ void sb7::LMOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
 #define MANUAL_TEXT_START_2 'i'
 
 int sb7::LMOperation11::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	WriteLockHandle manLockHandle(lm_lock_srv.getManualLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    WriteLockHandle manLockHandle(lm_lock_srv.getManualLock());
 
-	return LMTraversal8::traverse(dataHolder->getModule()->getManual());
+    return LMTraversal8::traverse(dataHolder->getModule()->getManual());
 }
 
 int sb7::LMOperation11::traverse(Manual *manual) const {
-	int ret;
+    int ret;
 
-	if(manual->startsWith(MANUAL_TEXT_START_1)) {
-		ret = manual->replaceChar(MANUAL_TEXT_START_1, MANUAL_TEXT_START_2);
-	} else if(manual->startsWith(MANUAL_TEXT_START_2)) {
-		ret = manual->replaceChar(MANUAL_TEXT_START_2, MANUAL_TEXT_START_1);
-	} else {
-		throw Sb7Exception("OP11: unexpected Manual.text!");
-	}
+    if (manual->startsWith(MANUAL_TEXT_START_1)) {
+        ret = manual->replaceChar(MANUAL_TEXT_START_1, MANUAL_TEXT_START_2);
+    } else if (manual->startsWith(MANUAL_TEXT_START_2)) {
+        ret = manual->replaceChar(MANUAL_TEXT_START_2, MANUAL_TEXT_START_1);
+    } else {
+        throw Sb7Exception("OP11: unexpected Manual.text!");
+    }
 
-	return ret;
+    return ret;
 }
 
 /////////////////
@@ -236,17 +236,17 @@ int sb7::LMOperation11::traverse(Manual *manual) const {
 /////////////////
 
 int sb7::LMOperation12::processComplexAssemblyWrap(
-		ComplexAssembly *cassm) const {
-	ComplexAssembly *superAssm = cassm->getSuperAssembly();
-	int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
-	WriteLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
-	
-	return processComplexAssembly(cassm);
+        ComplexAssembly *cassm) const {
+    ComplexAssembly *superAssm = cassm->getSuperAssembly();
+    int lockLvl = (superAssm == NULL ? cassm : superAssm)->getLevel() - 1;
+    WriteLockHandle assmLockHandle(lm_lock_srv.getAssemblyLock(lockLvl));
+
+    return processComplexAssembly(cassm);
 }
 
 void sb7::LMOperation12::performOperationOnComplexAssembly(
-		ComplexAssembly *cassm) const {
-	cassm->updateBuildDate();
+        ComplexAssembly *cassm) const {
+    cassm->updateBuildDate();
 }
 
 /////////////////
@@ -254,15 +254,15 @@ void sb7::LMOperation12::performOperationOnComplexAssembly(
 /////////////////
 
 int sb7::LMOperation13::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	WriteLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    WriteLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
 
-	return innerRun();
+    return innerRun();
 }
 
 void sb7::LMOperation13::performOperationOnBaseAssembly(
-		BaseAssembly *bassm) const {
-	bassm->updateBuildDate();
+        BaseAssembly *bassm) const {
+    bassm->updateBuildDate();
 }
 
 /////////////////
@@ -270,15 +270,15 @@ void sb7::LMOperation13::performOperationOnBaseAssembly(
 /////////////////
 
 int sb7::LMOperation14::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	WriteLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    WriteLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
 
-	return innerRun();
+    return innerRun();
 }
 
 void sb7::LMOperation14::performOperationOnComponent(
-		CompositePart *cpart) const {
-	cpart->updateBuildDate();
+        CompositePart *cpart) const {
+    cpart->updateBuildDate();
 }
 
 /////////////////
@@ -286,14 +286,14 @@ void sb7::LMOperation14::performOperationOnComponent(
 /////////////////
 
 int sb7::LMOperation15::run() const {
-	ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-	WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
+    WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
-	return LMQuery1::innerRun();
+    return LMQuery1::innerRun();
 }
 
 void sb7::LMOperation15::performOperationOnAtomicPart(AtomicPart *apart) const {
-	dataHolder->removeAtomicPartFromBuildDateIndex(apart);
-	apart->updateBuildDate();
-	dataHolder->addAtomicPartToBuildDateIndex(apart);
+    dataHolder->removeAtomicPartFromBuildDateIndex(apart);
+    apart->updateBuildDate();
+    dataHolder->addAtomicPartToBuildDateIndex(apart);
 }

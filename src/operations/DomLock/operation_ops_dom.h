@@ -7,147 +7,150 @@
 
 namespace sb7 {
 
-	class DomOperation6 : public Operation {
-		protected:
-			DomOperation6(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class DomOperation6 : public Operation {
+    protected:
+        DomOperation6(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			DomOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
-			}
+    public:
+        DomOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
+        }
 
-			virtual int run(int tid) const;
+        virtual int run(int tid) const;
 
-		protected:
-			virtual int innerRun(int tid) const;
-			virtual void performOperationOnComplexAssembly(
-				ComplexAssembly *cassm) const;
-	};
+    protected:
+        virtual int innerRun(int tid) const;
 
-	class DomOperation7 : public Operation {
-		protected:
-			DomOperation7(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
+    };
 
-		public:
-			DomOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
-			}
+    class DomOperation7 : public Operation {
+    protected:
+        DomOperation7(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-			virtual int run(int tid) const;
+    public:
+        DomOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
+        }
 
-		protected:
-			virtual int innerRun(int tid) const;
-			virtual void performOperationOnBaseAssembly(
-				BaseAssembly *bassm) const;
-	};
+        virtual int run(int tid) const;
 
-	class DomOperation8 : public Operation {
-		protected:
-			DomOperation8(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    protected:
+        virtual int innerRun(int tid) const;
 
-		public:
-			DomOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
-			}
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
+    };
 
-			virtual int run(int tid) const;
+    class DomOperation8 : public Operation {
+    protected:
+        DomOperation8(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		protected:
-			virtual int innerRun(int tid) const;
-			virtual void performOperationOnComponent(
-				CompositePart *comp) const;
-	};
+    public:
+        DomOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
+        }
 
-	class DomOperation9 : public DomQuery1 {
-		public:
-			DomOperation9(DataHolder *dh) : DomQuery1(OPERATION, "OP9", dh) {
-			}
+        virtual int run(int tid) const;
 
-			virtual int run(int tid) const;
+    protected:
+        virtual int innerRun(int tid) const;
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
+    };
 
-	class DomOperation10 : public DomQuery2 {
-		public:
-			DomOperation10(DataHolder *dh) : DomQuery2(dh, OPERATION, "OP10", 1) {
-			}
+    class DomOperation9 : public DomQuery1 {
+    public:
+        DomOperation9(DataHolder *dh) : DomQuery1(OPERATION, "OP9", dh) {
+        }
 
-			virtual int run(int tid) const;
+        virtual int run(int tid) const;
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
-	class DomOperation11 : public DomTraversal8 {
-		public:
-			DomOperation11(DataHolder *dh) : DomTraversal8(OPERATION, "OP11", dh) {
-			}
+    class DomOperation10 : public DomQuery2 {
+    public:
+        DomOperation10(DataHolder *dh) : DomQuery2(dh, OPERATION, "OP10", 1) {
+        }
 
-			virtual int run(int tid) const;
+        virtual int run(int tid) const;
 
-		protected:
-			virtual int traverse(Manual *manual) const;
-	};
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
-	class DomOperation12 : public DomOperation6 {
-		protected:
-			DomOperation12(optype t, const char *n, DataHolder *dh)
-				: DomOperation6(t, n, dh) {
-			}
+    class DomOperation11 : public DomTraversal8 {
+    public:
+        DomOperation11(DataHolder *dh) : DomTraversal8(OPERATION, "OP11", dh) {
+        }
 
-		public:
-			DomOperation12(DataHolder *dh) : DomOperation6(OPERATION, "OP12", dh) {
-			}
+        virtual int run(int tid) const;
 
-			virtual int run(int tid) const;
+    protected:
+        virtual int traverse(Manual *manual) const;
+    };
 
-		protected:
-			virtual void performOperationOnComplexAssembly(
-				ComplexAssembly *cassm) const;
-	};
+    class DomOperation12 : public DomOperation6 {
+    protected:
+        DomOperation12(optype t, const char *n, DataHolder *dh)
+                : DomOperation6(t, n, dh) {
+        }
 
-	class DomOperation13 : public DomOperation7 {
-		public:
-			DomOperation13(DataHolder *dh) : DomOperation7(OPERATION, "OP13", dh) {
-			}
+    public:
+        DomOperation12(DataHolder *dh) : DomOperation6(OPERATION, "OP12", dh) {
+        }
 
-			virtual int run(int tid) const;
+        virtual int run(int tid) const;
 
-		protected:
-			virtual void performOperationOnBaseAssembly(
-				BaseAssembly *bassm) const;
-	};
+    protected:
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
+    };
 
-	class DomOperation14 : public DomOperation8 {
-		public:
-			DomOperation14(DataHolder *dh) : DomOperation8(OPERATION, "OP14", dh) {
-			}
+    class DomOperation13 : public DomOperation7 {
+    public:
+        DomOperation13(DataHolder *dh) : DomOperation7(OPERATION, "OP13", dh) {
+        }
 
-			virtual int run(int tid) const;
+        virtual int run(int tid) const;
 
-		protected:
-			virtual void performOperationOnComponent(
-				CompositePart *comp) const;
-	};
+    protected:
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
+    };
 
-	class DomOperation15 : public DomQuery1 {
-		public:
-			DomOperation15(DataHolder *dh) : DomQuery1(OPERATION, "OP15", dh) {
-			}
+    class DomOperation14 : public DomOperation8 {
+    public:
+        DomOperation14(DataHolder *dh) : DomOperation8(OPERATION, "OP14", dh) {
+        }
 
-			virtual int run(int tid) const;
+        virtual int run(int tid) const;
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    protected:
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
+    };
+
+    class DomOperation15 : public DomQuery1 {
+    public:
+        DomOperation15(DataHolder *dh) : DomQuery1(OPERATION, "OP15", dh) {
+        }
+
+        virtual int run(int tid) const;
+
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
 }
 

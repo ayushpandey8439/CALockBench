@@ -7,197 +7,207 @@
 
 namespace sb7 {
 
-	class LMTraversal1 : public Operation {
-		protected:
-			LMTraversal1(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class LMTraversal1 : public Operation {
+    protected:
+        LMTraversal1(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			LMTraversal1(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
-			}
+    public:
+        LMTraversal1(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			int traverse(ComplexAssembly *complexAssembly) const;
-			int traverse(BaseAssembly *baseAssembly) const;
-			virtual int traverse(CompositePart *component) const;
-			virtual int traverse(AtomicPart *part,
-				Set<AtomicPart *> &setOfVisitedParts) const;
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;
-	};
+    protected:
+        int traverse(ComplexAssembly *complexAssembly) const;
 
-	class LMTraversal2a : public LMTraversal1 {
-		public:
-			LMTraversal2a(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2a", dh) {
-			}
+        int traverse(BaseAssembly *baseAssembly) const;
 
-			virtual int run() const;
+        virtual int traverse(CompositePart *component) const;
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;			
-	};
+        virtual int traverse(AtomicPart *part,
+                             Set<AtomicPart *> &setOfVisitedParts) const;
 
-	class LMTraversal2b : public LMTraversal1 {
-		public:
-			LMTraversal2b(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2b", dh) {
-			}
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-			virtual int run() const;
+    class LMTraversal2a : public LMTraversal1 {
+    public:
+        LMTraversal2a(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2a", dh) {
+        }
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;			
-	};
+        virtual int run() const;
 
-	class LMTraversal2c : public LMTraversal1 {
-		public:
-			LMTraversal2c(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2c", dh) {
-			}
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-			virtual int run() const;
+    class LMTraversal2b : public LMTraversal1 {
+    public:
+        LMTraversal2b(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2b", dh) {
+        }
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;
-	};
+        virtual int run() const;
 
-	class LMTraversal3a : public LMTraversal1 {
-		protected:
-			LMTraversal3a(optype t, const char *n, DataHolder *dh)
-				: LMTraversal1(t, n, dh) {
-			}
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-		public:
-			LMTraversal3a(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T3a", dh) {
-			}
+    class LMTraversal2c : public LMTraversal1 {
+    public:
+        LMTraversal2c(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2c", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-			void updateBuildDate(AtomicPart *apart) const;
-	};
+    class LMTraversal3a : public LMTraversal1 {
+    protected:
+        LMTraversal3a(optype t, const char *n, DataHolder *dh)
+                : LMTraversal1(t, n, dh) {
+        }
 
-	class LMTraversal3b : public LMTraversal3a {
-		public:
-			LMTraversal3b(DataHolder *dh) : LMTraversal3a(TRAVERSAL, "T3b", dh) {
-			}
+    public:
+        LMTraversal3a(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T3a", dh) {
+        }
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;
-	};
+        virtual int run() const;
 
-	class LMTraversal3c : public LMTraversal3a {
-		public:
-			LMTraversal3c(DataHolder *dh) : LMTraversal3a(TRAVERSAL, "T3c", dh) {
-			}
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
 
-		protected:
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;
-	};
+        void updateBuildDate(AtomicPart *apart) const;
+    };
 
-	class LMTraversal4 : public LMTraversal1 {
-		protected:
-			LMTraversal4(optype t, const char *n, DataHolder *dh)
-				: LMTraversal1(t, n, dh) {
-			}
+    class LMTraversal3b : public LMTraversal3a {
+    public:
+        LMTraversal3b(DataHolder *dh) : LMTraversal3a(TRAVERSAL, "T3b", dh) {
+        }
 
-		public:
-			LMTraversal4(DataHolder *dh) : LMTraversal1(TRAVERSAL_RO, "T4", dh) {
-			}
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-			virtual int run() const;
+    class LMTraversal3c : public LMTraversal3a {
+    public:
+        LMTraversal3c(DataHolder *dh) : LMTraversal3a(TRAVERSAL, "T3c", dh) {
+        }
 
-		protected:
-			virtual int traverse(CompositePart *component) const;
-			virtual int traverse(Document *doc) const;
-			virtual int traverse(AtomicPart *part,
-				Set<AtomicPart *> &setOfVisitedParts) const;
-			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-				Set<AtomicPart *> &setOfVisitedPartIds) const;
-	};
+    protected:
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-	class LMTraversal5 : public LMTraversal4 {
-		public:
-			LMTraversal5(DataHolder *dh) : LMTraversal4(TRAVERSAL, "T5", dh) {
-			}
+    class LMTraversal4 : public LMTraversal1 {
+    protected:
+        LMTraversal4(optype t, const char *n, DataHolder *dh)
+                : LMTraversal1(t, n, dh) {
+        }
 
-			virtual int run() const;
+    public:
+        LMTraversal4(DataHolder *dh) : LMTraversal1(TRAVERSAL_RO, "T4", dh) {
+        }
 
-		protected:
-			virtual int traverse(Document *doc) const;
-	};
+        virtual int run() const;
 
-	class LMTraversal6 : public LMTraversal1 {
-		public:
-			LMTraversal6(DataHolder *dh) : LMTraversal1(TRAVERSAL_RO, "T6", dh) {
-			}
+    protected:
+        virtual int traverse(CompositePart *component) const;
 
-		protected:
-			// I made this shorter than in original bench
-			virtual int traverse(CompositePart *component) const;
-	};
+        virtual int traverse(Document *doc) const;
 
-	// following traversal is actually short traversal, but is here because
-	// of it's slightly misleading name
-	class LMTraversal7 : public Operation {
-		protected:
-			LMTraversal7(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+        virtual int traverse(AtomicPart *part,
+                             Set<AtomicPart *> &setOfVisitedParts) const;
 
-		public:
-			LMTraversal7(DataHolder *dh)
-				: Operation(SHORT_TRAVERSAL_RO, "T7", dh) {
-			}
+        virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+    };
 
-			virtual int run() const;
+    class LMTraversal5 : public LMTraversal4 {
+    public:
+        LMTraversal5(DataHolder *dh) : LMTraversal4(TRAVERSAL, "T5", dh) {
+        }
 
-		protected:
-			int innerRun() const;
-			int traverse(CompositePart *cpart) const;
-			int traverse(Assembly *assembly,
-				Set<Assembly *> &visitedAssemblies) const;
-			virtual void performOperationOnAssembly(Assembly *assembly) const;
-	};
+        virtual int run() const;
 
-	// following two traversals are actually ro operations, but are here
-	// because of their slightly misleading names
+    protected:
+        virtual int traverse(Document *doc) const;
+    };
 
-	class LMTraversal8 : public Operation {
-		protected:
-			LMTraversal8(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class LMTraversal6 : public LMTraversal1 {
+    public:
+        LMTraversal6(DataHolder *dh) : LMTraversal1(TRAVERSAL_RO, "T6", dh) {
+        }
 
-		public:
-			LMTraversal8(DataHolder *dh)
-				: Operation(OPERATION_RO, "T8", dh) {
-			}
+    protected:
+        // I made this shorter than in original bench
+        virtual int traverse(CompositePart *component) const;
+    };
 
-			virtual int run() const;
+    // following traversal is actually short traversal, but is here because
+    // of it's slightly misleading name
+    class LMTraversal7 : public Operation {
+    protected:
+        LMTraversal7(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		protected:
-			virtual int traverse(Manual *manual) const;
-	};
+    public:
+        LMTraversal7(DataHolder *dh)
+                : Operation(SHORT_TRAVERSAL_RO, "T7", dh) {
+        }
 
-	class LMTraversal9 : public LMTraversal8 {
-		public:
-			LMTraversal9(DataHolder *dh)
-				: LMTraversal8(OPERATION_RO, "T9", dh) {
-			}
+        virtual int run() const;
 
-		protected:
-			virtual int traverse(Manual *manual) const;
-	};
+    protected:
+        int innerRun() const;
+
+        int traverse(CompositePart *cpart) const;
+
+        int traverse(Assembly *assembly,
+                     Set<Assembly *> &visitedAssemblies) const;
+
+        virtual void performOperationOnAssembly(Assembly *assembly) const;
+    };
+
+    // following two traversals are actually ro operations, but are here
+    // because of their slightly misleading names
+
+    class LMTraversal8 : public Operation {
+    protected:
+        LMTraversal8(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
+
+    public:
+        LMTraversal8(DataHolder *dh)
+                : Operation(OPERATION_RO, "T8", dh) {
+        }
+
+        virtual int run() const;
+
+    protected:
+        virtual int traverse(Manual *manual) const;
+    };
+
+    class LMTraversal9 : public LMTraversal8 {
+    public:
+        LMTraversal9(DataHolder *dh)
+                : LMTraversal8(OPERATION_RO, "T9", dh) {
+        }
+
+    protected:
+        virtual int traverse(Manual *manual) const;
+    };
 
 }
 

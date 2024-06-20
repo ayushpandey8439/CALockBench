@@ -7,22 +7,22 @@ using namespace std;
 
 namespace sb7 {
 
-	class IdPool {
-		protected:
-			typedef vector<int> int_vector;
+    class IdPool {
+    protected:
+        typedef vector<int> int_vector;
 
-		public:
-			IdPool(int maxId);
+    public:
+        IdPool(int maxId);
 
-			virtual ~IdPool() { }
+        virtual ~IdPool() {}
 
-			int getId();
+        int getId();
 
-			void putId(int id);
+        void putId(int id);
 
-		private:
-			int_vector m_ids;
-	};
+    private:
+        int_vector m_ids;
+    };
 }
 
 #endif /*SB7_ID_POOL_H_*/

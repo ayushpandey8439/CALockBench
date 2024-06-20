@@ -3,16 +3,17 @@
 
 namespace sb7 {
 
-	class Sb7Exception {
-		public:
-			Sb7Exception() {
-			}
+    class Sb7Exception {
+    public:
+        Sb7Exception() {
+        }
 
-			Sb7Exception(const char *m) : msg(m) {
-			}
-		protected:
-			const char *msg;
-	};
+        Sb7Exception(const char *m) : msg(m) {
+        }
+
+    protected:
+        const char *msg;
+    };
 
 }
 

@@ -9,78 +9,78 @@ using namespace std;
 
 
 void sb7::printSection(ostream &out, const char *text) {
-	char fill = out.fill();
-	out << setfill(section_fill_char) << setw(line_width) << "" << endl;
-	out << text << endl;
-	out << setfill(section_fill_char) << setw(line_width) << "" << endl;
-	out << setfill(fill);
+    char fill = out.fill();
+    out << setfill(section_fill_char) << setw(line_width) << "" << endl;
+    out << text << endl;
+    out << setfill(section_fill_char) << setw(line_width) << "" << endl;
+    out << setfill(fill);
 }
 
 std::string sb7::boolToStr(bool val) {
-	return val ? std::string("true") : std::string("false");
+    return val ? std::string("true") : std::string("false");
 }
 
 int sb7::strToBool(const std::string &str) {
-	if(equalNoCase(str, "true")) {
-		return 1;
-	} else if(equalNoCase(str, "false")) {
-		return 0;
-	} else {
-		return -1;
-	}
+    if (equalNoCase(str, "true")) {
+        return 1;
+    } else if (equalNoCase(str, "false")) {
+        return 0;
+    } else {
+        return -1;
+    }
 }
 
 bool sb7::equalNoCase(const std::string &s1, const std::string &s2) {
-	std::string::const_iterator iter1 = s1.begin();
-	std::string::const_iterator iter2 = s2.begin();
+    std::string::const_iterator iter1 = s1.begin();
+    std::string::const_iterator iter2 = s2.begin();
 
-	while(iter1 != s1.end() && iter2 != s2.end()) {
-		if(::toupper(*iter1) != ::toupper(*iter2)) {
-			return false;
-		}
+    while (iter1 != s1.end() && iter2 != s2.end()) {
+        if (::toupper(*iter1) != ::toupper(*iter2)) {
+            return false;
+        }
 
-		iter1++;
-		iter2++;
-	}
+        iter1++;
+        iter2++;
+    }
 
-	return (iter1 == s1.end()) && (iter2 == s2.end());
+    return (iter1 == s1.end()) && (iter2 == s2.end());
 }
 
 int sb7::strToUint(const std::string &str) {
-	std::string::const_iterator iter = str.begin();
-	std::string buf;
+    std::string::const_iterator iter = str.begin();
+    std::string buf;
 
-	// skip whitespace
-	while(iter != str.end()) {
-		if(!isspace(*iter)) {
-			break;
-		}
+    // skip whitespace
+    while (iter != str.end()) {
+        if (!isspace(*iter)) {
+            break;
+        }
 
-		iter++;
-	}
+        iter++;
+    }
 
-	// read digits
-	while(iter != str.end()) {
-		if(isdigit(*iter)) {
-			buf.push_back(*iter);
-			iter++;
-		} else {
-			break;
-		}
-	}
+    // read digits
+    while (iter != str.end()) {
+        if (isdigit(*iter)) {
+            buf.push_back(*iter);
+            iter++;
+        } else {
+            break;
+        }
+    }
 
-	// check to see if there is some garbage left
-	while(iter != str.end()) {
-		if(!isspace(*iter)) {
-			return -1;
-		}
+    // check to see if there is some garbage left
+    while (iter != str.end()) {
+        if (!isspace(*iter)) {
+            return -1;
+        }
 
-		iter++;
-	}
+        iter++;
+    }
 
-	istringstream inputStream(buf);
-	int ret = -1;
-	inputStream >> ret;
+    istringstream inputStream(buf);
+    int ret = -1;
+    inputStream >> ret;
 
-	return ret;
+    return ret;
 }

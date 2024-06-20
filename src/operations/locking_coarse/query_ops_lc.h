@@ -5,88 +5,91 @@
 
 namespace sb7 {
 
-	class LCQuery1 : public Operation {
-		protected:
-			LCQuery1(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class LCQuery1 : public Operation {
+    protected:
+        LCQuery1(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			LCQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
-			}
+    public:
+        LCQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			int innerRun() const;
-			virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
-	};
+    protected:
+        int innerRun() const;
 
-	class LCQuery2 : public Operation {
-		public:
-			LCQuery2(DataHolder *dh, optype t = OPERATION_RO,
-				const char *n = "Q2", int percent = 1);
+        virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
+    };
 
-			virtual int run() const;
+    class LCQuery2 : public Operation {
+    public:
+        LCQuery2(DataHolder *dh, optype t = OPERATION_RO,
+                 const char *n = "Q2", int percent = 1);
 
-		protected:
-			int innerRun() const;
-			virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
+        virtual int run() const;
 
-		private:
-	    	int maxAtomicDate;
-			int minAtomicDate; 
-	};
+    protected:
+        int innerRun() const;
 
-	class LCQuery3 : public LCQuery2 {
-		public:
-			LCQuery3(DataHolder *dh) : LCQuery2(dh, OPERATION_RO, "Q3", 10) {
-			}
-	};
+        virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
 
-	class LCQuery4 : public Operation {
-		public:
-			LCQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
-			}
+    private:
+        int maxAtomicDate;
+        int minAtomicDate;
+    };
 
-			virtual int run() const;
-	};
+    class LCQuery3 : public LCQuery2 {
+    public:
+        LCQuery3(DataHolder *dh) : LCQuery2(dh, OPERATION_RO, "Q3", 10) {
+        }
+    };
 
-	class LCQuery5 : public Operation {
-		protected:
-			LCQuery5(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class LCQuery4 : public Operation {
+    public:
+        LCQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
+        }
 
-		public:
-			LCQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
-			}
+        virtual int run() const;
+    };
 
-			virtual int run() const;
+    class LCQuery5 : public Operation {
+    protected:
+        LCQuery5(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		protected:
-			int checkBaseAssembly(BaseAssembly *bassm) const;
-	};
+    public:
+        LCQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
+        }
 
-	class LCQuery6 : public LCQuery5 {
-		public:
-			LCQuery6(DataHolder *dh) : LCQuery5(TRAVERSAL_RO, "Q6", dh) {
-			}
+        virtual int run() const;
 
-			virtual int run() const;
+    protected:
+        int checkBaseAssembly(BaseAssembly *bassm) const;
+    };
 
-		protected:
-			int checkAssembly(Assembly *assembly) const;
-			int checkComplexAssembly(ComplexAssembly *assembly) const;
-	};
+    class LCQuery6 : public LCQuery5 {
+    public:
+        LCQuery6(DataHolder *dh) : LCQuery5(TRAVERSAL_RO, "Q6", dh) {
+        }
 
-	class LCQuery7 : public Operation {
-		public:
-			LCQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
-			}
+        virtual int run() const;
 
-			virtual int run() const;
-	};
+    protected:
+        int checkAssembly(Assembly *assembly) const;
+
+        int checkComplexAssembly(ComplexAssembly *assembly) const;
+    };
+
+    class LCQuery7 : public Operation {
+    public:
+        LCQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
+        }
+
+        virtual int run() const;
+    };
 }
 
 #endif // SB7_LC_QUERY_OPS_

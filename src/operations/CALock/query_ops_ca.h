@@ -24,6 +24,7 @@ namespace sb7 {
 
     protected:
         int innerRun(int tid) const;
+
         virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
     };
 
@@ -36,6 +37,7 @@ namespace sb7 {
 
     protected:
         int innerRun(int tid) const;
+
         virtual void performOperationOnAtomicPart(AtomicPart *apart) const;
 
     private:
@@ -83,6 +85,7 @@ namespace sb7 {
 
     protected:
         int checkAssembly(Assembly *assembly) const;
+
         int checkComplexAssembly(ComplexAssembly *assembly) const;
     };
 

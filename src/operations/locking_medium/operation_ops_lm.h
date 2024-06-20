@@ -7,149 +7,154 @@
 
 namespace sb7 {
 
-	class LMOperation6 : public Operation {
-		protected:
-			LMOperation6(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+    class LMOperation6 : public Operation {
+    protected:
+        LMOperation6(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		public:
-			LMOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
-			}
+    public:
+        LMOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			int processComplexAssembly(ComplexAssembly *cassm) const;
-			virtual int processComplexAssemblyWrap(
-				ComplexAssembly *cassm) const;
-			virtual void performOperationOnComplexAssembly(
-				ComplexAssembly *cassm) const;
-	};
+    protected:
+        int processComplexAssembly(ComplexAssembly *cassm) const;
 
-	class LMOperation7 : public Operation {
-		protected:
-			LMOperation7(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+        virtual int processComplexAssemblyWrap(
+                ComplexAssembly *cassm) const;
 
-		public:
-			LMOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
-			}
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
+    };
 
-			virtual int run() const;
+    class LMOperation7 : public Operation {
+    protected:
+        LMOperation7(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-		protected:
-			int innerRun() const;
-			virtual void performOperationOnBaseAssembly(
-				BaseAssembly *bassm) const;
-	};
+    public:
+        LMOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
+        }
 
-	class LMOperation8 : public Operation {
-		protected:
-			LMOperation8(optype t, const char *n, DataHolder *dh)
-				: Operation(t, n, dh) {
-			}
+        virtual int run() const;
 
-		public:
-			LMOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
-			}
+    protected:
+        int innerRun() const;
 
-			virtual int run() const;
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
+    };
 
-		protected:
-			int innerRun() const;
-			virtual void performOperationOnComponent(
-				CompositePart *comp) const;
-	};
+    class LMOperation8 : public Operation {
+    protected:
+        LMOperation8(optype t, const char *n, DataHolder *dh)
+                : Operation(t, n, dh) {
+        }
 
-	class LMOperation9 : public LMQuery1 {
-		public:
-			LMOperation9(DataHolder *dh) : LMQuery1(OPERATION, "OP9", dh) {
-			}
+    public:
+        LMOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
+        }
 
-			virtual int run() const;
+        virtual int run() const;
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    protected:
+        int innerRun() const;
 
-	class LMOperation10 : public LMQuery2 {
-		public:
-			LMOperation10(DataHolder *dh) : LMQuery2(dh, OPERATION, "OP10", 1) {
-			}
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
+    };
 
-			virtual int run() const;
+    class LMOperation9 : public LMQuery1 {
+    public:
+        LMOperation9(DataHolder *dh) : LMQuery1(OPERATION, "OP9", dh) {
+        }
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+        virtual int run() const;
 
-	class LMOperation11 : public LMTraversal8 {
-		public:
-			LMOperation11(DataHolder *dh) : LMTraversal8(OPERATION, "OP11", dh) {
-			}
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
-			virtual int run() const;
+    class LMOperation10 : public LMQuery2 {
+    public:
+        LMOperation10(DataHolder *dh) : LMQuery2(dh, OPERATION, "OP10", 1) {
+        }
 
-		protected:
-			virtual int traverse(Manual *manual) const;
-	};
+        virtual int run() const;
 
-	class LMOperation12 : public LMOperation6 {
-		protected:
-			LMOperation12(optype t, const char *n, DataHolder *dh)
-				: LMOperation6(t, n, dh) {
-			}
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
-		public:
-			LMOperation12(DataHolder *dh) : LMOperation6(OPERATION, "OP12", dh) {
-			}
+    class LMOperation11 : public LMTraversal8 {
+    public:
+        LMOperation11(DataHolder *dh) : LMTraversal8(OPERATION, "OP11", dh) {
+        }
 
-		protected:
-			virtual int processComplexAssemblyWrap(
-				ComplexAssembly *cassm) const;
-			virtual void performOperationOnComplexAssembly(
-				ComplexAssembly *cassm) const;
-	};
+        virtual int run() const;
 
-	class LMOperation13 : public LMOperation7 {
-		public:
-			LMOperation13(DataHolder *dh) : LMOperation7(OPERATION, "OP13", dh) {
-			}
+    protected:
+        virtual int traverse(Manual *manual) const;
+    };
 
-			virtual int run() const;
+    class LMOperation12 : public LMOperation6 {
+    protected:
+        LMOperation12(optype t, const char *n, DataHolder *dh)
+                : LMOperation6(t, n, dh) {
+        }
 
-		protected:
-			virtual void performOperationOnBaseAssembly(
-				BaseAssembly *bassm) const;
-	};
+    public:
+        LMOperation12(DataHolder *dh) : LMOperation6(OPERATION, "OP12", dh) {
+        }
 
-	class LMOperation14 : public LMOperation8 {
-		public:
-			LMOperation14(DataHolder *dh) : LMOperation8(OPERATION, "OP14", dh) {
-			}
+    protected:
+        virtual int processComplexAssemblyWrap(
+                ComplexAssembly *cassm) const;
 
-			virtual int run() const;
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
+    };
 
-		protected:
-			virtual void performOperationOnComponent(
-				CompositePart *comp) const;
-	};
+    class LMOperation13 : public LMOperation7 {
+    public:
+        LMOperation13(DataHolder *dh) : LMOperation7(OPERATION, "OP13", dh) {
+        }
 
-	class LMOperation15 : public LMQuery1 {
-		public:
-			LMOperation15(DataHolder *dh) : LMQuery1(OPERATION, "OP15", dh) {
-			}
+        virtual int run() const;
 
-			virtual int run() const;
+    protected:
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
+    };
 
-		protected:
-			virtual void performOperationOnAtomicPart(
-				AtomicPart *apart) const;
-	};
+    class LMOperation14 : public LMOperation8 {
+    public:
+        LMOperation14(DataHolder *dh) : LMOperation8(OPERATION, "OP14", dh) {
+        }
+
+        virtual int run() const;
+
+    protected:
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
+    };
+
+    class LMOperation15 : public LMQuery1 {
+    public:
+        LMOperation15(DataHolder *dh) : LMQuery1(OPERATION, "OP15", dh) {
+        }
+
+        virtual int run() const;
+
+    protected:
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
+    };
 
 }
 

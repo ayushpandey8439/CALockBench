@@ -26,7 +26,8 @@ namespace sb7 {
             lock_medium,
             lock_fine,
             lock_ca,
-            lock_dom
+            lock_dom,
+            lock_mid
         };
 
     protected:
@@ -556,7 +557,7 @@ namespace sb7 {
             lockType = lt;
         }
 
-        void setBenchmarkContainment(bool t){
+        void setBenchmarkContainment(bool t) {
             benchmarkContainment = t;
         }
 
@@ -579,13 +580,13 @@ namespace sb7 {
 
         static void printHelp(std::ostream &out);
 
-        static int strToWorkloadType(std::string &val) ;
+        static int strToWorkloadType(std::string &val);
 
-        static int strToSizeType(std::string &val) ;
+        static int strToSizeType(std::string &val);
 
-        static int strToLockType(std::string &val) ;
+        static int strToLockType(std::string &val);
 
-        static std::string lockTypeToStr(lock_type val) ;
+        static std::string lockTypeToStr(lock_type val);
 
         //////////////////////
         // print parameters //
@@ -636,7 +637,6 @@ namespace sb7 {
 
         bool experimentLengthSet;
         int experimentLength;
-
 
 
         bool sizeSet;

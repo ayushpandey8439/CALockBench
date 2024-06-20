@@ -9,7 +9,7 @@
 #include "../../sb7_exception.h"
 #include "./CAPool.h"
 
-extern CAPool pool;
+extern CAPool caPool;
 ////////////////
 // Operation6 //
 ////////////////
@@ -47,14 +47,14 @@ int sb7::CAOperation6::innerRun(int tid) const {
     // if complex assembly was found process it
     ComplexAssembly *cassm = query.val;
     ComplexAssembly *superAssm = cassm->getSuperAssembly();
-    if(superAssm == NULL) {
-        auto * l = new lockObject(cassm->getLabellingId(), &cassm->criticalAncestors, 0);
-         //if this assembly is root perform operation on it
-        if (pool.acquireLock(l, tid)) {
+    if (superAssm == NULL) {
+        auto *l = new lockObject(cassm->getLabellingId(), &cassm->criticalAncestors, 0);
+        //if this assembly is root perform operation on it
+        if (caPool.acquireLock(l, tid)) {
             //cout<< "Lock acquired"<<endl;
             performOperationOnComplexAssembly(cassm);
             ret = 1;
-            pool.releaseLock(l,tid);
+            caPool.releaseLock(l, tid);
         }
         ret = 1;
     } else {
@@ -63,16 +63,16 @@ int sb7::CAOperation6::innerRun(int tid) const {
         SetIterator<Assembly *> iter = siblingAssms->getIter();
         ret = 0;
 
-        auto * l = new lockObject(superAssm->getLabellingId(), &superAssm->criticalAncestors, 0);
-        if(pool.acquireLock(l,tid)){
+        auto *l = new lockObject(superAssm->getLabellingId(), &superAssm->criticalAncestors, 0);
+        if (caPool.acquireLock(l, tid)) {
             while (iter.has_next()) {
-                auto * bassm = (BaseAssembly*) iter.next();
-                if(bassm->hasLabel) {
+                auto *bassm = (BaseAssembly *) iter.next();
+                if (bassm->hasLabel) {
                     bassm->nullOperation();
                     ret++;
                 }
             }
-            pool.releaseLock(l,tid);
+            caPool.releaseLock(l, tid);
         }
 
     }
@@ -112,7 +112,7 @@ int sb7::CAOperation7::innerRun(int tid) const {
         throw Sb7Exception();
     }
     list<BaseAssembly *> bassms;
-    DesignObj * lockRequest;
+    DesignObj *lockRequest;
 
     // process all sibling base assemblies
     ComplexAssembly *superAssm = query.val->getSuperAssembly();
@@ -120,16 +120,16 @@ int sb7::CAOperation7::innerRun(int tid) const {
     SetIterator<Assembly *> iter = siblingSet->getIter();
     int ret = 0;
 
-    auto * l = new lockObject(superAssm->getLabellingId(), &superAssm->criticalAncestors, 0);
-    if(pool.acquireLock(l,tid)){
+    auto *l = new lockObject(superAssm->getLabellingId(), &superAssm->criticalAncestors, 0);
+    if (caPool.acquireLock(l, tid)) {
         while (iter.has_next()) {
-            auto * bassm = (BaseAssembly*) iter.next();
-            if(bassm->hasLabel) {
+            auto *bassm = (BaseAssembly *) iter.next();
+            if (bassm->hasLabel) {
                 bassm->nullOperation();
                 ret++;
             }
         }
-        pool.releaseLock(l,tid);
+        caPool.releaseLock(l, tid);
     }
     return ret;
 }

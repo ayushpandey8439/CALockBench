@@ -5,16 +5,29 @@
 
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
+#include "operations/Mid/MidPool.h"
 
 using namespace sb7;
 using namespace std;
-CAPool pool;
-DomPool ICheck;
-//coarsePool cPool;
-//mediumPool mPool;
+CAPool caPool;
+DomPool domPool;
+MidPool midPool;
+
+int numBuckets;
+int numIterations;
+int numNodesLocked;
+int totalLockRejections;
+int correctedFScountByTraversal;
+int correctedFScountByMID;
+int totalNumOps;
+int totalLockAttempts;
+int correctedByDL;
+int numTraversals;
+long totalNumEdgesTraversed;
+
 int main(int argc, char **argv) {
     // initialize parameters
-    if(parameters.init(argc, argv, cout)) {
+    if (parameters.init(argc, argv, cout)) {
         parameters.print(cout);
 
         // create benchmark object and run it

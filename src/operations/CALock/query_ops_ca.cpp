@@ -9,7 +9,7 @@
 #include "../../sb7_exception.h"
 #include "boost/container/list.hpp"
 
-extern CAPool pool;
+extern CAPool caPool;
 ////////////
 // Query1 //
 ////////////
@@ -32,20 +32,19 @@ int sb7::CAQuery1::innerRun(int tid) const {
     apartInd->get(query);
 
     if (query.found && query.val->hasLabel) {
-        AtomicPart * a = query.val;
-        if(string(name)=="Q1"){
-            auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 0);
-            pool.acquireLock(l, tid);
+        AtomicPart *a = query.val;
+        if (string(name) == "Q1") {
+            auto *l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 0);
+            caPool.acquireLock(l, tid);
             performOperationOnAtomicPart(query.val);
             count++;
-            pool.releaseLock(l, tid);
-        }
-        else if(string(name) == "OP9"|| string(name) == "OP15") {
-            auto * l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
-            pool.acquireLock(l, tid);
+            caPool.releaseLock(l, tid);
+        } else if (string(name) == "OP9" || string(name) == "OP15") {
+            auto *l = new lockObject(a->getLabellingId(), &a->criticalAncestors, 1);
+            caPool.acquireLock(l, tid);
             performOperationOnAtomicPart(query.val);
             count++;
-            pool.releaseLock(l, tid);
+            caPool.releaseLock(l, tid);
         }
     } else {
         //cout<<"found without label"<<endl;
@@ -72,10 +71,10 @@ int sb7::CAQuery2::run(int tid) const {
 }
 
 int sb7::CAQuery2::innerRun(int tid) const {
-    int range = percent* (parameters.getMaxAtomicDate() -
-                          parameters.getMinAtomicDate())/100;
-    int min = get_random()->nextInt(parameters.getMaxAtomicDate()-range);
-    int max = min+range;
+    int range = percent * (parameters.getMaxAtomicDate() -
+                           parameters.getMinAtomicDate()) / 100;
+    int min = get_random()->nextInt(parameters.getMaxAtomicDate() - range);
+    int max = min + range;
     int count = 0;
 
     Map<int, Set<AtomicPart *> *> *setInd =
@@ -86,47 +85,47 @@ int sb7::CAQuery2::innerRun(int tid) const {
     while (iter.has_next()) {
         Set<AtomicPart *> *apartSet = iter.next();
         SetIterator<AtomicPart *> apartIter = apartSet->getIter();
-        vector<AtomicPart*> aparts;
+        vector<AtomicPart *> aparts;
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
-            if(apart->hasLabel && !apart->isDeleted) {
-                //lockRequest = pool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
+            if (apart->hasLabel && !apart->isDeleted) {
+                //lockRequest = caPool.addToLockRequest(dataHolder, lockRequest, apart->pathLabel);
                 aparts.push_back(apart);
             }
         }
-        if(aparts.empty()){
+        if (aparts.empty()) {
             throw Sb7Exception();
         }
 
         boost::container::list<int> lockRequest{};
         auto it = aparts[0]->pathLabel.rbegin();
         auto end = aparts[0]->pathLabel.rend();
-        for(auto i: aparts[0]->pathLabel){
-            for(auto a: aparts){
-                if(a->criticalAncestors.contains(i)){
+        for (auto i: aparts[0]->pathLabel) {
+            for (auto a: aparts) {
+                if (a->criticalAncestors.contains(i)) {
                     lockRequest.push_back(i);
                 }
             }
         }
 
 
-        pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
+        pair<DesignObj *, bool> lo = lscaHelpers::getLockObject(lockRequest, dataHolder);
 
         int mode = 0;
-        if(string(name) == "Q2")
+        if (string(name) == "Q2")
             mode = 0;
-        if(string(name) == "OP10")
+        if (string(name) == "OP10")
             mode = 1;
 
-        if(lo.second && lo.first->hasLabel){
+        if (lo.second && lo.first->hasLabel) {
 //            cout<<lo.first->getId()<<endl;
-            auto * l = new lockObject(lo.first->getLabellingId(), &lo.first->criticalAncestors, mode);
-            pool.acquireLock(l, tid);
-            for(auto * apart: aparts){
+            auto *l = new lockObject(lo.first->getLabellingId(), &lo.first->criticalAncestors, mode);
+            caPool.acquireLock(l, tid);
+            for (auto *apart: aparts) {
                 performOperationOnAtomicPart(apart);
                 count++;
             }
-            pool.releaseLock(l, tid);
+            caPool.releaseLock(l, tid);
 
         }
     }

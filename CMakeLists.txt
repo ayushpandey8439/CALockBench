@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.27)
 project(STMBench)
 
 set(CMAKE_CXX_STANDARD 26)
@@ -60,6 +60,19 @@ add_library(STMBenchLockingDom
         src/operations/DomLock/structural_modification_ops_dom.cpp
         src/operations/DomLock/traversal_ops_dom.cpp
         src/operations/DomLock/dominatorHelper.h)
+
+add_library(STMBenchLockMid
+        src/operations/Mid/MidPool.h
+        src/operations/Mid/MidPool.cpp
+        src/operations/Mid/operation_ops_mid.cc
+        src/operations/Mid/query_ops_mid.cc
+        src/operations/Mid/short_traversal_ops_mid.cc
+        src/operations/Mid/structural_modification_ops_mid.cc
+        src/operations/Mid/traversal_ops_mid.cc
+        src/operations/Mid/traversal_ops_mid.h
+        src/operations/Mid/midHelper.h)
+
+
 add_executable(STMBench src/sb7_lock.cc
         src/operations/base/operation_ops.cc
         src/operations/base/query_ops.cc
@@ -78,6 +91,7 @@ add_executable(STMBench src/sb7_lock.cc
         src/display/output.cpp
         src/display/output.h
 )
-target_link_libraries(STMBenchOps STMBenchLockCoarse STMBenchLockMedium STMBenchLockFine STMBenchLockingCA STMBenchLockingDom)
+target_link_libraries(STMBenchOps STMBenchLockCoarse STMBenchLockMedium STMBenchLockFine STMBenchLockingCA STMBenchLockingDom STMBenchLockMid)
 
-target_link_libraries(STMBench STMBenchHelpers STMBenchOps  STMBenchStruct )
+target_link_libraries(STMBench STMBenchHelpers STMBenchOps STMBenchStruct)
+

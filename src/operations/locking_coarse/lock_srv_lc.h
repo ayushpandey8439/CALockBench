@@ -5,28 +5,28 @@
 
 namespace sb7 {
 
-	class LCLockSrv {
-		public:
-			LCLockSrv() {
-				initializeLock();
-			}
+    class LCLockSrv {
+    public:
+        LCLockSrv() {
+            initializeLock();
+        }
 
-			~LCLockSrv() {
-				destroyLock();
-			}
+        ~LCLockSrv() {
+            destroyLock();
+        }
 
-			pthread_rwlock_t *getLock() {
-				return &lock;
-			}
+        pthread_rwlock_t *getLock() {
+            return &lock;
+        }
 
-		protected:
-			void initializeLock();
+    protected:
+        void initializeLock();
 
-			void destroyLock();
+        void destroyLock();
 
-		protected:
-			pthread_rwlock_t lock;
-	};
+    protected:
+        pthread_rwlock_t lock;
+    };
 }
 
 extern sb7::LCLockSrv lc_lock_srv;

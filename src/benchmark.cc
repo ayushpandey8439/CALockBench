@@ -12,8 +12,8 @@
 #include "labelling/DomLock/DomLockTraversal.h"
 #include "display/output.h"
 
-extern CAPool pool;
-extern DomPool ICheck;
+extern CAPool caPool;
+extern DomPool domPool;
 std::chrono::duration<long double, std::nano> idlenessTimeCM;
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
@@ -102,7 +102,7 @@ void sb7::Benchmark::init() {
     // initialize structure of data holder
     sb7::init_data_holder(&dataHolder);
 
-    if (parameters.getLockType() == Parameters::lock_ca || parameters.getBenchmarkContainment()){
+    if (parameters.getLockType() == Parameters::lock_ca || parameters.getBenchmarkContainment()) {
         /// The CALabels are also used to check if the component is actually connected during random selection
         /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
         auto *dfs = new CALockLabeling(&dataHolder);
@@ -114,7 +114,7 @@ void sb7::Benchmark::init() {
         cout << "Labelling time for CALock: " << initialLabellingTime.count() << endl;
 
 
-        auto* printer = new output(&dataHolder);
+        auto *printer = new output(&dataHolder);
         printer->run(0);
         cout << "Printing complete" << std::endl;
 
@@ -301,9 +301,9 @@ void sb7::Benchmark::reportStats(ostream &out) {
     if (parameters.getLockType() == Parameters::lock_coarse || parameters.getLockType() == Parameters::lock_medium) {
         totalTimeSpentIdle = (idlenessTimeCM / parameters.getThreadNum());
     } else if (parameters.getLockType() == Parameters::lock_ca) {
-        out << "Total relabelling: " << pool.modificationTimeCA.count() / (pool.count) << " nanos" << endl;
+        out << "Total relabelling: " << caPool.modificationTimeCA.count() / (caPool.count) << " nanos" << endl;
         int count = 1;
-        for (auto i: pool.idleness) {
+        for (auto i: caPool.idleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {
                 count++;
                 totalTimeSpentIdle = (totalTimeSpentIdle + i);
@@ -311,9 +311,9 @@ void sb7::Benchmark::reportStats(ostream &out) {
         }
         totalTimeSpentIdle /= count;
     } else if (parameters.getLockType() == Parameters::lock_dom) {
-        out << "Total relabelling: " << ICheck.modificationTimeDom.count() / (ICheck.count) << " nanos" << endl;
+        out << "Total relabelling: " << domPool.modificationTimeDom.count() / (domPool.count) << " nanos" << endl;
         int count = 1;
-        for (auto i: ICheck.Totalidleness) {
+        for (auto i: domPool.Totalidleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {
                 count++;
                 totalTimeSpentIdle = (totalTimeSpentIdle + i);

@@ -12,7 +12,7 @@ namespace sb7 {
     class CALockLabeling : public Operation {
     protected:
         CALockLabeling(optype t, const char *n, DataHolder *dh)
-        : Operation(t, n, dh) {
+                : Operation(t, n, dh) {
         }
 
     public:
@@ -22,9 +22,13 @@ namespace sb7 {
         virtual int run(int tid) const;
 
     protected:
-        void traverse(ComplexAssembly *complexAssembly, queue<ComplexAssembly *> *cassmQ, std::queue<BaseAssembly *> *bassmQ) const;
-        void traverse(BaseAssembly *baseAssembly, queue<CompositePart*> *cpartQ) const;
-        virtual void traverse(CompositePart *component,queue<AtomicPart*> *apartQ ) const;
+        void traverse(ComplexAssembly *complexAssembly, queue<ComplexAssembly *> *cassmQ,
+                      std::queue<BaseAssembly *> *bassmQ) const;
+
+        void traverse(BaseAssembly *baseAssembly, queue<CompositePart *> *cpartQ) const;
+
+        virtual void traverse(CompositePart *component, queue<AtomicPart *> *apartQ) const;
+
         virtual void traverse(AtomicPart *part,
                               Set<AtomicPart *> &setOfVisitedParts, list<int> currLabel) const;
     };

@@ -4,10 +4,12 @@
 
 #ifndef STMBENCH_DOMLOCKRELABELING_H
 #define STMBENCH_DOMLOCKRELABELING_H
+
 #include "../../operations/operations.h"
 #include "../../containers.h"
 #include "../../struct/assembly.h"
 #include "queue"
+
 using namespace sb7;
 
 class DomLockRelabeling {
@@ -15,7 +17,7 @@ class DomLockRelabeling {
 
 public:
     DomLockRelabeling(DataHolder
-    * dh){
+                      *dh) {
         dataHolder = dh;
     }
 
