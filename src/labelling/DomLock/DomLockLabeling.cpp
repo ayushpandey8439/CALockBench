@@ -2,7 +2,7 @@
 // Created by pandey on 17/06/24.
 //
 
-#include "DomLockTraversal.h"
+#include "DomLockLabeling.h"
 #include "../../struct/connection.h"
 #include "limits.h"
 

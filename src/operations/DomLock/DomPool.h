@@ -51,8 +51,8 @@ public:
     long Seq;
     //Lock pool for Multi-DomLock, .i.e., multiple lock node per thread
     vector<interval **> MultiLockPool;
-    std::chrono::duration<long double, std::nano> Totalidleness[S];
-    std::chrono::duration<long double, std::nano> modificationTimeDom;
+    std::chrono::duration<long double, std::nano> idleness[S];
+    std::chrono::duration<long double, std::nano> modificationTime;
     //Sequence number per thread for fairness and less contention
     int MySeq[S];
 
@@ -94,7 +94,7 @@ public:
             }
         }
         auto t2 = std::chrono::high_resolution_clock::now();
-        Totalidleness[threadID] += (t2 - t1);
+        idleness[threadID] += (t2 - t1);
         return false;
 
 

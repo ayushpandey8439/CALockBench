@@ -8,12 +8,15 @@
 #include "thread/thread.h"
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
+#include "operations/MID/MidPool.h"
 #include "labelling/CALock/CALockLabeling.h"
-#include "labelling/DomLock/DomLockTraversal.h"
+#include "labelling/DomLock/DomLockLabeling.h"
+#include "labelling/MID/MidLabeling.h"
 #include "display/output.h"
 
 extern CAPool caPool;
 extern DomPool domPool;
+extern MidPool midPool;
 std::chrono::duration<long double, std::nano> idlenessTimeCM;
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
@@ -134,6 +137,18 @@ void sb7::Benchmark::init() {
         std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2 - tD1;
         cout << "Labelling time for DomLock: " << initialLabellingTimeDom.count() << endl;
         cout << "Interval assignment complete" << endl;
+
+    }
+
+    if(parameters.getLockType() == Parameters::lock_mid|| parameters.getBenchmarkContainment()){
+        auto *dfs = new MidTraversalDFS(&dataHolder);
+        auto *rdfs = new MidTraversalReverseDFS(&dataHolder);
+        auto tD1 = std::chrono::high_resolution_clock::now();
+        dfs->run(0);
+        rdfs->run(0);
+        auto tD2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2 - tD1;
+
 
     }
 }
@@ -301,7 +316,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
     if (parameters.getLockType() == Parameters::lock_coarse || parameters.getLockType() == Parameters::lock_medium) {
         totalTimeSpentIdle = (idlenessTimeCM / parameters.getThreadNum());
     } else if (parameters.getLockType() == Parameters::lock_ca) {
-        out << "Total relabelling: " << caPool.modificationTimeCA.count() / (caPool.count) << " nanos" << endl;
+        out << "Total relabelling: " << caPool.modificationTime.count() / (caPool.count) << " nanos" << endl;
         int count = 1;
         for (auto i: caPool.idleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {
@@ -311,9 +326,20 @@ void sb7::Benchmark::reportStats(ostream &out) {
         }
         totalTimeSpentIdle /= count;
     } else if (parameters.getLockType() == Parameters::lock_dom) {
-        out << "Total relabelling: " << domPool.modificationTimeDom.count() / (domPool.count) << " nanos" << endl;
+        out << "Total relabelling: " << domPool.modificationTime.count() / (domPool.count) << " nanos" << endl;
         int count = 1;
-        for (auto i: domPool.Totalidleness) {
+        for (auto i: domPool.idleness) {
+            if (i > std::chrono::duration<long double, std::nano>::zero()) {
+                count++;
+                totalTimeSpentIdle = (totalTimeSpentIdle + i);
+            }
+        }
+        totalTimeSpentIdle /= count;
+    }
+    else if (parameters.getLockType() == Parameters::lock_mid) {
+        out << "Total relabelling: " << midPool.modificationTime.count() / (midPool.count) << " nanos" << endl;
+        int count = 1;
+        for (auto i: midPool.idleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {
                 count++;
                 totalTimeSpentIdle = (totalTimeSpentIdle + i);

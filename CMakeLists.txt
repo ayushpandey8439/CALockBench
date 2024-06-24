@@ -50,7 +50,9 @@ add_library(STMBenchLockingCA
         src/operations/CALock/CAPool.h
         src/operations/CALock/CAPool.cpp
         src/operations/CALock/structural_modification_ops_ca.cpp
-        src/operations/CALock/traversal_ops_ca.cpp)
+        src/operations/CALock/traversal_ops_ca.cpp
+        src/operations/CALock/operation_ops_ca.cpp
+)
 add_library(STMBenchLockingDom
         src/operations/DomLock/DomPool.h
         src/operations/DomLock/DomPool.cpp
@@ -70,7 +72,10 @@ add_library(STMBenchLockMid
         src/operations/Mid/structural_modification_ops_mid.cc
         src/operations/Mid/traversal_ops_mid.cc
         src/operations/Mid/traversal_ops_mid.h
-        src/operations/Mid/midHelper.h)
+        src/operations/Mid/midHelper.h
+        src/labelling/MID/MidLabeling.h
+        src/labelling/MID/MidLabeling.cpp
+)
 
 
 add_executable(STMBench src/sb7_lock.cc
@@ -80,14 +85,11 @@ add_executable(STMBench src/sb7_lock.cc
         src/operations/base/structural_modification_ops.cc
         src/operations/base/traversal_ops.cc
         src/labelling/DomLock/DomLockLabeling.cpp
-        src/labelling/DomLock/DomLockTraversal.h
-        src/labelling/DomLock/DomLockRelabeling.cpp
-        src/labelling/DomLock/DomLockRelabeling.h
+        src/labelling/DomLock/DomLockLabeling.h
         src/labelling/CALock/CALockLabeling.cpp
         src/labelling/CALock/CALockLabeling.h
         src/labelling/CALock/CALockRelabeling.cpp
         src/labelling/CALock/CALockRelabeling.h
-        src/operations/CALock/operation_ops_ca.cpp
         src/display/output.cpp
         src/display/output.h
 )

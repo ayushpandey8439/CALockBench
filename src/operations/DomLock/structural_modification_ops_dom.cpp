@@ -5,7 +5,7 @@
 #include "../../thread/thread.h"
 #include "DomPool.h"
 #include "dominatorHelper.h"
-#include "../../labelling/DomLock/DomLockRelabeling.h"
+#include "../../labelling/DomLock/DomLockLabeling.h"
 
 extern DomPool domPool;
 
@@ -33,15 +33,19 @@ int sb7::DomStructuralModification2::run(int tid) const {
     if (cpart == NULL || cpart->m_post_number == 0 || cpart->m_pre_number == 0) {
         throw Sb7Exception();
     }
-    float min = INFINITY, max = 0;
-    min = cpart->m_pre_number;
-    max = cpart->m_post_number;
+    auto root = dataHolder->getModule()->getDesignRoot();
+    float min = root->m_pre_number;
+    float max = root->m_post_number;
 
     pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
     auto *inv = new interval(min, max, 1);
     if (!domPool.IsOverlap(inv, 1, tid)) {
         pthread_rwlock_wrlock(lock);
         dataHolder->deleteCompositePart(cpart);
+        auto *r = new DomLockLabeling(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        auto t2 = std::chrono::high_resolution_clock::now();
         pthread_rwlock_unlock(lock);
         domPool.Delete(tid);
     }
@@ -69,23 +73,28 @@ int sb7::DomStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    float min = bassm->m_pre_number;
-    float max = bassm->m_post_number;
-    if (cpart->m_pre_number < min)
-        min = cpart->m_pre_number;
-    if (cpart->m_post_number > max)
-        max = cpart->m_post_number;
+    // In order to do a structural modification, we need a write lock on the hierarchy.
+    auto root = dataHolder->getModule()->getDesignRoot();
+    float min = root->m_pre_number;
+    float max = root->m_post_number;
+
+//    float min = bassm->m_pre_number;
+//    float max = bassm->m_post_number;
+//    if (cpart->m_pre_number < min)
+//        min = cpart->m_pre_number;
+//    if (cpart->m_post_number > max)
+//        max = cpart->m_post_number;
 
     pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
     auto *inv = new interval(min, max, 1);
     if (!domPool.IsOverlap(inv, 1, tid)) {
         pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
-        auto *r = new DomLockRelabeling(dataHolder);
+        auto *r = new DomLockLabeling(dataHolder);
         auto t1 = std::chrono::high_resolution_clock::now();
-        r->traverse(dataHolder->getModule()->getDesignRoot());
+        r->traverse(root);
         auto t2 = std::chrono::high_resolution_clock::now();
-        domPool.modificationTimeDom += (t2 - t1);
+        domPool.modificationTime += (t2 - t1);
         domPool.count.fetch_add(1);
         pthread_rwlock_unlock(lock);
         domPool.Delete(tid);
@@ -109,11 +118,11 @@ int sb7::DomStructuralModification4::run(int tid) const {
                            dataHolder->getModule()->getDesignRoot()->m_post_number, 1);
     if (!domPool.IsOverlap(l, 1, tid)) {
         dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
-        auto *r = new DomLockRelabeling(dataHolder);
+        auto *r = new DomLockLabeling(dataHolder);
         auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
-        domPool.modificationTimeDom += (t2 - t1);
+        domPool.modificationTime += (t2 - t1);
         domPool.count.fetch_add(1);
         domPool.Delete(tid);
     }
@@ -129,11 +138,11 @@ int sb7::DomStructuralModification5::run(int tid) const {
                            dataHolder->getModule()->getDesignRoot()->m_post_number, 1);
     if (!domPool.IsOverlap(l, 1, tid)) {
         dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
-        auto *r = new DomLockRelabeling(dataHolder);
+        auto *r = new DomLockLabeling(dataHolder);
         auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
-        domPool.modificationTimeDom += (t2 - t1);
+        domPool.modificationTime += (t2 - t1);
         domPool.count.fetch_add(1);
         domPool.Delete(tid);
     }
@@ -168,7 +177,7 @@ int sb7::DomStructuralModification6::run(int tid) const {
     auto *inv = new interval(cassm->m_pre_number, cassm->m_post_number, 1);
     if (!domPool.IsOverlap(inv, 1, tid)) {
         dataHolder->deleteBaseAssembly(bassm);
-        auto *r = new DomLockRelabeling(dataHolder);
+        auto *r = new DomLockLabeling(dataHolder);
         r->traverse(dataHolder->getModule()->getDesignRoot());
         domPool.Delete(tid);
     }
@@ -196,7 +205,7 @@ int sb7::DomStructuralModification7::run(int tid) const {
     if (!domPool.IsOverlap(inv, 1, tid)) {
         // create sub assembly
         dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
-        auto *r = new DomLockRelabeling(dataHolder);
+        auto *r = new DomLockLabeling(dataHolder);
         r->traverse(dataHolder->getModule()->getDesignRoot());
         domPool.Delete(tid);
     }
@@ -240,7 +249,7 @@ int sb7::DomStructuralModification8::run(int tid) const {
     if (!domPool.IsOverlap(inv, 1, tid)) {
         // delete selected complex assembly
         dataHolder->deleteComplexAssembly(cassm);
-        auto *r = new DomLockRelabeling(dataHolder);
+        auto *r = new DomLockLabeling(dataHolder);
         r->traverse(dataHolder->getModule()->getDesignRoot());
         domPool.Delete(tid);
     }

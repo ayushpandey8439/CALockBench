@@ -33,6 +33,9 @@ class MidPool{
 public:
     midInterval *Array[SIZE];
     pthread_rwlock_t ArrayLock[SIZE];
+    std::chrono::duration<long double, std::nano> idleness[SIZE];
+    std::chrono::duration<long double, std::nano> modificationTime;
+    atomic<long int> count = 1;
 
     MidPool()
     {

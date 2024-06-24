@@ -22,8 +22,9 @@ namespace sb7 {
 
         virtual int run(int tid) const;
 
-    protected:
         int traverse(ComplexAssembly *complexAssembly) const;
+
+    protected:
 
         int traverse(BaseAssembly *baseAssembly) const;
 

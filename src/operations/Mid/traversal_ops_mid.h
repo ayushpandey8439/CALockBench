@@ -6,63 +6,6 @@
 #include "../../struct/assembly.h"
 
 namespace sb7 {
-
-// Anju -------- Start --------
-
-class MidTraversalReverseDFS : public Operation {
-        protected:
-            MidTraversalReverseDFS(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-            }
-
-        public:
-            MidTraversalReverseDFS(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
-            }
-
-            virtual int run(int tid) const;
-
-        protected:
-            int traverse(ComplexAssembly *complexAssembly) const;
-            int traverse(BaseAssembly *baseAssembly) const;
-            virtual int traverse(CompositePart *component) const;
-            virtual int traverse(AtomicPart *part,
-                Set<AtomicPart *> &setOfVisitedParts) const;
-/*			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                Set<AtomicPart *> &setOfVisitedPartIds) const; */
-    };
-
-
-
-// Anju -------- End ----------
-
-
-//*************************************************************
-
-class MidTraversalDFS : public Operation {
-        protected:
-            MidTraversalDFS(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
-            }
-
-        public:
-            MidTraversalDFS(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
-            }
-
-            virtual int run(int tid) const;
-
-        protected:
-            int traverse(ComplexAssembly *complexAssembly) const;
-            int traverse(BaseAssembly *baseAssembly) const;
-            virtual int traverse(CompositePart *component) const;
-            virtual int traverse(AtomicPart *part,
-                Set<AtomicPart *> &setOfVisitedParts) const;
-            virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                Set<AtomicPart *> &setOfVisitedPartIds) const;
-    };
-
-
-//***************************************************************
-
     class MidTraversal1 : public Operation {
         protected:
             MidTraversal1(optype t, const char *n, DataHolder *dh)

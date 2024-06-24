@@ -51,7 +51,7 @@ public:
     condition_variable_any threadConditions[SIZE];
     long int Gseq;
     std::chrono::duration<long double, std::nano> idleness[SIZE];
-    std::chrono::duration<long double, std::nano> modificationTimeCA;
+    std::chrono::duration<long double, std::nano> modificationTime;
     atomic<long int> count = 1;
     const uint processor_Count = std::thread::hardware_concurrency();
 

@@ -31,7 +31,7 @@ void CALockRelabeling::run() {
 //        apartQ.pop();
 //    }
     auto t2 = std::chrono::high_resolution_clock::now();
-    caPool.modificationTimeCA += (t2 - t1);
+    caPool.modificationTime += (t2 - t1);
     caPool.count.fetch_add(1);
 //    cout<<(t2-t1).count()<<endl;
 }

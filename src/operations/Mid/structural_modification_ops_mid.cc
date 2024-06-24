@@ -6,6 +6,7 @@
 #include "MidPool.h"
 #include "MidHelper.h"
 #include<pthread.h>
+#include "../../labelling/Mid/MidLabeling.h"
 
 extern MidPool midPool;
 /////////////////////////////
@@ -15,7 +16,7 @@ extern MidPool midPool;
 int sb7::MidStructuralModification1::run(int tid) const {
     //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
     dataHolder->createCompositePart();
-    return 0;
+    return 1;
 }
 
 /////////////////////////////
@@ -32,19 +33,29 @@ int sb7::MidStructuralModification2::run(int tid) const {
     if (cpart == NULL || cpart->m_post_number == 0 || cpart->m_pre_number == 0) {
         throw Sb7Exception();
     }
-    float min = INFINITY, max = 0;
-    min = cpart->m_pre_number;
-    max = cpart->m_post_number;
+    auto root = dataHolder->getModule()->getDesignRoot();
+    float min = root->m_pre_number;
+    float max = root->m_post_number;
+
     float rlm_min, rlm_max;
     pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
     auto *inv = new midInterval(min, max, rlm_min, rlm_max, 1);
     if (!midPool.IsOverlap(inv, 1, tid, dataHolder)) {
         pthread_rwlock_wrlock(lock);
         dataHolder->deleteCompositePart(cpart);
+        auto *dfs = new MidTraversalDFS(dataHolder);
+        auto *rdfs = new MidTraversalReverseDFS(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
+        dfs->traverse(dataHolder->getModule()->getDesignRoot());
+        rdfs->traverse(dataHolder->getModule()->getDesignRoot());
+        auto t2 = std::chrono::high_resolution_clock::now();
+        midPool.modificationTime += (t2 - t1);
+
+
         pthread_rwlock_unlock(lock);
         midPool.Delete(tid);
     }
-    return 0;
+    return 1;
 }
 
 /////////////////////////////
@@ -68,12 +79,13 @@ int sb7::MidStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    float min = bassm->m_pre_number;
-    float max = bassm->m_post_number;
-    if (cpart->m_pre_number < min)
-        min = cpart->m_pre_number;
-    if (cpart->m_post_number > max)
-        max = cpart->m_post_number;
+    auto root = dataHolder->getModule()->getDesignRoot();
+    float min = root->m_pre_number;
+    float max = root->m_post_number;
+//    if (root->m_pre_number < min)
+//        min = cpart->m_pre_number;
+//    if (cpart->m_post_number > max)
+//        max = cpart->m_post_number;
 
     float rlm_min, rlm_max;
     pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
@@ -81,44 +93,52 @@ int sb7::MidStructuralModification3::run(int tid) const {
     if (!midPool.IsOverlap(inv, 1, tid, dataHolder)) {
         pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
-//        auto t1 = std::chrono::high_resolution_clock::now();
-        bool didIntervalChange = false;
-        if (cpart->m_pre_number < bassm->m_pre_number) {
-            bassm->m_pre_number = cpart->m_pre_number;
-            didIntervalChange = true;
-        }
-        if (bassm->m_post_number < cpart->m_post_number) {
-            bassm->m_post_number = cpart->m_post_number;
-            didIntervalChange = true;
-        }
-        if (didIntervalChange) {
-            // Now, do the midInterval updates to ancestors of bassm
-            ComplexAssembly *cassm = bassm->getSuperAssembly();
-            while (didIntervalChange) // Remember to use break statement inside
-            {
-                didIntervalChange = false;
-                if (cassm->m_pre_number > cpart->m_pre_number) {
-                    cassm->m_pre_number = cpart->m_pre_number;
-                    didIntervalChange = true;
-                }
-                if (cassm->m_post_number < cpart->m_post_number) {
-                    cassm->m_post_number = cpart->m_post_number;
-                    didIntervalChange = true;
-                }
-                if ((cassm->m_pre_number == min) && (cassm->m_post_number == max)) {
-                    // Reached dominator. No need to go further up.
-                    break;
-                }
-                cassm = cassm->getSuperAssembly(); // Pointer to parent
-            }
-        }
+
+        auto t1 = std::chrono::high_resolution_clock::now();
+        auto *dfs = new MidTraversalDFS(dataHolder);
+        auto *rdfs = new MidTraversalReverseDFS(dataHolder);
+        dfs->traverse(dataHolder->getModule()->getDesignRoot());
+        rdfs->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
-//        midPool.modificationTimeMid += (t2 - t1);
+
+//        bool didIntervalChange = false;
+//        if (cpart->m_pre_number < bassm->m_pre_number) {
+//            bassm->m_pre_number = cpart->m_pre_number;
+//            didIntervalChange = true;
+//        }
+//        if (bassm->m_post_number < cpart->m_post_number) {
+//            bassm->m_post_number = cpart->m_post_number;
+//            didIntervalChange = true;
+//        }
+//        if (didIntervalChange) {
+//            // Now, do the midInterval updates to ancestors of bassm
+//            ComplexAssembly *cassm = bassm->getSuperAssembly();
+//            while (didIntervalChange) // Remember to use break statement inside
+//            {
+//                didIntervalChange = false;
+//                if (cassm->m_pre_number > cpart->m_pre_number) {
+//                    cassm->m_pre_number = cpart->m_pre_number;
+//                    didIntervalChange = true;
+//                }
+//                if (cassm->m_post_number < cpart->m_post_number) {
+//                    cassm->m_post_number = cpart->m_post_number;
+//                    didIntervalChange = true;
+//                }
+//                if ((cassm->m_pre_number == min) && (cassm->m_post_number == max)) {
+//                    // Reached dominator. No need to go further up.
+//                    break;
+//                }
+//                cassm = cassm->getSuperAssembly(); // Pointer to parent
+//            }
+//        }
+
+
+        midPool.modificationTime += (t2 - t1);
 //        midPool.count.fetch_add(1);
         pthread_rwlock_unlock(lock);
         midPool.Delete(tid);
     }
-    return 0;
+    return 1;
 }
 //
 ///////////////////////////////
