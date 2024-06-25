@@ -37,6 +37,10 @@
 #include "Mid/operation_ops_mid.h"
 #include "Mid/structural_modification_ops_mid.h"
 
+#include "NumLock/query_ops_num.h"
+#include "NumLock/operation_ops_num.h"
+#include "NumLock/structural_modification_ops_num.h"
+
 using namespace sb7;
 
 void sb7::Operations::initOperationTypes() {
@@ -60,8 +64,10 @@ void sb7::Operations::initOperations(DataHolder *dh) {
         initOperationsLockCA(dh);
     } else if (parameters.getLockType() == Parameters::lock_dom) {
         initOperationsLockDom(dh);
-    }else if (parameters.getLockType() == Parameters::lock_mid) {
+    } else if (parameters.getLockType() == Parameters::lock_mid) {
         initOperationsLockMid(dh);
+    } else if (parameters.getLockType() == Parameters::lock_num) {
+        initOperationsLockNum(dh);
     }
 }
 
@@ -172,6 +178,17 @@ void sb7::Operations::initOperationsLockMid(DataHolder *dh) {
     ops.push_back(new MidOperation10(dh)); // Aggregation
     ops.push_back(new MidStructuralModification2(dh));
     ops.push_back(new MidStructuralModification3(dh));
+}
+
+void sb7::Operations::initOperationsLockNum(DataHolder *dh) {
+    ops.push_back(new NumQuery1(dh));
+    ops.push_back(new NumQuery2(dh)); // Aggregation
+    ops.push_back(new NumOperation6(dh));
+    ops.push_back(new NumOperation7(dh));
+    ops.push_back(new NumOperation9(dh));
+    ops.push_back(new NumOperation10(dh)); // Aggregation
+    ops.push_back(new NumStructuralModification2(dh));
+    ops.push_back(new NumStructuralModification3(dh));
 }
 
 //

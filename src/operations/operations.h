@@ -115,6 +115,8 @@ namespace sb7 {
 
         void initOperationsLockMid(DataHolder *dh);
 
+        void initOperationsLockNum(DataHolder *dh);
+
         void generateCdf();
 
     private:

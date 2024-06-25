@@ -811,6 +811,9 @@ int sb7::Parameters::strToLockType(std::string &val) {
     } else if (equalNoCase(val, std::string("mid")) ||
                equalNoCase(val, std::string("mid"))) {
         return Parameters::lock_mid;
+    } else if (equalNoCase(val, std::string("num")) ||
+               equalNoCase(val, std::string("num"))) {
+        return Parameters::lock_num;
     } else {
         return -1;
     }
@@ -831,6 +834,8 @@ std::string sb7::Parameters::lockTypeToStr(lock_type val) {
         return {"Domlock"};
     } else if (val == lock_mid) {
         return {"MID"};
+    } else if (val == lock_num) {
+        return {"NumLock"};
     } else {
         return {"unknown"};
     }

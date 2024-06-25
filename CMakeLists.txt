@@ -46,14 +46,14 @@ add_library(STMBenchLockFine
         src/operations/locking_fine/structural_modification_ops_lf.cc
         src/operations/locking_fine/traversal_ops_lf.cc)
 
-add_library(STMBenchLockingCA
+add_library(STMBenchLockCA
         src/operations/CALock/CAPool.h
         src/operations/CALock/CAPool.cpp
         src/operations/CALock/structural_modification_ops_ca.cpp
         src/operations/CALock/traversal_ops_ca.cpp
         src/operations/CALock/operation_ops_ca.cpp
 )
-add_library(STMBenchLockingDom
+add_library(STMBenchLockDom
         src/operations/DomLock/DomPool.h
         src/operations/DomLock/DomPool.cpp
         src/operations/DomLock/operation_ops_dom.cpp
@@ -78,6 +78,16 @@ add_library(STMBenchLockMid
 )
 
 
+add_library(STMBenchLockNum
+        src/operations/NumLock/NumPool.h
+        src/operations/NumLock/NumPool.cpp
+        src/operations/NumLock/numHelper.h
+        src/operations/NumLock/operation_ops_num.cc
+        src/operations/NumLock/structural_modification_ops_num.cc
+        src/operations/NumLock/traversal_ops_num.cc
+        src/operations/NumLock/query_ops_num.cc)
+
+
 add_executable(STMBench src/sb7_lock.cc
         src/operations/base/operation_ops.cc
         src/operations/base/query_ops.cc
@@ -93,7 +103,15 @@ add_executable(STMBench src/sb7_lock.cc
         src/display/output.cpp
         src/display/output.h
 )
-target_link_libraries(STMBenchOps STMBenchLockCoarse STMBenchLockMedium STMBenchLockFine STMBenchLockingCA STMBenchLockingDom STMBenchLockMid)
+target_link_libraries(STMBenchOps
+        STMBenchLockCoarse
+        STMBenchLockMedium
+        STMBenchLockFine
+        STMBenchLockCA
+        STMBenchLockDom
+        STMBenchLockMid
+        STMBenchLockNum)
+
 
 target_link_libraries(STMBench STMBenchHelpers STMBenchOps STMBenchStruct)
 

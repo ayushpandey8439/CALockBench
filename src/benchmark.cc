@@ -9,6 +9,7 @@
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
 #include "operations/MID/MidPool.h"
+#include "operations/NumLock/NumPool.h"
 #include "labelling/CALock/CALockLabeling.h"
 #include "labelling/DomLock/DomLockLabeling.h"
 #include "labelling/MID/MidLabeling.h"
@@ -17,6 +18,7 @@
 extern CAPool caPool;
 extern DomPool domPool;
 extern MidPool midPool;
+extern NumPool numPool;
 std::chrono::duration<long double, std::nano> idlenessTimeCM;
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
@@ -148,6 +150,15 @@ void sb7::Benchmark::init() {
         rdfs->run(0);
         auto tD2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2 - tD1;
+
+
+    }
+    if(parameters.getLockType() == Parameters::lock_num || parameters.getBenchmarkContainment()){
+        auto *dfs = new DomLockLabeling(&dataHolder);
+        auto tD1 = std::chrono::high_resolution_clock::now();
+        dfs->run(0);
+        auto tD2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<long double, std::nano> initialLabellingTimeNum = tD2 - tD1;
 
 
     }

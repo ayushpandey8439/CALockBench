@@ -27,7 +27,8 @@ namespace sb7 {
             lock_fine,
             lock_ca,
             lock_dom,
-            lock_mid
+            lock_mid,
+            lock_num,
         };
 
     protected:

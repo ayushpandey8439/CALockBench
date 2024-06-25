@@ -6,12 +6,14 @@
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
 #include "operations/Mid/MidPool.h"
+#include "operations/NumLock/NumPool.h"
 
 using namespace sb7;
 using namespace std;
 CAPool caPool;
 DomPool domPool;
 MidPool midPool;
+NumPool numPool;
 
 int numBuckets;
 int numIterations;
