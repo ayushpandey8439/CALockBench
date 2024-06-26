@@ -32,9 +32,16 @@ int sb7::DomStructuralModification2::run(int tid) const {
 	if(cpart == NULL|| cpart->m_post_number==0 || cpart->m_pre_number==0) {
 		throw Sb7Exception();
 	}
+<<<<<<< HEAD
     long int min=5000000, max=0;
     min = cpart->m_pre_number;
     max = cpart->m_post_number;
+=======
+    long min=INFINITY, max=0;
+    min=cpart->m_pre_number;
+    max=cpart->m_post_number;
+
+>>>>>>> blockingImplementation
     pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
     auto *inv = new interval(min,max,1);
     if(!ICheck.IsOverlap(inv, 1, tid)) {
@@ -74,14 +81,26 @@ int sb7::DomStructuralModification3::run(int tid) const {
     if(cpart-> m_post_number > max )
         max = cpart-> m_post_number;
 
+<<<<<<< HEAD
     auto *inv = new interval(dataHolder->getModule()->getDesignRoot()->m_pre_number,dataHolder->getModule()->getDesignRoot()->m_post_number,1);
+=======
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+    auto *inv = new interval(min,max,1);
+>>>>>>> blockingImplementation
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         bassm->addComponent(cpart);
         auto t1 = std::chrono::high_resolution_clock::now();
         auto *r = new DomRelabelling(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
+<<<<<<< HEAD
         ICheck.modificationTimeDom+= t2-t1;
+=======
+        ICheck.modificationTimeDom+= (t2-t1);
+        ICheck.count.fetch_add(1);
+        pthread_rwlock_unlock(lock);
+>>>>>>> blockingImplementation
         ICheck.Delete(tid);
     }
 	return 0;
@@ -92,8 +111,14 @@ int sb7::DomStructuralModification3::run(int tid) const {
 /////////////////////////////
 
 int sb7::DomStructuralModification4::run(int tid) const {
-	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+    int cassmId = get_random()->nextInt(parameters.getMaxComplexAssemblies()) + 1;
+    cassmId = (cassmId *(tid+1)) % parameters.getMaxComplexAssemblies();
+    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+    if (cassm == nullptr || cassm->isDeleted) {
+        throw Sb7Exception();
+    }
 
+<<<<<<< HEAD
 	// generate random base assembly id
 	int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
 	BaseAssembly *bassm = dataHolder->getBaseAssembly(bassmId);
@@ -135,6 +160,20 @@ int sb7::DomStructuralModification4::run(int tid) const {
 
 	throw Sb7Exception(
 		"SM4: concurrent modification of BaseAssembly.components!");
+=======
+    auto * l = new interval (dataHolder->getModule()->getDesignRoot()->m_pre_number, dataHolder->getModule()->getDesignRoot()->m_post_number, 1);
+    if(!ICheck.IsOverlap(l, 1, tid)) {
+        dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
+        auto *r = new DomRelabelling(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
+        r->traverse(dataHolder->getModule()->getDesignRoot());
+        auto t2 = std::chrono::high_resolution_clock::now();
+        ICheck.modificationTimeDom+= (t2-t1);
+        ICheck.count.fetch_add(1);
+        ICheck.Delete(tid);
+    }
+    return 0;
+>>>>>>> blockingImplementation
 }
 
 /////////////////////////////
@@ -142,6 +181,7 @@ int sb7::DomStructuralModification4::run(int tid) const {
 /////////////////////////////
 
 int sb7::DomStructuralModification5::run(int tid) const {
+<<<<<<< HEAD
 	//WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
 
 	// generate random base assembly id
@@ -159,13 +199,20 @@ int sb7::DomStructuralModification5::run(int tid) const {
     if(!ICheck.IsOverlap(inv, 1, tid)) {
         // create sibling base assembly
         dataHolder->createBaseAssembly(bassm->getSuperAssembly());
+=======
+    auto * l = new interval (dataHolder->getModule()->getDesignRoot()->m_pre_number, dataHolder->getModule()->getDesignRoot()->m_post_number, 1);
+    if(!ICheck.IsOverlap(l, 1, tid)) {
+        dataHolder->createSubAssembly(dataHolder->getModule()->getDesignRoot(), 1);
+>>>>>>> blockingImplementation
         auto *r = new DomRelabelling(dataHolder);
+        auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
+        auto t2 = std::chrono::high_resolution_clock::now();
+        ICheck.modificationTimeDom+= (t2-t1);
+        ICheck.count.fetch_add(1);
         ICheck.Delete(tid);
     }
-
-
-	return 0;
+    return 0;
 }
 
 /////////////////////////////

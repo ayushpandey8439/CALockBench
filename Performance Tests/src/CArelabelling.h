@@ -13,9 +13,16 @@ using namespace sb7;
 
 class CArelabelling {
     DataHolder *dataHolder;
+    int tid;
 public:
+<<<<<<< HEAD
     CArelabelling(DataHolder * dh){
+=======
+    CArelabelling(DataHolder * dh = nullptr, int id = -1){
+>>>>>>> blockingImplementation
         dataHolder = dh;
+        tid = id;
+
     }
     queue<ComplexAssembly *> cassmQ;
     queue<BaseAssembly *> bassmQ;
@@ -29,7 +36,7 @@ protected:
     void traverse(BaseAssembly *baseAssembly);
     virtual void traverse(CompositePart *component );
     virtual void traverse(AtomicPart *part,
-                          Set<AtomicPart *> &setOfVisitedParts, bool isRoot);
+                          Set<AtomicPart *> &setOfVisitedParts,list<int>  currLabel);
 };
 
 

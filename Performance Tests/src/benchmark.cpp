@@ -12,16 +12,23 @@
 #include "lockPool.h"
 #include "interval.h"
 #include <thread>
-
-
+#include "containmentBenchmarkTraversal.h"
+#include "fstream"
+#include<iostream>
+extern lockPool pool;
+extern IntervalCheck ICheck;
+std::chrono::duration<long double, std::nano> idlenessTimeCM;
 
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
 using namespace std;
 
+<<<<<<< HEAD
 extern lockPool pool;
 extern IntervalCheck ICheck;
+=======
+>>>>>>> blockingImplementation
 sb7::Benchmark::Benchmark() : operations(&dataHolder) {
     // initialize thread local data
     global_thread_init();
@@ -106,59 +113,83 @@ void sb7::Benchmark::init() {
     /// The CALabels are also used to check if the component is actually connected during random selection
     /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
     auto *dfs = new CALockTraversal(&dataHolder);
-    cout << "Creating labels for nodes"<< std::endl;
+    cout << "Creating labels for nodes" << std::endl;
+    auto t1 = std::chrono::high_resolution_clock::now();
     dfs->run(0);
-    cout << "Creation complete"<< std::endl;
+    auto t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<long double, std::nano> initialLabellingTime = t2-t1;
+    cout<<"Labelling time for CALock: "<<initialLabellingTime.count()<<endl;
+    cout << "Creation complete" << std::endl;
     auto *dts = new CALockLabelTest(&dataHolder);
-    cout<< "Testing labels"<< endl;
+    cout << "Testing labels" << endl;
     dts->run(1);
-    cout<< "Testing complete" <<endl;
+    cout << "Testing complete" << endl;
 
-    if(parameters.getLockType() == Parameters::lock_dom){
-        auto * dfs = new DomLockTraversal(&dataHolder);
+    if (parameters.getLockType() == Parameters::lock_dom || parameters.getBenchmarkContainment()) {
+        auto *dfs = new DomLockTraversal(&dataHolder);
+        auto tD1 = std::chrono::high_resolution_clock::now();
         dfs->run(0);
-        cout<<"Interval assignment complete"<< endl;
+        auto tD2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2-tD1;
+        cout<<"Labelling time for DomLock: "<<initialLabellingTimeDom.count()<<endl;
+        cout << "Interval assignment complete" << endl;
 
     }
 }
-
 void sb7::Benchmark::start() {
-    cout << "Start benchmark."<< std::endl;
-    long start_time = get_time_ms();
+    if(parameters.getBenchmarkContainment()){
+        cout<<"Benchmarking locked vertex proportions"<<endl;
+        auto c = new containmentBenchmarkTraversal(dataHolder);
+        c->traverse(this->dataHolder.getModule()->getDesignRoot());
+        ofstream file("../benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
+        file <<"Type, CALock, Domlock\n";
+        for(auto& kv : c->containedCount) {
+            file <<(kv.first%10)<<","<< kv.second.first<<","<<kv.second.second << '\n';
+        }
 
-    // create and run threads
-    for (int i = 0; i < parameters.getThreadNum(); i++) {
-        // initialize worker thread data
-        threads[i].wtdata.stopped = false;
+        cout<<"Size of labels in memory for DomLock" << c->totalLabelSizeDomLock<<"\n";
+        cout<<"Size of labels in memory for CALock" << c->totalLabelSizeCALock<< "\n";
 
-        // TODO catch errors
-        pthread_create(&(threads[i].tid), nullptr, worker_thread,
-                       &(threads[i].wtdata));
+        file.close();
+    } else {
+        cout << "Start benchmark."<< std::endl;
+        long start_time = get_time_ms();
+
+        // create and run threads
+        for (int i = 0; i < parameters.getThreadNum(); i++) {
+            // initialize worker thread data
+            threads[i].wtdata.stopped = false;
+
+            // TODO catch errors
+            pthread_create(&(threads[i].tid), nullptr, worker_thread,
+                           &(threads[i].wtdata));
+        }
+
+        // wait for experiment to finish
+        sleep(parameters.getExperimentLengthMs());
+
+        // signal all threads to stop
+        for (int i = 0; i < parameters.getThreadNum(); i++) {
+            threads[i].wtdata.stopped = true;
+        }
+
+        // wait for all threads to stop
+        for (int i = 0; i < parameters.getThreadNum(); i++) {
+            // TODO catch errors
+            pthread_join(threads[i].tid, nullptr);
+        }
+
+        long end_time = get_time_ms();
+        elapsedTime = end_time - start_time;
     }
 
-    // wait for experiment to finish
-    sleep(parameters.getExperimentLengthMs());
 
-    // signal all threads to stop
-    for (int i = 0; i < parameters.getThreadNum(); i++) {
-        threads[i].wtdata.stopped = true;
-    }
-
-    // wait for all threads to stop
-    for (int i = 0; i < parameters.getThreadNum(); i++) {
-        // TODO catch errors
-        pthread_join(threads[i].tid, nullptr);
-    }
-
-    long end_time = get_time_ms();
-    elapsedTime = end_time - start_time;
 }
 
 void sb7::Benchmark::report(ostream &out) {
     if (parameters.shouldReportTtcHistograms()) {
         reportTtcHistograms(out);
     }
-
     reportStats(out);
 }
 
@@ -283,6 +314,32 @@ void sb7::Benchmark::reportStats(ostream &out) {
     out << "Total idleness: " << totalTimeSpentIdle.count()/(totalThroughput) << " nanos"<<endl;
 
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
+    std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
+    if(parameters.getLockType()==Parameters::lock_coarse || parameters.getLockType()==Parameters::lock_medium){
+        totalTimeSpentIdle = (idlenessTimeCM/parameters.getThreadNum());
+    } else if(parameters.getLockType()==Parameters::lock_ca){
+        out << "Total relabelling: " << pool.modificationTimeCA.count()/(pool.count) << " nanos"<<endl;
+        int count=1;
+        for(auto i: pool.idleness){
+            if(i> std::chrono::duration<long double, std::nano>::zero()){
+                count++;
+                totalTimeSpentIdle=  (totalTimeSpentIdle+i);
+            }
+        }
+        totalTimeSpentIdle/=count;
+    } else if(parameters.getLockType()==Parameters::lock_dom){
+        out << "Total relabelling: " << ICheck.modificationTimeDom.count()/(ICheck.count) << " nanos"<<endl;
+        int count=1;
+        for(auto i: ICheck.Totalidleness){
+            if(i>std::chrono::duration<long double, std::nano>::zero()){
+                count++;
+                totalTimeSpentIdle=  (totalTimeSpentIdle+i);
+            }
+        }
+        totalTimeSpentIdle /=count;
+    }
+
+    out << "Total idleness: " << totalTimeSpentIdle.count()/100000 << " micros"<<endl;
 
     out << endl;
 }

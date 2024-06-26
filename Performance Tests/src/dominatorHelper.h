@@ -11,7 +11,10 @@ using namespace sb7;
 class dominatorHelper{
 public:
     static pthread_rwlock_t *getDominatorLock(DataHolder* dh, long int *min, long int *max) {
+<<<<<<< HEAD
         //cout<<"Find dominator called";
+=======
+>>>>>>> blockingImplementation
         return Dom_traverse(dh->getModule()->getDesignRoot(), min, max);
     }
 

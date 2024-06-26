@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 for ((j=0;j<$COUNT;j++))
+=======
+for ((j=0;j<=$COUNT;j++))
+>>>>>>> blockingImplementation
 do
   echo "Thread count $((2**$j))"
 

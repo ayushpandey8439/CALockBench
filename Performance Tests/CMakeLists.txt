@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.22)
 project(sb7_lock)
 
 set(CMAKE_CXX_STANDARD 20)
+<<<<<<< HEAD
+=======
+include_directories(libraries/boost_1_81_0)
+>>>>>>> blockingImplementation
 
 add_executable(sb7_lock src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
         src/helpers.cpp src/id_pool.cpp src/parameters.cpp src/random.cpp src/operations/operations.cpp
+        src/coarsePool.h src/mediumPool.h
 
         src/operations/locking_coarse/lock_srv_lc.cpp src/operations/locking_coarse/operation_ops_lc.cpp
         src/operations/locking_coarse/query_ops_lc.cpp src/operations/locking_coarse/short_traversal_ops_lc.cpp
@@ -40,3 +45,4 @@ add_executable(sb7_lock src/sb7_lock.cpp src/benchmark.cpp  src/data_holder.cpp
 
 
         src/interval.cpp src/interval.h src/intervalAssignment.cpp src/intervalAssignment.h src/CArelabelling.cpp src/CArelabelling.h src/DomRelabelling.cpp src/DomRelabelling.h)
+set_target_properties( sb7_lock PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../ )

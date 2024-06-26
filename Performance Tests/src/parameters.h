@@ -59,7 +59,7 @@ namespace sb7 {
         static const int DEFAULT_TRAVERSAL_RATIO;
         static const int DEFAULT_SHORT_TRAVERSAL_RATIO;
         static const int DEFAULT_OPERATIONS_RATIO;
-        static const int DEFAULT_STRUCTURAL_MODIFICATIONS_RATIO;
+        static const double DEFAULT_STRUCTURAL_MODIFICATIONS_RATIO;
 
         static const int DEFAULT_READ_ONLY_OPERATIONS_RATIO;
 
@@ -81,7 +81,7 @@ namespace sb7 {
         static const double MAX_TO_INITIAL_RATIO;
 
         static const lock_type DEFAULT_LOCK_TYPE;
-        static const bool DEFAULT_THREAD_BLOCKING;
+        static const bool DEFAULT_BENCHMARK_CONTAINMENT;
 
     protected:
         int numAtomicPerComp;
@@ -122,7 +122,7 @@ namespace sb7 {
         int traversalRatio;
         int shortTraversalRatio;
         int operationsRatio;
-        int structuralModificationsRatio;
+        double structuralModificationsRatio;
 
         int readOnlyOperationsRatio;
 
@@ -142,7 +142,7 @@ namespace sb7 {
         std::string fileName;
 
         lock_type lockType;
-        bool threadBlocking;
+        bool benchmarkContainment;
 
     public:
         Parameters();
@@ -336,8 +336,8 @@ namespace sb7 {
             return lockType;
         }
 
-        bool threadBlockingAllowed() const {
-            return threadBlocking;
+        bool getBenchmarkContainment() const {
+            return benchmarkContainment;
         }
 
         ////////////////////////////////////////////////////////////////
@@ -504,7 +504,7 @@ namespace sb7 {
             operationsRatio = val;
         }
 
-        void setStructuralModificationsRatio(int val) {
+        void setStructuralModificationsRatio(double val) {
             structuralModificationsRatio = val;
         }
 
@@ -556,8 +556,8 @@ namespace sb7 {
             lockType = lt;
         }
 
-        void setThreadBlocking(bool t){
-            threadBlocking = t;
+        void setBenchmarkContainment(bool t){
+            benchmarkContainment = t;
         }
 
         ///////////////////////////////////////////
@@ -608,8 +608,8 @@ namespace sb7 {
         bool fileNameSet;
         std::string fileName;
 
-        bool threadblockingSet;
-        bool threadBlocking;
+        bool benchmarkContainmentSet;
+        bool benchmarkContainment;
 
         // printing help and exiting can be set only from command line
         bool printHelp;
@@ -660,7 +660,7 @@ namespace sb7 {
             experimentLengthSet = false;
             sizeSet = false;
             lockTypeSet = false;
-            threadblockingSet = false;
+            benchmarkContainment = false;
         }
     };
 }

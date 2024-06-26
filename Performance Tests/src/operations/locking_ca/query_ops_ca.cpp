@@ -7,6 +7,7 @@
 #include "../../parameters.h"
 #include "../../lockPool.h"
 #include "../../sb7_exception.h"
+#include "boost/container/list.hpp"
 
 extern lockPool pool;
 ////////////
@@ -96,6 +97,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
         if(aparts.empty()){
             throw Sb7Exception();
         }
+<<<<<<< HEAD
 
         list<int> lockRequest{};
         auto it = aparts[0]->pathLabel.rbegin();
@@ -131,11 +133,44 @@ int sb7::CAQuery2::innerRun(int tid) const {
                 for(auto * apart: aparts){
                     performOperationOnAtomicPart(apart);
                     count++;
-                }
-                pool.releaseLock(l, tid);
+=======
 
-              }
+        boost::container::list<int> lockRequest{};
+        auto it = aparts[0]->pathLabel.rbegin();
+        auto end = aparts[0]->pathLabel.rend();
+        for(auto i: aparts[0]->pathLabel){
+            for(auto a: aparts){
+                if(a->criticalAncestors.contains(i)){
+                    lockRequest.push_back(i);
+>>>>>>> blockingImplementation
+                }
             }
+<<<<<<< HEAD
+=======
+        }
+
+
+        pair<DesignObj*, bool> lo = lscaHelpers::getLockObject(lockRequest,dataHolder);
+
+        int mode = 0;
+        if(string(name) == "Q2")
+            mode = 0;
+        if(string(name) == "OP10")
+            mode = 1;
+
+        if(lo.second && lo.first->hasLabel){
+//            cout<<lo.first->getId()<<endl;
+            auto * l = new lockObject(lo.first->getLabellingId(), &lo.first->criticalAncestors, mode);
+            pool.acquireLock(l, tid);
+            for(auto * apart: aparts){
+                performOperationOnAtomicPart(apart);
+                count++;
+            }
+            pool.releaseLock(l, tid);
+
+        }
+    }
+>>>>>>> blockingImplementation
 
     return count;
 }
@@ -143,6 +178,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
 void sb7::CAQuery2::performOperationOnAtomicPart(AtomicPart *apart) const {
     apart->nullOperation();
 }
+<<<<<<< HEAD
 
 ////////////
 // Query4 //
@@ -307,3 +343,5 @@ int sb7::CAQuery7::run(int tid) const {
 
     return ret;
 }
+=======
+>>>>>>> blockingImplementation

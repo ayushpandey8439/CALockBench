@@ -11,6 +11,7 @@
 #include "query_ops_ca.h"
 #include "traversal_ops_ca.h"
 
+
 namespace sb7 {
 
     class CAOperation6 : public Operation {
@@ -20,14 +21,13 @@ namespace sb7 {
         }
 
     public:
-        explicit CAOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
+        CAOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
         virtual int innerRun(int tid) const;
-
         virtual void performOperationOnComplexAssembly(
                 ComplexAssembly *cassm) const;
     };
@@ -39,14 +39,13 @@ namespace sb7 {
         }
 
     public:
-        explicit CAOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
+        CAOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
         virtual int innerRun(int tid) const;
-
         virtual void performOperationOnBaseAssembly(
                 BaseAssembly *bassm) const;
     };
@@ -58,51 +57,50 @@ namespace sb7 {
         }
 
     public:
-        explicit CAOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
+        CAOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
         virtual int innerRun(int tid) const;
-
         virtual void performOperationOnComponent(
                 CompositePart *comp) const;
     };
 
     class CAOperation9 : public CAQuery1 {
     public:
-        explicit CAOperation9(DataHolder *dh) : CAQuery1(OPERATION, "OP9", dh) {
+        CAOperation9(DataHolder *dh) : CAQuery1(OPERATION, "OP9", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        void performOperationOnAtomicPart(
-                AtomicPart *apart) const override;
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
     };
 
     class CAOperation10 : public CAQuery2 {
     public:
-        explicit CAOperation10(DataHolder *dh) : CAQuery2(dh, OPERATION, "OP10", 1) {
+        CAOperation10(DataHolder *dh) : CAQuery2(dh, OPERATION, "OP10", 1) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        void performOperationOnAtomicPart(
-                AtomicPart *apart) const override;
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
     };
 
     class CAOperation11 : public CATraversal8 {
     public:
-        explicit CAOperation11(DataHolder *dh) : CATraversal8(OPERATION, "OP11", dh) {
+        CAOperation11(DataHolder *dh) : CATraversal8(OPERATION, "OP11", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        int traverse(Manual *manual) const override;
+        virtual int traverse(Manual *manual) const;
     };
 
     class CAOperation12 : public CAOperation6 {
@@ -112,50 +110,50 @@ namespace sb7 {
         }
 
     public:
-        explicit CAOperation12(DataHolder *dh) : CAOperation6(OPERATION, "OP12", dh) {
+        CAOperation12(DataHolder *dh) : CAOperation6(OPERATION, "OP12", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        void performOperationOnComplexAssembly(
-                ComplexAssembly *cassm) const override;
+        virtual void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const;
     };
 
     class CAOperation13 : public CAOperation7 {
     public:
-        explicit CAOperation13(DataHolder *dh) : CAOperation7(OPERATION, "OP13", dh) {
+        CAOperation13(DataHolder *dh) : CAOperation7(OPERATION, "OP13", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const override;
+        virtual void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const;
     };
 
     class CAOperation14 : public CAOperation8 {
     public:
-        explicit CAOperation14(DataHolder *dh) : CAOperation8(OPERATION, "OP14", dh) {
+        CAOperation14(DataHolder *dh) : CAOperation8(OPERATION, "OP14", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        void performOperationOnComponent(
-                CompositePart *comp) const override;
+        virtual void performOperationOnComponent(
+                CompositePart *comp) const;
     };
 
     class CAOperation15 : public CAQuery1 {
     public:
-        explicit CAOperation15(DataHolder *dh) : CAQuery1(OPERATION, "OP15", dh) {
+        CAOperation15(DataHolder *dh) : CAQuery1(OPERATION, "OP15", dh) {
         }
 
-        int run(int tid) const override;
+        virtual int run(int tid) const;
 
     protected:
-        void performOperationOnAtomicPart(
-                AtomicPart *apart) const override;
+        virtual void performOperationOnAtomicPart(
+                AtomicPart *apart) const;
     };
 
 }

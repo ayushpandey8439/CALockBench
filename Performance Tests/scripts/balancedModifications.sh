@@ -3,8 +3,8 @@ DURATION=2000
 SIZE=b
 ITERATIONS_PER_THREAD=5
 STRUCTURAL_MODIFICATIONS=true
-rm -rf ./benchmarkResults
-mkdir benchmarkResults
+rm -rf ./benchmarkResults/
+mkdir ./benchmarkResults
 echo Benchmarking coarse-grain locking......
 . ./scripts/script_coarse.sh
 echo Benchmarking medium-grain locking......
@@ -17,8 +17,12 @@ pwd
 g++ plotter.cpp
 ./a.out $COUNT
 
+<<<<<<< HEAD
 cp ./benchmarkResults/Results.csv ./benchmarkCharts/BalancedWithModifications.csv
 cp ./benchmarkResults/IdlenessResults.csv ./benchmarkCharts/BalancedWithModificationsIdleness.csv
 cp ./benchmarkResults/ModificationResults.csv ./benchmarkCharts/BalancedWithModificationsModifications.csv
 
 python3 ./graphImageGenerator.py 'BalancedWithModifications'
+=======
+python3 ./graphImageGenerator.py 'BalancedWithModifications' $COUNT
+>>>>>>> blockingImplementation

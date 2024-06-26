@@ -4,12 +4,16 @@
 
 #include "CArelabelling.h"
 #include "./struct/connection.h"
+#include "lockPool.h"
+#include "interval.h"
 #include <algorithm>
 
 using namespace sb7;
+extern lockPool pool;
 
 
 void CArelabelling::run() {
+    auto t1 = std::chrono::high_resolution_clock::now();
     //cout<< "pre-post" << dataHolder->getModule()->getDesignRoot() -> m_pre_number<<" and "<<dataHolder->getModule()->getDesignRoot() -> m_post_number;
     while(!cassmQ.empty()){
         traverse(cassmQ.front());
@@ -23,11 +27,15 @@ void CArelabelling::run() {
         traverse(cpartQ.front());
         cpartQ.pop();
     }
-    while(!apartQ.empty()){
-        Set<AtomicPart *> visitedPartSet;
-        traverse(apartQ.front(), visitedPartSet, true);
-        apartQ.pop();
-    }
+//    while(!apartQ.empty()){
+//        Set<AtomicPart *> visitedPartSet;
+//        traverse(apartQ.front(), visitedPartSet, true);
+//        apartQ.pop();
+//    }
+    auto t2 = std::chrono::high_resolution_clock::now();
+    pool.modificationTimeCA += (t2-t1);
+    pool.count.fetch_add(1);
+//    cout<<(t2-t1).count()<<endl;
 }
 
 
@@ -36,12 +44,14 @@ void CArelabelling::traverse(ComplexAssembly *cassm) {
         return;
     }
     list<int> currLabel = cassm->pathLabel;
-    list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
-    superLabel.push_back((cassm->getId()*10)+1);
-
-    if(currLabel == superLabel){
-        return;
+    if(cassm != dataHolder->getModule()->getDesignRoot()){
+        list<int> superLabel = cassm->getSuperAssembly()->pathLabel;
+        superLabel.push_back((cassm->getId()*10)+1);
+        if(currLabel == superLabel){
+            return;
+        }
     }
+
 
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
@@ -62,7 +72,10 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
     if(bassm->isDeleted) return;
 
     list<int> currLabel = bassm->getSuperAssembly()->pathLabel;
-    currLabel.push_back((bassm->getId()*10)+1);
+    currLabel.push_back((bassm->getId()*10)+2);
+    if(currLabel == bassm->pathLabel){
+        return;
+    }
     bassm->setPathLabel(currLabel);
     SetIterator<CompositePart *> iter = bassm->getComponents()->getIter();
     while(iter.has_next()) {
@@ -74,18 +87,39 @@ void CArelabelling::traverse(BaseAssembly *bassm) {
 void CArelabelling::traverse(CompositePart *cpart) {
     string type = "cp";
     if(cpart->isDeleted) return;
+
     Set<BaseAssembly *> *usedIn = cpart->getUsedIn();
     SetIterator<BaseAssembly *> biter = usedIn->getIter();
-    list<int> firstLabel = biter.next()->pathLabel;
-
-    while(biter.has_next()){
-        list<int> common;
-        list<int> testLabel = biter.next()->pathLabel;
-        set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
-        firstLabel = common;
+    BaseAssembly *b = biter.next();
+    list<int> firstLabel = b->pathLabel;
+    set<int> removals{};
+    for(int a: firstLabel){
+        bool allContain = true;
+        while(biter.has_next()){
+            if(!biter.next()->criticalAncestors.contains(a)){
+                allContain = false;
+                break;
+            }
+        }
+        if(!allContain){
+            removals.insert(a);
+        }
+        biter = usedIn->getIter();
     }
 
+    firstLabel.remove_if([removals](int l){return removals.contains(l);});
+
+//    while(biter.has_next()){
+//        list<int> common;
+//        list<int> testLabel = biter.next()->pathLabel;
+//        set_intersection(firstLabel.begin(), firstLabel.end(), testLabel.begin(),testLabel.end(), back_inserter(common));
+//        firstLabel = common;
+//    }
+
     firstLabel.push_back((cpart->getId()+10)+3);
+    if(firstLabel == cpart->pathLabel){
+        return;
+    }
     cpart->setPathLabel(firstLabel);
 
     AtomicPart *rootPart = cpart->getRootPart();
@@ -93,54 +127,60 @@ void CArelabelling::traverse(CompositePart *cpart) {
     rootPart->setPathLabel(firstLabel);
     apartQ.push(rootPart);
 
-    //traverse(rootPart, visitedPartSet,true, currPath);
+    Set<AtomicPart *> visitedPartSet;
+
+    traverse(rootPart, visitedPartSet, firstLabel);
 }
 
 
-void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, bool isRoot) {
-    if(apart->isDeleted) return;
-    if (isRoot) {
-        visitedPartSet.add(apart);
-        Set<Connection *> *toConns = apart->getToConnections();
-        SetIterator<Connection *> iter = toConns->getIter();
-        while (iter.has_next()) {
-            Connection *conn = iter.next();
-            traverse(conn->getDestination(), visitedPartSet, false);
-        }
-        visitedPartSet.remove(apart);
-    } else if (apart == NULL || visitedPartSet.contains(apart)) {
+void CArelabelling::traverse(AtomicPart *apart, Set<AtomicPart *> &visitedPartSet, list<int> currLabel) {
+    if(apart->isDeleted || apart == NULL || visitedPartSet.contains(apart)) {
         return;
     } else {
         visitedPartSet.add(apart);
-
         Set<Connection *> *fromConns = apart->getFromConnections();
         SetIterator<Connection *> fiter = fromConns->getIter();
-        list<int> containerLabel(10,-1);
-        while (containerLabel.empty() && fiter.has_next()) {
-            auto s = fiter.next();
-            if(s->getSource()->hasLabel)
-                containerLabel = s->getSource()->pathLabel;
-        }
-        while (fiter.has_next()) {
-            Connection *conn = fiter.next();
-            if (conn->getSource()->hasLabel) {
-                list<int> common;
-                set_intersection(containerLabel.begin(), containerLabel.end(), conn->getSource()->pathLabel.begin(),conn->getSource()->pathLabel.end(), back_inserter(common));
-                containerLabel = common;
+//        boost::container::list<int> containerLabel(10,-1);
+        set<int> removals;
+        for(int a: currLabel){
+            bool allContain = true;
+            while(fiter.has_next()){
+                if(!fiter.next()->getSource()->criticalAncestors.contains(a)){
+                    allContain = false;
+                    break;
+                }
             }
+            if(!allContain){
+                removals.insert(a);
+            }
+            fiter = fromConns->getIter();
         }
+        currLabel.remove_if([removals](int l){return removals.contains(l);});
 
-        containerLabel.push_back((apart->getId()*10)+4);
-        unordered_set<int> myLabelSet(containerLabel.begin(), containerLabel.end());
+//        while (fiter.has_next()) {
+//            Connection *conn = fiter.next();
+//            list<int> tempLabel = (conn->getSource()->pathLabel);
+//            if(!tempLabel.empty()){
+//                std::set<int> tempPathSet(tempLabel.begin(), tempLabel.end());
+//                auto newEnd = remove_if(currLabel.begin(), currLabel.end(),
+//                                        [tempPathSet](int l){return (tempPathSet.find(l) == tempPathSet.end());});
+//                currLabel.erase(newEnd, currLabel.end());
+//            }
+//        }
 
-        if (myLabelSet != apart->criticalAncestors) {
-            apart->setPathLabel(containerLabel);
+//        containerLabel.push_back((apart->getId()*10)+4);
+//        boost::container::flat_set<int> myLabelSet(currLabel.begin(), currLabel.end());
+
+        if (currLabel != apart->pathLabel) {
+            apart->setPathLabel(currLabel);
             // visit all connected parts
             Set<Connection *> *toConns = apart->getToConnections();
             SetIterator<Connection *> iter = toConns->getIter();
             while (iter.has_next()) {
                 Connection *conn = iter.next();
-                traverse(conn->getDestination(), visitedPartSet, false);
+                currLabel.push_back((conn->getDestination()->getId()*10)+4);
+                traverse(conn->getDestination(), visitedPartSet, currLabel);
+                currLabel.pop_back();
             }
         }
         visitedPartSet.remove(apart);

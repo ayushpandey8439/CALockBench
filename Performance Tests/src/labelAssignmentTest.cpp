@@ -24,7 +24,7 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
     list<int> cassmPathLabel = cassm->pathLabel;
     //cout<<"Size: "<< cassmPathLabel.size()<< endl;
-    if(cassmPathLabel.front() != 01 || cassmPathLabel.back() != (cassm->getId()*10)+1){
+    if(cassmPathLabel.front() != 01){
         std::cout << std::endl << "Incorrect Complex Assembly Label: ";
         for (auto i: cassmPathLabel)
             std::cout << i << ' ';
@@ -45,7 +45,7 @@ void sb7::CALockLabelTest::traverse(ComplexAssembly *cassm) const {
 void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
     list<int> bassmPathlabel = bassm->pathLabel;
     //cout<<"Size: "<< bassmPathlabel.size()<< endl;
-    if(bassmPathlabel.front() != 01 || bassmPathlabel.back() != (bassm->getId()*10)+2){
+    if(bassmPathlabel.front() != 01){
 
         std::cout << std::endl << "Incorrect Base Assembly Label: ";
         for (auto i: bassmPathlabel)
@@ -64,7 +64,7 @@ void sb7::CALockLabelTest::traverse(BaseAssembly *bassm) const {
 void sb7::CALockLabelTest::traverse(CompositePart *cpart) const {
     list<int> cpartPathLabel = cpart->pathLabel;
     //cout<<"Size: "<< cpartPathLabel.size()<< endl;
-    if(cpartPathLabel.front()!=01 || cpartPathLabel.back() != (cpart->getId()*10)+3){
+    if(cpartPathLabel.front()!=01){
         std::cout << std::endl << "Incorrect Composite part Label: ";
         for (auto i: cpartPathLabel)
             std::cout << i << ' ';
@@ -88,7 +88,7 @@ void sb7::CALockLabelTest::traverse(AtomicPart *apart, Set<AtomicPart *> &visite
     } else {
         list<int> apartPathLabel = apart->pathLabel;
         //cout<<"Size: "<< apartPathLabel.size()<< endl;
-        if(apartPathLabel.empty() ||apartPathLabel.front() != 01 || apartPathLabel.back() != (apart->getId()*10)+4){
+        if(apartPathLabel.empty() || apartPathLabel.front() != 01){
             std::cout << std::endl << "Incorrect Atomic part Label: ";
             for (auto i: apartPathLabel)
                 std::cout << i << ' ';

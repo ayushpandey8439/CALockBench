@@ -14,7 +14,8 @@
 #include "set"
 #include "unordered_set"
 #include <thread>
-
+#include "boost/container/flat_set.hpp"
+#include "boost/container/list.hpp"
 
 using namespace std;
 
@@ -43,6 +44,14 @@ namespace sb7 {
             return pathLabel.back();
         }
 
+        int getLSCA()const {
+            if(pathLabel.size()==1){
+                return *(--pathLabel.rbegin());
+            } else {
+                return *pathLabel.rbegin();
+            }
+        }
+
         void Delete() {
             this->isDeleted = true;
             this->hasLabel = false;
@@ -55,7 +64,7 @@ namespace sb7 {
             m_pre_number=0;
         }
 
-        void setPathLabel(const list<int>& label){
+        void setPathLabel(const list<int> label){
             hasLabel=true;
             //pathLabel.clear();
             pathLabel = label;
@@ -78,7 +87,7 @@ namespace sb7 {
         pthread_rwlock_t NodeLock;
         bool hasLabel;
         list<int> pathLabel{};
-        unordered_set<int> criticalAncestors;
+        boost::container::flat_set<int> criticalAncestors;
         bool isDeleted;
     protected:
         int m_id;

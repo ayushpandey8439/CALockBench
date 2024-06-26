@@ -6,9 +6,14 @@
 #include "struct/assembly.h"
 #include "shared_mutex"
 #include "interval.h"
+#include "coarsePool.h"
+#include "mediumPool.h"
+
 using namespace sb7;
 lockPool pool;
 IntervalCheck ICheck;
+coarsePool cPool;
+mediumPool mPool;
 
 int main(int argc, char **argv) {
     // initialize parameters

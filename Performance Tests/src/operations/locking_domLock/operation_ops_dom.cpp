@@ -49,9 +49,15 @@ int sb7::DomOperation6::innerRun(int tid) const {
     long int min = query.val->m_pre_number;
     long int max = query.val->m_post_number;
 	// if this assembly is root perform operation on it
+<<<<<<< HEAD
 	if(superAssm == NULL) {
         min = cassm->m_pre_number;
         max = cassm->m_post_number;
+=======
+	if(superAssm == NULL || superAssm->m_pre_number==0 || superAssm->m_post_number==0) {
+        long min=INFINITY, max=0;
+        min=cassm->m_pre_number; max= cassm->m_post_number;
+>>>>>>> blockingImplementation
         pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
@@ -67,8 +73,13 @@ int sb7::DomOperation6::innerRun(int tid) const {
 		Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
 		SetIterator<Assembly *> iter = siblingAssms->getIter();
 		ret = 0;
+<<<<<<< HEAD
         min = superAssm->m_pre_number;
         max = superAssm->m_post_number;
+=======
+        long min=INFINITY, max=0;
+        min=superAssm->m_pre_number; max= superAssm->m_post_number;
+>>>>>>> blockingImplementation
         pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
         auto *inv = new interval(min,max,0);
         if(!ICheck.IsOverlap(inv, 0, tid)) {
@@ -124,8 +135,11 @@ int sb7::DomOperation7::innerRun(int tid) const {
 	SetIterator<Assembly *> iter = siblingSet->getIter();
 	int ret = 0;
 
-    auto *inv = new interval(superAssm->m_pre_number,superAssm->m_post_number,0);
-    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(superAssm->m_pre_number),&(superAssm->m_post_number));
+    long min=INFINITY, max=0;
+    min=superAssm->m_pre_number; max= superAssm->m_post_number;
+    pthread_rwlock_t  *lock = dominatorHelper::getDominatorLock(dataHolder, &(min),&(max));
+    auto *inv = new interval(min,max,0);
+
     if(!ICheck.IsOverlap(inv, 0, tid)) {
         pthread_rwlock_rdlock(lock);
         while(iter.has_next()) {
