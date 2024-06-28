@@ -17,10 +17,10 @@ namespace sb7 {
         LCOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
-        virtual int innerRun() const;
+        int innerRun() const;
 
         virtual void performOperationOnComplexAssembly(
                 ComplexAssembly *cassm) const;
@@ -36,7 +36,7 @@ namespace sb7 {
         LCOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun() const;
@@ -55,7 +55,7 @@ namespace sb7 {
         LCOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun() const;
@@ -69,7 +69,7 @@ namespace sb7 {
         LCOperation9(DataHolder *dh) : LCQuery1(OPERATION, "OP9", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(
@@ -81,7 +81,7 @@ namespace sb7 {
         LCOperation10(DataHolder *dh) : LCQuery2(dh, OPERATION, "OP10", 1) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(
@@ -93,7 +93,7 @@ namespace sb7 {
         LCOperation11(DataHolder *dh) : LCTraversal8(OPERATION, "OP11", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int traverse(Manual *manual) const;
@@ -109,7 +109,7 @@ namespace sb7 {
         LCOperation12(DataHolder *dh) : LCOperation6(OPERATION, "OP12", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnComplexAssembly(
@@ -121,7 +121,7 @@ namespace sb7 {
         LCOperation13(DataHolder *dh) : LCOperation7(OPERATION, "OP13", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnBaseAssembly(
@@ -133,7 +133,7 @@ namespace sb7 {
         LCOperation14(DataHolder *dh) : LCOperation8(OPERATION, "OP14", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnComponent(
@@ -145,7 +145,7 @@ namespace sb7 {
         LCOperation15(DataHolder *dh) : LCQuery1(OPERATION, "OP15", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(

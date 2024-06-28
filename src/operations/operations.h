@@ -68,12 +68,7 @@ namespace sb7 {
     };
 
     class Operations {
-    public:
-        Operations(DataHolder *dh) {
-            initOperationTypes();
-            initOperations(dh);
-            generateCdf();
-        }
+
 
     public:
         int size() const {
@@ -115,6 +110,12 @@ namespace sb7 {
 
         void generateCdf();
 
+    public:
+        explicit Operations(DataHolder *dh) {
+            initOperationTypes();
+            initOperations(dh);
+            generateCdf();
+        }
     private:
         vector<OperationType> optypes;
 

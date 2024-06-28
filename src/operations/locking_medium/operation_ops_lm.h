@@ -17,7 +17,7 @@ namespace sb7 {
         LMOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int processComplexAssembly(ComplexAssembly *cassm) const;
@@ -39,7 +39,7 @@ namespace sb7 {
         LMOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -58,7 +58,7 @@ namespace sb7 {
         LMOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -72,7 +72,7 @@ namespace sb7 {
         LMOperation9(DataHolder *dh) : LMQuery1(OPERATION, "OP9", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(
@@ -84,7 +84,7 @@ namespace sb7 {
         LMOperation10(DataHolder *dh) : LMQuery2(dh, OPERATION, "OP10", 1) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(
@@ -96,7 +96,7 @@ namespace sb7 {
         LMOperation11(DataHolder *dh) : LMTraversal8(OPERATION, "OP11", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int traverse(Manual *manual) const;
@@ -125,7 +125,7 @@ namespace sb7 {
         LMOperation13(DataHolder *dh) : LMOperation7(OPERATION, "OP13", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnBaseAssembly(
@@ -137,7 +137,7 @@ namespace sb7 {
         LMOperation14(DataHolder *dh) : LMOperation8(OPERATION, "OP14", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnComponent(
@@ -149,7 +149,7 @@ namespace sb7 {
         LMOperation15(DataHolder *dh) : LMQuery1(OPERATION, "OP15", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(

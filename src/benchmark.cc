@@ -330,6 +330,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
     std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
     if (parameters.getLockType() == Parameters::lock_coarse || parameters.getLockType() == Parameters::lock_medium) {
+        out << "Total relabelling: 0 nanos" << endl;
         int count = 1;
         for (auto i: idlenessTimeCM) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {

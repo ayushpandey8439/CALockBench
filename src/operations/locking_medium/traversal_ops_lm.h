@@ -17,7 +17,7 @@ namespace sb7 {
         LMTraversal1(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int traverse(ComplexAssembly *complexAssembly) const;
@@ -38,7 +38,7 @@ namespace sb7 {
         LMTraversal2a(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2a", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int performOperationOnAtomicPart(AtomicPart *apart,
@@ -50,7 +50,7 @@ namespace sb7 {
         LMTraversal2b(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2b", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int performOperationOnAtomicPart(AtomicPart *apart,
@@ -62,7 +62,7 @@ namespace sb7 {
         LMTraversal2c(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T2c", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int performOperationOnAtomicPart(AtomicPart *apart,
@@ -79,7 +79,7 @@ namespace sb7 {
         LMTraversal3a(DataHolder *dh) : LMTraversal1(TRAVERSAL, "T3a", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int performOperationOnAtomicPart(AtomicPart *apart,
@@ -118,7 +118,7 @@ namespace sb7 {
         LMTraversal4(DataHolder *dh) : LMTraversal1(TRAVERSAL_RO, "T4", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int traverse(CompositePart *component) const;
@@ -137,7 +137,7 @@ namespace sb7 {
         LMTraversal5(DataHolder *dh) : LMTraversal4(TRAVERSAL, "T5", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int traverse(Document *doc) const;
@@ -166,7 +166,7 @@ namespace sb7 {
                 : Operation(SHORT_TRAVERSAL_RO, "T7", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -193,7 +193,7 @@ namespace sb7 {
                 : Operation(OPERATION_RO, "T8", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         virtual int traverse(Manual *manual) const;

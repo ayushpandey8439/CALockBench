@@ -9,7 +9,7 @@
 // Operation6 //
 ////////////////
 
-int sb7::LMOperation6::run() const {
+int sb7::LMOperation6::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
 
     // Generate one random number that is in range of possible complex assembly
@@ -80,7 +80,7 @@ void sb7::LMOperation6::performOperationOnComplexAssembly(
 // Operation7 //
 ////////////////
 
-int sb7::LMOperation7::run() const {
+int sb7::LMOperation7::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
 
@@ -129,7 +129,7 @@ void sb7::LMOperation7::performOperationOnBaseAssembly(
 // Operation8 //
 ////////////////
 
-int sb7::LMOperation8::run() const {
+int sb7::LMOperation8::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
 
@@ -176,7 +176,7 @@ void sb7::LMOperation8::performOperationOnComponent(CompositePart *comp) const {
 // Operation9 //
 ////////////////
 
-int sb7::LMOperation9::run() const {
+int sb7::LMOperation9::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -191,7 +191,7 @@ void sb7::LMOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 // Operation10 //
 ////////////////
 
-int sb7::LMOperation10::run() const {
+int sb7::LMOperation10::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -210,7 +210,7 @@ void sb7::LMOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
 #define MANUAL_TEXT_START_1 'I'
 #define MANUAL_TEXT_START_2 'i'
 
-int sb7::LMOperation11::run() const {
+int sb7::LMOperation11::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle manLockHandle(lm_lock_srv.getManualLock());
 
@@ -253,7 +253,7 @@ void sb7::LMOperation12::performOperationOnComplexAssembly(
 // Operation13 //
 /////////////////
 
-int sb7::LMOperation13::run() const {
+int sb7::LMOperation13::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
 
@@ -269,7 +269,7 @@ void sb7::LMOperation13::performOperationOnBaseAssembly(
 // Operation14 //
 /////////////////
 
-int sb7::LMOperation14::run() const {
+int sb7::LMOperation14::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
 
@@ -285,7 +285,7 @@ void sb7::LMOperation14::performOperationOnComponent(
 // Operation15 //
 /////////////////
 
-int sb7::LMOperation15::run() const {
+int sb7::LMOperation15::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 

@@ -10,6 +10,8 @@
 #include<string>
 #include <vector>
 #include <pthread.h>
+#include <chrono>
+#include <atomic>
 
 #include "../../struct/assembly.h"
 #include "../../data_holder.h"

@@ -15,7 +15,7 @@ namespace sb7 {
         LMQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -28,7 +28,7 @@ namespace sb7 {
         LMQuery2(DataHolder *dh, optype t = OPERATION_RO,
                  const char *n = "Q2", int percent = 1);
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int innerRun() const;
@@ -51,7 +51,7 @@ namespace sb7 {
         LMQuery4(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q4", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
     };
 
     class LMQuery5 : public Operation {
@@ -64,7 +64,7 @@ namespace sb7 {
         LMQuery5(DataHolder *dh) : Operation(SHORT_TRAVERSAL_RO, "Q5", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int checkBaseAssembly(BaseAssembly *bassm) const;
@@ -75,7 +75,7 @@ namespace sb7 {
         LMQuery6(DataHolder *dh) : LMQuery5(TRAVERSAL_RO, "Q6", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
 
     protected:
         int checkAssembly(Assembly *assembly) const;
@@ -88,7 +88,7 @@ namespace sb7 {
         LMQuery7(DataHolder *dh) : Operation(TRAVERSAL_RO, "Q7", dh) {
         }
 
-        virtual int run() const;
+        int run(int tid) const override;
     };
 }
 

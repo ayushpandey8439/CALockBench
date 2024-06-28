@@ -5,6 +5,7 @@
 #include "MidLabeling.h"
 #include "stack"
 #include "../../struct/connection.h"
+#include "limits.h"
 
 // Anju ----------- Start ----------
 int leafCounter = 0;

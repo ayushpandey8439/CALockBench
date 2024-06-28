@@ -80,7 +80,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
         throw Sb7Exception();
     }
 
-    boost::container::list<int> lockLabel = {};
+    list<int> lockLabel = {};
 
 
     for (int a: bassm->pathLabel) {

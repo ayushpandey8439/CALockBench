@@ -1,7 +1,10 @@
-#ifndef SB7_RANDOM_H_
-#define SB7_RANDOM_H_
+//
+// Created by Ayush Pandey on 15/11/2022.
+//
 
-#include "randomc/randomc.h"
+#ifndef STMBENCH_RANDOM_H
+#define STMBENCH_RANDOM_H
+#include "random"
 
 namespace sb7 {
     class Random {
@@ -14,10 +17,9 @@ namespace sb7 {
 
         double nextDouble();
 
-    private:
-        TRandomMersenne randomGen;
+    protected:
+        std::mt19937_64 generator;
     };
 }
 
-#endif /*SB7_RANDOM_H_*/
-
+#endif //STMBENCH_RANDOM_H

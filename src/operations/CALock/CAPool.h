@@ -18,7 +18,6 @@
 #include <shared_mutex>
 #include "atomic"
 #include "memory"
-#include "../../libraries/boost_1_81_0/boost/container/flat_set.hpp"
 #include "pthread.h"
 
 using namespace std;
@@ -28,13 +27,13 @@ using namespace sb7;
 
 class lockObject {
 public:
-    boost::container::flat_set<int> *criticalAncestors;
+    set<int> *criticalAncestors;
     int Id;
     int mode;
     long Oseq;
     atomic_flag accessController = ATOMIC_FLAG_INIT;
 
-    lockObject(int pId, boost::container::flat_set<int> *ancestors, int m) {
+    lockObject(int pId, set<int> *ancestors, int m) {
         Id = pId;
         criticalAncestors = ancestors;
         mode = m;

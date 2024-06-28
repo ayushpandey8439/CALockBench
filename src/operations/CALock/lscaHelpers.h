@@ -17,7 +17,7 @@ using namespace sb7;
 class lscaHelpers {
 
 public:
-    static pair<DesignObj *, bool> getLockObject(boost::container::list<int> &objectLabel, sb7::DataHolder *dh) {
+    static pair<DesignObj *, bool> getLockObject(list<int> &objectLabel, sb7::DataHolder *dh) {
         pair<DesignObj *, bool> res;
         int objectId;
         if (objectLabel.size() == 1) {

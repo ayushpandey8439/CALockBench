@@ -3,8 +3,8 @@
 
 #include <string>
 #include <list>
-#include "boost/container/flat_set.hpp"
-#include "boost/container/list.hpp"
+#include <set>
+#include "pthread.h"
 
 using namespace std;
 
@@ -87,7 +87,7 @@ namespace sb7 {
         pthread_rwlock_t NodeLock;
         bool hasLabel;
         list<int> pathLabel{};
-        boost::container::flat_set<int> criticalAncestors;
+        set<int> criticalAncestors;
         bool isDeleted;
 
     protected:

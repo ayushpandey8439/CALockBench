@@ -11,7 +11,7 @@
 // Traversal1 //
 ////////////////
 
-int sb7::LMTraversal1::run() const {
+int sb7::LMTraversal1::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -91,7 +91,7 @@ int sb7::LMTraversal1::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal2a //
 /////////////////
 
-int sb7::LMTraversal2a::run() const {
+int sb7::LMTraversal2a::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -117,7 +117,7 @@ int sb7::LMTraversal2a::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal2b //
 /////////////////
 
-int sb7::LMTraversal2b::run() const {
+int sb7::LMTraversal2b::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -134,7 +134,7 @@ int sb7::LMTraversal2b::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal2c //
 /////////////////
 
-int sb7::LMTraversal2c::run() const {
+int sb7::LMTraversal2c::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -155,7 +155,7 @@ int sb7::LMTraversal2c::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal3a //
 /////////////////
 
-int sb7::LMTraversal3a::run() const {
+int sb7::LMTraversal3a::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
 
@@ -210,7 +210,7 @@ int sb7::LMTraversal3c::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal4 //
 ////////////////
 
-int sb7::LMTraversal4::run() const {
+int sb7::LMTraversal4::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle docLockHandle(lm_lock_srv.getDocumentLock());
 
@@ -239,7 +239,7 @@ int sb7::LMTraversal4::performOperationOnAtomicPart(AtomicPart *apart,
 // Traversal5 //
 ////////////////
 
-int sb7::LMTraversal5::run() const {
+int sb7::LMTraversal5::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     WriteLockHandle docLockHandle(lm_lock_srv.getDocumentLock());
 
@@ -279,7 +279,7 @@ int sb7::LMTraversal6::traverse(CompositePart *cpart) const {
 // Traversal 7 - actually a short traversal //
 //////////////////////////////////////////////
 
-int sb7::LMTraversal7::run() const {
+int sb7::LMTraversal7::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle assemblyLockHandle(
             lm_lock_srv.getAssemblyLockArray(),
@@ -341,7 +341,7 @@ void sb7::LMTraversal7::performOperationOnAssembly(Assembly *assembly) const {
 // Traversal8 - actually a ro operation //
 //////////////////////////////////////////
 
-int sb7::LMTraversal8::run() const {
+int sb7::LMTraversal8::run(int tid) const {
     ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
     ReadLockHandle manLockHandle(lm_lock_srv.getManualLock());
 

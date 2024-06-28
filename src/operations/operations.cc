@@ -45,14 +45,13 @@ using namespace sb7;
 
 void sb7::Operations::initOperationTypes() {
     // initialize operation types in raising order of enum values
-    optypes.push_back(OperationType(TRAVERSAL, "TRAVERSAL"));
-    optypes.push_back(OperationType(TRAVERSAL_RO, "TRAVERSAL_RO"));
-    optypes.push_back(OperationType(SHORT_TRAVERSAL, "SHORT_TRAVERSAL"));
-    optypes.push_back(OperationType(SHORT_TRAVERSAL_RO, "SHORT_TRAVERSAL_RO"));
-    optypes.push_back(OperationType(OPERATION, "OPERATION"));
-    optypes.push_back(OperationType(OPERATION_RO, "OPERATION_RO"));
-    optypes.push_back(OperationType(STRUCTURAL_MODIFICATION,
-                                    "STRUCTURAL_MODIFICATION"));
+    optypes.emplace_back(TRAVERSAL, "TRAVERSAL");
+    optypes.emplace_back(TRAVERSAL_RO, "TRAVERSAL_RO");
+    optypes.emplace_back(SHORT_TRAVERSAL, "SHORT_TRAVERSAL");
+    optypes.emplace_back(SHORT_TRAVERSAL_RO, "SHORT_TRAVERSAL_RO");
+    optypes.emplace_back(OPERATION, "OPERATION");
+    optypes.emplace_back(OPERATION_RO, "OPERATION_RO");
+    optypes.emplace_back(STRUCTURAL_MODIFICATION, "STRUCTURAL_MODIFICATION");
 }
 
 void sb7::Operations::initOperations(DataHolder *dh) {

@@ -7,7 +7,6 @@
 #include "./CAPool.h"
 #include "../../parameters.h"
 #include "../../sb7_exception.h"
-#include "boost/container/list.hpp"
 
 extern CAPool caPool;
 ////////////
@@ -97,7 +96,7 @@ int sb7::CAQuery2::innerRun(int tid) const {
             throw Sb7Exception();
         }
 
-        boost::container::list<int> lockRequest{};
+        list<int> lockRequest{};
         auto it = aparts[0]->pathLabel.rbegin();
         auto end = aparts[0]->pathLabel.rend();
         for (auto i: aparts[0]->pathLabel) {

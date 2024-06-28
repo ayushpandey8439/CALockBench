@@ -13,9 +13,10 @@
 #include <iostream>
 
 #include <pthread.h>
-
+#include <chrono>
 #include "../random.h"
 #include "../operations/locking_coarse/lock_srv_lc.h"
+
 extern std::chrono::duration<long double, std::nano> idlenessTimeCM[256];
 
 namespace sb7 {
@@ -33,7 +34,7 @@ namespace sb7 {
 
     class LockHandle {
     public:
-        LockHandle(pthread_rwlock_t *l, int s = 1, int tid=-1) : lock(l), size(s), threadId(tid) {
+        LockHandle(pthread_rwlock_t *l, int s = 1, int tid=0) : lock(l), size(s), threadId(tid) {
         }
 
         virtual ~LockHandle() {
