@@ -75,8 +75,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const  override;
     };
 
     class LMOperation10 : public LMQuery2 {
@@ -87,8 +87,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const  override;
     };
 
     class LMOperation11 : public LMTraversal8 {
@@ -99,7 +99,7 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int traverse(Manual *manual) const;
+        int traverse(Manual *manual) const  override;
     };
 
     class LMOperation12 : public LMOperation6 {
@@ -128,8 +128,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const;
+        void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const override;
     };
 
     class LMOperation14 : public LMOperation8 {
@@ -140,8 +140,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnComponent(
-                CompositePart *comp) const;
+        void performOperationOnComponent(
+                CompositePart *comp) const override;
     };
 
     class LMOperation15 : public LMQuery1 {
@@ -152,8 +152,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const override;
     };
 
 }

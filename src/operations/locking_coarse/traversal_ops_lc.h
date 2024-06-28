@@ -41,8 +41,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LCTraversal2b : public LCTraversal1 {
@@ -53,8 +53,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LCTraversal2c : public LCTraversal1 {
@@ -65,8 +65,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LCTraversal3a : public LCTraversal1 {
@@ -82,8 +82,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
 
         void updateBuildDate(AtomicPart *apart) const;
     };
@@ -138,7 +138,7 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int traverse(Document *doc) const;
+        int traverse(Document *doc) const override;
     };
 
     class LCTraversal6 : public LCTraversal1 {
@@ -160,7 +160,7 @@ namespace sb7 {
         }
 
     public:
-        LCTraversal7(DataHolder *dh)
+        explicit LCTraversal7(DataHolder *dh)
                 : Operation(SHORT_TRAVERSAL_RO, "T7", dh) {
         }
 
@@ -187,7 +187,7 @@ namespace sb7 {
         }
 
     public:
-        LCTraversal8(DataHolder *dh)
+        explicit LCTraversal8(DataHolder *dh)
                 : Operation(OPERATION_RO, "T8", dh) {
         }
 
@@ -199,12 +199,12 @@ namespace sb7 {
 
     class LCTraversal9 : public LCTraversal8 {
     public:
-        LCTraversal9(DataHolder *dh)
+        explicit LCTraversal9(DataHolder *dh)
                 : LCTraversal8(OPERATION_RO, "T9", dh) {
         }
 
     protected:
-        virtual int traverse(Manual *manual) const;
+        int traverse(Manual *manual) const  override;
     };
 
 }

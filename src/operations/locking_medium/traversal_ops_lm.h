@@ -41,8 +41,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LMTraversal2b : public LMTraversal1 {
@@ -53,8 +53,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LMTraversal2c : public LMTraversal1 {
@@ -65,8 +65,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LMTraversal3a : public LMTraversal1 {
@@ -82,8 +82,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
 
         void updateBuildDate(AtomicPart *apart) const;
     };
@@ -121,15 +121,15 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int traverse(CompositePart *component) const;
+        int traverse(CompositePart *component) const override;
 
         virtual int traverse(Document *doc) const;
 
-        virtual int traverse(AtomicPart *part,
-                             Set<AtomicPart *> &setOfVisitedParts) const;
+        int traverse(AtomicPart *part,
+                             Set<AtomicPart *> &setOfVisitedParts) const override;
 
-        virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                                                 Set<AtomicPart *> &setOfVisitedPartIds) const;
+        int performOperationOnAtomicPart(AtomicPart *apart,
+                                                 Set<AtomicPart *> &setOfVisitedPartIds) const override;
     };
 
     class LMTraversal5 : public LMTraversal4 {
@@ -140,7 +140,7 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int traverse(Document *doc) const;
+        int traverse(Document *doc) const override;
     };
 
     class LMTraversal6 : public LMTraversal1 {

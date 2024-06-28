@@ -72,8 +72,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const override;
     };
 
     class LCOperation10 : public LCQuery2 {
@@ -84,8 +84,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const override;
     };
 
     class LCOperation11 : public LCTraversal8 {
@@ -96,7 +96,7 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual int traverse(Manual *manual) const;
+        int traverse(Manual *manual) const override;
     };
 
     class LCOperation12 : public LCOperation6 {
@@ -112,8 +112,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnComplexAssembly(
-                ComplexAssembly *cassm) const;
+        void performOperationOnComplexAssembly(
+                ComplexAssembly *cassm) const override;
     };
 
     class LCOperation13 : public LCOperation7 {
@@ -124,8 +124,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const;
+        void performOperationOnBaseAssembly(
+                BaseAssembly *bassm) const override;
     };
 
     class LCOperation14 : public LCOperation8 {
@@ -136,8 +136,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnComponent(
-                CompositePart *comp) const;
+        void performOperationOnComponent(
+                CompositePart *comp) const override;
     };
 
     class LCOperation15 : public LCQuery1 {
@@ -148,8 +148,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const override;
     };
 
 }
