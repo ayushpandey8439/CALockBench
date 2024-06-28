@@ -71,7 +71,8 @@ public:
 
     }
 
-    bool IsOverlap(interval *inv, int m, int threadID) {
+    bool IsOverlap(interval *inv, int m, int threadID)
+    {
         auto t1 = std::chrono::high_resolution_clock::now();
         //cout<<"m=1";
         pthread_mutex_lock(&mutex);
@@ -79,22 +80,25 @@ public:
         Array[threadID] = inv;
         pthread_mutex_unlock(&mutex);
 
-        for (int i = 0; i < S; i++) {
-            if (Array[i] != nullptr) {
+        for(int i=0; i< S; i++)
+        {
+            if(Array[i] != nullptr)
+            {
                 interval *ptr = Array[i];
                 //wait untill there is an overlap and my sequence number is greater
-                if (ptr != NULL &&
-                    (m == 1 || (m == 0 && ptr->mode == 1)) &&
-                    (ptr->post >= inv->pre && inv->post >= ptr->pre) &&
-                    //                      ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
-                    ptr->MySeq < inv->MySeq) {
+                if(ptr !=NULL &&
+                   (m == 1 || (m == 0 && ptr->mode == 1)) &&
+                   (ptr->post >= inv->pre && inv->post>= ptr->pre)&&
+                   //                      ((ptr->pre <= inv->post && ptr->post>= inv->post) || (ptr->post >= inv->pre && ptr->pre<=inv->pre))
+                   ptr->MySeq < inv->MySeq)
+                {
 //                    ptr = Array[i];
                     ptr->accessController.wait(true);
                 }
             }
         }
         auto t2 = std::chrono::high_resolution_clock::now();
-        idleness[threadID] += (t2 - t1);
+        idleness[threadID] += (t2-t1);
         return false;
 
 

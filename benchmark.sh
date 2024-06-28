@@ -13,6 +13,9 @@ python3 -m pip install numpy  || exit 1
 
 
 echo Compiling Benchmark implementation on STMBench7......
+rm -rf ./build
+rm ./STMBench
+mkdir ./build
 cmake -S "./" -B "./build"
 cmake --build "./build" --target STMBench -j6
 

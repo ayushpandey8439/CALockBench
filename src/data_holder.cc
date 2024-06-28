@@ -11,7 +11,6 @@
 
 using namespace sb7;
 using namespace std;
-
 sb7::DataHolder::~DataHolder() {
     // destroy indexes
     /*delete atomicPartIdIndex;
@@ -55,7 +54,7 @@ void sb7::DataHolder::init() {
 
     // first create composite parts and everything below them
     int initialTotalCompParts = parameters.getInitialTotalCompParts();
-    CompositePart **designLibrary = new CompositePart *[initialTotalCompParts];
+    auto **designLibrary = new CompositePart *[initialTotalCompParts];
     createCompositeParts(designLibrary, initialTotalCompParts);
 
     // create module
@@ -79,14 +78,14 @@ void sb7::DataHolder::init() {
 Document *sb7::DataHolder::createDocument(int cpartId) {
     int docId = m_documentIdPool->getId();
 
-    ITOA(cpartIdStr, cpartId);
+    ITOA(cpartIdStr, cpartId)
     string docTitle = "Composite Part #" + (string) cpartIdStr;
     string txt = "I am the documentation for composite part #";
     txt += cpartIdStr;
     txt += '\n';
     string docText = createText(parameters.getDocumentSize(), txt);
 
-    Document *doc = new Document(docId, docTitle, docText);
+    auto *doc = new Document(docId, docTitle, docText);
 
     m_documentTitleIndex->put(docTitle, doc);
 
@@ -103,7 +102,7 @@ Manual *sb7::DataHolder::createManual(int moduleId) {
     txt += '\n';
     string manText = createText(parameters.getManualSize(), txt);
 
-    Manual *man = new Manual(manualId, manTitle, manText);
+    auto *man = new Manual(manualId, manTitle, manText);
 
     return man;
 }
@@ -166,10 +165,10 @@ CompositePart *sb7::DataHolder::createCompositePart() {
     Document *doc = createDocument(id);
 
     // make composite part using all data previously created
-    CompositePart *cpart = new CompositePart(id, type, buildDate, doc);
+    auto *cpart = new CompositePart(id, type, buildDate, doc);
 
     // create atomic parts
-    AtomicPart **parts =
+    auto **parts =
             new AtomicPart *[parameters.getNumAtomicPerComp()];
     createAtomicParts(parts, parameters.getNumAtomicPerComp(), cpart);
 
@@ -205,7 +204,7 @@ AtomicPart *sb7::DataHolder::createAtomicPart() {
     int x = get_random()->nextInt(parameters.getXYRange());
     int y = get_random()->nextInt(parameters.getXYRange());
 
-    AtomicPart *apart = new AtomicPart(id, type, buildDate, x, y);
+    auto *apart = new AtomicPart(id, type, buildDate, x, y);
 
     m_atomicPartIdIndex->put(id, apart);
     addAtomicPartToBuildDateIndex(apart);
@@ -254,7 +253,7 @@ Module *sb7::DataHolder::createModule() {
     Manual *man = createManual(id);
 
     // create return value
-    Module *mod = new Module(id, type, buildDate, man);
+    auto *mod = new Module(id, type, buildDate, man);
 
     // connect manual -> module
     //mod->connectManual();
@@ -264,7 +263,7 @@ Module *sb7::DataHolder::createModule() {
 
 ComplexAssembly *sb7::DataHolder::createAssemblies() {
     ComplexAssembly *designRoot = createComplexAssembly(
-            NULL, parameters.getNumAssmPerAssm());
+            nullptr, parameters.getNumAssmPerAssm());
     return designRoot;
 }
 
@@ -292,14 +291,14 @@ ComplexAssembly *sb7::DataHolder::createComplexAssembly(
             parameters.getMaxAssmDate());
 
     // construct complex assembly
-    ComplexAssembly *cassm = new ComplexAssembly(id, type, buildDate,
-                                                 m_module, parent);
+    auto *cassm = new ComplexAssembly(id, type, buildDate,
+                                      m_module, parent);
 
     // add complex assembly to the index
     m_complexAssemblyIdIndex->put(id, cassm);
 
     // add complex assembly to parent
-    if (parent != NULL) {
+    if (parent != nullptr) {
         parent->addSubAssembly(cassm);
     }
 
@@ -335,8 +334,8 @@ void sb7::DataHolder::createBaseAssembly(ComplexAssembly *parent) {
             parameters.getMaxAssmDate());
 
     // construct object
-    BaseAssembly *bassm = new BaseAssembly(id, type, buildDate,
-                                           m_module, parent);
+    auto *bassm = new BaseAssembly(id, type, buildDate,
+                                   m_module, parent);
 
     // put into index
     m_baseAssemblyIdIndex->put(id, bassm);
@@ -391,7 +390,7 @@ CompositePart *sb7::DataHolder::getCompositePart(int id) const {
     }
 
     // otherwise reutrn NULL
-    return NULL;
+    return nullptr;
 }
 
 BaseAssembly *sb7::DataHolder::getBaseAssembly(int id) const {
@@ -403,7 +402,7 @@ BaseAssembly *sb7::DataHolder::getBaseAssembly(int id) const {
         return query.val;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 ComplexAssembly *sb7::DataHolder::getComplexAssembly(int id) const {
@@ -415,7 +414,7 @@ ComplexAssembly *sb7::DataHolder::getComplexAssembly(int id) const {
         return query.val;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 ///////////////////////////////////////////
@@ -437,12 +436,15 @@ void sb7::DataHolder::deleteDocument(Document *doc) {
 
 void sb7::DataHolder::deleteAtomicPart(AtomicPart *apart) {
     int id = apart->getId();
+    if(apart->isDeleted){
+        return;
+    }
 
     // remove part from build date index
-    removeAtomicPartFromBuildDateIndex(apart);
+    //removeAtomicPartFromBuildDateIndex(apart);
 
     // remove atomic part from id index
-    m_atomicPartIdIndex->remove(id);
+    //m_atomicPartIdIndex->remove(id);
 
     // remove connections to other parts and delete them
     Set<Connection *> *connToSet = apart->getToConnections();
@@ -474,14 +476,17 @@ void sb7::DataHolder::deleteAtomicPart(AtomicPart *apart) {
         delete (conn);
     }
 
+    ///Objects relevant to the existance of
+    /// the hierarchy have been marked deleted instead of being actually deleted
     // delete atomic part
-    delete apart;
-
+    //delete apart;
+    apart->Delete();
     // return id to the pool
     m_atomicPartIdPool->putId(id);
 }
 
 void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
+    if(cpart->isDeleted) return;
     int cpartId = cpart->getId();
 
     // remove composite part from composite part index
@@ -503,7 +508,7 @@ void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
     BagIterator<BaseAssembly *> iterBag = bassmBag->getIter();
     Set<BaseAssembly *> bassmSet;
 
-    // first copy all base assemblies to separate set as bag will change
+    // first copy all base assemblies to separate set as Set will change
     // while breaking connection
     while (iterBag.has_next()) {
         bassmSet.add(iterBag.next());
@@ -521,8 +526,8 @@ void sb7::DataHolder::deleteCompositePart(CompositePart *cpart) {
     }
 
     // mark composite part for deletion
-    delete cpart;
-
+    //delete cpart;
+    cpart->Delete();
     // return id to the pool
     m_compositePartIdPool->putId(cpartId);
 }
@@ -541,7 +546,7 @@ void sb7::DataHolder::deleteBaseAssembly(BaseAssembly *bassm) {
     Bag<CompositePart *> *cpartBag = bassm->getComponents();
     Set<CompositePart *> cpartSet;
 
-    // copy component bag to a local one, to avoid changes to set we are
+    // copy component Set to a local one, to avoid changes to set we are
     // iteration through
     BagIterator<CompositePart *> iterSh = cpartBag->getIter();
 
@@ -549,7 +554,7 @@ void sb7::DataHolder::deleteBaseAssembly(BaseAssembly *bassm) {
         cpartSet.add(iterSh.next());
     }
 
-    // now go through local bag and remove all components in there
+    // now go through local Set and remove all components in there
     SetIterator<CompositePart *> iter = cpartSet.getIter();
 
     while (iter.has_next()) {
@@ -561,8 +566,8 @@ void sb7::DataHolder::deleteBaseAssembly(BaseAssembly *bassm) {
     }
 
     // delete base assembly
-    delete bassm;
-
+    //delete bassm;
+    bassm->Delete();
     // return id to pool
     m_baseAssemblyIdPool->putId(bassmId);
 }
@@ -575,7 +580,7 @@ void sb7::DataHolder::deleteComplexAssembly(ComplexAssembly *cassm) {
     // check if this is the root assembly
     ComplexAssembly *superAssm = cassm->getSuperAssembly();
 
-    if (superAssm == NULL) {
+    if (superAssm == nullptr) {
         throw Sb7Exception(
                 "DeleteComplexAssembly: root Complex Assembly cannot be removed!");
     }
