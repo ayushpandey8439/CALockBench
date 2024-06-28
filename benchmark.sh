@@ -1,5 +1,5 @@
-COUNT=8
-ITERATIONS_PER_THREAD=3
+COUNT=4
+ITERATIONS_PER_THREAD=2
 DURATION=2000
 SIZE=b
 
@@ -19,10 +19,10 @@ cmake --build "./build" --target STMBench -j6
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
 echo Stage 1 of 3 : Running standard workload benchmarks
-echo Step 1 of 6: Read Dominated load without modifications
-. ./scripts/read.sh
-#echo Step 2 of 6: Read Dominated load with modifications
-#. ./scripts/readModifications.sh
+#echo Step 1 of 6: Read Dominated load without modifications
+#. ./scripts/read.sh
+echo Step 2 of 6: Read Dominated load with modifications
+. ./scripts/readModifications.sh
 #echo Step 3 of 6: Write Dominated load without modifications
 #. ./scripts/write.sh
 #echo Step 4 of 6: Write Dominated load with modifications
