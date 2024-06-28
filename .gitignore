@@ -6,6 +6,7 @@ PythonEnv/
 
 cmake-build-debug/
 
-sb7_lock
+STMBench
+
 
 
