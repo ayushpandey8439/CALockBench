@@ -3,7 +3,7 @@
 #include "../../parameters.h"
 #include "../../sb7_exception.h"
 #include "../../thread/thread.h"
-#include "midPool.h"
+#include "MidPool.h"
 #include "midHelper.h"
 
 extern MidPool midPool;

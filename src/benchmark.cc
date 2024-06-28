@@ -8,7 +8,7 @@
 #include "thread/thread.h"
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
-#include "operations/MID/MidPool.h"
+#include "operations/Mid/MidPool.h"
 #include "operations/NumLock/NumPool.h"
 #include "labelling/CALock/CALockLabeling.h"
 #include "labelling/DomLock/DomLockLabeling.h"
@@ -19,7 +19,7 @@ extern CAPool caPool;
 extern DomPool domPool;
 extern MidPool midPool;
 extern NumPool numPool;
-std::chrono::duration<long double, std::nano> idlenessTimeCM;
+std::chrono::duration<long double, std::nano> idlenessTimeCM[256];
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
@@ -232,6 +232,10 @@ void sb7::Benchmark::reportStats(ostream &out) {
     int threadNum = parameters.getThreadNum();
     int operationTypesNum = optypes.size();
     int operationNum = getOperationNum();
+//    string resultsDir = parameters.getResultsDir();
+//    if(!filesystem::exists(resultsDir)){
+//        filesystem::create_directory(resultsDir);
+//    }
 
     // print operation statistics
     sb7::printSection(out, "Detailed results");
@@ -322,10 +326,17 @@ void sb7::Benchmark::reportStats(ostream &out) {
         << "  (" << totalTThroughput << " op/s including failed)"
         << endl;
 
+
     out << "Elapsed time: " << elapsedTime / 1000.0 << " s" << endl;
     std::chrono::duration<long double, std::nano> totalTimeSpentIdle{};
     if (parameters.getLockType() == Parameters::lock_coarse || parameters.getLockType() == Parameters::lock_medium) {
-        totalTimeSpentIdle = (idlenessTimeCM / parameters.getThreadNum());
+        int count = 1;
+        for (auto i: idlenessTimeCM) {
+            if (i > std::chrono::duration<long double, std::nano>::zero()) {
+                count++;
+                totalTimeSpentIdle = (totalTimeSpentIdle + i);
+            }
+        }
     } else if (parameters.getLockType() == Parameters::lock_ca) {
         out << "Total relabelling: " << caPool.modificationTime.count() / (caPool.count) << " nanos" << endl;
         int count = 1;

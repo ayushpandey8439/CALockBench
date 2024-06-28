@@ -4,9 +4,9 @@
 #include "../../sb7_exception.h"
 #include "../../thread/thread.h"
 #include "MidPool.h"
-#include "MidHelper.h"
+#include "midHelper.h"
 #include<pthread.h>
-#include "../../labelling/Mid/MidLabeling.h"
+#include "../../labelling/MID/MidLabeling.h"
 
 extern MidPool midPool;
 /////////////////////////////

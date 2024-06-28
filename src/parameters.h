@@ -79,6 +79,7 @@ namespace sb7 {
 
         static const int DEFAULT_VERBOSE_LEVEL;
         static const char *DEFAULT_FILE_NAME;
+        static const char *DEFAULT_RESULTS_DIR;
 
         static const double MAX_TO_INITIAL_RATIO;
 
@@ -142,6 +143,7 @@ namespace sb7 {
 
         int verboseLevel;
         std::string fileName;
+        std::string resultsDir;
 
         lock_type lockType;
         bool benchmarkContainment;
@@ -342,6 +344,9 @@ namespace sb7 {
             return benchmarkContainment;
         }
 
+        std::string getResultsDir() const {
+            return resultsDir;
+        }
         ////////////////////////////////////////////////////////////////
         // setters are protected as only initialization of parameters //
         // is done through init functions                             //
@@ -558,6 +563,10 @@ namespace sb7 {
             lockType = lt;
         }
 
+        void setResultsDir(const std::string &val){
+            resultsDir = val;
+        }
+
         void setBenchmarkContainment(bool t) {
             benchmarkContainment = t;
         }
@@ -609,6 +618,9 @@ namespace sb7 {
         // filename can be set only from command line
         bool fileNameSet;
         std::string fileName;
+
+        bool resultsDirSet;
+        std::string resultsDir;
 
         bool benchmarkContainmentSet;
         bool benchmarkContainment;

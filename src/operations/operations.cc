@@ -67,7 +67,7 @@ void sb7::Operations::initOperations(DataHolder *dh) {
     } else if (parameters.getLockType() == Parameters::lock_mid) {
         initOperationsLockMid(dh);
     } else if (parameters.getLockType() == Parameters::lock_num) {
-        initOperationsLockNum(dh);
+//        initOperationsLockNum(dh);
     }
 }
 
@@ -179,17 +179,17 @@ void sb7::Operations::initOperationsLockMid(DataHolder *dh) {
     ops.push_back(new MidStructuralModification2(dh));
     ops.push_back(new MidStructuralModification3(dh));
 }
-
-void sb7::Operations::initOperationsLockNum(DataHolder *dh) {
-    ops.push_back(new NumQuery1(dh));
-    ops.push_back(new NumQuery2(dh)); // Aggregation
-    ops.push_back(new NumOperation6(dh));
-    ops.push_back(new NumOperation7(dh));
-    ops.push_back(new NumOperation9(dh));
-    ops.push_back(new NumOperation10(dh)); // Aggregation
-    ops.push_back(new NumStructuralModification2(dh));
-    ops.push_back(new NumStructuralModification3(dh));
-}
+//
+//void sb7::Operations::initOperationsLockNum(DataHolder *dh) {
+//    ops.push_back(new NumQuery1(dh));
+//    ops.push_back(new NumQuery2(dh)); // Aggregation
+//    ops.push_back(new NumOperation6(dh));
+//    ops.push_back(new NumOperation7(dh));
+//    ops.push_back(new NumOperation9(dh));
+//    ops.push_back(new NumOperation10(dh)); // Aggregation
+//    ops.push_back(new NumStructuralModification2(dh));
+//    ops.push_back(new NumStructuralModification3(dh));
+//}
 
 //
 //void sb7::Operations::initOperationsLockFine(DataHolder *dh) {

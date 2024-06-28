@@ -53,13 +53,9 @@ namespace sb7 {
                 : type(ty), name(n), dataHolder(dh) {}
 
         // TODO make this abstract after all operations are implemented
-        virtual int run(int tid) const {
-            sleep(1);
-            return 0;
-        }
+        virtual int run(int tid) const = 0;
 
-        virtual ~Operation() {
-        }
+        virtual ~Operation() = default;
 
     public:
         // TODO or use pointer to operation type object

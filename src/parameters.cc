@@ -56,6 +56,7 @@ namespace sb7 {
 
     const int Parameters::DEFAULT_VERBOSE_LEVEL = 1;
     const char *Parameters::DEFAULT_FILE_NAME = "default.conf";
+    const char *Parameters::DEFAULT_RESULTS_DIR = "./benchmarkResults";
 
     const double Parameters::MAX_TO_INITIAL_RATIO = 1.05;
 
@@ -194,6 +195,7 @@ void sb7::Parameters::initDefault() {
     setFileName(DEFAULT_FILE_NAME);
 
     setLockType(DEFAULT_LOCK_TYPE);
+    setResultsDir(DEFAULT_RESULTS_DIR);
     setBenchmarkContainment(DEFAULT_BENCHMARK_CONTAINMENT);
 }
 
@@ -291,6 +293,7 @@ void sb7::Parameters::print(std::ostream &out) const {
 #define EXPERIMENT_DURATION_KEY "experimentDuration"
 #define SIZE_KEY "size"
 #define LOCK_TYPE_KEY "lockType"
+#define DEFAULT_RESULTS_DIR "defaultResultsDir"
 #define BENCHMARK_CONTAINMENT "benchmarkContainment"
 
 void sb7::Parameters::parseCommandLine(int argc, char **argv,
@@ -307,6 +310,7 @@ void sb7::Parameters::parseCommandLine(int argc, char **argv,
             {SIZE_KEY,                     1, nullptr, 's'},
             {LOCK_TYPE_KEY,                1, nullptr, 'l'},
             {BENCHMARK_CONTAINMENT,        1, nullptr, 'b'},
+            {DEFAULT_RESULTS_DIR,          1, nullptr, 'o'},
             {nullptr,                      0, nullptr, 0}
     };
 
@@ -482,6 +486,15 @@ void sb7::Parameters::parseCommandLine(int argc, char **argv,
                     }
                 } else {
                     std::cout << "Benchmark Containment parameter without value. "
+                                 "Ignoring." << std::endl;
+                }
+                break;
+            case 'o':
+                if (optarg) {
+                    configParams.resultsDirSet = true;
+                    configParams.resultsDir = std::string(optarg);
+                } else {
+                    std::cout << "Default results directory parameter without value."
                                  "Ignoring." << std::endl;
                 }
                 break;

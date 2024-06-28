@@ -15,6 +15,8 @@
 #include <pthread.h>
 
 #include "../random.h"
+#include "../operations/locking_coarse/lock_srv_lc.h"
+extern std::chrono::duration<long double, std::nano> idlenessTimeCM[256];
 
 namespace sb7 {
 
@@ -31,7 +33,7 @@ namespace sb7 {
 
     class LockHandle {
     public:
-        LockHandle(pthread_rwlock_t *l, int s = 1) : lock(l), size(s) {
+        LockHandle(pthread_rwlock_t *l, int s = 1, int tid=-1) : lock(l), size(s), threadId(tid) {
         }
 
         virtual ~LockHandle() {
@@ -43,23 +45,30 @@ namespace sb7 {
     protected:
         pthread_rwlock_t *lock;
         int size;
+        int threadId;
     };
 
     class ReadLockHandle : public LockHandle {
     public:
         ReadLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+            auto t1 = std::chrono::high_resolution_clock::now();
             for (int i = size - 1; i >= 0; i--) {
                 pthread_rwlock_rdlock(lock + i);
             }
+            auto t2 = std::chrono::high_resolution_clock::now();
+            idlenessTimeCM[threadId] += (t2 - t1);
         }
     };
 
     class WriteLockHandle : public LockHandle {
     public:
         WriteLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+            auto t1 = std::chrono::high_resolution_clock::now();
             for (int i = size - 1; i >= 0; i--) {
                 pthread_rwlock_wrlock(lock + i);
             }
+            auto t2 = std::chrono::high_resolution_clock::now();
+            idlenessTimeCM[threadId] += (t2 - t1);
         }
     };
 
