@@ -19,6 +19,7 @@ namespace sb7 {
 //*********************************************************************************************
             rlm_pre_number = 0;
             rlm_post_number = 0;
+            isDeleted = false;
         }
 
         virtual ~DesignObj() {}
@@ -49,6 +50,8 @@ namespace sb7 {
             this->m_type.clear();
             m_post_number = 0;
             m_pre_number = 0;
+            rlm_post_number = 0;
+            rlm_pre_number = 0;
         }
 
         void setPathLabel(const list<int> label) {
