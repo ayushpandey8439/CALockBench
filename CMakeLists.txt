@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.25)
 project(STMBench)
 
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 23)
 #include_directories(libraries/boost_1_81_0)
 
 
@@ -72,14 +72,12 @@ add_executable(STMBench src/sb7_lock.cc
         src/operations/locking_coarse/structural_modification_ops_lc.cc
         src/operations/locking_coarse/traversal_ops_lc.cc
 
-        src/random.cc
         src/helpers.cc
         src/thread/thread.cc
         src/thread/thread_fun.cc
         src/parameters.cc
         src/data_holder.cc
         src/id_pool.cc
-        src/randomc/mersenne.cc
 
         src/struct/assembly.cc
         src/struct/assembly.h

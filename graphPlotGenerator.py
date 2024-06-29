@@ -1,7 +1,6 @@
 # Import the necessary modules
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 import sys
 
 from pandas import concat
@@ -40,7 +39,7 @@ while i <= ThreadCount:
     idleness = concat([idleness,line])
     line = pd.DataFrame({'ThreadCount':i, 'Coarse': coarse.iloc[2,0], 'Medium': medium.iloc[2,0], 'Domlock': dom.iloc[2,0], 'CALock': ca.iloc[2,0], 'MID': mid.iloc[2,0]}, index=[i])
     throughput = concat([throughput,line])
-    line = pd.DataFrame({'ThreadCount':i, 'Coarse': coarse.iloc[1,0], 'Medium': medium.iloc[1,0], 'Domlock': dom.iloc[1,0], 'CALock': ca.iloc[1,0], 'MID': mid.iloc[1,0]}, index=[i])
+    line = pd.DataFrame({'ThreadCount':i, 'Coarse': coarse.iloc[1,0]+0.1, 'Medium': medium.iloc[1,0]+0.1, 'Domlock': dom.iloc[1,0], 'CALock': ca.iloc[1,0], 'MID': mid.iloc[1,0]}, index=[i])
     relabelling = concat([relabelling,line])
     i*=2
 
@@ -86,6 +85,7 @@ plt.plot(relabelling['MID'], color='#4D9DE0', label='MID', marker='x')
 plt.xlabel('ThreadCount', fontweight='bold')
 plt.ylabel('ns', fontweight='bold')
 plt.xticks(relabelling['ThreadCount'])
+plt.yscale('log')
 
 # Create legend & Show graphic
 plt.legend()

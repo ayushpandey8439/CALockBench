@@ -12,7 +12,7 @@
 ////////////////
 
 int sb7::LCTraversal1::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), tid);
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), 1,tid);
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
 
@@ -90,7 +90,7 @@ int sb7::LCTraversal1::performOperationOnAtomicPart(AtomicPart *apart,
 /////////////////
 
 int sb7::LCTraversal2a::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
 
@@ -114,7 +114,7 @@ int sb7::LCTraversal2a::performOperationOnAtomicPart(AtomicPart *apart,
 /////////////////
 
 int sb7::LCTraversal2b::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
 
@@ -129,7 +129,7 @@ int sb7::LCTraversal2b::performOperationOnAtomicPart(AtomicPart *apart,
 /////////////////
 
 int sb7::LCTraversal2c::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
 
@@ -148,7 +148,7 @@ int sb7::LCTraversal2c::performOperationOnAtomicPart(AtomicPart *apart,
 /////////////////
 
 int sb7::LCTraversal3a::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return traverse(dataHolder->getModule()->getDesignRoot());
 }
 
@@ -223,7 +223,7 @@ int sb7::LCTraversal4::performOperationOnAtomicPart(AtomicPart *apart,
 ////////////////
 
 int sb7::LCTraversal5::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
     return LCTraversal1::traverse(
             dataHolder->getModule()->getDesignRoot());
 }
@@ -261,7 +261,7 @@ int sb7::LCTraversal6::traverse(CompositePart *cpart) const {
 //////////////////////////////////////////////
 
 int sb7::LCTraversal7::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), tid);
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(),1, tid);
     return innerRun();
 }
 
@@ -318,7 +318,7 @@ void sb7::LCTraversal7::performOperationOnAssembly(Assembly *assembly) const {
 //////////////////////////////////////////
 
 int sb7::LCTraversal8::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), tid);
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), 1,tid);
     return traverse(dataHolder->getModule()->getManual());
 }
 

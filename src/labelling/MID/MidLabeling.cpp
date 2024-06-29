@@ -8,7 +8,7 @@
 #include "limits.h"
 
 // Anju ----------- Start ----------
-int leafCounter = 0;
+long int leafCounter = 0;
 
 int MidTraversalReverseDFS::run(int tid) const {
     int retval = traverse(dataHolder->getModule()->getDesignRoot());
@@ -125,25 +125,31 @@ int MidTraversalReverseDFS::traverse(AtomicPart *apart,
 // Anju ----------- End ----------
 
 
+
+
+
 //***************************************************************************************************
 
 int MidTraversalDFS::run(int tid) const {
 
-
-    int retval = traverse(dataHolder->getModule()->getDesignRoot());
-    cout << "\nRoot pre-post:  " << dataHolder->getModule()->getDesignRoot()->m_pre_number << " and "
-         << dataHolder->getModule()->getDesignRoot()->m_post_number << endl;
+    leafCounter = 0;
+    int retval;
+    traverse(dataHolder->getModule()->getDesignRoot());
+    //cout<< "pre-post" << dataHolder->getModule()->getDesignRoot() -> m_pre_number<<" and "<<dataHolder->getModule()->getDesignRoot() -> m_post_number;
 
     return retval;
 }
 
 int MidTraversalDFS::traverse(ComplexAssembly *cassm) const {
     int partsVisited = 0;
+    if (cassm->m_pre_number == 0)
+        cassm->m_pre_number = ++leafCounter;
+    else ++leafCounter;
+
+
     Set<Assembly *> *subAssm = cassm->getSubAssemblies();
     SetIterator<Assembly *> iter = subAssm->getIter();
     bool childrenAreBase = cassm->areChildrenBaseAssemblies();
-
-    int pre = INT_MAX, post = 0;
 
     // think about transforming this into a nicer oo design
     while (iter.has_next()) {
@@ -151,20 +157,12 @@ int MidTraversalDFS::traverse(ComplexAssembly *cassm) const {
 
         if (!childrenAreBase) {
             partsVisited += traverse((ComplexAssembly *) assm);
-
         } else {
             partsVisited += traverse((BaseAssembly *) assm);
         }
-
-        if (assm->m_pre_number < pre)
-            pre = assm->m_pre_number;
-        if (assm->m_post_number > post)
-            post = assm->m_post_number;
-
     }
 
-    cassm->m_pre_number = pre;
-    cassm->m_post_number = post;
+    cassm->m_post_number = ++leafCounter;
 
 
     return partsVisited;
@@ -172,42 +170,33 @@ int MidTraversalDFS::traverse(ComplexAssembly *cassm) const {
 
 int MidTraversalDFS::traverse(BaseAssembly *bassm) const {
     int partsVisited = 0;
+    if (bassm->m_pre_number == 0)
+        bassm->m_pre_number = ++leafCounter;
+    else ++leafCounter;
 
     BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
 
     while (iter.has_next()) {
         partsVisited += traverse(iter.next());
     }
+    bassm->m_post_number = ++leafCounter;
     return partsVisited;
 }
 
 int MidTraversalDFS::traverse(CompositePart *cpart) const {
 
-//	if(cpart -> m_pre_number == 0)
-//	cpart -> m_pre_number = dfscounter++;
-//	else dfscounter++;
+    if (cpart->m_pre_number == 0)
+        cpart->m_pre_number = ++leafCounter;
+    else ++leafCounter;
 
-    if (cpart->m_pre_number != cpart->m_post_number) {
-        cout << cpart->getId() << ": (" << cpart->m_pre_number << ", " << cpart->m_post_number << ")" << endl;
-    }
 
     AtomicPart *rootPart = cpart->getRootPart();
     Set<AtomicPart *> visitedPartSet;
 
 
-    int retval = traverse(rootPart, visitedPartSet);
+    cpart->m_post_number = ++leafCounter;
 
-    //cout << "Composite part id : " << cpart->getId() << "-------" << endl;
-    // Assign intervals to all connected atomic parts
-    SetIterator<AtomicPart *> iter = visitedPartSet.getIter();
-    while (iter.has_next()) {
-        AtomicPart *ap = iter.next();
-        ap->m_pre_number = cpart->m_pre_number;
-        ap->m_post_number = cpart->m_post_number;
-        //cout << ap->getId() << endl;
-    }
-    //cout << "-------" << endl;
-    return retval;
+    return traverse(rootPart, visitedPartSet);
 }
 
 int MidTraversalDFS::traverse(AtomicPart *apart,
@@ -219,7 +208,9 @@ int MidTraversalDFS::traverse(AtomicPart *apart,
     } else if (visitedPartSet.contains(apart)) {
         ret = 0;
 
+        ++leafCounter;
     } else {
+        apart->m_pre_number = ++leafCounter;
 
 
         ret = performOperationOnAtomicPart(apart, visitedPartSet);
@@ -234,6 +225,7 @@ int MidTraversalDFS::traverse(AtomicPart *apart,
             ret += traverse(conn->getDestination(), visitedPartSet);
         }
     }
+    apart->m_post_number = ++leafCounter;
     return ret;
 }
 
@@ -242,4 +234,3 @@ int MidTraversalDFS::performOperationOnAtomicPart(AtomicPart *apart,
     apart->nullOperation();
     return 1;
 }
-

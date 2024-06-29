@@ -1,4 +1,5 @@
-COUNT=16
+#!/bin/bash
+COUNT=8
 ITERATIONS_PER_THREAD=2
 DURATION=2000
 SIZE=b
@@ -6,7 +7,7 @@ SIZE=b
 echo Setting up python dependencies
 
 python3 -m venv ./PythonEnv || exit 1
-source ./PythonEnv/bin/activate || exit 1
+. ./PythonEnv/bin/activate || exit 1
 python3 -m pip install matplotlib  || exit 1
 python3 -m pip install pandas  || exit 1
 python3 -m pip install numpy  || exit 1

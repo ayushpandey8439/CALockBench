@@ -14,7 +14,7 @@
 #define QUERY1_ITER 10
 
 int sb7::LCQuery1::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), tid);
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), 1,tid);
     return innerRun();
 }
 
@@ -53,7 +53,7 @@ sb7::LCQuery2::LCQuery2(DataHolder *dh, optype t, const char *n, int percent)
 }
 
 int sb7::LCQuery2::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), tid);
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(),1, tid);
     return innerRun();
 }
 

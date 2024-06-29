@@ -6,4 +6,4 @@ pwd
 . ./scripts/workloadRun.sh
 pwd
 python3 ./graphPlotGenerator.py $COUNT $ITERATIONS_PER_THREAD "WriteWithModifications"
-mkdir  -p ./benchmarkResultsBackup/WriteWithModifications && mv ./benchmarkResults ./benchmarkResultsBackup/WriteWithModifications
+mkdir  -p ./benchmarkResultsBackup/WriteWithModifications && mv ./benchmarkResults/* ./benchmarkResultsBackup/WriteWithModifications

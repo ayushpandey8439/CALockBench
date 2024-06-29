@@ -10,7 +10,7 @@
 /////////////////////////////
 
 int sb7::LCStructuralModification1::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
     dataHolder->createCompositePart();
     return 0;
 }
@@ -20,7 +20,7 @@ int sb7::LCStructuralModification1::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification2::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
 
     // generate random composite part id and try to look it up
     int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
@@ -40,7 +40,7 @@ int sb7::LCStructuralModification2::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification3::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
 
     // generate random composite part id
     int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
@@ -68,7 +68,7 @@ int sb7::LCStructuralModification3::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification4::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
 
     // generate random base assembly id
     int bassmId = get_random()->nextInt(parameters.getMaxBaseAssemblies()) + 1;
@@ -112,7 +112,7 @@ int sb7::LCStructuralModification4::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification5::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
 
     // generate random base assembly id
     int bassmId = get_random()->nextInt(
@@ -134,7 +134,7 @@ int sb7::LCStructuralModification5::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification6::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
 
     // generate random base assembly id
     int bassmId = get_random()->nextInt(
@@ -164,7 +164,7 @@ int sb7::LCStructuralModification6::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification7::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
 
     // generate random complex assembly id
     int cassmId = get_random()->nextInt(
@@ -186,7 +186,7 @@ int sb7::LCStructuralModification7::run(int tid) const {
 /////////////////////////////
 
 int sb7::LCStructuralModification8::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
 
     // generate random complex assembly id
     int cassmId = get_random()->nextInt(

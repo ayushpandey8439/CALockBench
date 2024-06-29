@@ -149,9 +149,7 @@ void sb7::Benchmark::init() {
         dfs->run(0);
         rdfs->run(0);
         auto tD2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2 - tD1;
-
-
+        std::chrono::duration<long double, std::nano> initialLabellingTimeMID = tD2 - tD1;
     }
     if(parameters.getLockType() == Parameters::lock_num || parameters.getBenchmarkContainment()){
         auto *dfs = new DomLockLabeling(&dataHolder);
@@ -159,8 +157,6 @@ void sb7::Benchmark::init() {
         dfs->run(0);
         auto tD2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<long double, std::nano> initialLabellingTimeNum = tD2 - tD1;
-
-
     }
 }
 

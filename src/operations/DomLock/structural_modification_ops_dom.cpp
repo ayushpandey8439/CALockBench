@@ -46,6 +46,7 @@ int sb7::DomStructuralModification2::run(int tid) const {
         auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
+        domPool.modificationTime = (t2 - t1);
         pthread_rwlock_unlock(lock);
         domPool.Delete(tid);
     }

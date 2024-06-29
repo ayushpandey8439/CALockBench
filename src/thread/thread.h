@@ -51,7 +51,7 @@ namespace sb7 {
 
     class ReadLockHandle : public LockHandle {
     public:
-        ReadLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+        explicit ReadLockHandle(pthread_rwlock_t *l, int s = 1, int tid=0) : LockHandle(l, s, tid) {
             auto t1 = std::chrono::high_resolution_clock::now();
             for (int i = size - 1; i >= 0; i--) {
                 pthread_rwlock_rdlock(lock + i);
@@ -63,7 +63,7 @@ namespace sb7 {
 
     class WriteLockHandle : public LockHandle {
     public:
-        WriteLockHandle(pthread_rwlock_t *l, int s = 1) : LockHandle(l, s) {
+        explicit WriteLockHandle(pthread_rwlock_t *l, int s = 1, int tid=0) : LockHandle(l, s, tid) {
             auto t1 = std::chrono::high_resolution_clock::now();
             for (int i = size - 1; i >= 0; i--) {
                 pthread_rwlock_wrlock(lock + i);

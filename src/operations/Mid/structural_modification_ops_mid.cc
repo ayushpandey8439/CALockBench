@@ -50,7 +50,7 @@ int sb7::MidStructuralModification2::run(int tid) const {
         rdfs->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
         midPool.modificationTime += (t2 - t1);
-
+        midPool.count.fetch_add(1);
 
         pthread_rwlock_unlock(lock);
         midPool.Delete(tid);
@@ -134,7 +134,7 @@ int sb7::MidStructuralModification3::run(int tid) const {
 
 
         midPool.modificationTime += (t2 - t1);
-//        midPool.count.fetch_add(1);
+        midPool.count.fetch_add(1);
         pthread_rwlock_unlock(lock);
         midPool.Delete(tid);
     }

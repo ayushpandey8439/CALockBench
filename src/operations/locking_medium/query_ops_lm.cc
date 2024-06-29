@@ -14,8 +14,8 @@
 #define QUERY1_ITER 10
 
 int sb7::LMQuery1::run(int tid) const {
-    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-    ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock(),1,tid);
+    ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock(),1,tid);
 
     return innerRun();
 }
@@ -58,8 +58,8 @@ sb7::LMQuery2::LMQuery2(DataHolder *dh, optype t, const char *n, int percent)
 }
 
 int sb7::LMQuery2::run(int tid) const {
-    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-    ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock(),1,tid);
+    ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock(),1,tid);
 
     return innerRun();
 }
@@ -96,8 +96,8 @@ void sb7::LMQuery2::performOperationOnAtomicPart(AtomicPart *apart) const {
 #define QUERY4_ITER 100
 
 int sb7::LMQuery4::run(int tid) const {
-    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-    ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock(),1,tid);
+    ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock(),1,tid);
 
     int ret = 0;
 
@@ -136,9 +136,9 @@ int sb7::LMQuery4::run(int tid) const {
 ////////////
 
 int sb7::LMQuery5::run(int tid) const {
-    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-    ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock());
-    ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock(),1,tid);
+    ReadLockHandle bassmLockHandle(lm_lock_srv.getBaseAssemblyLock(),1,tid);
+    ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock(),1,tid);
 
     int ret = 0;
 
@@ -174,9 +174,9 @@ int sb7::LMQuery5::checkBaseAssembly(BaseAssembly *bassm) const {
 ////////////
 
 int sb7::LMQuery6::run(int tid) const {
-    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-    ReadLockHandle assmLockHandle(lm_lock_srv.getAssemblyLockArray());
-    ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock(),1,tid);
+    ReadLockHandle assmLockHandle(lm_lock_srv.getAssemblyLockArray(),1,tid);
+    ReadLockHandle cpartLockHandle(lm_lock_srv.getCompositePartLock(),1,tid);
 
     return checkComplexAssembly(dataHolder->getModule()->getDesignRoot());
 }
@@ -212,8 +212,8 @@ int sb7::LMQuery6::checkComplexAssembly(ComplexAssembly *assembly) const {
 ////////////
 
 int sb7::LMQuery7::run(int tid) const {
-    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock());
-    ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock());
+    ReadLockHandle smLockHandle(lm_lock_srv.getStructureModificationLock(),1,tid);
+    ReadLockHandle apartLockHandle(lm_lock_srv.getAtomicPartLock(),1,tid);
 
     int ret = 0;
 

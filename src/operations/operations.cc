@@ -1,5 +1,7 @@
 #include "operations.h"
 
+#include <algorithm>
+
 #include "base/traversal_ops.h"
 #include "base/query_ops.h"
 #include "base/short_traversal_ops.h"

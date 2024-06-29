@@ -10,7 +10,7 @@
 ////////////////
 
 int sb7::LCOperation6::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(),1,tid);
     return innerRun();
 }
 
@@ -72,7 +72,7 @@ void sb7::LCOperation6::performOperationOnComplexAssembly(
 ////////////////
 
 int sb7::LCOperation7::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), 1, tid);
     return innerRun();
 }
 
@@ -119,7 +119,7 @@ void sb7::LCOperation7::performOperationOnBaseAssembly(
 ////////////////
 
 int sb7::LCOperation8::run(int tid) const {
-    ReadLockHandle readLockHandle(lc_lock_srv.getLock());
+    ReadLockHandle readLockHandle(lc_lock_srv.getLock(), 1, tid);
     return innerRun();
 }
 
@@ -164,7 +164,7 @@ void sb7::LCOperation8::performOperationOnComponent(CompositePart *comp) const {
 ////////////////
 
 int sb7::LCOperation9::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
     return LCQuery1::innerRun();
 }
 
@@ -177,7 +177,7 @@ void sb7::LCOperation9::performOperationOnAtomicPart(AtomicPart *apart) const {
 ////////////////
 
 int sb7::LCOperation10::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(),1, tid);
     return LCQuery2::innerRun();
 }
 
@@ -193,7 +193,7 @@ void sb7::LCOperation10::performOperationOnAtomicPart(AtomicPart *apart) const {
 #define MANUAL_TEXT_START_2 'i'
 
 int sb7::LCOperation11::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return LCTraversal8::traverse(dataHolder->getModule()->getManual());
 }
 
@@ -216,7 +216,7 @@ int sb7::LCOperation11::traverse(Manual *manual) const {
 /////////////////
 
 int sb7::LCOperation12::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1, tid);
     return LCOperation6::innerRun();
 }
 
@@ -230,7 +230,7 @@ void sb7::LCOperation12::performOperationOnComplexAssembly(
 /////////////////
 
 int sb7::LCOperation13::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return LCOperation7::innerRun();
 }
 
@@ -244,7 +244,7 @@ void sb7::LCOperation13::performOperationOnBaseAssembly(
 /////////////////
 
 int sb7::LCOperation14::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return LCOperation8::innerRun();
 }
 
@@ -258,7 +258,7 @@ void sb7::LCOperation14::performOperationOnComponent(
 /////////////////
 
 int sb7::LCOperation15::run(int tid) const {
-    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), tid);
+    WriteLockHandle writeLockHandle(lc_lock_srv.getLock(), 1,tid);
     return LCQuery1::innerRun();
 }
 

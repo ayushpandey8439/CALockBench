@@ -23,7 +23,7 @@ namespace sb7 {
         int processComplexAssembly(ComplexAssembly *cassm) const;
 
         virtual int processComplexAssemblyWrap(
-                ComplexAssembly *cassm) const;
+                ComplexAssembly *cassm, int tid) const;
 
         virtual void performOperationOnComplexAssembly(
                 ComplexAssembly *cassm) const;
@@ -114,7 +114,7 @@ namespace sb7 {
 
     protected:
         virtual int processComplexAssemblyWrap(
-                ComplexAssembly *cassm) const;
+                ComplexAssembly *cassm, int tid) const;
 
         virtual void performOperationOnComplexAssembly(
                 ComplexAssembly *cassm) const;
