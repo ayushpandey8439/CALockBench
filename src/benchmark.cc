@@ -150,6 +150,8 @@ void sb7::Benchmark::init() {
         rdfs->run(0);
         auto tD2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<long double, std::nano> initialLabellingTimeMID = tD2 - tD1;
+        cout << "Labelling time for MID: " << initialLabellingTimeMID.count() << endl;
+        cout << "Interval assignment complete" << endl;
     }
     if(parameters.getLockType() == Parameters::lock_num || parameters.getBenchmarkContainment()){
         auto *dfs = new DomLockLabeling(&dataHolder);

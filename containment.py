@@ -1,5 +1,6 @@
 # Import the necessary modules
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 import pandas as pd
 import numpy as np
 import sys
@@ -49,6 +50,7 @@ while i <= ThreadCount:
 # print(relabelling)
 
 barwidth = 0.15
+offset=1
 
 r1 = np.arange(len(throughput['ThreadCount']))
 r2 = [x + barwidth for x in r1]
@@ -67,24 +69,28 @@ plt.xlabel('Threads')
 plt.ylabel('Op/s')
 plt.legend(ncols=3)
 plt.xticks([r + barwidth for r in range(len(throughput['ThreadCount']))], throughput['ThreadCount'].apply(lambda x : int(x)))
-plt.savefig("./benchmarkCharts/"+WorkloadType+"Throughput.png",dpi=150)
 
 
+plt.show()
 
-plt.figure()
-plt.bar(r1, idleness['Coarse'],  color='#E15554', width=barwidth, label='Coarse')
-plt.bar(r2, idleness['Medium'],  color='#E1BC29', width=barwidth, label='Medium')
-plt.bar(r3, idleness['Domlock'], color='#7768AE', width=barwidth, label='Domlock')
-plt.bar(r4, idleness['CALock'],  color='#3bb273', width=barwidth, label='CALock')
-plt.bar(r5, idleness['MID'],     color='#4D9DE0', width=barwidth, label='MID')
-
-plt.xlabel('Threads')
-plt.ylabel('ns')
-plt.legend(ncols=3)
-plt.yscale('log')
-plt.xticks([r + barwidth for r in range(len(throughput['ThreadCount']))], throughput['ThreadCount'].apply(lambda x : int(x)))
 #
 #
+#
+# plt.plot(throughput['Coarse'], color='#E15554', label='Coarse', marker='d')
+# plt.plot(throughput['Medium'], color='#E1BC29', label='Medium', marker='s')
+# plt.plot(throughput['Domlock'], color='#7768AE', label='Domlock', marker='+')
+# plt.plot(throughput['CALock'], color='#3bb273', label='CALock', marker='o')
+# plt.plot(throughput['MID'], color='#4D9DE0', label='MID', marker='x')
+# plt.xlabel('ThreadCount', fontweight='bold')
+# plt.ylabel('Op/s', fontweight='bold')
+#
+# plt.xticks(throughput['ThreadCount'])
+# # plt.ylim(-10000,350000)
+# # Create legend & Show graphic
+# plt.legend()
+# plt.savefig("./benchmarkCharts/"+WorkloadType+"Throughput.png",dpi=150)
+#
+# plt.figure()
 # plt.plot(idleness['Coarse'], color='#E15554', label='Coarse', marker='d')
 # plt.plot(idleness['Medium'], color='#E1BC29', label='Medium', marker='s')
 # plt.plot(idleness['Domlock'], color='#7768AE', label='Domlock', marker='+')
@@ -97,26 +103,27 @@ plt.xticks([r + barwidth for r in range(len(throughput['ThreadCount']))], throug
 #     plt.ylim(-1000, 200000)
 # else:
 #     plt.ylim(-1000, 400000)
+# #
+# # Create legend & Show graphic
+# plt.legend()
+# plt.savefig("./benchmarkCharts/"+WorkloadType+"Idleness.png",dpi=150)
 #
-# Create legend & Show graphic
-plt.legend()
-plt.savefig("./benchmarkCharts/"+WorkloadType+"Idleness.png",dpi=150)
-
-
-plt.figure()
-plt.bar(r1, relabelling['Coarse'],  color='#E15554', width=barwidth, label='Coarse')
-plt.bar(r2, relabelling['Medium'],  color='#E1BC29', width=barwidth, label='Medium')
-plt.bar(r3, relabelling['Domlock'], color='#7768AE', width=barwidth, label='Domlock')
-plt.bar(r4, relabelling['CALock'],  color='#3bb273', width=barwidth, label='CALock')
-plt.bar(r5, relabelling['MID'],     color='#4D9DE0', width=barwidth, label='MID')
-
-plt.xlabel('Threads')
-plt.ylabel('ns')
-plt.legend(ncols=3)
-plt.xticks([r + barwidth for r in range(len(throughput['ThreadCount']))], throughput['ThreadCount'].apply(lambda x : int(x)))
-plt.yscale('log')
-plt.savefig("./benchmarkCharts/"+WorkloadType+"Relabelling.png",dpi=150)
-
+#
+# plt.figure()
+# plt.plot(relabelling['Coarse'], color='#E15554', label='Coarse', marker='d')
+# plt.plot(relabelling['Medium'], color='#E1BC29', label='Medium', marker='s')
+# plt.plot(relabelling['Domlock'], color='#7768AE', label='Domlock', marker='+')
+# plt.plot(relabelling['CALock'], color='#3bb273', label='CALock', marker='o')
+# plt.plot(relabelling['MID'], color='#4D9DE0', label='MID', marker='x')
+# plt.xlabel('ThreadCount', fontweight='bold')
+# plt.ylabel('ns', fontweight='bold')
+# plt.xticks(relabelling['ThreadCount'])
+# plt.yscale('log')
+#
+# # Create legend & Show graphic
+# plt.legend()
+# plt.savefig("./benchmarkCharts/"+WorkloadType+"Relabelling.png",dpi=150)
+#
 
 
 # # Initialize the lists for X and Y
