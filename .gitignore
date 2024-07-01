@@ -3,6 +3,7 @@ target/
 benchmarkResults/
 PythonEnv/
 .idea/
+.DS_Store
 
 cmake-build-debug/
 
