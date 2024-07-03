@@ -14,6 +14,7 @@
 #include "labelling/DomLock/DomLockLabeling.h"
 #include "labelling/MID/MidLabeling.h"
 #include "display/output.h"
+#include "containmentBenchmark.h"
 
 extern CAPool caPool;
 extern DomPool domPool;
@@ -164,21 +165,23 @@ void sb7::Benchmark::init() {
 
 
 void sb7::Benchmark::start() {
-//    if(parameters.getBenchmarkContainment()){
-//        cout<<"Benchmarking locked vertex proportions"<<endl;
-//        auto c = new containmentBenchmarkTraversal(dataHolder);
-//        c->traverse(this->dataHolder.getModule()->getDesignRoot());
-//        ofstream file("../benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
-//        file <<"Type, CALock, Domlock\n";
-//        for(auto& kv : c->containedCount) {
-//            file <<(kv.first%10)<<","<< kv.second.first<<","<<kv.second.second << '\n';
-//        }
-//
-//        cout<<"Size of labels in memory for DomLock" << c->totalLabelSizeDomLock<<"\n";
-//        cout<<"Size of labels in memory for CALock" << c->totalLabelSizeCALock<< "\n";
-//
-//        file.close();
-//    } else {
+    if(parameters.getBenchmarkContainment()){
+        cout<<"Benchmarking locked vertex proportions"<<endl;
+        auto c = new containmentBenchmarkTraversal(dataHolder);
+        c->traverse(this->dataHolder.getModule()->getDesignRoot());
+        ofstream file("./benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
+        file <<"Type, CALock, Domlock, MID\n";
+        for(auto& kv : c->containedCount) {
+            file <<(kv.first%10)<<","<< get<0>(kv.second)<<","<<get<1>(kv.second)<<","<<get<2>(kv.second) << '\n';
+        }
+
+        cout<<"Size of labels in memory for DomLock " << c->totalLabelSizeDomLock<<"\n";
+        cout<<"Size of labels in memory for CALock " << c->totalLabelSizeCALock<< "\n";
+        cout<<"Size of labels in memory for MID " << c->totalLabelSizeMID<< "\n";
+
+        file.close();
+    } else
+    {
     cout << "Start benchmark." << std::endl;
     long start_time = get_time_ms();
 
@@ -208,7 +211,7 @@ void sb7::Benchmark::start() {
 
     long end_time = get_time_ms();
     elapsedTime = end_time - start_time;
-//    }
+    }
 
 
 }

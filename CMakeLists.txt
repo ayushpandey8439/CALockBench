@@ -102,5 +102,6 @@ add_executable(STMBench src/sb7_lock.cc
 
         src/operations/operations.cc
         src/operations/operations.h
+        src/containmentBenchmark.h
 )
 set_target_properties(STMBench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../)
