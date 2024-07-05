@@ -109,7 +109,7 @@ add_executable(STMBench src/sb7_lock.cc
         src/operations/Flexigran/FlexiGranHelper.h
         src/operations/Flexigran/FlexiPool.h
         src/operations/Flexigran/query_ops_flexi.cpp
-        src/operations/Flexigran/operation_ops_Flexi.h
+        src/operations/Flexigran/operation_ops_flexi.h
         src/operations/Flexigran/operation_ops_flexi.cpp
         src/operations/Flexigran/traversal_ops_flexi.cpp
         src/operations/Flexigran/structural_modification_ops_flexi.h

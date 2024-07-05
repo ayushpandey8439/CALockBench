@@ -4,6 +4,8 @@
 
 #ifndef FLEXIPOOL_H
 #define FLEXIPOOL_H
+#include <atomic>
+#include <bitset>
 
 using namespace std;
 #define NUM_THREADS 256

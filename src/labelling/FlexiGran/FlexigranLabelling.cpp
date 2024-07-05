@@ -3,7 +3,11 @@
 //
 
 #include "FlexigranLabelling.h"
+
+#include <climits>
+
 #include "../../struct/connection.h"
+
 long int flexiCounter = 0;
 
 int sb7::FlexigranLabelling::run(int tid) const
