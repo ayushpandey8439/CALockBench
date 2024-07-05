@@ -34,6 +34,9 @@
 #include "DomLock/query_ops_dom.h"
 #include "DomLock/operation_ops_dom.h"
 #include "DomLock/structural_modification_ops_dom.h"
+#include "Flexigran/operation_ops_flexi.h"
+#include "Flexigran/query_ops_flexi.h"
+#include "Flexigran/structural_modification_ops_flexi.h"
 
 #include "Mid/query_ops_mid.h"
 #include "Mid/operation_ops_mid.h"
@@ -69,6 +72,9 @@ void sb7::Operations::initOperations(DataHolder *dh) {
         initOperationsLockMid(dh);
     } else if (parameters.getLockType() == Parameters::lock_num) {
 //        initOperationsLockNum(dh);
+    }
+    else if (parameters.getLockType() == Parameters::lock_flexi) {
+        initOperationsFlexi(dh);
     }
 }
 
@@ -179,6 +185,17 @@ void sb7::Operations::initOperationsLockMid(DataHolder *dh) {
     ops.push_back(new MidOperation10(dh)); // Aggregation
     ops.push_back(new MidStructuralModification2(dh));
     ops.push_back(new MidStructuralModification3(dh));
+}
+
+void sb7::Operations::initOperationsFlexi(DataHolder *dh) {
+    ops.push_back(new FlexiQuery1(dh));
+    ops.push_back(new FlexiQuery2(dh)); // Aggregation
+    ops.push_back(new FlexiOperation6(dh));
+    ops.push_back(new FlexiOperation7(dh));
+    ops.push_back(new FlexiOperation9(dh));
+    ops.push_back(new FlexiOperation10(dh)); // Aggregation
+    ops.push_back(new FlexiStructuralModification2(dh));
+    ops.push_back(new FlexiStructuralModification3(dh));
 }
 //
 //void sb7::Operations::initOperationsLockNum(DataHolder *dh) {

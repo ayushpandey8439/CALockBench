@@ -20,6 +20,7 @@ namespace sb7 {
             rlm_pre_number = 0;
             rlm_post_number = 0;
             isDeleted = false;
+            m_levelFromRoot = -1;
         }
 
         virtual ~DesignObj() {}
@@ -92,6 +93,7 @@ namespace sb7 {
         list<int> pathLabel{};
         set<int> criticalAncestors;
         bool isDeleted;
+        int m_levelFromRoot;
 
     protected:
         int m_id;

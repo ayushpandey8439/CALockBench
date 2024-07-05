@@ -103,5 +103,16 @@ add_executable(STMBench src/sb7_lock.cc
         src/operations/operations.cc
         src/operations/operations.h
         src/containmentBenchmark.h
+        src/countTraversal.h
+        src/labelling/FlexiGran/FlexigranLabelling.cpp
+        src/labelling/FlexiGran/FlexigranLabelling.h
+        src/operations/Flexigran/FlexiGranHelper.h
+        src/operations/Flexigran/FlexiPool.h
+        src/operations/Flexigran/query_ops_flexi.cpp
+        src/operations/Flexigran/operation_ops_Flexi.h
+        src/operations/Flexigran/operation_ops_flexi.cpp
+        src/operations/Flexigran/traversal_ops_flexi.cpp
+        src/operations/Flexigran/structural_modification_ops_flexi.h
+        src/operations/Flexigran/structural_modification_ops_flexi.cpp
 )
 set_target_properties(STMBench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../)

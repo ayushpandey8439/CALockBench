@@ -10,6 +10,7 @@
 #include <iostream>
 
 // TODO clean up this somewhat
+extern int fgPercent;
 
 namespace sb7 {
 
@@ -29,6 +30,7 @@ namespace sb7 {
             lock_dom,
             lock_mid,
             lock_num,
+            lock_flexi,
         };
 
     protected:
@@ -80,6 +82,7 @@ namespace sb7 {
         static const int DEFAULT_VERBOSE_LEVEL;
         static const char *DEFAULT_FILE_NAME;
         static const char *DEFAULT_RESULTS_DIR;
+        static const int DEFAULT_FG_PERCENT;
 
         static const double MAX_TO_INITIAL_RATIO;
 
@@ -147,6 +150,7 @@ namespace sb7 {
 
         lock_type lockType;
         bool benchmarkContainment;
+        int fgPercent;
 
     public:
         Parameters();
@@ -346,6 +350,10 @@ namespace sb7 {
 
         std::string getResultsDir() const {
             return resultsDir;
+        }
+
+        int getFgPercent() const {
+            return fgPercent;
         }
         ////////////////////////////////////////////////////////////////
         // setters are protected as only initialization of parameters //
@@ -571,6 +579,11 @@ namespace sb7 {
             benchmarkContainment = t;
         }
 
+        void setFgPercent(int p)
+        {
+            fgPercent = p;
+        }
+
         ///////////////////////////////////////////
         // functions for initializing parameters //
         ///////////////////////////////////////////
@@ -650,6 +663,9 @@ namespace sb7 {
 
         bool experimentLengthSet;
         int experimentLength;
+
+        bool fgPercentSet;
+        int fgPercent;
 
 
         bool sizeSet;

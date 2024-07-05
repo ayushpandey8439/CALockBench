@@ -5,8 +5,8 @@
 #include "parameters.h"
 #include "helpers.h"
 
-namespace sb7 {
-
+namespace sb7
+{
     //const int Parameters::DEFAULT_NUM_ATOMIC_PER_COMP = 200;
     const int Parameters::DEFAULT_NUM_ATOMIC_PER_COMP = 20;
     const int Parameters::DEFAULT_NUM_CONN_PER_ATOMIC = 6;
@@ -55,68 +55,71 @@ namespace sb7 {
     const bool Parameters::DEFAULT_REPORT_TTC_HISTOGRAMS = false;
 
     const int Parameters::DEFAULT_VERBOSE_LEVEL = 1;
-    const char *Parameters::DEFAULT_FILE_NAME = "default.conf";
-    const char *Parameters::DEFAULT_RESULTS_DIR = "./benchmarkResults";
+    const char* Parameters::DEFAULT_FILE_NAME = "default.conf";
+    const char* Parameters::DEFAULT_RESULTS_DIR = "./benchmarkResults";
+    const int Parameters::DEFAULT_FG_PERCENT=0;
 
     const double Parameters::MAX_TO_INITIAL_RATIO = 1.05;
 
     const Parameters::lock_type Parameters::DEFAULT_LOCK_TYPE =
-            Parameters::lock_coarse;
+        Parameters::lock_coarse;
     const bool Parameters::DEFAULT_BENCHMARK_CONTAINMENT = false;
 
     Parameters parameters;
 }
 
 sb7::Parameters::Parameters()
-        : numAtomicPerComp(0),
-          numConnPerAtomic(0),
-          documentSize(0),
-          manualSize(0),
-          numCompPerModule(0),
-          numAssmPerAssm(0),
-          numAssmLevels(0),
-          numCompPerAssm(0),
-          numModules(0),
-          initialTotalCompParts(0),
-          initialTotalBaseAssemblies(0),
-          initialTotalComplexAssemblies(0),
-          maxCompParts(0),
-          maxAtomicParts(0),
-          maxBaseAssemblies(0),
-          maxComplexAssemblies(0),
-          minModuleDate(0),
-          maxModuleDate(0),
-          minAssmDate(0),
-          maxAssmDate(0),
-          minAtomicDate(0),
-          maxAtomicDate(0),
-          minOldCompDate(0),
-          maxOldCompDate(0),
-          minYoungCompDate(0),
-          maxYoungCompDate(0),
-          youngCompFrac(0),
-          typeSize(0),
-          numTypes(0),
-          xyRange(0),
-          titleSize(0),
-          traversalRatio(0),
-          shortTraversalRatio(0),
-          operationsRatio(0),
-          structuralModificationsRatio(0),
-          readOnlyOperationsRatio(0),
-          threadNum(0),
-          experimentLengthMs(0),
-          maxLowTtc(0),
-          highTtcEntries(0),
-          highTtcLogBase(0.0),
-          structureModificationEnabled(false),
-          longTraversalsEnabled(false),
-          reportTtcHistograms(false),
-          verboseLevel(0),
-          lockType(Parameters::no_lock) {
+    : numAtomicPerComp(0),
+      numConnPerAtomic(0),
+      documentSize(0),
+      manualSize(0),
+      numCompPerModule(0),
+      numAssmPerAssm(0),
+      numAssmLevels(0),
+      numCompPerAssm(0),
+      numModules(0),
+      initialTotalCompParts(0),
+      initialTotalBaseAssemblies(0),
+      initialTotalComplexAssemblies(0),
+      maxCompParts(0),
+      maxAtomicParts(0),
+      maxBaseAssemblies(0),
+      maxComplexAssemblies(0),
+      minModuleDate(0),
+      maxModuleDate(0),
+      minAssmDate(0),
+      maxAssmDate(0),
+      minAtomicDate(0),
+      maxAtomicDate(0),
+      minOldCompDate(0),
+      maxOldCompDate(0),
+      minYoungCompDate(0),
+      maxYoungCompDate(0),
+      youngCompFrac(0),
+      typeSize(0),
+      numTypes(0),
+      xyRange(0),
+      titleSize(0),
+      traversalRatio(0),
+      shortTraversalRatio(0),
+      operationsRatio(0),
+      structuralModificationsRatio(0),
+      readOnlyOperationsRatio(0),
+      threadNum(0),
+      experimentLengthMs(0),
+      maxLowTtc(0),
+      highTtcEntries(0),
+      highTtcLogBase(0.0),
+      structureModificationEnabled(false),
+      longTraversalsEnabled(false),
+      reportTtcHistograms(false),
+      verboseLevel(0),
+      lockType(Parameters::no_lock)
+{
 }
 
-bool sb7::Parameters::init(int argc, char **argv, std::ostream &out) {
+bool sb7::Parameters::init(int argc, char** argv, std::ostream& out)
+{
     initDefault();
 
     ConfigParameters configParamsCL;
@@ -125,13 +128,17 @@ bool sb7::Parameters::init(int argc, char **argv, std::ostream &out) {
     parseCommandLine(argc, argv, configParamsCL);
     bool ret;
 
-    if (configParamsCL.printHelp) {
+    if (configParamsCL.printHelp)
+    {
         ret = false;
         printHelp(out);
-    } else {
+    }
+    else
+    {
         ret = true;
 
-        if (configParamsCL.fileNameSet) {
+        if (configParamsCL.fileNameSet)
+        {
             setFileName(configParamsCL.fileName);
         }
 
@@ -146,7 +153,8 @@ bool sb7::Parameters::init(int argc, char **argv, std::ostream &out) {
     return ret;
 }
 
-void sb7::Parameters::initDefault() {
+void sb7::Parameters::initDefault()
+{
     setNumAtomicPerComp(DEFAULT_NUM_ATOMIC_PER_COMP);
     setNumConnPerAtomic(DEFAULT_NUM_CONN_PER_ATOMIC);
     setDocumentSize(DEFAULT_DOCUMENT_SIZE);
@@ -199,9 +207,11 @@ void sb7::Parameters::initDefault() {
     setBenchmarkContainment(DEFAULT_BENCHMARK_CONTAINMENT);
 }
 
-void sb7::Parameters::print(std::ostream &out) const {
+void sb7::Parameters::print(std::ostream& out) const
+{
     // if printing is turned off, just return
-    if (verboseLevel == 0) {
+    if (verboseLevel == 0)
+    {
         return;
     }
 
@@ -229,7 +239,8 @@ void sb7::Parameters::print(std::ostream &out) const {
     out << "LockType " << lockTypeToStr(lockType) << std::endl;
     out << "Benchmarking Containment " << benchmarkContainment << std::endl;
 
-    if (verboseLevel >= 2) {
+    if (verboseLevel >= 2)
+    {
         out << "ConnectionsPerAtomicPart " << numConnPerAtomic << std::endl;
         out << "DocumentSize " << documentSize << std::endl;
         out << "ManualSize " << manualSize << std::endl;
@@ -249,7 +260,8 @@ void sb7::Parameters::print(std::ostream &out) const {
             << std::endl;
     }
 
-    if (verboseLevel >= 3) {
+    if (verboseLevel >= 3)
+    {
         out << "MinimalModuleDate " << minModuleDate << std::endl;
         out << "MaximalModuleDate " << maxModuleDate << std::endl;
         out << "MinimalAssemblyDate " << minAssmDate << std::endl;
@@ -267,13 +279,15 @@ void sb7::Parameters::print(std::ostream &out) const {
         out << "TitleSize " << titleSize << std::endl;
     }
 
-    if (verboseLevel >= 3) {
+    if (verboseLevel >= 3)
+    {
         out << "MaximalLowTtc " << maxLowTtc << std::endl;
         out << "HighTtcEntries " << highTtcEntries << std::endl;
         out << "HighTtcLogBase " << highTtcLogBase << std::endl;
     }
 
-    if (verboseLevel >= 4) {
+    if (verboseLevel >= 4)
+    {
         out << "StructureModificationEnabled " <<
             boolToStr(structureModificationEnabled) << std::endl;
         out << "LongTraversalsEnabled " <<
@@ -295,228 +309,310 @@ void sb7::Parameters::print(std::ostream &out) const {
 #define LOCK_TYPE_KEY "lockType"
 #define DEFAULT_RESULTS_DIR "defaultResultsDir"
 #define BENCHMARK_CONTAINMENT "benchmarkContainment"
+#define FG_PERCENT "fgPercent"
 
-void sb7::Parameters::parseCommandLine(int argc, char **argv,
-                                       ConfigParameters &configParams) {
+void sb7::Parameters::parseCommandLine(int argc, char** argv,
+                                       ConfigParameters& configParams)
+{
     static struct option long_options[] = {
-            {FILE_NAME_KEY,                1, nullptr, 'f'},
-            {HELP_KEY,                     0, nullptr, '?'},
-            {READ_ONLY_PERCENT_KEY,        1, nullptr, 'p'},
-            {WORKLOAD_TYPE_KEY,            1, nullptr, 'w'},
-            {TRAVERSALS_KEY,               1, nullptr, 't'},
-            {STRUCTURAL_MODIFICATIONS_KEY, 1, nullptr, 'm'},
-            {THREAD_NUMBER_KEY,            1, nullptr, 'n'},
-            {EXPERIMENT_DURATION_KEY,      1, nullptr, 'd'},
-            {SIZE_KEY,                     1, nullptr, 's'},
-            {LOCK_TYPE_KEY,                1, nullptr, 'l'},
-            {BENCHMARK_CONTAINMENT,        1, nullptr, 'b'},
-            {DEFAULT_RESULTS_DIR,          1, nullptr, 'o'},
-            {nullptr,                      0, nullptr, 0}
+        {FILE_NAME_KEY, 1, nullptr, 'f'},
+        {HELP_KEY, 0, nullptr, '?'},
+        {READ_ONLY_PERCENT_KEY, 1, nullptr, 'p'},
+        {WORKLOAD_TYPE_KEY, 1, nullptr, 'w'},
+        {TRAVERSALS_KEY, 1, nullptr, 't'},
+        {STRUCTURAL_MODIFICATIONS_KEY, 1, nullptr, 'm'},
+        {THREAD_NUMBER_KEY, 1, nullptr, 'n'},
+        {EXPERIMENT_DURATION_KEY, 1, nullptr, 'd'},
+        {SIZE_KEY, 1, nullptr, 's'},
+        {LOCK_TYPE_KEY, 1, nullptr, 'l'},
+        {BENCHMARK_CONTAINMENT, 1, nullptr, 'b'},
+        {DEFAULT_RESULTS_DIR, 1, nullptr, 'o'},
+        {FG_PERCENT, 1, nullptr, 'z'},
+        {nullptr, 0, nullptr, 0}
     };
 
-    while (true) {
+    while (true)
+    {
         int option_index;
-        int c = getopt_long(argc, argv, "f:?p:w:t:m:n:d:s:l:b:",
+        int c = getopt_long(argc, argv, "f:?p:w:t:m:n:d:s:l:b:o:z:",
                             long_options, &option_index);
 
-        if (c == -1) {
+        if (c == -1)
+        {
             break;
         }
 
-        switch (c) {
-            case '?':
-                configParams.printHelp = true;
-                break;
-            case 'f':
-                if (optarg) {
-                    configParams.fileNameSet = true;
-                    configParams.fileName = std::string(optarg);
-                } else {
-                    std::cout << "File name parameter without value. Ignoring."
-                              << std::endl;
-                }
-                break;
-            case 'p':
-                if (optarg) {
-                    std::string percentStr(optarg);
-                    int percent = strToUint(percentStr);
+        switch (c)
+        {
+        case '?':
+            configParams.printHelp = true;
+            break;
+        case 'f':
+            if (optarg)
+            {
+                configParams.fileNameSet = true;
+                configParams.fileName = std::string(optarg);
+            }
+            else
+            {
+                std::cout << "File name parameter without value. Ignoring."
+                    << std::endl;
+            }
+            break;
+        case 'p':
+            if (optarg)
+            {
+                std::string percentStr(optarg);
+                int percent = strToUint(percentStr);
 
-                    if (percent >= 0 && percent <= 100) {
-                        configParams.readOnlyPercentSet = true;
-                        configParams.percent = percent;
-                    } else {
-                        std::cout << "Read only percent parameter has "
-                                     "wrong value. Ignoring." << std::endl;
-                    }
-                } else {
-                    std::cout << "Read only percent parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (percent >= 0 && percent <= 100)
+                {
+                    configParams.readOnlyPercentSet = true;
+                    configParams.percent = percent;
                 }
-                break;
-            case 'w':
-                if (optarg) {
-                    std::string workloadTypeStr(optarg);
-                    int workloadType = strToWorkloadType(workloadTypeStr);
+                else
+                {
+                    std::cout << "Read only percent parameter has "
+                        "wrong value. Ignoring." << std::endl;
+                }
+            }
+            else
+            {
+                std::cout << "Read only percent parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 'w':
+            if (optarg)
+            {
+                std::string workloadTypeStr(optarg);
+                int workloadType = strToWorkloadType(workloadTypeStr);
 
-                    if (workloadType == -1) {
-                        std::cout << "Workload type parameter has "
-                                     "wrong value. Ignoring." << std::endl;
-                    } else {
-                        configParams.workloadTypeSet = true;
-                        (int &) configParams.workloadType = workloadType;
-                    }
-                } else {
-                    std::cout << "Workload type parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (workloadType == -1)
+                {
+                    std::cout << "Workload type parameter has "
+                        "wrong value. Ignoring." << std::endl;
                 }
-                break;
-            case 't':
-                if (optarg) {
-                    std::string traversalStr(optarg);
-                    int val = strToBool(traversalStr);
+                else
+                {
+                    configParams.workloadTypeSet = true;
+                    (int&)configParams.workloadType = workloadType;
+                }
+            }
+            else
+            {
+                std::cout << "Workload type parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 't':
+            if (optarg)
+            {
+                std::string traversalStr(optarg);
+                int val = strToBool(traversalStr);
 
-                    if (val == -1) {
-                        std::cout << "Traversals parameter has "
-                                     "wrong value. Ignoring." << std::endl;
-                    } else {
-                        configParams.traversalsEnabledSet = true;
-                        configParams.traversalsEnabled = (val == 1);
-                    }
-                } else {
-                    std::cout << "Traversals parameter without value. Ignoring."
-                              << std::endl;
+                if (val == -1)
+                {
+                    std::cout << "Traversals parameter has "
+                        "wrong value. Ignoring." << std::endl;
                 }
-                break;
-            case 'm':
-                if (optarg) {
-                    std::string structuralModificationsStr(optarg);
-                    int val = strToBool(structuralModificationsStr);
+                else
+                {
+                    configParams.traversalsEnabledSet = true;
+                    configParams.traversalsEnabled = (val == 1);
+                }
+            }
+            else
+            {
+                std::cout << "Traversals parameter without value. Ignoring."
+                    << std::endl;
+            }
+            break;
+        case 'm':
+            if (optarg)
+            {
+                std::string structuralModificationsStr(optarg);
+                int val = strToBool(structuralModificationsStr);
 
-                    if (val == -1) {
-                        std::cout << "Structural modifications parameter has "
-                                     "wrong value. Ignoring." << std::endl;
-                    } else {
-                        configParams.structuralModificationsEnabledSet = true;
-                        configParams.structuralModificationsEnabled =
-                                (val == 1);
-                    }
-                } else {
-                    std::cout << "Structural modifications parameter "
-                                 "without value. Ignoring." << std::endl;
+                if (val == -1)
+                {
+                    std::cout << "Structural modifications parameter has "
+                        "wrong value. Ignoring." << std::endl;
                 }
-                break;
-            case 'n':
-                if (optarg) {
-                    std::string threadNumStr(optarg);
-                    int threadNum = strToUint(threadNumStr);
+                else
+                {
+                    configParams.structuralModificationsEnabledSet = true;
+                    configParams.structuralModificationsEnabled =
+                        (val == 1);
+                }
+            }
+            else
+            {
+                std::cout << "Structural modifications parameter "
+                    "without value. Ignoring." << std::endl;
+            }
+            break;
+        case 'n':
+            if (optarg)
+            {
+                std::string threadNumStr(optarg);
+                int threadNum = strToUint(threadNumStr);
 
-                    if (threadNum >= 1) {
-                        configParams.threadNumSet = true;
-                        configParams.threadNum = threadNum;
-                    } else {
-                        std::cout << "Thread number parameter has "
-                                     "invalid value. Ignoring." << std::endl;
-                    }
-                } else {
-                    std::cout << "Thread number parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (threadNum >= 1)
+                {
+                    configParams.threadNumSet = true;
+                    configParams.threadNum = threadNum;
                 }
-                break;
-            case 'd':
-                if (optarg) {
-                    std::string durationStr(optarg);
-                    int duration = strToUint(durationStr);
+                else
+                {
+                    std::cout << "Thread number parameter has "
+                        "invalid value. Ignoring." << std::endl;
+                }
+            }
+            else
+            {
+                std::cout << "Thread number parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 'd':
+            if (optarg)
+            {
+                std::string durationStr(optarg);
+                int duration = strToUint(durationStr);
 
-                    if (duration >= 1) {
-                        configParams.experimentLengthSet = true;
-                        configParams.experimentLength = duration;
-                    } else {
-                        std::cout << "Duration parameter has "
-                                     "invalid value. Ignoring." << std::endl;
-                    }
-                } else {
-                    std::cout << "Duration parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (duration >= 1)
+                {
+                    configParams.experimentLengthSet = true;
+                    configParams.experimentLength = duration;
                 }
-                break;
-            case 's':
-                if (optarg) {
-                    std::string sizeTypeStr(optarg);
-                    int sizeType = strToSizeType(sizeTypeStr);
+                else
+                {
+                    std::cout << "Duration parameter has "
+                        "invalid value. Ignoring." << std::endl;
+                }
+            }
+            else
+            {
+                std::cout << "Duration parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 's':
+            if (optarg)
+            {
+                std::string sizeTypeStr(optarg);
+                int sizeType = strToSizeType(sizeTypeStr);
 
-                    if (sizeType == -1) {
-                        std::cout << "Size type parameter has "
-                                     "wrong value. Ignoring." << std::endl;
-                    } else {
-                        configParams.sizeSet = true;
-                        (int &) configParams.size = sizeType;
-                    }
-                } else {
-                    std::cout << "Size type parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (sizeType == -1)
+                {
+                    std::cout << "Size type parameter has "
+                        "wrong value. Ignoring." << std::endl;
                 }
-                break;
-            case 'l':
-                if (optarg) {
-                    std::string lockTypeStr(optarg);
-                    int lockType = strToLockType(lockTypeStr);
+                else
+                {
+                    configParams.sizeSet = true;
+                    (int&)configParams.size = sizeType;
+                }
+            }
+            else
+            {
+                std::cout << "Size type parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 'l':
+            if (optarg)
+            {
+                std::string lockTypeStr(optarg);
+                int lockType = strToLockType(lockTypeStr);
 
-                    if (lockType == -1) {
-                        std::cout << "Lock type parameter has "
-                                     "wrong value. Ignoring." << std::endl;
-                    } else {
-                        configParams.lockTypeSet = true;
-                        configParams.lockType = (Parameters::lock_type) lockType;
-                    }
-                } else {
-                    std::cout << "Lock type parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (lockType == -1)
+                {
+                    std::cout << "Lock type parameter has "
+                        "wrong value. Ignoring." << std::endl;
                 }
-                break;
-            case 'b':
-                if (optarg) {
-                    std::string t(optarg);
+                else
+                {
+                    configParams.lockTypeSet = true;
+                    configParams.lockType = (Parameters::lock_type)lockType;
+                }
+            }
+            else
+            {
+                std::cout << "Lock type parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 'b':
+            if (optarg)
+            {
+                std::string t(optarg);
 
-                    if (t == "y") {
-                        configParams.benchmarkContainmentSet = true;
-                        configParams.benchmarkContainment = true;
-                    } else {
-                        configParams.benchmarkContainmentSet = true;
-                        configParams.benchmarkContainment = false;
-                    }
-                } else {
-                    std::cout << "Benchmark Containment parameter without value. "
-                                 "Ignoring." << std::endl;
+                if (t == "y")
+                {
+                    configParams.benchmarkContainmentSet = true;
+                    configParams.benchmarkContainment = true;
                 }
-                break;
-            case 'o':
-                if (optarg) {
-                    configParams.resultsDirSet = true;
-                    configParams.resultsDir = std::string(optarg);
-                } else {
-                    std::cout << "Default results directory parameter without value."
-                                 "Ignoring." << std::endl;
+                else
+                {
+                    configParams.benchmarkContainmentSet = true;
+                    configParams.benchmarkContainment = false;
                 }
-                break;
-            default:
-                std::cout << "Unknown parameter. Ignoring." << std::endl;
-                break;
+            }
+            else
+            {
+                std::cout << "Benchmark Containment parameter without value. "
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 'o':
+            if (optarg)
+            {
+                configParams.resultsDirSet = true;
+                configParams.resultsDir = std::string(optarg);
+            }
+            else
+            {
+                std::cout << "Default results directory parameter without value."
+                    "Ignoring." << std::endl;
+            }
+            break;
+        case 'z': //
+            if (optarg)
+            {
+                std::string fgPercentStr(optarg);
+                std::cout << "fgPercentStr = " << fgPercentStr << std::endl;
+                fgPercent = atoi(optarg);
+                std::cout << "fgPercentStr parameter has value = " << fgPercentStr << std::endl;
+            }
+            else
+            {
+                fgPercent = 0;
+                std::cout << "fgPercent without value.. ignoring.. " << std::endl;
+            }
+        default:
+            std::cout << "Unknown parameter. Ignoring." << std::endl;
+            break;
         }
     }
 }
 
-void sb7::Parameters::readFile(ConfigParameters &configParams) {
+void sb7::Parameters::readFile(ConfigParameters& configParams)
+{
     std::ifstream inputFile;
     inputFile.open(fileName.c_str());
 
-    if (!inputFile) {
+    if (!inputFile)
+    {
         return;
     }
 
     // just simple parse of the file
     int lineNo = 0;
 
-    while (inputFile) {
+    while (inputFile)
+    {
         std::string line;
         std::getline(inputFile, line);
         lineNo++;
@@ -524,7 +620,8 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
         // cut off everything after comment symbol
         std::string::size_type commentPos = line.find('#');
 
-        if (commentPos != std::string::npos) {
+        if (commentPos != std::string::npos)
+        {
             line.erase(commentPos);
         }
 
@@ -535,7 +632,8 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
         lineStream >> key;
 
         // if the line was empty or comment continue
-        if (key.empty()) {
+        if (key.empty())
+        {
             continue;
         }
 
@@ -544,9 +642,10 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
         lineStream >> val;
 
         // this is error - skip line
-        if (val.empty()) {
+        if (val.empty())
+        {
             std::cout << "Line " << lineNo << ": missing parameter value. "
-                                              "Ignoring." << std::endl;
+                "Ignoring." << std::endl;
             continue;
         }
 
@@ -555,112 +654,174 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
         lineStream >> tail;
 
         // there should be nothing after value in line that has no comment
-        if (!tail.empty()) {
+        if (!tail.empty())
+        {
             std::cout << "Line " << lineNo << ": too many parameters. "
-                                              "Ignoring." << std::endl;
+                "Ignoring." << std::endl;
             continue;
         }
 
         // now set parameters
-        if (equalNoCase(key, READ_ONLY_PERCENT_KEY)) {
+        if (equalNoCase(key, READ_ONLY_PERCENT_KEY))
+        {
             int percent = strToUint(val);
 
-            if (percent >= 0 && percent <= 100) {
+            if (percent >= 0 && percent <= 100)
+            {
                 configParams.readOnlyPercentSet = true;
                 configParams.percent = percent;
-            } else {
+            }
+            else
+            {
                 std::cout << "Line " << lineNo << ": ";
                 std::cout << "Read only percent parameter has wrong value. "
-                             "Ignoring." << std::endl;
+                    "Ignoring." << std::endl;
             }
-        } else if (equalNoCase(key, WORKLOAD_TYPE_KEY)) {
+        }
+        else if (equalNoCase(key, WORKLOAD_TYPE_KEY))
+        {
             int workloadType = strToWorkloadType(val);
 
-            if (workloadType == -1) {
+            if (workloadType == -1)
+            {
                 std::cout << "Line " << lineNo << ": ";
                 std::cout << "Workload type parameter has "
-                             "wrong value. Ignoring." << std::endl;
-            } else {
-                configParams.workloadTypeSet = true;
-                (int &) configParams.workloadType = workloadType;
+                    "wrong value. Ignoring." << std::endl;
             }
-        } else if (equalNoCase(key, TRAVERSALS_KEY)) {
+            else
+            {
+                configParams.workloadTypeSet = true;
+                (int&)configParams.workloadType = workloadType;
+            }
+        }
+        else if (equalNoCase(key, TRAVERSALS_KEY))
+        {
             int traversals = strToBool(val);
 
-            if (traversals == -1) {
+            if (traversals == -1)
+            {
                 std::cout << "Line " << lineNo << ": ";
                 std::cout << "Traversals parameter has wrong value. Ignoring."
-                          << std::endl;
-            } else {
+                    << std::endl;
+            }
+            else
+            {
                 configParams.traversalsEnabledSet = true;
                 configParams.traversalsEnabled = (traversals == 1);
             }
-        } else if (equalNoCase(key, STRUCTURAL_MODIFICATIONS_KEY)) {
+        }
+        else if (equalNoCase(key, STRUCTURAL_MODIFICATIONS_KEY))
+        {
             int structuralModifications = strToBool(val);
 
-            if (structuralModifications == -1) {
+            if (structuralModifications == -1)
+            {
                 std::cout << "Line " << lineNo << ": ";
                 std::cout << "Structural modifications parameter has "
-                             "wrong value. Ignoring." << std::endl;
-            } else {
+                    "wrong value. Ignoring." << std::endl;
+            }
+            else
+            {
                 configParams.structuralModificationsEnabledSet = true;
                 configParams.structuralModificationsEnabled =
-                        (structuralModifications == 1);
+                    (structuralModifications == 1);
             }
-        } else if (equalNoCase(key, THREAD_NUMBER_KEY)) {
+        }
+        else if (equalNoCase(key, THREAD_NUMBER_KEY))
+        {
             int threadNum = strToUint(val);
 
-            if (threadNum >= 1) {
+            if (threadNum >= 1)
+            {
                 configParams.threadNumSet = true;
                 configParams.threadNum = threadNum;
-            } else {
+            }
+            else
+            {
                 std::cout << "Line " << lineNo << ": ";
                 std::cout << "Thread number parameter has "
-                             "invalid value. Ignoring." << std::endl;
+                    "invalid value. Ignoring." << std::endl;
             }
-        } else if (equalNoCase(key, EXPERIMENT_DURATION_KEY)) {
+        }
+        else if (equalNoCase(key, EXPERIMENT_DURATION_KEY))
+        {
             int duration = strToUint(val);
 
-            if (duration >= 1) {
+            if (duration >= 1)
+            {
                 configParams.experimentLengthSet = true;
                 configParams.experimentLength = duration;
-            } else {
-                std::cout << "Duration parameter has "
-                             "invalid value. Ignoring." << std::endl;
             }
-        } else if (equalNoCase(key, SIZE_KEY)) {
+            else
+            {
+                std::cout << "Duration parameter has "
+                    "invalid value. Ignoring." << std::endl;
+            }
+        }
+        else if (equalNoCase(key, SIZE_KEY))
+        {
             int sizeType = strToSizeType(val);
 
-            if (sizeType == -1) {
+            if (sizeType == -1)
+            {
                 std::cout << "Size type parameter has "
-                             "wrong value. Ignoring." << std::endl;
-            } else {
-                configParams.sizeSet = true;
-                (int &) configParams.size = sizeType;
+                    "wrong value. Ignoring." << std::endl;
             }
-        } else if (equalNoCase(key, LOCK_TYPE_KEY)) {
+            else
+            {
+                configParams.sizeSet = true;
+                (int&)configParams.size = sizeType;
+            }
+        }
+        else if (equalNoCase(key, LOCK_TYPE_KEY))
+        {
             int lockType = strToLockType(val);
 
-            if (lockType == -1) {
+            if (lockType == -1)
+            {
                 std::cout << "Lock type parameter has "
-                             "wrong value. Ignoring." << std::endl;
-            } else {
-                configParams.lockTypeSet = true;
-                configParams.lockType = (Parameters::lock_type) lockType;
+                    "wrong value. Ignoring." << std::endl;
             }
-        } else if (equalNoCase(key, BENCHMARK_CONTAINMENT)) {
-            if (val == "y") {
+            else
+            {
+                configParams.lockTypeSet = true;
+                configParams.lockType = (Parameters::lock_type)lockType;
+            }
+        }
+        else if (equalNoCase(key, BENCHMARK_CONTAINMENT))
+        {
+            if (val == "y")
+            {
                 configParams.benchmarkContainmentSet = true;
                 configParams.benchmarkContainment = true;
                 std::cout << "Benchmark Containment parameter has "
-                             "wrong value. Ignoring." << std::endl;
-            } else {
+                    "wrong value. Ignoring." << std::endl;
+            }
+            else
+            {
                 configParams.benchmarkContainmentSet = true;
                 configParams.benchmarkContainment = false;
             }
-        } else {
+        }
+        else if( equalNoCase(key, FG_PERCENT))
+        {
+            int fgpercent = strToUint(val);
+
+            if (fgpercent >= 1 && fgpercent <=100)
+            {
+                configParams.fgPercentSet = true;
+                configParams.fgPercent = fgPercent;
+            }
+            else
+            {
+                std::cout << "FGPercent parameter has "
+                    "invalid value. Ignoring." << std::endl;
+            }
+        }
+        else
+        {
             std::cout << "Unknown parameter at line " << lineNo
-                      << ". Ignoring." << std::endl;
+                << ". Ignoring." << std::endl;
         }
     }
 
@@ -675,59 +836,85 @@ void sb7::Parameters::readFile(ConfigParameters &configParams) {
 #define BIG_NUM_ATOMIC_PER_COMP 200
 #define SMALL_NUM_COMP_PER_MODULE 50
 #define BIG_NUM_COMP_PER_MODULE 500
+//
+// #define SMALL_NUM_ATOMIC_PER_COMP 50
+// #define BIG_NUM_ATOMIC_PER_COMP 500
+// #define SMALL_NUM_COMP_PER_MODULE 100
+// #define BIG_NUM_COMP_PER_MODULE 1000
 
-void sb7::Parameters::applyParameters(ConfigParameters &configParams) {
-    if (configParams.readOnlyPercentSet) {
-        if (configParams.workloadTypeSet) {
+void sb7::Parameters::applyParameters(ConfigParameters& configParams)
+{
+    if (configParams.readOnlyPercentSet)
+    {
+        if (configParams.workloadTypeSet)
+        {
             std::cout << "Both read only percent and workload type set. "
-                         "Ignoring read only percent parameter." << std::endl;
-        } else {
+                "Ignoring read only percent parameter." << std::endl;
+        }
+        else
+        {
             readOnlyOperationsRatio = configParams.percent;
         }
     }
 
-    if (configParams.workloadTypeSet) {
+    if (configParams.workloadTypeSet)
+    {
         int percent;
 
-        if (configParams.workloadType == ConfigParameters::read_dominated) {
+        if (configParams.workloadType == ConfigParameters::read_dominated)
+        {
             percent = READ_DOMINATED_WORKLOAD_PERCENT;
-        } else if (configParams.workloadType == ConfigParameters::read_write) {
+        }
+        else if (configParams.workloadType == ConfigParameters::read_write)
+        {
             percent = READ_WRITE_WORKLOAD_PERCENT;
-        } else {
+        }
+        else
+        {
             percent = WRITE_DOMINATED_WORKLOAD_PERCENT;
         }
 
         readOnlyOperationsRatio = percent;
     }
 
-    if (configParams.traversalsEnabledSet) {
+    if (configParams.traversalsEnabledSet)
+    {
         longTraversalsEnabled = configParams.traversalsEnabled;
     }
 
-    if (configParams.structuralModificationsEnabledSet) {
+    if (configParams.structuralModificationsEnabledSet)
+    {
         structureModificationEnabled =
-                configParams.structuralModificationsEnabled;
+            configParams.structuralModificationsEnabled;
     }
 
-    if (configParams.threadNumSet) {
+    if (configParams.threadNumSet)
+    {
         threadNum = configParams.threadNum;
     }
 
-    if (configParams.experimentLengthSet) {
+    if (configParams.experimentLengthSet)
+    {
         experimentLengthMs = configParams.experimentLength;
     }
 
-    if (configParams.sizeSet) {
+    if (configParams.sizeSet)
+    {
         int apc;
         int cpm;
 
-        if (configParams.size == ConfigParameters::small) {
+        if (configParams.size == ConfigParameters::small)
+        {
             apc = SMALL_NUM_ATOMIC_PER_COMP;
             cpm = SMALL_NUM_COMP_PER_MODULE;
-        } else if (configParams.size == ConfigParameters::medium) {
+        }
+        else if (configParams.size == ConfigParameters::medium)
+        {
             apc = SMALL_NUM_ATOMIC_PER_COMP;
             cpm = BIG_NUM_COMP_PER_MODULE;
-        } else {
+        }
+        else
+        {
             apc = BIG_NUM_ATOMIC_PER_COMP;
             cpm = BIG_NUM_COMP_PER_MODULE;
         }
@@ -736,120 +923,185 @@ void sb7::Parameters::applyParameters(ConfigParameters &configParams) {
         setNumCompPerModule(cpm);
     }
 
-    if (configParams.lockTypeSet) {
+    if (configParams.lockTypeSet)
+    {
         lockType = configParams.lockType;
     }
 
-    if (configParams.benchmarkContainmentSet) {
+    if (configParams.benchmarkContainmentSet)
+    {
         benchmarkContainment = configParams.benchmarkContainment;
     }
 }
 
-void sb7::Parameters::printHelp(std::ostream &out) {
+void sb7::Parameters::printHelp(std::ostream& out)
+{
     out << "Command line parameters:" << std::endl
         << "\t--" << HELP_KEY << " (-?) - prints help" << std::endl
         << "\t--" << FILE_NAME_KEY
         << " (-f) <file_name> - sets options file name" << std::endl
         << "\t--" << READ_ONLY_PERCENT_KEY << " (-p) <number> "
-                                              "- set percent of read-only operations" << std::endl
+        "- set percent of read-only operations" << std::endl
         << "\t--" << WORKLOAD_TYPE_KEY << " (-w) r|rw|w "
-                                          "- set workload type" << std::endl
+        "- set workload type" << std::endl
         << "\t--" << TRAVERSALS_KEY << " (-t) true|false "
-                                       "- enable/disable long traversals" << std::endl
+        "- enable/disable long traversals" << std::endl
         << "\t--" << STRUCTURAL_MODIFICATIONS_KEY << " (-m) true|false "
-                                                     "- enable/disable structural modifications" << std::endl
+        "- enable/disable structural modifications" << std::endl
         << "\t--" << THREAD_NUMBER_KEY << " (-n) <number> "
-                                          "- set number of simultaneous threads " << std::endl
+        "- set number of simultaneous threads " << std::endl
         << "\t--" << SIZE_KEY << " (-s) s|m|b "
-                                 "- set size of data structure" << std::endl
+        "- set size of data structure" << std::endl
         << "\t--" << LOCK_TYPE_KEY << " (-l) n|c|m|f "
-                                      "- set locking type" << std::endl
-
-        << std::endl;
+        "- set locking type" << std::endl
+        << "\t--" << BENCHMARK_CONTAINMENT << " (-b) y|n "
+        << "\t--" << FG_PERCENT << " (-z) <number> "
+        << "- set percentageof fine grained locks" << std::endl;
 }
 
-int sb7::Parameters::strToWorkloadType(std::string &val) {
+int sb7::Parameters::strToWorkloadType(std::string& val)
+{
     if (equalNoCase(val, std::string("readDominated")) ||
         equalNoCase(val, std::string("read_dominated")) ||
-        equalNoCase(val, std::string("r"))) {
+        equalNoCase(val, std::string("r")))
+    {
         return ConfigParameters::read_dominated;
-    } else if (equalNoCase(val, std::string("readWrite")) ||
-               equalNoCase(val, std::string("read_write")) ||
-               equalNoCase(val, std::string("rw")) ||
-               equalNoCase(val, std::string("wr"))) {
+    }
+    else if (equalNoCase(val, std::string("readWrite")) ||
+        equalNoCase(val, std::string("read_write")) ||
+        equalNoCase(val, std::string("rw")) ||
+        equalNoCase(val, std::string("wr")))
+    {
         return ConfigParameters::read_write;
-    } else if (equalNoCase(val, std::string("writeDominated")) ||
-               equalNoCase(val, std::string("write_dominated")) ||
-               equalNoCase(val, std::string("w"))) {
+    }
+    else if (equalNoCase(val, std::string("writeDominated")) ||
+        equalNoCase(val, std::string("write_dominated")) ||
+        equalNoCase(val, std::string("w")))
+    {
         return ConfigParameters::write_dominated;
-    } else {
+    }
+    else
+    {
         return -1;
     }
 }
 
-int sb7::Parameters::strToSizeType(std::string &val) {
+int sb7::Parameters::strToSizeType(std::string& val)
+{
     if (equalNoCase(val, std::string("small")) ||
-        equalNoCase(val, std::string("s"))) {
+        equalNoCase(val, std::string("s")))
+    {
         return ConfigParameters::small;
-    } else if (equalNoCase(val, std::string("medium")) ||
-               equalNoCase(val, std::string("m"))) {
+    }
+    else if (equalNoCase(val, std::string("medium")) ||
+        equalNoCase(val, std::string("m")))
+    {
         return ConfigParameters::medium;
-    } else if (equalNoCase(val, std::string("big")) ||
-               equalNoCase(val, std::string("b"))) {
+    }
+    else if (equalNoCase(val, std::string("big")) ||
+        equalNoCase(val, std::string("b")))
+    {
         return ConfigParameters::big;
-    } else {
+    }
+    else
+    {
         return -1;
     }
 }
 
-int sb7::Parameters::strToLockType(std::string &val) {
+int sb7::Parameters::strToLockType(std::string& val)
+{
     if (equalNoCase(val, std::string("no")) ||
-        equalNoCase(val, std::string("n"))) {
+        equalNoCase(val, std::string("n")))
+    {
         return Parameters::no_lock;
-    } else if (equalNoCase(val, std::string("coarse")) ||
-               equalNoCase(val, std::string("c"))) {
+    }
+    else if (equalNoCase(val, std::string("coarse")) ||
+        equalNoCase(val, std::string("c")))
+    {
         return Parameters::lock_coarse;
-    } else if (equalNoCase(val, std::string("medium")) ||
-               equalNoCase(val, std::string("m"))) {
+    }
+    else if (equalNoCase(val, std::string("medium")) ||
+        equalNoCase(val, std::string("m")))
+    {
         return Parameters::lock_medium;
-    } else if (equalNoCase(val, std::string("fine")) ||
-               equalNoCase(val, std::string("f"))) {
+    }
+    else if (equalNoCase(val, std::string("fine")) ||
+        equalNoCase(val, std::string("f")))
+    {
         return Parameters::lock_fine;
-    } else if (equalNoCase(val, std::string("comonancestor")) ||
-               equalNoCase(val, std::string("ca"))) {
+    }
+    else if (equalNoCase(val, std::string("comonancestor")) ||
+        equalNoCase(val, std::string("ca")))
+    {
         return Parameters::lock_ca;
-    } else if (equalNoCase(val, std::string("domlock")) ||
-               equalNoCase(val, std::string("dom"))) {
+    }
+    else if (equalNoCase(val, std::string("domlock")) ||
+        equalNoCase(val, std::string("dom")))
+    {
         return Parameters::lock_dom;
-    } else if (equalNoCase(val, std::string("mid")) ||
-               equalNoCase(val, std::string("mid"))) {
+    }
+    else if (equalNoCase(val, std::string("mid")) ||
+        equalNoCase(val, std::string("mid")))
+    {
         return Parameters::lock_mid;
-    } else if (equalNoCase(val, std::string("num")) ||
-               equalNoCase(val, std::string("num"))) {
+    }
+    else if (equalNoCase(val, std::string("num")) ||
+        equalNoCase(val, std::string("num")))
+    {
         return Parameters::lock_num;
-    } else {
+    }
+    else if (equalNoCase(val, std::string("flexi")) ||
+        equalNoCase(val, std::string("flexi")))
+    {
+        return Parameters::lock_flexi;
+    }
+    else
+    {
         return -1;
     }
 }
 
-std::string sb7::Parameters::lockTypeToStr(lock_type val) {
-    if (val == no_lock) {
+std::string sb7::Parameters::lockTypeToStr(lock_type val)
+{
+    if (val == no_lock)
+    {
         return {"no"};
-    } else if (val == lock_coarse) {
+    }
+    else if (val == lock_coarse)
+    {
         return {"coarse"};
-    } else if (val == lock_medium) {
+    }
+    else if (val == lock_medium)
+    {
         return {"medium"};
-    } else if (val == lock_fine) {
+    }
+    else if (val == lock_fine)
+    {
         return {"fine"};
-    } else if (val == lock_ca) {
+    }
+    else if (val == lock_ca)
+    {
         return {"Common Ancestor"};
-    } else if (val == lock_dom) {
+    }
+    else if (val == lock_dom)
+    {
         return {"Domlock"};
-    } else if (val == lock_mid) {
+    }
+    else if (val == lock_mid)
+    {
         return {"MID"};
-    } else if (val == lock_num) {
+    }
+    else if (val == lock_num)
+    {
         return {"NumLock"};
-    } else {
+    }
+    else if (val == lock_flexi)
+    {
+        return {"FlexiLock"};
+    }
+    else
+    {
         return {"unknown"};
     }
 }

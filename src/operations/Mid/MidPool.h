@@ -200,6 +200,7 @@ public:
 // Anju edited this function to handle the read requests' overlap check.
     bool IsOverlap(midInterval *inv, int m, int threadID, DataHolder *dataHolder)
     {
+        auto t1 = std::chrono::high_resolution_clock::now();
         pthread_rwlock_wrlock(&ArrayLock[0]); // Taking the lock on the pool.
         totalLockAttempts++;
         for(int i=0; i< SIZE; i++)
@@ -252,6 +253,8 @@ public:
 
         Insert(inv, threadID);
         pthread_rwlock_unlock(&ArrayLock[0]); // Unlocking the pool before returning.
+        auto t2 = std::chrono::high_resolution_clock::now();
+        idleness[threadID] += (t2-t1);
         return false;
 
     }

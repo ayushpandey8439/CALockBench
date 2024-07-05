@@ -5,6 +5,7 @@
 
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
+#include "operations/Flexigran/FlexiPool.h"
 #include "operations/Mid/MidPool.h"
 #include "operations/NumLock/NumPool.h"
 
@@ -14,6 +15,10 @@ CAPool caPool;
 DomPool domPool;
 MidPool midPool;
 NumPool numPool;
+FlexiPool flexiPool;
+
+int fgPercent; // TODO: Initialise in parameters
+
 
 int numBuckets;
 int numIterations;

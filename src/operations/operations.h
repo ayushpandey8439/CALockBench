@@ -11,9 +11,10 @@
 
 using namespace std;
 
-namespace sb7 {
-
-    enum optype {
+namespace sb7
+{
+    enum optype
+    {
         TRAVERSAL = 0,
         TRAVERSAL_RO,
         SHORT_TRAVERSAL,
@@ -23,16 +24,18 @@ namespace sb7 {
         STRUCTURAL_MODIFICATION
     };
 
-    struct OperationType {
-        OperationType(enum optype ty, const char *n) :
-                type(ty),
-                count(0),
-                probability(0.0),
-                success(0),
-                aborted(0),
-                failure(0),
-                maxttc(0),
-                name(n) {
+    struct OperationType
+    {
+        OperationType(enum optype ty, const char* n) :
+            type(ty),
+            count(0),
+            probability(0.0),
+            success(0),
+            aborted(0),
+            failure(0),
+            maxttc(0),
+            name(n)
+        {
         }
 
         enum optype type;
@@ -42,15 +45,18 @@ namespace sb7 {
         int aborted;
         int failure;
         int maxttc;
-        const char *name;
+        const char* name;
     };
 
     // abstract class representing operations
     // all operations are stateless
-    class Operation {
+    class Operation
+    {
     public:
-        Operation(enum optype ty, const char *n, DataHolder *dh = NULL)
-                : type(ty), name(n), dataHolder(dh) {}
+        Operation(enum optype ty, const char* n, DataHolder* dh = NULL)
+            : type(ty), name(n), dataHolder(dh)
+        {
+        }
 
         // TODO make this abstract after all operations are implemented
         virtual int run(int tid) const = 0;
@@ -61,65 +67,72 @@ namespace sb7 {
         // TODO or use pointer to operation type object
         const enum optype type;
 
-        const char *name;
+        const char* name;
 
     protected:
-        DataHolder *dataHolder;
+        DataHolder* dataHolder;
     };
 
-    class Operations {
-
-
+    class Operations
+    {
     public:
-        int size() const {
+        int size() const
+        {
             return ops.size();
         }
 
-        vector<OperationType> &getOperationTypes() {
+        vector<OperationType>& getOperationTypes()
+        {
             return optypes;
         }
 
-        const vector<Operation *> &getOperations() const {
+        const vector<Operation*>& getOperations() const
+        {
             return ops;
         }
 
-        const vector<double> &getOperationCdf() const {
+        const vector<double>& getOperationCdf() const
+        {
             return cdf;
         }
 
     private:
         void initOperationTypes();
 
-        void initOperations(DataHolder *dh);
+        void initOperations(DataHolder* dh);
 
-        void initOperationsNoLock(DataHolder *dh);
+        void initOperationsNoLock(DataHolder* dh);
 
-        void initOperationsLockCoarse(DataHolder *dh);
+        void initOperationsLockCoarse(DataHolder* dh);
 
-        void initOperationsLockMedium(DataHolder *dh);
+        void initOperationsLockMedium(DataHolder* dh);
 
-        void initOperationsLockFine(DataHolder *dh);
+        void initOperationsLockFine(DataHolder* dh);
 
-        void initOperationsLockCA(DataHolder *dh);
+        void initOperationsLockCA(DataHolder* dh);
 
-        void initOperationsLockDom(DataHolder *dh);
+        void initOperationsLockDom(DataHolder* dh);
 
-        void initOperationsLockMid(DataHolder *dh);
+        void initOperationsLockMid(DataHolder* dh);
 
-        void initOperationsLockNum(DataHolder *dh);
+        void initOperationsLockNum(DataHolder* dh);
+
+        void initOperationsFlexi(DataHolder* dh);
 
         void generateCdf();
 
     public:
-        explicit Operations(DataHolder *dh) {
+        explicit Operations(DataHolder* dh)
+        {
             initOperationTypes();
             initOperations(dh);
             generateCdf();
         }
+
     private:
         vector<OperationType> optypes;
 
-        vector<Operation *> ops;
+        vector<Operation*> ops;
 
         vector<double> cdf;
     };

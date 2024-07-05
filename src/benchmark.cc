@@ -15,6 +15,9 @@
 #include "labelling/MID/MidLabeling.h"
 #include "display/output.h"
 #include "containmentBenchmark.h"
+#include "countTraversal.h"
+#include "countTraversal.h"
+#include "labelling/FlexiGran/FlexigranLabelling.h"
 
 extern CAPool caPool;
 extern DomPool domPool;
@@ -107,6 +110,8 @@ void sb7::Benchmark::free_matrix(int **matrix, int rows) const {
 void sb7::Benchmark::init() {
     // initialize structure of data holder
     sb7::init_data_holder(&dataHolder);
+    // auto c = new countTraversal(dataHolder);
+    // c->traverse(this->dataHolder.getModule()->getDesignRoot(), new set<int>());
 
     if (parameters.getLockType() == Parameters::lock_ca || parameters.getBenchmarkContainment()) {
         /// The CALabels are also used to check if the component is actually connected during random selection
@@ -160,6 +165,16 @@ void sb7::Benchmark::init() {
         dfs->run(0);
         auto tD2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<long double, std::nano> initialLabellingTimeNum = tD2 - tD1;
+    }
+    if(parameters.getLockType() == Parameters::lock_flexi || parameters.getBenchmarkContainment())
+    {
+        auto *dfs = new FlexigranLabelling(&dataHolder);
+        auto tD1 = std::chrono::high_resolution_clock::now();
+        dfs->run(0);
+        auto tD2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<long double, std::nano> initialLabellingTimeFlexi = tD2 - tD1;
+        cout << "Labelling time for FlexiGran: " << initialLabellingTimeFlexi.count() << endl;
+        cout << "Interval assignment complete" << endl;
     }
 }
 

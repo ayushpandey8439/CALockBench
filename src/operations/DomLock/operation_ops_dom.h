@@ -5,153 +5,176 @@
 #include "query_ops_dom.h"
 #include "traversal_ops_dom.h"
 
-namespace sb7 {
-
-    class DomOperation6 : public Operation {
+namespace sb7
+{
+    class DomOperation6 : public Operation
+    {
     protected:
-        DomOperation6(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
+        DomOperation6(optype t, const char* n, DataHolder* dh)
+            : Operation(t, n, dh)
+        {
         }
 
     public:
-        DomOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
+        explicit DomOperation6(DataHolder* dh) : Operation(OPERATION_RO, "OP6", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun(int tid) const;
 
         virtual void performOperationOnComplexAssembly(
-                ComplexAssembly *cassm) const;
+            ComplexAssembly* cassm) const;
     };
 
-    class DomOperation7 : public Operation {
+    class DomOperation7 : public Operation
+    {
     protected:
-        DomOperation7(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
+        DomOperation7(optype t, const char* n, DataHolder* dh)
+            : Operation(t, n, dh)
+        {
         }
 
     public:
-        DomOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
+        explicit DomOperation7(DataHolder* dh) : Operation(OPERATION_RO, "OP7", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun(int tid) const;
 
         virtual void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const;
+            BaseAssembly* bassm) const;
     };
 
-    class DomOperation8 : public Operation {
+    class DomOperation8 : public Operation
+    {
     protected:
-        DomOperation8(optype t, const char *n, DataHolder *dh)
-                : Operation(t, n, dh) {
+        DomOperation8(optype t, const char* n, DataHolder* dh)
+            : Operation(t, n, dh)
+        {
         }
 
     public:
-        DomOperation8(DataHolder *dh) : Operation(OPERATION_RO, "OP8", dh) {
+        explicit DomOperation8(DataHolder* dh) : Operation(OPERATION_RO, "OP8", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun(int tid) const;
 
         virtual void performOperationOnComponent(
-                CompositePart *comp) const;
+            CompositePart* comp) const;
     };
 
-    class DomOperation9 : public DomQuery1 {
+    class DomOperation9 : public DomQuery1
+    {
     public:
-        DomOperation9(DataHolder *dh) : DomQuery1(OPERATION, "OP9", dh) {
+        explicit DomOperation9(DataHolder* dh) : DomQuery1(OPERATION, "OP9", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+            AtomicPart* apart) const override;
     };
 
-    class DomOperation10 : public DomQuery2 {
+    class DomOperation10 : public DomQuery2
+    {
     public:
-        DomOperation10(DataHolder *dh) : DomQuery2(dh, OPERATION, "OP10", 1) {
+        explicit DomOperation10(DataHolder* dh) : DomQuery2(dh, OPERATION, "OP10", 1)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+            AtomicPart* apart) const override;
     };
 
-    class DomOperation11 : public DomTraversal8 {
+    class DomOperation11 : public DomTraversal8
+    {
     public:
-        DomOperation11(DataHolder *dh) : DomTraversal8(OPERATION, "OP11", dh) {
+        explicit DomOperation11(DataHolder* dh) : DomTraversal8(OPERATION, "OP11", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual int traverse(Manual *manual) const;
+        int traverse(Manual* manual) const override;
     };
 
-    class DomOperation12 : public DomOperation6 {
+    class DomOperation12 : public DomOperation6
+    {
     protected:
-        DomOperation12(optype t, const char *n, DataHolder *dh)
-                : DomOperation6(t, n, dh) {
+        DomOperation12(optype t, const char* n, DataHolder* dh)
+            : DomOperation6(t, n, dh)
+        {
         }
 
     public:
-        DomOperation12(DataHolder *dh) : DomOperation6(OPERATION, "OP12", dh) {
+        explicit DomOperation12(DataHolder* dh) : DomOperation6(OPERATION, "OP12", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnComplexAssembly(
-                ComplexAssembly *cassm) const;
+        void performOperationOnComplexAssembly(
+            ComplexAssembly* cassm) const override;
     };
 
-    class DomOperation13 : public DomOperation7 {
+    class DomOperation13 : public DomOperation7
+    {
     public:
-        DomOperation13(DataHolder *dh) : DomOperation7(OPERATION, "OP13", dh) {
+        explicit DomOperation13(DataHolder* dh) : DomOperation7(OPERATION, "OP13", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnBaseAssembly(
-                BaseAssembly *bassm) const;
+        void performOperationOnBaseAssembly(
+            BaseAssembly* bassm) const override;
     };
 
-    class DomOperation14 : public DomOperation8 {
+    class DomOperation14 : public DomOperation8
+    {
     public:
-        DomOperation14(DataHolder *dh) : DomOperation8(OPERATION, "OP14", dh) {
+        explicit DomOperation14(DataHolder* dh) : DomOperation8(OPERATION, "OP14", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnComponent(
-                CompositePart *comp) const;
+        void performOperationOnComponent(
+            CompositePart* comp) const override;
     };
 
-    class DomOperation15 : public DomQuery1 {
+    class DomOperation15 : public DomQuery1
+    {
     public:
-        DomOperation15(DataHolder *dh) : DomQuery1(OPERATION, "OP15", dh) {
+        explicit DomOperation15(DataHolder* dh) : DomQuery1(OPERATION, "OP15", dh)
+        {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+            AtomicPart* apart) const override;
     };
-
 }
 
 #endif // SB7_Dom_OPERATION_OPS_H_
