@@ -165,15 +165,16 @@ int FlexiQuery2::innerRun(int tid) const
         }
 
         pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &(mode));
-        if(mode==0)
-        {
-            pthread_rwlock_rdlock(lock);
-        } else
-        {
-            pthread_rwlock_wrlock(lock);
-        }
+
         if (!flexiPool.doOverlap(min, max, mode, tid, granularity, level))
         {
+            if(mode==0)
+            {
+                pthread_rwlock_rdlock(lock);
+            } else if(mode==1)
+            {
+                pthread_rwlock_wrlock(lock);
+            }
             for (auto* apart : aparts)
             {
                 performOperationOnAtomicPart(apart);
