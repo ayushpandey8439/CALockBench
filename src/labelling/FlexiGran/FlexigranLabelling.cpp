@@ -132,7 +132,10 @@ int sb7::FlexigranLabelling::traverse(AtomicPart* apart,
     }
     else
     {
-        apart->m_pre_number = ++flexiCounter;
+        apart->m_pre_number = apart->getPartOf()->m_pre_number;
+        apart->m_post_number = apart->getPartOf()->m_post_number;
+
+        // apart->m_pre_number = ++flexiCounter;
         apart->m_levelFromRoot = apart->getPartOf()->m_levelFromRoot + 1;
         ret = performOperationOnAtomicPart(apart, visitedPartSet);
         visitedPartSet.add(apart);

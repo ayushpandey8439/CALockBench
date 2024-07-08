@@ -19,7 +19,7 @@ namespace sb7
         explicit FlexigranLabelling(DataHolder *dh) : Operation(TRAVERSAL_RO, "T1", dh) {
         }
 
-        [[nodiscard]] virtual int run(int tid) const;
+        virtual int run(int tid) const;
         int traverse(ComplexAssembly *complexAssembly) const;
         int traverse(BaseAssembly *baseAssembly) const;
         virtual int traverse(CompositePart *component) const;

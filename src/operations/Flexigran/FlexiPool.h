@@ -8,8 +8,8 @@
 #include <bitset>
 
 using namespace std;
-#define NUM_THREADS 256
-#define NUM_BITS 1000000
+#define NUM_THREADS 64
+#define NUM_BITS 15000
 #define READ_MODE 0
 #define WRITE_MODE 1
 #define FINE_GRAINED 0
@@ -64,7 +64,7 @@ public:
         return x; // Place the appropriate linear hash function here.
     }
 
-    bool isLockedNodeAncestor(int requestor_tid, int from, int to, int alreadyLockedBy_tid)
+    bool isLockedNodeAncestor(const int requestor_tid, const long from, const long to, const int alreadyLockedBy_tid) const
     {
         if ((lockState[requestor_tid] ^ lockState[alreadyLockedBy_tid]).none())
         {
@@ -96,7 +96,7 @@ public:
         return (a && b);
     }
 
-    bool isLockedNodeDescendant(int requestor_tid, int from, int to, int alreadyLockedBy_tid)
+     bool isLockedNodeDescendant(const int requestor_tid, const long int from, const long int to, const int alreadyLockedBy_tid) const
     {
         if ((lockState[requestor_tid] ^ lockState[alreadyLockedBy_tid]).none())
         {
@@ -131,18 +131,17 @@ public:
     }
 
 
-    bool doOverlap(long int from, long int to, int mode, int requestor_tid, int granularity, int levelOfNode)
+    bool doOverlap(const long from, const long to, const int mode, const int requestor_tid, const int granularity, const int levelOfNode)
     {
         auto t1=std::chrono::high_resolution_clock::now();
         if (parameters.getThreadNum() > 1)
         {
-            int i = hash(from);
-            int j = hash(to);
+
             int mySeq;
             pthread_mutex_lock(&mutex);
             mySeq = ++globalSequenceNumber;
             seqNumArray[requestor_tid] = mySeq;
-            lockRange(i, j, mode, requestor_tid, granularity, levelOfNode);
+            lockRange(from, to, mode, requestor_tid, granularity, levelOfNode);
             pthread_mutex_unlock(&mutex);
 
 
@@ -151,7 +150,7 @@ public:
                 if (threadNum != requestor_tid)
                 {
 
-                    while (doRangesOverlap(requestor_tid, threadNum, mode, from, to) && seqNumArray[threadNum] < mySeq)
+                    while (doRangesOverlap(requestor_tid, threadNum, mode, from, to) && (seqNumArray[threadNum] < mySeq && seqNumArray[threadNum] != -1))
                     {
 
                     }
@@ -164,7 +163,7 @@ public:
         // This fn always returns no overlap, as the thread waits until its job is done and then only returns.
     }
 
-    bool doRangesOverlap(int my_tid, int tid_in_pool, int mode, long int from, long int to)
+    bool doRangesOverlap(const int my_tid, const int tid_in_pool, const int mode, const long int from, const long int to)const
     {
         if ((mode == WRITE_MODE || lockMode[tid_in_pool] == WRITE_MODE) && ((lockState[my_tid] & lockState[tid_in_pool])
             .any()))
@@ -201,7 +200,7 @@ public:
         return false;
     }
 
-    void lockRange(int from, int to, int mode, int tid, int granularity, int levelOfNode)
+    void lockRange(const int from, const int to, const int mode, const int tid, const int granularity, const int levelOfNode)
     {
         if (mode == 1)
             lockMode[tid] = WRITE_MODE;
@@ -213,9 +212,9 @@ public:
             lockGranularity[tid] = FINE_GRAINED;
         levelLocked[tid] = levelOfNode;
 
-        for (int i = from; i <= to; i++)
+        for (long i = from; i <= to; i++)
         {
-            lockState[tid].set(i, 1);
+            lockState[tid].set(i, true);
         }
     }
 
@@ -226,7 +225,7 @@ public:
         lockGranularity[tid] = NOT_LOCKED;
         levelLocked[tid] = -1;
         //printf("Range %d, %d unlocked by thread %d\n\n", vStart, vEnd, tid);
-        seqNumArray[tid] = INT_MAX;
+        seqNumArray[tid] = -1;
     }
 };
 #endif //FLEXIPOOL_H
