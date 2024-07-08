@@ -53,7 +53,7 @@ int FlexiQuery1::innerRun(int tid) const
 
 
             pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &(level));
-            if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level, 0, 0))
+            if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
             {
                 pthread_rwlock_rdlock(lock);
                 performOperationOnAtomicPart(query.val);
@@ -65,7 +65,7 @@ int FlexiQuery1::innerRun(int tid) const
         else if (string(name) == "OP9" || string(name) == "OP15")
         {
             pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &(level));
-            if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level, 0, 0))
+            if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level))
             {
                 pthread_rwlock_wrlock(lock);
                 performOperationOnAtomicPart(query.val);
@@ -165,13 +165,21 @@ int FlexiQuery2::innerRun(int tid) const
         }
 
         pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &(mode));
-        if (!flexiPool.doOverlap(min, max, mode, tid, granularity, level, 0, 0))
+        if(mode==0)
+        {
+            pthread_rwlock_rdlock(lock);
+        } else
+        {
+            pthread_rwlock_wrlock(lock);
+        }
+        if (!flexiPool.doOverlap(min, max, mode, tid, granularity, level))
         {
             for (auto* apart : aparts)
             {
                 performOperationOnAtomicPart(apart);
                 count++;
             }
+            pthread_rwlock_unlock(lock);
             flexiPool.unlockRange(tid);
         }
     }

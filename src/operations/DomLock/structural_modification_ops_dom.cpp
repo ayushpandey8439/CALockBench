@@ -33,9 +33,10 @@ int sb7::DomStructuralModification2::run(int tid) const {
     if (cpart == NULL || cpart->m_post_number == 0 || cpart->m_pre_number == 0) {
         throw Sb7Exception();
     }
+
     auto root = dataHolder->getModule()->getDesignRoot();
-    float min = root->m_pre_number;
-    float max = root->m_post_number;
+    long min = root->m_pre_number;
+    long max = root->m_post_number;
 
     pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
     auto *inv = new interval(min, max, 1);
@@ -76,8 +77,8 @@ int sb7::DomStructuralModification3::run(int tid) const {
 
     // In order to do a structural modification, we need a write lock on the hierarchy.
     auto root = dataHolder->getModule()->getDesignRoot();
-    float min = root->m_pre_number;
-    float max = root->m_post_number;
+    long min = root->m_pre_number;
+    long max = root->m_post_number;
 
 //    float min = bassm->m_pre_number;
 //    float max = bassm->m_post_number;

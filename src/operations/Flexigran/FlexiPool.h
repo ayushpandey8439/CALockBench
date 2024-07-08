@@ -9,7 +9,7 @@
 
 using namespace std;
 #define NUM_THREADS 256
-#define NUM_BITS 10000000
+#define NUM_BITS 1000000
 #define READ_MODE 0
 #define WRITE_MODE 1
 #define FINE_GRAINED 0
@@ -17,6 +17,7 @@ using namespace std;
 #define NOT_LOCKED 2
 
 using namespace sb7;
+
 /*Note: A single instance of this class is used in the application. It is created in sb7_lock.cc */
 class FlexiPool
 {
@@ -30,6 +31,7 @@ public:
     int seqNumArray[NUM_THREADS];
     std::chrono::duration<long double, std::nano> idleness[NUM_THREADS];
     std::chrono::duration<long double, std::nano> modificationTime;
+
     atomic<long int> count = 1;
 
     FlexiPool()
@@ -57,7 +59,7 @@ public:
         cout << "\nLockPool Constructed..." << endl;
     }
 
-    int hash(int x)
+    long int hash(long int x)
     {
         return x; // Place the appropriate linear hash function here.
     }
@@ -129,10 +131,9 @@ public:
     }
 
 
-    bool doOverlap(int from, int to, int mode, int requestor_tid, int granularity, int levelOfNode, int from2, int to2)
-    // Think of read/write modes...
+    bool doOverlap(long int from, long int to, int mode, int requestor_tid, int granularity, int levelOfNode)
     {
-        //					printf("Entered doOverlap for tid = %d, (%d, %d)\n\n", requestor_tid, from, to);
+        auto t1=std::chrono::high_resolution_clock::now();
         if (parameters.getThreadNum() > 1)
         {
             int i = hash(from);
@@ -140,28 +141,30 @@ public:
             int mySeq;
             pthread_mutex_lock(&mutex);
             mySeq = ++globalSequenceNumber;
-            pthread_mutex_unlock(&mutex);
             seqNumArray[requestor_tid] = mySeq;
-            lockRange(i, j, mode, requestor_tid, granularity, levelOfNode, from2, to2);
-            //					lockRange(from, to, mode, requestor_tid, granularity, levelOfNode);
+            lockRange(i, j, mode, requestor_tid, granularity, levelOfNode);
+            pthread_mutex_unlock(&mutex);
 
 
             for (int threadNum = 0; threadNum < parameters.getThreadNum(); threadNum++)
             {
                 if (threadNum != requestor_tid)
                 {
+
                     while (doRangesOverlap(requestor_tid, threadNum, mode, from, to) && seqNumArray[threadNum] < mySeq)
                     {
-                        // Wait in the loop
+
                     }
                 }
             }
         }
+        auto t2=std::chrono::high_resolution_clock::now();
+        idleness[requestor_tid] += (t2-t1);
         return false;
         // This fn always returns no overlap, as the thread waits until its job is done and then only returns.
     }
 
-    bool doRangesOverlap(const int my_tid, const int tid_in_pool, const int mode, const int from, const int to)
+    bool doRangesOverlap(int my_tid, int tid_in_pool, int mode, long int from, long int to)
     {
         if ((mode == WRITE_MODE || lockMode[tid_in_pool] == WRITE_MODE) && ((lockState[my_tid] & lockState[tid_in_pool])
             .any()))
@@ -198,7 +201,7 @@ public:
         return false;
     }
 
-    void lockRange(int from, int to, int mode, int tid, int granularity, int levelOfNode, int from2, int to2)
+    void lockRange(int from, int to, int mode, int tid, int granularity, int levelOfNode)
     {
         if (mode == 1)
             lockMode[tid] = WRITE_MODE;
@@ -209,33 +212,10 @@ public:
         else
             lockGranularity[tid] = FINE_GRAINED;
         levelLocked[tid] = levelOfNode;
-        int i;
-        for (i = from; i <= to; i++)
+
+        for (int i = from; i <= to; i++)
         {
             lockState[tid].set(i, 1);
-        }
-        if (to2 > 0)
-        {
-            // There is a second interval to be locked as part of an edge addition.
-            if (from2 >= from && to2 <= to)
-            {
-                return; // The second range is already locked.
-            }
-            int iMax = to2;
-            if (from2 < from || from2 > to)
-            {
-                i = from2;
-            }
-            if (to2 < from || to2 > to)
-            {
-                iMax = to2;
-            }
-            else
-                iMax = from - 1;
-            for (; i <= iMax; i++)
-            {
-                lockState[tid].set(i, 1);
-            }
         }
     }
 

@@ -69,7 +69,7 @@ int FlexiOperation6::innerRun(int tid) const
         }
 
         pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &level);
-        if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level, 0, 0))
+        if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
         {
             pthread_rwlock_rdlock(lock);
             performOperationOnComplexAssembly(cassm);
@@ -100,7 +100,7 @@ int FlexiOperation6::innerRun(int tid) const
         }
 
         pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &level);
-        if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level, 0, 0))
+        if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
         {
             pthread_rwlock_rdlock(lock);
             while (iter.has_next())
@@ -175,7 +175,7 @@ int FlexiOperation7::innerRun(int tid) const
     }
 
     pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &level);
-    if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level, 0, 0))
+    if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
     {
         pthread_rwlock_rdlock(lock);
         while (iter.has_next())

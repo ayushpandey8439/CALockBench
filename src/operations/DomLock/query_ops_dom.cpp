@@ -22,7 +22,7 @@ int sb7::DomQuery1::run(int tid) const {
 int sb7::DomQuery1::innerRun(int tid) const {
     int count = 0;
     int threadID = tid;
-    float min = INFINITY, max = -1;
+    long min = INFINITY, max = -1;
     int apartId = get_random()->nextInt(
             parameters.getMaxAtomicParts()) + 1;
     Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
@@ -85,7 +85,7 @@ int sb7::DomQuery2::run(int tid) const {
 
 int sb7::DomQuery2::innerRun(int tid) const {
     int count = 0;
-    float min = 0, max = 0;
+    long min = INFINITY, max = 0;
 
     int range = percent * (parameters.getMaxAtomicDate() -
                            parameters.getMinAtomicDate()) / 100;

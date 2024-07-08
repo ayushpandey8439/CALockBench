@@ -40,7 +40,7 @@ int FlexiStructuralModification2::run(int tid) const {
     int level = root -> m_levelFromRoot;
 
     pthread_rwlock_t *lock = FlexigranHelper::getFlexiLock( dataHolder, &min, &max, &level);
-    if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level, min, max)) {
+    if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level)) {
         pthread_rwlock_wrlock(lock);
         dataHolder->deleteCompositePart(cpart);
         auto *r = new FlexigranLabelling(dataHolder);
@@ -90,7 +90,7 @@ int FlexiStructuralModification3::run(int tid) const {
 //        max = cpart->m_post_number;
 
     pthread_rwlock_t *lock = FlexigranHelper::getFlexiLock(dataHolder, &min, &max, &level);
-    if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level, min, max)) {
+    if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level)) {
         pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
         auto *r = new FlexigranLabelling(dataHolder);
@@ -189,34 +189,34 @@ int FlexiStructuralModification3::run(int tid) const {
 //     return 0;
 // }
 //
-// /////////////////////////////
-// // StructuralModification7 //
-// /////////////////////////////
-//
-// int FlexiStructuralModification7::run(int tid) const {
-//     //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-//
-//     // generate random complex assembly id
-//     int cassmId = get_random()->nextInt(
-//             parameters.getMaxComplexAssemblies()) + 1;
-//     ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
-//
-//     if (cassm == NULL) {
-//         throw Sb7Exception();
-//     }
-//
-//     auto *inv = new interval(cassm->m_pre_number, cassm->m_post_number, 1);
-//     if (!domPool.IsOverlap(inv, 1, tid)) {
-//         // create sub assembly
-//         dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
-//         auto *r = new FlexiLockLabeling(dataHolder);
-//         r->traverse(dataHolder->getModule()->getDesignRoot());
-//         domPool.Delete(tid);
-//     }
-//
-//
-//     return 1;
-// }
+/////////////////////////////
+// StructuralModification7 //
+/////////////////////////////
+
+int FlexiStructuralModification7::run(int tid) const {
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+
+    // generate random complex assembly id
+    int cassmId = get_random()->nextInt(
+            parameters.getMaxComplexAssemblies()) + 1;
+    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+
+    if (cassm == NULL) {
+        throw Sb7Exception();
+    }
+    //
+    // auto *inv = new interval(cassm->m_pre_number, cassm->m_post_number, 1);
+    // if (!domPool.IsOverlap(inv, 1, tid)) {
+    //     // create sub assembly
+    //     dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
+    //     auto *r = new FlexiLockLabeling(dataHolder);
+    //     r->traverse(dataHolder->getModule()->getDesignRoot());
+    //     domPool.Delete(tid);
+    // }
+
+
+    return 1;
+}
 //
 // /////////////////////////////
 // // StructuralModification8 //

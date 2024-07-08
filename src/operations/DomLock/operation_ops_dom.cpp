@@ -48,7 +48,7 @@ int sb7::DomOperation6::innerRun(int tid) const {
 
     // if this assembly is root perform operation on it
     if (superAssm == NULL || superAssm->m_pre_number == 0 || superAssm->m_post_number == 0) {
-        float min = INFINITY, max = 0;
+        long min = INFINITY, max = 0;
         min = cassm->m_pre_number;
         max = cassm->m_post_number;
         pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
@@ -66,7 +66,7 @@ int sb7::DomOperation6::innerRun(int tid) const {
         Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
         SetIterator<Assembly *> iter = siblingAssms->getIter();
         ret = 0;
-        float min = INFINITY, max = 0;
+        long min = INFINITY, max = 0;
         min = superAssm->m_pre_number;
         max = superAssm->m_post_number;
         pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));
@@ -124,7 +124,7 @@ int sb7::DomOperation7::innerRun(int tid) const {
     SetIterator<Assembly *> iter = siblingSet->getIter();
     int ret = 0;
 
-    float min = INFINITY, max = 0;
+    long min = INFINITY, max = 0;
     min = superAssm->m_pre_number;
     max = superAssm->m_post_number;
     pthread_rwlock_t *lock = dominatorHelper::getDominatorLock(dataHolder, &(min), &(max));

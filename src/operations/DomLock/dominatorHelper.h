@@ -13,12 +13,12 @@ using namespace sb7;
 
 class dominatorHelper {
 public:
-    static pthread_rwlock_t *getDominatorLock(DataHolder *dh, float *min, float *max) {
+    static pthread_rwlock_t *getDominatorLock(DataHolder *dh, long *min, long *max) {
         return Dom_traverse(dh->getModule()->getDesignRoot(), min, max);
     }
 
 
-    static pthread_rwlock_t *Dom_traverse(ComplexAssembly *cassm, float *min, float *max) {
+    static pthread_rwlock_t *Dom_traverse(ComplexAssembly *cassm, long *min, long *max) {
 
 
         Set<Assembly *> *subAssm = cassm->getSubAssemblies();
@@ -46,7 +46,7 @@ public:
         return &(cassm->NodeLock);
     }
 
-    static pthread_rwlock_t *Dom_traverse(BaseAssembly *bassm, float *min, float *max) {
+    static pthread_rwlock_t *Dom_traverse(BaseAssembly *bassm, long *min, long *max) {
 
 
         BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
@@ -65,7 +65,7 @@ public:
         return &(bassm->NodeLock);
     }
 
-    static pthread_rwlock_t *Dom_traverse(CompositePart *cpart, float *min, float *max) {
+    static pthread_rwlock_t *Dom_traverse(CompositePart *cpart, long *min, long *max) {
 
 
         AtomicPart *rootPart = cpart->getRootPart();
@@ -76,7 +76,7 @@ public:
     }
 
     static pthread_rwlock_t *Dom_traverse(AtomicPart *apart,
-                                          Set<AtomicPart *> &visitedPartSet, float *min, float *max) {
+                                          Set<AtomicPart *> &visitedPartSet, long *min, long *max) {
         float ret;
 
         if (apart == NULL) {

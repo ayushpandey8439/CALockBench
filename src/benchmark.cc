@@ -18,11 +18,13 @@
 #include "countTraversal.h"
 #include "countTraversal.h"
 #include "labelling/FlexiGran/FlexigranLabelling.h"
+#include "operations/Flexigran/FlexiPool.h"
 
 extern CAPool caPool;
 extern DomPool domPool;
 extern MidPool midPool;
 extern NumPool numPool;
+extern FlexiPool flexiPool;
 std::chrono::duration<long double, std::nano> idlenessTimeCM[256];
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
@@ -379,6 +381,17 @@ void sb7::Benchmark::reportStats(ostream &out) {
         out << "Total relabelling: " << midPool.modificationTime.count() / (midPool.count) << " nanos" << endl;
         int count = 1;
         for (auto i: midPool.idleness) {
+            if (i > std::chrono::duration<long double, std::nano>::zero()) {
+                count++;
+                totalTimeSpentIdle = (totalTimeSpentIdle + i);
+            }
+        }
+        totalTimeSpentIdle /= count;
+    }
+    else if (parameters.getLockType() == Parameters::lock_flexi) {
+        out << "Total relabelling: " << flexiPool.modificationTime.count() / (flexiPool.count) << " nanos" << endl;
+        int count = 1;
+        for (auto i: flexiPool.idleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {
                 count++;
                 totalTimeSpentIdle = (totalTimeSpentIdle + i);

@@ -239,36 +239,38 @@ int sb7::MidStructuralModification3::run(int tid) const {
 ///////////////////////////////
 //// StructuralModification7 //
 ///////////////////////////////
-//
-//int sb7::MidStructuralModification7::run(int tid) const {
-//    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
-//
-//    // generate random complex assembly id
-//    int cassmId = get_random()->nextInt(
-//            parameters.getMaxComplexAssemblies()) + 1;
-//    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
-//
-//    if (cassm == NULL) {
-//        throw Sb7Exception();
-//    }
-//    float min = cassm->m_pre_number;
-//    float max = cassm->m_post_number;
-//    float rlm_min, rlm_max;
-//    pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
-//    auto *inv = new midInterval(min, max, rlm_min, rlm_max, 1);
-//
-//    if (!midPool.IsOverlap(inv, 1, tid, dataHolder)) {
-//        // create sub assembly
-//        dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
-//        auto *r = new MidLockRelabeling(dataHolder);
-//        r->traverse(dataHolder->getModule()->getDesignRoot());
-//        midPool.Delete(tid);
-//    }
-//
-//
-//    return 1;
-//}
-//
+
+int sb7::MidStructuralModification7::run(int tid) const {
+    //WriteLockHandle writeLockHandle(dom_lock_srv.getLock());
+
+    // generate random complex assembly id
+    int cassmId = get_random()->nextInt(
+            parameters.getMaxComplexAssemblies()) + 1;
+    ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
+
+    if (cassm == NULL) {
+        throw Sb7Exception();
+    }
+    float min = cassm->m_pre_number;
+    float max = cassm->m_post_number;
+    float rlm_min, rlm_max;
+    pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
+    auto *inv = new midInterval(min, max, rlm_min, rlm_max, 1);
+
+    if (!midPool.IsOverlap(inv, 1, tid, dataHolder)) {
+        // create sub assembly
+        dataHolder->createSubAssembly(cassm, parameters.getNumAssmPerAssm());
+        auto *dfs = new MidTraversalDFS(dataHolder);
+        auto *rdfs = new MidTraversalReverseDFS(dataHolder);
+        dfs->traverse(dataHolder->getModule()->getDesignRoot());
+        rdfs->traverse(dataHolder->getModule()->getDesignRoot());
+        midPool.Delete(tid);
+    }
+
+
+    return 1;
+}
+
 ///////////////////////////////
 //// StructuralModification8 //
 ///////////////////////////////
