@@ -29,14 +29,16 @@ r3 = [x + width for x in r2]
 #
 # plt.show()
 # plt.rcParams['figure.figsize'] = [4.5, 2]
+plt.figure(figsize=(7, 4))
 plt.bar(r1, DomLock, color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r2, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[4])
+plt.bar(r2, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[3])
+plt.bar(r3, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[4])
+
 plt.xlabel('Hierarchy Size')
 plt.ylabel('Metadata size (bytes)')
 plt.xticks([0,1,2], ['Small', 'Medium', 'Large'])
 # # Create legend & Show graphic
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
 
-plt.legend(ncols=3)
-plt.savefig("./benchmarkCharts/LabelsMemorySize.png", dpi=300, bbox_inches="tight")
+plt.legend(loc='upper center', ncols=3, bbox_to_anchor=(0.5, 1.175), fancybox=True)
+plt.savefig("./benchmarkCharts/LabelsMemorySize.png", dpi=150, bbox_inches="tight")

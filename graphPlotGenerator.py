@@ -11,43 +11,48 @@ ThreadCount = int(sys.argv[1])
 Iterations = int(sys.argv[2])
 WorkloadType = sys.argv[3]
 
+patterns = ["//", "\\\\", "oo", "++", "xx", "--"]
 
-patterns = [ "//","\\\\","oo", "++","xx","--"]
-
-emptyDF = {'ThreadCount': [],'Coarse': [], 'Medium':[], 'Domlock':[], 'CALock':[], 'MID':[], 'Flexigran':[]}
+emptyDF = {'ThreadCount': [], 'Coarse': [], 'Medium': [], 'Domlock': [], 'CALock': [], 'MID': [], 'Flexigran': []}
 throughput = pd.DataFrame(emptyDF)
 idleness = pd.DataFrame(emptyDF)
 relabelling = pd.DataFrame(emptyDF)
 # read ThreadCount files
-i=1
+i = 1
 while i <= ThreadCount:
     print(i)
-    coarse = pd.read_csv("./benchmarkResults/coarse"+str(i)+".csv", header=None, delimiter=":")
-    medium = pd.read_csv("./benchmarkResults/medium"+str(i)+".csv", header=None, delimiter=":")
-    dom = pd.read_csv("./benchmarkResults/domlock"+str(i)+".csv", header=None, delimiter=":")
-    ca = pd.read_csv("./benchmarkResults/calock"+str(i)+".csv", header=None, delimiter=":")
-    mid = pd.read_csv("./benchmarkResults/mid"+str(i)+".csv", header=None, delimiter=":")
-    flexi = pd.read_csv("./benchmarkResults/flexi"+str(i)+".csv", header=None, delimiter=":")
+    coarse = pd.read_csv("./benchmarkResults/coarse" + str(i) + ".csv", header=None, delimiter=":")
+    medium = pd.read_csv("./benchmarkResults/medium" + str(i) + ".csv", header=None, delimiter=":")
+    dom = pd.read_csv("./benchmarkResults/domlock" + str(i) + ".csv", header=None, delimiter=":")
+    ca = pd.read_csv("./benchmarkResults/calock" + str(i) + ".csv", header=None, delimiter=":")
+    mid = pd.read_csv("./benchmarkResults/mid" + str(i) + ".csv", header=None, delimiter=":")
+    flexi = pd.read_csv("./benchmarkResults/flexi" + str(i) + ".csv", header=None, delimiter=":")
 
-    coarse = coarse.groupby(0).sum()/Iterations
-    medium = medium.groupby(0).sum()/Iterations
-    dom = dom.groupby(0).sum()/Iterations
-    ca = ca.groupby(0).sum()/Iterations
-    mid = mid.groupby(0).sum()/Iterations
-    flexi = flexi.groupby(0).sum()/Iterations
+    coarse = coarse.groupby(0).sum() / Iterations
+    medium = medium.groupby(0).sum() / Iterations
+    dom = dom.groupby(0).sum() / Iterations
+    ca = ca.groupby(0).sum() / Iterations
+    mid = mid.groupby(0).sum() / Iterations
+    flexi = flexi.groupby(0).sum() / Iterations
 
     # print(coarse)
     # print(medium)
     # print(dom)
     # print(ca)
     # print(mid)
-    line = pd.DataFrame({'ThreadCount':i, 'Coarse': coarse.iloc[0,0], 'Medium': medium.iloc[0,0], 'Domlock': dom.iloc[0,0], 'CALock': ca.iloc[0,0], 'MID': mid.iloc[0,0], 'Flexigran':flexi.iloc[0,0]}, index=[i])
-    idleness = concat([idleness,line])
-    line = pd.DataFrame({'ThreadCount':i, 'Coarse': coarse.iloc[2,0], 'Medium': medium.iloc[2,0], 'Domlock': dom.iloc[2,0], 'CALock': ca.iloc[2,0], 'MID': mid.iloc[2,0],'Flexigran':flexi.iloc[2,0]}, index=[i])
-    throughput = concat([throughput,line])
-    line = pd.DataFrame({'ThreadCount':i, 'Coarse': coarse.iloc[1,0]+0.1, 'Medium': medium.iloc[1,0]+0.1, 'Domlock': dom.iloc[1,0], 'CALock': ca.iloc[1,0], 'MID': mid.iloc[1,0],'Flexigran':flexi.iloc[1,0]}, index=[i])
-    relabelling = concat([relabelling,line])
-    i*=2
+    line = pd.DataFrame(
+        {'ThreadCount': i, 'Coarse': coarse.iloc[0, 0], 'Medium': medium.iloc[0, 0], 'Domlock': dom.iloc[0, 0],
+         'CALock': ca.iloc[0, 0], 'MID': mid.iloc[0, 0], 'Flexigran': flexi.iloc[0, 0]}, index=[i])
+    idleness = concat([idleness, line])
+    line = pd.DataFrame(
+        {'ThreadCount': i, 'Coarse': coarse.iloc[2, 0], 'Medium': medium.iloc[2, 0], 'Domlock': dom.iloc[2, 0],
+         'CALock': ca.iloc[2, 0], 'MID': mid.iloc[2, 0], 'Flexigran': flexi.iloc[2, 0]}, index=[i])
+    throughput = concat([throughput, line])
+    line = pd.DataFrame({'ThreadCount': i, 'Coarse': coarse.iloc[1, 0] + 0.1, 'Medium': medium.iloc[1, 0] + 0.1,
+                         'Domlock': dom.iloc[1, 0], 'CALock': ca.iloc[1, 0], 'MID': mid.iloc[1, 0],
+                         'Flexigran': flexi.iloc[1, 0]}, index=[i])
+    relabelling = concat([relabelling, line])
+    i *= 2
 
 # print(idleness)
 # print(throughput)
@@ -55,7 +60,7 @@ while i <= ThreadCount:
 
 barwidth = 0.35
 
-r1 = np.arange(len(throughput['ThreadCount']))*2
+r1 = np.arange(len(throughput['ThreadCount'])) * 3
 r2 = [x + barwidth for x in r1]
 r3 = [x + barwidth for x in r2]
 r4 = [x + barwidth for x in r3]
@@ -63,62 +68,69 @@ r5 = [x + barwidth for x in r4]
 r6 = [x + barwidth for x in r5]
 r7 = [x + barwidth for x in r6]
 
-plt.figure()
-plt.bar(r1, throughput['Coarse'],  color='#E15554', width=barwidth, label='Coarse', edgecolor='black', hatch=patterns[0])
-plt.bar(r2, throughput['Medium'],  color='#E1BC29', width=barwidth, label='Medium', edgecolor='black', hatch=patterns[1])
-plt.bar(r3, throughput['Domlock'], color='#7768AE', width=barwidth, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r4, throughput['CALock'],  color='#3bb273', width=barwidth, label='CALock', edgecolor='black', hatch=patterns[3])
-plt.bar(r5, throughput['MID'],     color='#4D9DE0', width=barwidth, label='MID', edgecolor='black', hatch=patterns[4])
-plt.bar(r6, throughput['Flexigran'],     color='#F9BA8F', width=barwidth, label='Flexigran', edgecolor='black', hatch=patterns[5])
+# print(throughput)
 
+plt.figure(figsize=(7, 4))
+plt.bar(r1, throughput['Coarse'], color='#E15554', width=barwidth, label='Coarse', edgecolor='black', hatch=patterns[0])
+plt.bar(r2, throughput['Medium'], color='#E1BC29', width=barwidth, label='Medium', edgecolor='black', hatch=patterns[1])
+plt.bar(r3, throughput['Domlock'], color='#7768AE', width=barwidth, label='Domlock', edgecolor='black',
+        hatch=patterns[2])
+plt.bar(r4, throughput['MID'], color='#4D9DE0', width=barwidth, label='MID', edgecolor='black', hatch=patterns[3])
+plt.bar(r5, throughput['Flexigran'], color='#F9BA8F', width=barwidth, label='Flexigran 50%', edgecolor='black',
+        hatch=patterns[4])
+plt.bar(r6, throughput['CALock'], color='#3bb273', width=barwidth, label='CALock', edgecolor='black', hatch=patterns[5])
 plt.xlabel('Threads')
-plt.ylabel('Op/s')
-plt.legend(ncols=3)
+if "Read" in WorkloadType:
+    plt.ylabel('Op/s')
 if "Modifications" in WorkloadType:
-    plt.ylim(0,350000)
+    plt.ylim(0, 350000)
 else:
-    plt.ylim(0,200000)
-plt.xticks(r3, throughput['ThreadCount'].apply(lambda x : int(x)))
+    plt.ylim(0, 200000)
+
+plt.legend(loc='upper center', ncols=3, bbox_to_anchor=(0.5, 1.175), fancybox=True)
+plt.xticks(r3, throughput['ThreadCount'].apply(lambda x: int(x)))
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
-plt.savefig("./benchmarkCharts/"+WorkloadType+"Throughput.png",dpi=300)
+plt.savefig("./benchmarkCharts/" + WorkloadType + "Throughput.png", dpi=300)
 
-
-
-plt.figure()
-plt.bar(r1, idleness['Coarse'],  color='#E15554', width=barwidth, label='Coarse', edgecolor='black', hatch=patterns[0])
-plt.bar(r2, idleness['Medium'],  color='#E1BC29', width=barwidth, label='Medium', edgecolor='black', hatch=patterns[1])
+plt.figure(figsize=(7, 4))
+plt.bar(r1, idleness['Coarse'], color='#E15554', width=barwidth, label='Coarse', edgecolor='black', hatch=patterns[0])
+plt.bar(r2, idleness['Medium'], color='#E1BC29', width=barwidth, label='Medium', edgecolor='black', hatch=patterns[1])
 plt.bar(r3, idleness['Domlock'], color='#7768AE', width=barwidth, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r4, idleness['CALock'],  color='#3bb273', width=barwidth, label='CALock', edgecolor='black', hatch=patterns[3])
-plt.bar(r5, idleness['MID'],     color='#4D9DE0', width=barwidth, label='MID', edgecolor='black', hatch=patterns[4])
-plt.bar(r6, idleness['Flexigran'],     color='#F9BA8F', width=barwidth, label='Flexigran', edgecolor='black', hatch=patterns[5])
-
+plt.bar(r4, idleness['MID'], color='#4D9DE0', width=barwidth, label='MID', edgecolor='black', hatch=patterns[3])
+plt.bar(r5, idleness['Flexigran'], color='#F9BA8F', width=barwidth, label='Flexigran 50%', edgecolor='black',
+        hatch=patterns[4])
+plt.bar(r6, idleness['CALock'], color='#3bb273', width=barwidth, label='CALock', edgecolor='black', hatch=patterns[5])
 plt.xlabel('Threads')
-plt.ylabel('ns(logscale)')
-plt.legend(ncols=3)
+if "Read" in WorkloadType:
+    plt.ylabel('ns(logscale)')
+
 plt.yscale('log')
-plt.xticks(r3, idleness['ThreadCount'].apply(lambda x : int(x)))
+plt.xticks(r3, idleness['ThreadCount'].apply(lambda x: int(x)))
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
-plt.legend(ncols=3)
-plt.savefig("./benchmarkCharts/"+WorkloadType+"Idleness.png",dpi=150)
+plt.legend(loc='upper center', ncols=3, bbox_to_anchor=(0.5, 1.175), fancybox=True)
+plt.savefig("./benchmarkCharts/" + WorkloadType + "Idleness.png", dpi=150)
 
-
-plt.figure()
-plt.bar(r1, relabelling['Coarse'],  color='#E15554', width=barwidth, label='Coarse', edgecolor='black', hatch=patterns[0])
-plt.bar(r2, relabelling['Medium'],  color='#E1BC29', width=barwidth, label='Medium', edgecolor='black', hatch=patterns[1])
-plt.bar(r3, relabelling['Domlock'], color='#7768AE', width=barwidth, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r4, relabelling['CALock'],  color='#3bb273', width=barwidth, label='CALock', edgecolor='black', hatch=patterns[3])
-plt.bar(r5, relabelling['MID'],     color='#4D9DE0', width=barwidth, label='MID', edgecolor='black', hatch=patterns[4])
-plt.bar(r6, relabelling['Flexigran'],     color='#F9BA8F', width=barwidth, label='Flexigran', edgecolor='black', hatch=patterns[5])
-
+plt.figure(figsize=(7, 4))
+plt.bar(r1, relabelling['Coarse'], color='#E15554', width=barwidth, label='Coarse', edgecolor='black',
+        hatch=patterns[0])
+plt.bar(r2, relabelling['Medium'], color='#E1BC29', width=barwidth, label='Medium', edgecolor='black',
+        hatch=patterns[1])
+plt.bar(r3, relabelling['Domlock'], color='#7768AE', width=barwidth, label='Domlock', edgecolor='black',
+        hatch=patterns[2])
+plt.bar(r4, relabelling['MID'], color='#4D9DE0', width=barwidth, label='MID', edgecolor='black', hatch=patterns[3])
+plt.bar(r5, relabelling['Flexigran'], color='#F9BA8F', width=barwidth, label='Flexigran 50%', edgecolor='black',
+        hatch=patterns[4])
+plt.bar(r6, relabelling['CALock'], color='#3bb273', width=barwidth, label='CALock', edgecolor='black',
+        hatch=patterns[5])
 plt.xlabel('Threads')
-plt.ylabel('ns(logscale)')
-plt.legend(ncols=3)
-plt.xticks(r3, relabelling['ThreadCount'].apply(lambda x : int(x)))
+if "Read" in WorkloadType:
+    plt.ylabel('ns(logscale)')
+
+plt.legend(loc='upper center', ncols=3, bbox_to_anchor=(0.5, 1.175), fancybox=True)
+plt.xticks(r3, relabelling['ThreadCount'].apply(lambda x: int(x)))
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
 plt.yscale('log')
-plt.savefig("./benchmarkCharts/"+WorkloadType+"Relabelling.png",dpi=300)
-
-
+plt.savefig("./benchmarkCharts/" + WorkloadType + "Relabelling.png", dpi=300)
 
 # # Initialize the lists for X and Y
 # data = pd.read_csv("./BlockingResults/"+sys.argv[1]+"/"+sys.argv[1]+"Throughput.csv")

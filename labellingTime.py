@@ -26,10 +26,11 @@ r3 = [x + width for x in r2]
 # ax.legend()
 #
 # plt.show()
-# plt.rcParams['figure.figsize'] = [4.5, 2]
+plt.rcParams['figure.figsize'] = [4.5, 2]
 plt.bar(r1, DomLock, color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r2, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[4])
+plt.bar(r2, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[3])
+plt.bar(r3, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[4])
+
 plt.xlabel('Hierarchy Size')
 plt.ylabel('Time (ns logscale)')
 plt.xticks([0,1,2], ['Small', 'Medium', 'Large'])
@@ -39,3 +40,5 @@ plt.grid(axis='y', linestyle='--', linewidth=0.5)
 
 plt.legend(ncols=3)
 plt.savefig("./benchmarkCharts/InitialLabelling.png", dpi=300, bbox_inches="tight")
+
+# plt.show()

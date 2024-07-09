@@ -23,8 +23,9 @@ r2 = [x + width for x in r1]
 r3 = [x + width for x in r2]
 
 plt.bar(r1, containment["Domlock"], color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r2, containment["CALock"],  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, containment["MID"],     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[4])
+plt.bar(r2, containment["MID"],     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[4])
+plt.bar(r3, containment["CALock"],  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[3])
+
 
 plt.xlabel('Vertex type', fontweight='bold')
 plt.ylabel('Vertices locked (log scale)', fontweight='bold')
