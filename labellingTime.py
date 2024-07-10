@@ -44,6 +44,6 @@ plt.yscale('log')
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
 
 plt.legend(ncols=3)
-plt.savefig("./benchmarkCharts/InitialLabelling.png", dpi=300, bbox_inches="tight")
+plt.savefig("./benchmarkCharts/InitialLabelling.png", dpi=150, bbox_inches="tight")
 
 # plt.show()

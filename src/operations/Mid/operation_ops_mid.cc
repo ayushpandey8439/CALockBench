@@ -44,13 +44,13 @@ int sb7::MidOperation6::innerRun(int tid) const {
 
     // if this assembly is root perform operation on it
     if (superAssm == NULL || superAssm->m_pre_number == 0 || superAssm->m_post_number == 0) {
-        float min = INFINITY, max = 0;
+        long min = INFINITY, max = 0;
         min = cassm->m_pre_number;
         max = cassm->m_post_number;
-        float rlm_min, rlm_max;
+        long rlm_min, rlm_max;
         pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
         auto *inv = new midInterval(min, max, rlm_min, rlm_max,0);
-        if (!midPool.IsOverlap(inv, 0, tid, dataHolder)) {
+        if (!midPool.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
             performOperationOnComplexAssembly(cassm);
             pthread_rwlock_unlock(lock);
@@ -63,13 +63,13 @@ int sb7::MidOperation6::innerRun(int tid) const {
         Set<Assembly *> *siblingAssms = superAssm->getSubAssemblies();
         SetIterator<Assembly *> iter = siblingAssms->getIter();
         ret = 0;
-        float min = INFINITY, max = 0;
+        long min = INFINITY, max = 0;
         min = superAssm->m_pre_number;
         max = superAssm->m_post_number;
-        float rlm_min, rlm_max;
+        long rlm_min, rlm_max;
         pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
         auto *inv = new midInterval(min, max, rlm_min, rlm_max,0);
-        if (!midPool.IsOverlap(inv, 0, tid, dataHolder)) {
+        if (!midPool.IsOverlap(inv, 0, tid)) {
             pthread_rwlock_rdlock(lock);
             while (iter.has_next()) {
                 performOperationOnComplexAssembly((ComplexAssembly *) iter.next());
@@ -122,14 +122,14 @@ int sb7::MidOperation7::innerRun(int tid) const {
     SetIterator<Assembly *> iter = siblingSet->getIter();
     int ret = 0;
 
-    float min = INFINITY, max = 0;
+    long min = INFINITY, max = 0;
     min = superAssm->m_pre_number;
     max = superAssm->m_post_number;
-    float rlm_min, rlm_max;
+    long rlm_min, rlm_max;
     pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
     auto *inv = new midInterval(min, max, rlm_min, rlm_max,0);
 
-    if (!midPool.IsOverlap(inv, 0, tid,dataHolder)) {
+    if (!midPool.IsOverlap(inv, 0, tid)) {
         pthread_rwlock_rdlock(lock);
         while (iter.has_next()) {
             performOperationOnBaseAssembly((BaseAssembly *) iter.next());
@@ -182,7 +182,7 @@ int sb7::MidOperation8::innerRun(int tid) const {
     int ret = 0;
 
     list<CompositePart *> cparts;
-    float min = 0, max = 0;
+    long min = INFINITY, max = 0;
 
     while (iter.has_next()) {
         CompositePart *cpart = iter.next();
@@ -197,10 +197,10 @@ int sb7::MidOperation8::innerRun(int tid) const {
         }
     }
 
-    float rlm_min, rlm_max;
+    long rlm_min, rlm_max;
     pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &(rlm_min), &(rlm_max));
     auto *inv = new midInterval(min, max, rlm_min, rlm_max,0);
-    if (!midPool.IsOverlap(inv, 0, tid, dataHolder)) {
+    if (!midPool.IsOverlap(inv, 0, tid)) {
         for (auto *cpart: cparts) {
             performOperationOnComponent(cpart);
             ret++;

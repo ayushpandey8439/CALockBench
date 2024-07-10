@@ -20,7 +20,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
     };
 
     class MidStructuralModification3 : public Operation {
@@ -29,7 +29,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
     };
 
     class MidStructuralModification4 : public Operation {

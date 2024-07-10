@@ -66,9 +66,6 @@ public:
             Array[i] = nullptr;
             pthread_rwlock_t ArrayLock[i];
         }
-        MultiLockPool.resize(S, nullptr);
-
-
     }
 
     bool IsOverlap(interval *inv, int m, int threadID)
@@ -113,54 +110,6 @@ public:
 
     }
 
-    //*****************************************************************************
-    //This function checks whether the multiple query nodes overlap with the lock pool
-    //*****************************************************************************
-    bool MultiOverlap(interval **QueryNodes, int Qsize, int m, int threadID) {
-
-        VectorSize[threadID] = Qsize;
-
-        pthread_mutex_lock(&mutex);
-        MySeq[threadID] = ++Seq;
-        MultiLockPool[threadID] = QueryNodes;
-        pthread_mutex_unlock(&mutex);
-
-        for (int i = 0; i < S; i++) {
-            interval **ptr = MultiLockPool[i];
-            if (ptr != NULL) {
-                for (int j = 0; j < VectorSize[i]; j++) {
-                    for (int k = 0; k < Qsize; k++) {
-                        while (ptr != NULL && MySeq[threadID] > MySeq[i] && (m == 1 || (m == 0 && ptr[j]->mode == 1)) &&
-                               ptr[j]->pre <= QueryNodes[k]->post && ptr[j]->post >= QueryNodes[k]->pre) {
-                            ptr = MultiLockPool[i];
-                            if (ptr == NULL) {
-                                k = Qsize;
-                                break;
-                            }
-
-
-                        }
-                    }
-
-                }
-            }
-
-        }
-
-
-        return false;
-
-
-    }
-
-
-    //This function deletes the vector entry from MultiLockPool, i.e., UnLock
-    void MultiDelete(int index) {
-
-
-        MultiLockPool[index] = NULL;
-
-    }
 };
 
 

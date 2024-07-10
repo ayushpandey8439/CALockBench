@@ -11,7 +11,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM1", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
     };
 
     class FlexiStructuralModification2 : public Operation {
@@ -20,7 +20,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM2", dh) {
         }
 
-        virtual int run(int tid) const;
+         int run(int tid) const override;
     };
 
     class FlexiStructuralModification3 : public Operation {
@@ -29,7 +29,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM3", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
     };
 
     class FlexiStructuralModification4 : public Operation {
@@ -38,7 +38,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM4", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
     };
 
     class FlexiStructuralModification5 : public Operation {
@@ -47,7 +47,7 @@ namespace sb7 {
                 : Operation(STRUCTURAL_MODIFICATION, "SM5", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
     };
 
     class FlexiStructuralModification6 : public Operation {

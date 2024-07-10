@@ -13,13 +13,13 @@ using namespace sb7;
 
 class MidHelper {
 public:
-    static pthread_rwlock_t *getMidLock(DataHolder *dh, float *min, float *max, float *rlm_min, float *rlm_max) {
+    static pthread_rwlock_t *getMidLock(DataHolder *dh, long *min, long *max, long *rlm_min, long *rlm_max) {
         return midTraverse(dh->getModule()->getDesignRoot(), min, max, rlm_min, rlm_max);
     }
 
 
     static pthread_rwlock_t *
-    midTraverse(ComplexAssembly *cassm, float *min, float *max, float *rlm_min, float *rlm_max) {
+    midTraverse(ComplexAssembly *cassm, long *min, long *max, long *rlm_min, long *rlm_max) {
 
 
         Set<Assembly *> *subAssm = cassm->getSubAssemblies();
@@ -49,7 +49,7 @@ public:
         return &(cassm->NodeLock);
     }
 
-    static pthread_rwlock_t *midTraverse(BaseAssembly *bassm, float *min, float *max, float *rlm_min, float *rlm_max) {
+    static pthread_rwlock_t *midTraverse(BaseAssembly *bassm, long *min, long *max, long *rlm_min, long *rlm_max) {
 
 
         BagIterator<CompositePart *> iter = bassm->getComponents()->getIter();
@@ -70,7 +70,7 @@ public:
         return &(bassm->NodeLock);
     }
 
-    static pthread_rwlock_t *midTraverse(CompositePart *cpart, float *min, float *max, float *rlm_min, float *rlm_max) {
+    static pthread_rwlock_t *midTraverse(CompositePart *cpart, long *min, long *max, long *rlm_min, long *rlm_max) {
 
 
         AtomicPart *rootPart = cpart->getRootPart();
@@ -81,8 +81,8 @@ public:
     }
 
     static pthread_rwlock_t *midTraverse(AtomicPart *apart,
-                                         Set<AtomicPart *> &visitedPartSet, float *min, float *max, float *rlm_min,
-                                         float *rlm_max) {
+                                         Set<AtomicPart *> &visitedPartSet, long *min, long *max, long *rlm_min,
+                                         long *rlm_max) {
 
         if (apart == NULL) {
 

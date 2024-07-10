@@ -5,14 +5,14 @@ import numpy as np
 patterns = [ "//","\\\\","oo", "++","xx","--"]
 
 data = [
-    {"Operation": "Q1", "Coarse": 35, "Medium": 11, "DomLock": 560, "MID": 1, "FlexiGran": 589, "CALock": 3},
-    {"Operation": "Q2", "Coarse": 43, "Medium": 11, "DomLock": 1092, "MID": 3564, "FlexiGran": 1125, "CALock": 11},
-    {"Operation": "OP6", "Coarse": 32, "Medium": 6, "DomLock": 560, "MID": 1, "FlexiGran": 6, "CALock": 4},
-    {"Operation": "OP7", "Coarse": 21, "Medium": 1, "DomLock": 553, "MID": 1, "FlexiGran": 7, "CALock": 5},
-    {"Operation": "OP9", "Coarse": 34, "Medium": 3, "DomLock": 1, "MID": 1, "FlexiGran": 3, "CALock": 3},
-    {"Operation": "OP10", "Coarse": 31, "Medium": 11, "DomLock": 1092, "MID": 1229, "FlexiGran": 1092, "CALock": 15},
-    {"Operation": "SM2", "Coarse": 1, "Medium": 6, "DomLock": 556, "MID": 2427, "FlexiGran": 592, "CALock": 2},
-    {"Operation": "SM3", "Coarse": 1, "Medium": 1, "DomLock": 560, "MID": 1266, "FlexiGran": 590, "CALock": 7},
+    {"Operation": "Q1", "Coarse": 2, "Medium": 2, "DomLock": 819, "MID": 3460, "FlexiGran": 1468, "CALock": 10},
+    {"Operation": "Q2", "Coarse": 2, "Medium": 2, "DomLock": 2287, "MID": 3564, "FlexiGran": 13086, "CALock": 34},
+    {"Operation": "OP6", "Coarse": 2, "Medium": 2, "DomLock": 1557, "MID": 1652, "FlexiGran": 1604, "CALock": 18},
+    {"Operation": "OP7", "Coarse": 2, "Medium": 2, "DomLock": 809, "MID": 1652, "FlexiGran": 1652, "CALock": 11},
+    {"Operation": "OP9", "Coarse": 34, "Medium": 5, "DomLock": 1557, "MID": 3460, "FlexiGran": 2985, "CALock": 10},
+    {"Operation": "OP10", "Coarse": 31, "Medium": 6, "DomLock": 1557, "MID": 5082, "FlexiGran": 14300, "CALock": 36},
+    {"Operation": "SM2", "Coarse": 23, "Medium": 193, "DomLock": 791, "MID": 1652, "FlexiGran": 1604, "CALock": 2},
+    {"Operation": "SM3", "Coarse": 25, "Medium": 248, "DomLock": 1557, "MID": 3460, "FlexiGran": 1702, "CALock": 19},
 ]
 
 df=pd.DataFrame(data)
@@ -43,4 +43,4 @@ plt.yscale('log')
 plt.xticks(r3, df['Operation'])
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
 # plt.show()
-plt.savefig("./benchmarkCharts/TTC.png",dpi=150)
+plt.savefig("./benchmarkCharts/TTC.png",dpi=150, bbox_inches="tight")

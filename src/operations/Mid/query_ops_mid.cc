@@ -36,7 +36,7 @@ int sb7::MidQuery1::run(int tid) const {
 int sb7::MidQuery1::innerRun(int tid) const {
     int count = 0;
     int threadID = tid;
-    float min = INFINITY, max = -1;
+    long min = INFINITY, max = -1;
     int apartId = get_random()->nextInt(
             parameters.getMaxAtomicParts()) + 1;
     Map<int, AtomicPart *> *apartInd = dataHolder->getAtomicPartIdIndex();
@@ -45,24 +45,14 @@ int sb7::MidQuery1::innerRun(int tid) const {
     apartInd->get(query);
 
     if (query.found && query.val->m_pre_number != 0 && query.val->m_post_number != 0) {
-        if ((((query.val)->getPartOf())->getUsedIn())->size() != 0)// if not a disconnected composite part
-        {
-            if (min == 0 && max == 0) {
-                min = (query.val)->m_pre_number;
-                max = (query.val)->m_post_number;
-            } else {
-                if ((query.val)->m_pre_number < min)
-                    min = (query.val)->m_pre_number;
-                if ((query.val)->m_post_number > max)
-                    max = (query.val)->m_post_number;
-            }
-        }
+        min = query.val->m_pre_number;
+        max = query.val->m_post_number;
 
         if (string(name) == "Q1") {
-            float rlm_min, rlm_max;
+            long rlm_min, rlm_max;
             pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &rlm_min, &rlm_max);
             auto *inv = new midInterval(min, max, rlm_min, rlm_max, 0);
-            if (!midPool.IsOverlap(inv, 0, threadID, dataHolder)) {
+            if (!midPool.IsOverlap(inv, 0, threadID)) {
                 pthread_rwlock_rdlock(lock);
                 performOperationOnAtomicPart(query.val);
                 count++;
@@ -70,10 +60,10 @@ int sb7::MidQuery1::innerRun(int tid) const {
                 midPool.Delete(threadID);
             }
         } else if (string(name) == "OP9" || string(name) == "OP15") {
-            float rlm_min, rlm_max;
+            long rlm_min, rlm_max;
             pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &min, &(max), &rlm_min, &rlm_max);
             auto *inv = new midInterval(min, max, rlm_min, rlm_max, 1);
-            if (!midPool.IsOverlap(inv, 1, threadID, dataHolder)) {
+            if (!midPool.IsOverlap(inv, 1, threadID)) {
                 pthread_rwlock_wrlock(lock);
                 performOperationOnAtomicPart(query.val);
                 count++;
@@ -123,7 +113,7 @@ int sb7::MidQuery2::run(int tid) const {
 
 int sb7::MidQuery2::innerRun(int tid) const {
     int count = 0;
-    float min = 0, max = 0;
+    long min = INFINITY, max = 0;
 
     int range = percent * (parameters.getMaxAtomicDate() -
                            parameters.getMinAtomicDate()) / 100;
@@ -142,7 +132,7 @@ int sb7::MidQuery2::innerRun(int tid) const {
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if (apart->m_pre_number != 0 && apart->m_post_number != 0) {
-                if (min == 0 && max == 0) {
+                if (min == INFINITY && max == 0) {
                     min = apart->m_pre_number;
                     max = apart->m_post_number;
                 } else {
@@ -159,10 +149,10 @@ int sb7::MidQuery2::innerRun(int tid) const {
             mode = 0;
         if (string(name) == "OP10")
             mode = 1;
-        float rlm_min, rlm_max;
+        long rlm_min, rlm_max;
         pthread_rwlock_t *lock = MidHelper::getMidLock(dataHolder, &(min), &(max), &rlm_min, &rlm_max);
         auto *inv = new midInterval(min, max, rlm_min, rlm_max, mode);
-        if (!midPool.IsOverlap(inv, mode, tid, dataHolder)) {
+        if (!midPool.IsOverlap(inv, mode, tid)) {
             if (mode == 0) {
                 pthread_rwlock_rdlock(lock);
             } else {

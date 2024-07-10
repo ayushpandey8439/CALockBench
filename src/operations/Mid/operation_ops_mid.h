@@ -17,7 +17,7 @@ namespace sb7 {
         MidOperation6(DataHolder *dh) : Operation(OPERATION_RO, "OP6", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun(int tid) const;
@@ -36,7 +36,7 @@ namespace sb7 {
         MidOperation7(DataHolder *dh) : Operation(OPERATION_RO, "OP7", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual int innerRun(int tid) const;
@@ -69,7 +69,7 @@ namespace sb7 {
         MidOperation9(DataHolder *dh) : MidQuery1(OPERATION, "OP9", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(
@@ -81,7 +81,7 @@ namespace sb7 {
         MidOperation10(DataHolder *dh) : MidQuery2(dh, OPERATION, "OP10", 1) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         virtual void performOperationOnAtomicPart(

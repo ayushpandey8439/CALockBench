@@ -15,7 +15,7 @@ namespace sb7 {
         MidQuery1(DataHolder *dh) : Operation(OPERATION_RO, "Q1", dh) {
         }
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         int innerRun(int tid) const;
@@ -28,7 +28,7 @@ namespace sb7 {
         MidQuery2(DataHolder *dh, optype t = OPERATION_RO,
                   const char *n = "Q2", int percent = 1);
 
-        virtual int run(int tid) const;
+        int run(int tid) const override;
 
     protected:
         int innerRun(int tid) const;

@@ -104,7 +104,7 @@ int sb7::DomQuery2::innerRun(int tid) const {
         while (apartIter.has_next()) {
             AtomicPart *apart = apartIter.next();
             if (apart->m_pre_number != 0 && apart->m_post_number != 0) {
-                if (min == 0 && max == 0) {
+                if (min ==INFINITY && max == 0) {
                     min = apart->m_pre_number;
                     max = apart->m_post_number;
                 } else {
