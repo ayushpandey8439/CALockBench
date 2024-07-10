@@ -50,28 +50,28 @@
 #
 #
 #
-#echo Benchmarking MID......
-#  j=1
-#  while [ $j -le $COUNT ]
-#  do
-#    echo "Thread count $(($j))"
-#              for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./STMBench -s $SIZE -l mid -n $j -w $LOAD_TYPE -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i -e "throughput" -e "idleness" -e "relabelling";done >>./benchmarkResults/mid$j.txt
-#              cut -d ' ' -f2,3 ./benchmarkResults/mid$j.txt >./benchmarkResults/Results.txt
-#              mv ./benchmarkResults/Results.txt ./benchmarkResults/mid$j.csv
-#              rm ./benchmarkResults/mid$j.txt
-#    j=$((j*2))
-#  done;
-#
-
-
-echo Benchmarking FlexiGran with 50% fine grained operations ......
+echo Benchmarking MID......
   j=1
   while [ $j -le $COUNT ]
   do
     echo "Thread count $(($j))"
-              for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./STMBench -s $SIZE -l flexi -n $j -w $LOAD_TYPE -m $STRUCTURAL_MODIFICATIONS -d $DURATION -z 50| grep -i -e "throughput" -e "idleness" -e "relabelling";done >>./benchmarkResults/flexi$j.txt
-              cut -d ' ' -f2,3 ./benchmarkResults/flexi$j.txt >./benchmarkResults/Results.txt
-              mv ./benchmarkResults/Results.txt ./benchmarkResults/flexi$j.csv
-              rm ./benchmarkResults/flexi$j.txt
+              for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./STMBench -s $SIZE -l mid -n $j -w $LOAD_TYPE -m $STRUCTURAL_MODIFICATIONS -d $DURATION| grep -i -e "throughput" -e "idleness" -e "relabelling";done >>./benchmarkResults/mid$j.txt
+              cut -d ' ' -f2,3 ./benchmarkResults/mid$j.txt >./benchmarkResults/Results.txt
+              mv ./benchmarkResults/Results.txt ./benchmarkResults/mid$j.csv
+              rm ./benchmarkResults/mid$j.txt
     j=$((j*2))
   done;
+
+
+
+#echo Benchmarking FlexiGran with 50% fine grained operations ......
+#  j=1
+#  while [ $j -le $COUNT ]
+#  do
+#    echo "Thread count $(($j))"
+#              for((i=0;i<$ITERATIONS_PER_THREAD;i++));do ./STMBench -s $SIZE -l flexi -n $j -w $LOAD_TYPE -m $STRUCTURAL_MODIFICATIONS -d $DURATION -z 50| grep -i -e "throughput" -e "idleness" -e "relabelling";done >>./benchmarkResults/flexi$j.txt
+#              cut -d ' ' -f2,3 ./benchmarkResults/flexi$j.txt >./benchmarkResults/Results.txt
+#              mv ./benchmarkResults/Results.txt ./benchmarkResults/flexi$j.csv
+#              rm ./benchmarkResults/flexi$j.txt
+#    j=$((j*2))
+#  done;

@@ -102,7 +102,7 @@ plt.bar(r5, idleness['Flexigran'], color='#F9BA8F', width=barwidth, label='Flexi
 plt.bar(r6, idleness['CALock'], color='#3bb273', width=barwidth, label='CALock', edgecolor='black', hatch=patterns[5])
 plt.xlabel('Threads')
 if "Read" in WorkloadType:
-    plt.ylabel('ns(logscale)')
+    plt.ylabel('$\mu$s(logscale)')
 
 plt.yscale('log')
 plt.xticks(r3, idleness['ThreadCount'].apply(lambda x: int(x)))

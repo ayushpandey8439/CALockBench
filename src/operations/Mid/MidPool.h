@@ -242,6 +242,8 @@ public:
                                 // True overlap
                                 totalLockRejections++;
                                 pthread_rwlock_unlock(&ArrayLock[0]); // Unlocking the pool before returning.
+                                auto t2 = std::chrono::high_resolution_clock::now();
+                                idleness[threadID] += (t2-t1);
                                 return true;
                             }
                         }
