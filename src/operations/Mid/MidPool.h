@@ -235,6 +235,8 @@ public:
                             if(isFS)
                             {
                                 correctedFScountByTraversal++;
+                                auto t2 = std::chrono::high_resolution_clock::now();
+                                idleness[threadID] += (t2-t1);
                                 continue;
                             }
                             else

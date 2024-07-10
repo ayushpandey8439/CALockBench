@@ -71,9 +71,9 @@ int FlexiOperation6::innerRun(int tid) const
         pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &level);
         if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
         {
-            pthread_rwlock_rdlock(lock);
+            // pthread_rwlock_rdlock(lock);
             performOperationOnComplexAssembly(cassm);
-            pthread_rwlock_unlock(lock);
+            // pthread_rwlock_unlock(lock);
             ret = 1;
             flexiPool.unlockRange(tid);
         }
@@ -102,13 +102,13 @@ int FlexiOperation6::innerRun(int tid) const
         pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &level);
         if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
         {
-            pthread_rwlock_rdlock(lock);
+            // pthread_rwlock_rdlock(lock);
             while (iter.has_next())
             {
                 performOperationOnComplexAssembly((ComplexAssembly*)iter.next());
                 ret++;
             }
-            pthread_rwlock_unlock(lock);
+            // pthread_rwlock_unlock(lock);
             flexiPool.unlockRange(tid);
         }
     }
@@ -177,13 +177,13 @@ int FlexiOperation7::innerRun(int tid) const
     pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &level);
     if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
     {
-        pthread_rwlock_rdlock(lock);
+        // pthread_rwlock_rdlock(lock);
         while (iter.has_next())
         {
             performOperationOnBaseAssembly((BaseAssembly*)iter.next());
             ret++;
         }
-        pthread_rwlock_unlock(lock);
+        // pthread_rwlock_unlock(lock);
         flexiPool.unlockRange(tid);
     }
 

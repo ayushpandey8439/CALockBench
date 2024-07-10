@@ -8,9 +8,10 @@
 #include "limits.h"
 
 // Anju ----------- Start ----------
-long int leafCounter = 0;
+static long int leafCounter = 0;
 
 int MidTraversalReverseDFS::run(int tid) const {
+    leafCounter = 0;
     int retval = traverse(dataHolder->getModule()->getDesignRoot());
     cout << "\nRoot pre-post from RMid order traversal:  " << dataHolder->getModule()->getDesignRoot()->rlm_pre_number
          << " and " << dataHolder->getModule()->getDesignRoot()->rlm_post_number << endl;
@@ -82,44 +83,61 @@ int MidTraversalReverseDFS::traverse(BaseAssembly *bassm) const {
 
 
 int MidTraversalReverseDFS::traverse(CompositePart *cpart) const {
-    if (cpart->rlm_pre_number == 0) {
-        leafCounter++;
-        cpart->rlm_pre_number = leafCounter;
-        cpart->rlm_post_number = leafCounter;
-//		cout << "cpart id " << cpart->getId() << ": (" << leafCounter << ", " << leafCounter << ")" << "dom : (" << cpart->m_pre_number << ", " << cpart->m_post_number << ")" << endl;
-        // Give the same rlm interval to all the atomic parts below it.
-    }
+
+    if (cpart->rlm_pre_number == 0)
+        cpart->rlm_pre_number = ++leafCounter;
+    else ++leafCounter;
+
 
     AtomicPart *rootPart = cpart->getRootPart();
     Set<AtomicPart *> visitedPartSet;
-    int retval = traverse(rootPart, visitedPartSet);
 
-    SetIterator<AtomicPart *> iter = visitedPartSet.getIter();
-    while (iter.has_next()) {
-        AtomicPart *ap = iter.next();
-        ap->rlm_pre_number = cpart->rlm_pre_number;
-        ap->rlm_post_number = cpart->rlm_post_number;
-        //cout << ap->getId() << endl;
-    }
 
-    return retval;
+    cpart->rlm_post_number = ++leafCounter;
+
+    return traverse(rootPart, visitedPartSet);
 }
 
 int MidTraversalReverseDFS::traverse(AtomicPart *apart,
                                           Set<AtomicPart *> &visitedPartSet) const {
     int ret;
-    if (apart != NULL && !(visitedPartSet.contains(apart))) {
+
+    if (apart == NULL) {
+        ret = 0;
+    } else if (visitedPartSet.contains(apart)) {
+        ret = 0;
+
+        ++leafCounter;
+    } else {
+        apart->rlm_pre_number = ++leafCounter;
+
+
+        ret = performOperationOnAtomicPart(apart, visitedPartSet);
         visitedPartSet.add(apart);
+
         // visit all connected parts
         Set<Connection *> *toConns = apart->getToConnections();
         SetIterator<Connection *> iter = toConns->getIter();
-        while (iter.has_next()) {
-            Connection *conn = iter.next();
+
+        stack<Connection*> myConnections;
+        while (iter.has_next())
+            myConnections.push(iter.next());
+
+        while (!myConnections.empty()) {
+            Connection *conn = myConnections.top();
             ret += traverse(conn->getDestination(), visitedPartSet);
+            myConnections.pop();
         }
     }
+    apart->rlm_post_number = ++leafCounter;
     return ret;
 }
+int MidTraversalReverseDFS::performOperationOnAtomicPart(AtomicPart *apart,
+                                                       Set<AtomicPart *> &visitedPartSet) const {
+    apart->nullOperation();
+    return 1;
+}
+
 
 
 // Anju ----------- End ----------

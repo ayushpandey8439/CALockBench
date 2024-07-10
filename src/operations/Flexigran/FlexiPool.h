@@ -9,7 +9,7 @@
 
 using namespace std;
 #define NUM_THREADS 64
-#define NUM_BITS 150000
+#define NUM_BITS 15000000
 #define READ_MODE 0
 #define WRITE_MODE 1
 #define FINE_GRAINED 0

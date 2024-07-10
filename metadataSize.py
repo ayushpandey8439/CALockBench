@@ -9,16 +9,17 @@ hierarchySize = ("Small", "Medium", "Large")
 DomLock =  (19088,33264,33200)
 CALock=(58064, 89804,89700)
 MID = (28632,49896, 49800)
+Flexi=(23860,41620, 41620 )
 
 
 
-patterns = [ "//","\\\\","oo", "++","xx"]
+patterns = [ "//","\\\\","oo", "++","xx","--"]
 width = 0.2
 
 r1 = np.arange(len(hierarchySize)) # the label locations
 r2 = [x + width for x in r1]
 r3 = [x + width for x in r2]
-
+r4 = [x + width for x in r3]
 
 # # Add some text for labels, title and custom x-axis tick labels, etc.
 # ax.set_ylabel('Label Assignment Time (ns logScale)')
@@ -32,7 +33,10 @@ r3 = [x + width for x in r2]
 plt.figure(figsize=(7, 4))
 plt.bar(r1, DomLock, color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
 plt.bar(r2, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[4])
+plt.bar(r3, Flexi, color='#F9BA8F', width=width, label='Flexigran 50%', edgecolor='black',
+        hatch=patterns[4])
+plt.bar(r4, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[5])
+
 
 plt.xlabel('Hierarchy Size')
 plt.ylabel('Metadata size (bytes)')

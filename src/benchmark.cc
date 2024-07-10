@@ -112,71 +112,78 @@ void sb7::Benchmark::free_matrix(int **matrix, int rows) const {
 void sb7::Benchmark::init() {
     // initialize structure of data holder
     sb7::init_data_holder(&dataHolder);
-    // auto c = new countTraversal(dataHolder);
-    // c->traverse(this->dataHolder.getModule()->getDesignRoot(), new set<int>());
-
-    if (parameters.getLockType() == Parameters::lock_ca || parameters.getBenchmarkContainment()) {
-        /// The CALabels are also used to check if the component is actually connected during random selection
-        /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
-        auto *dfs = new CALockLabeling(&dataHolder);
-        cout << "Creating labels for nodes" << std::endl;
-        auto t1 = std::chrono::high_resolution_clock::now();
-        dfs->run(0);
-        auto t2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<long double, std::nano> initialLabellingTime = t2 - t1;
-        cout << "Labelling time for CALock: " << initialLabellingTime.count() << endl;
-
-
-        auto *printer = new output(&dataHolder);
-        printer->run(0);
-        cout << "Printing complete" << std::endl;
-
-    }
-
-    cout << "Creation complete" << std::endl;
-//    auto *dts = new CALockLabelTest(&dataHolder);
-//    cout << "Testing labels" << endl;
-//    dts->run(1);
-//    cout << "Testing complete" << endl;
-
-    if (parameters.getLockType() == Parameters::lock_dom || parameters.getBenchmarkContainment()) {
-        auto *dfs = new DomLockLabeling(&dataHolder);
-        auto tD1 = std::chrono::high_resolution_clock::now();
-        dfs->run(0);
-        auto tD2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2 - tD1;
-        cout << "Labelling time for DomLock: " << initialLabellingTimeDom.count() << endl;
-        cout << "Interval assignment complete" << endl;
-
-    }
-
-    if(parameters.getLockType() == Parameters::lock_mid|| parameters.getBenchmarkContainment()){
-        auto *dfs = new MidTraversalDFS(&dataHolder);
-        auto *rdfs = new MidTraversalReverseDFS(&dataHolder);
-        auto tD1 = std::chrono::high_resolution_clock::now();
-        dfs->run(0);
-        rdfs->run(0);
-        auto tD2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<long double, std::nano> initialLabellingTimeMID = tD2 - tD1;
-        cout << "Labelling time for MID: " << initialLabellingTimeMID.count() << endl;
-        cout << "Interval assignment complete" << endl;
-    }
-    if(parameters.getLockType() == Parameters::lock_num || parameters.getBenchmarkContainment()){
-        auto *dfs = new DomLockLabeling(&dataHolder);
-        auto tD1 = std::chrono::high_resolution_clock::now();
-        dfs->run(0);
-        auto tD2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<long double, std::nano> initialLabellingTimeNum = tD2 - tD1;
-    }
-    if(parameters.getLockType() == Parameters::lock_flexi || parameters.getBenchmarkContainment())
+    if (parameters.getBenchmarkContainment())
     {
-        auto *dfs = new FlexigranLabelling(&dataHolder);
-        auto tD1 = std::chrono::high_resolution_clock::now();
-        dfs->run(0);
-        auto tD2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<long double, std::nano> initialLabellingTimeFlexi = tD2 - tD1;
-        cout << "Labelling time for FlexiGran: " << initialLabellingTimeFlexi.count() << endl;
-        cout << "Interval assignment complete" << endl;
+        auto *caLabelling = new CALockLabeling(&dataHolder);
+        auto *midreverse = new MidTraversalReverseDFS(&dataHolder);
+        auto *flexilabelling = new FlexigranLabelling(&dataHolder);
+        caLabelling->run(0);
+        midreverse->run(0);
+        flexilabelling->run(0);
+
+    } else
+    {
+        if (parameters.getLockType() == Parameters::lock_ca) {
+            /// The CALabels are also used to check if the component is actually connected during random selection
+            /// in the operations. Hence creating it is one way to ensure that no null transactions are considered successful.
+            auto *dfs = new CALockLabeling(&dataHolder);
+            cout << "Creating labels for nodes" << std::endl;
+            auto t1 = std::chrono::high_resolution_clock::now();
+            dfs->run(0);
+            auto t2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<long double, std::nano> initialLabellingTime = t2 - t1;
+            cout << "Labelling time for CALock: " << initialLabellingTime.count() << endl;
+            auto *printer = new output(&dataHolder);
+            printer->run(0);
+            cout << "Printing complete" << std::endl;
+
+        }
+
+        cout << "Creation complete" << std::endl;
+        //    auto *dts = new CALockLabelTest(&dataHolder);
+        //    cout << "Testing labels" << endl;
+        //    dts->run(1);
+        //    cout << "Testing complete" << endl;
+
+        if (parameters.getLockType() == Parameters::lock_dom ) {
+            auto *dfs = new DomLockLabeling(&dataHolder);
+            auto tD1 = std::chrono::high_resolution_clock::now();
+            dfs->run(0);
+            auto tD2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<long double, std::nano> initialLabellingTimeDom = tD2 - tD1;
+            cout << "Labelling time for DomLock: " << initialLabellingTimeDom.count() << endl;
+            cout << "Interval assignment complete" << endl;
+
+        }
+
+        if(parameters.getLockType() == Parameters::lock_mid){
+            auto *dfs = new MidTraversalDFS(&dataHolder);
+            auto *rdfs = new MidTraversalReverseDFS(&dataHolder);
+            auto tD1 = std::chrono::high_resolution_clock::now();
+            dfs->run(0);
+            rdfs->run(0);
+            auto tD2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<long double, std::nano> initialLabellingTimeMID = tD2 - tD1;
+            cout << "Labelling time for MID: " << initialLabellingTimeMID.count() << endl;
+            cout << "Interval assignment complete" << endl;
+        }
+        if(parameters.getLockType() == Parameters::lock_num ){
+            auto *dfs = new DomLockLabeling(&dataHolder);
+            auto tD1 = std::chrono::high_resolution_clock::now();
+            dfs->run(0);
+            auto tD2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<long double, std::nano> initialLabellingTimeNum = tD2 - tD1;
+        }
+        if(parameters.getLockType() == Parameters::lock_flexi)
+        {
+            auto *dfs = new FlexigranLabelling(&dataHolder);
+            auto tD1 = std::chrono::high_resolution_clock::now();
+            dfs->run(0);
+            auto tD2 = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<long double, std::nano> initialLabellingTimeFlexi = tD2 - tD1;
+            cout << "Labelling time for FlexiGran: " << initialLabellingTimeFlexi.count() << endl;
+            cout << "Interval assignment complete" << endl;
+        }
     }
 }
 
@@ -187,14 +194,15 @@ void sb7::Benchmark::start() {
         auto c = new containmentBenchmarkTraversal(dataHolder);
         c->traverse(this->dataHolder.getModule()->getDesignRoot());
         ofstream file("./benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
-        file <<"Type, CALock, Domlock, MID\n";
+        file <<"Type, CALock, Domlock, MID, Flexi\n";
         for(auto& kv : c->containedCount) {
-            file <<(kv.first%10)<<","<< get<0>(kv.second)<<","<<get<1>(kv.second)<<","<<get<2>(kv.second) << '\n';
+            file <<(kv.first%10)<<","<< get<0>(kv.second)<<","<<get<1>(kv.second)<<","<<get<2>(kv.second)<< ","<< get<1>(kv.second) << '\n';
         }
 
         cout<<"Size of labels in memory for DomLock " << c->totalLabelSizeDomLock<<"\n";
         cout<<"Size of labels in memory for CALock " << c->totalLabelSizeCALock<< "\n";
         cout<<"Size of labels in memory for MID " << c->totalLabelSizeMID<< "\n";
+        cout<<"Size of labels in memory for Flexi " << c->totalLabelSizeFlexi<< "\n";
 
         file.close();
     } else

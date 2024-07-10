@@ -26,8 +26,8 @@ public:
     virtual int traverse(CompositePart *component) const;
     virtual int traverse(AtomicPart *part,
                          Set<AtomicPart *> &setOfVisitedParts) const;
-/*			virtual int performOperationOnAtomicPart(AtomicPart *apart,
-                Set<AtomicPart *> &setOfVisitedPartIds) const; */
+	virtual int performOperationOnAtomicPart(AtomicPart *apart,
+                Set<AtomicPart *> &setOfVisitedPartIds) const;
 };
 
 class MidTraversalDFS : public Operation {

@@ -41,14 +41,14 @@ int FlexiStructuralModification2::run(int tid) const {
 
     pthread_rwlock_t *lock = FlexigranHelper::getFlexiLock( dataHolder, &min, &max, &level);
     if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level)) {
-        pthread_rwlock_wrlock(lock);
+        // pthread_rwlock_wrlock(lock);
         dataHolder->deleteCompositePart(cpart);
         auto *r = new FlexigranLabelling(dataHolder);
         auto t1 = std::chrono::high_resolution_clock::now();
         r->traverse(dataHolder->getModule()->getDesignRoot());
         auto t2 = std::chrono::high_resolution_clock::now();
         flexiPool.modificationTime = (t2 - t1);
-        pthread_rwlock_unlock(lock);
+        // pthread_rwlock_unlock(lock);
         flexiPool.unlockRange(tid);
     }
     return 0;
@@ -91,7 +91,7 @@ int FlexiStructuralModification3::run(int tid) const {
 
     pthread_rwlock_t *lock = FlexigranHelper::getFlexiLock(dataHolder, &min, &max, &level);
     if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level)) {
-        pthread_rwlock_wrlock(lock);
+        // pthread_rwlock_wrlock(lock);
         bassm->addComponent(cpart);
         auto *r = new FlexigranLabelling(dataHolder);
         auto t1 = std::chrono::high_resolution_clock::now();
@@ -99,7 +99,7 @@ int FlexiStructuralModification3::run(int tid) const {
         auto t2 = std::chrono::high_resolution_clock::now();
         flexiPool.modificationTime += (t2 - t1);
         flexiPool.count.fetch_add(1);
-        pthread_rwlock_unlock(lock);
+        // pthread_rwlock_unlock(lock);
         flexiPool.unlockRange(tid);
     }
     return 0;

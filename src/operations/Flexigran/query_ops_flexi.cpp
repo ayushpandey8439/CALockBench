@@ -55,10 +55,10 @@ int FlexiQuery1::innerRun(int tid) const
             pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &(level));
             if (!flexiPool.doOverlap(min, max, 0, tid, granularity, level))
             {
-                pthread_rwlock_rdlock(lock);
+                // pthread_rwlock_rdlock(lock);
                 performOperationOnAtomicPart(query.val);
                 count++;
-                pthread_rwlock_unlock(lock);
+                // pthread_rwlock_unlock(lock);
                 flexiPool.unlockRange(threadID);
             }
         }
@@ -67,10 +67,10 @@ int FlexiQuery1::innerRun(int tid) const
             pthread_rwlock_t* lock = FlexigranHelper::getFlexiLock(dataHolder, &(min), &(max), &(level));
             if (!flexiPool.doOverlap(min, max, 1, tid, granularity, level))
             {
-                pthread_rwlock_wrlock(lock);
+                // pthread_rwlock_wrlock(lock);
                 performOperationOnAtomicPart(query.val);
                 count++;
-                pthread_rwlock_unlock(lock);
+                // pthread_rwlock_unlock(lock);
                 flexiPool.unlockRange(threadID);
             }
         }
@@ -168,19 +168,19 @@ int FlexiQuery2::innerRun(int tid) const
 
         if (!flexiPool.doOverlap(min, max, mode, tid, granularity, level))
         {
-            if(mode==0)
-            {
-                pthread_rwlock_rdlock(lock);
-            } else if(mode==1)
-            {
-                pthread_rwlock_wrlock(lock);
-            }
+            // if(mode==0)
+            // {
+            //     pthread_rwlock_rdlock(lock);
+            // } else if(mode==1)
+            // {
+            //     pthread_rwlock_wrlock(lock);
+            // }
             for (auto* apart : aparts)
             {
                 performOperationOnAtomicPart(apart);
                 count++;
             }
-            pthread_rwlock_unlock(lock);
+            // pthread_rwlock_unlock(lock);
             flexiPool.unlockRange(tid);
         }
     }

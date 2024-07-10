@@ -9,13 +9,15 @@ hierarchySize = ("Small", "Medium", "Large")
 MID = (8.9518e+07, 9.08921e+07, 1.14594e+09)
 DomLock =  (4.39985e+07,4.3434e+07,5.68294e+08)
 CALock=(4.13138e+08, 6.71705e+08,6.50443e+09)
+Flexi=(4.32685e+07,5.6863e+07,7.06276e+08 )
 
-patterns = [ "//","\\\\","oo", "++","xx"]
+patterns = [ "//","\\\\","oo", "++","xx","--"]
 width = 0.2
 
 r1 = np.arange(len(hierarchySize)) # the label locations
 r2 = [x + width for x in r1]
 r3 = [x + width for x in r2]
+r4 = [x + width for x in r3]
 
 
 # # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -26,10 +28,13 @@ r3 = [x + width for x in r2]
 # ax.legend()
 #
 # plt.show()
-plt.rcParams['figure.figsize'] = [4.5, 2]
+plt.figure(figsize=(7, 4))
 plt.bar(r1, DomLock, color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
 plt.bar(r2, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[4])
+plt.bar(r3, Flexi, color='#F9BA8F', width=width, label='Flexigran 50%', edgecolor='black',
+        hatch=patterns[4])
+plt.bar(r4, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[5])
+
 
 plt.xlabel('Hierarchy Size')
 plt.ylabel('Time (ns logscale)')

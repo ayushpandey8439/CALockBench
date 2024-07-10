@@ -3,9 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -23,111 +23,42 @@
     <list default="true" id="d18d5cb9-674f-464f-bf74-362d2294dc8b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/STMBench" beforeDir="false" afterPath="$PROJECT_DIR$/STMBench" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/allChartGenerator" beforeDir="false" afterPath="$PROJECT_DIR$/allChartGenerator" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsIdleness.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsRelabelling.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsRelabelling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsThroughput.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsIdleness.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsRelabelling.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsRelabelling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsThroughput.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsIdleness.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsRelabelling.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsRelabelling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsThroughput.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsIdleness.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsRelabelling.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsRelabelling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsThroughput.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsIdleness.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsRelabelling.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsRelabelling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsThroughput.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsIdleness.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsRelabelling.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsRelabelling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsThroughput.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/BalancedWithoutModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/ReadWithoutModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/benchmarkResultsBkup202406291717/WriteWithoutModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/mid8.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid16.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid32.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid4.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid64.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/mid8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsIdleness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsRelabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsThroughput.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsIdleness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsRelabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsThroughput.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/InitialLabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/LabelsMemorySize.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsIdleness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsRelabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsThroughput.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsIdleness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsRelabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsThroughput.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/TTC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsIdleness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsRelabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsThroughput.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsIdleness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsRelabelling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsThroughput.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/containment.py" beforeDir="false" afterPath="$PROJECT_DIR$/containment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph.gv" beforeDir="false" afterPath="$PROJECT_DIR$/graph.gv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graphPlotGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphPlotGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labellingTime.py" beforeDir="false" afterPath="$PROJECT_DIR$/labellingTime.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metadataSize.py" beforeDir="false" afterPath="$PROJECT_DIR$/metadataSize.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/workloadRun.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/workloadRun.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/benchmark.cc" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containmentBenchmark.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/containmentBenchmark.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelling/FlexiGran/FlexigranLabelling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelling/FlexiGran/FlexigranLabelling.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Flexigran/FlexiPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Flexigran/FlexiPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Flexigran/operation_ops_flexi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Flexigran/operation_ops_flexi.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Flexigran/query_ops_flexi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Flexigran/query_ops_flexi.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Flexigran/structural_modification_ops_flexi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Flexigran/structural_modification_ops_flexi.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/operations/Mid/MidPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Mid/MidPool.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,16 +73,330 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file:///usr/include/c++/12/bits/stl_set.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/include/c++/12/bits/stl_stack.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/include/c++/12/bits/stl_tree.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/include/c++/12/bitset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///usr/include/c++/12/tuple" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2024" />
     <option name="minorVersion" value="1.4" />
     <option name="productBranch" value="Classic" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2j3dAQXE5MXgciHBcElz37c4fMk" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -182,7 +427,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="STMBench" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-l mid -d 1000 -s b -w r -m true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBench" TARGET_NAME="STMBench" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBench" RUN_TARGET_NAME="STMBench">
+    <configuration name="STMBench" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-l flexi -d 5000 -s b -w rw -m true -n 1" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBench" TARGET_NAME="STMBench" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBench" RUN_TARGET_NAME="STMBench">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -196,7 +441,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720619551769</updated>
-      <workItem from="1720619554566" duration="369000" />
+      <workItem from="1720619554566" duration="10750000" />
     </task>
     <servers />
   </component>
