@@ -133,9 +133,9 @@ void sb7::Benchmark::init() {
             auto t2 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<long double, std::nano> initialLabellingTime = t2 - t1;
             cout << "Labelling time for CALock: " << initialLabellingTime.count() << endl;
-            auto *printer = new output(&dataHolder);
-            printer->run(0);
-            cout << "Printing complete" << std::endl;
+            // auto *printer = new output(&dataHolder);
+            // printer->run(0);
+            // cout << "Printing complete" << std::endl;
 
         }
 
