@@ -31,6 +31,7 @@ namespace sb7 {
             lock_mid,
             lock_num,
             lock_flexi,
+            lock_intention,
         };
 
     protected:

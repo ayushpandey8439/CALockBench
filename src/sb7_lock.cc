@@ -6,6 +6,7 @@
 #include "operations/CALock/CAPool.h"
 #include "operations/DomLock/DomPool.h"
 #include "operations/Flexigran/FlexiPool.h"
+#include "operations/IntentionLock/Intention_lock_srv.h"
 #include "operations/Mid/MidPool.h"
 #include "operations/NumLock/NumPool.h"
 
@@ -16,6 +17,7 @@ DomPool domPool;
 MidPool midPool;
 NumPool numPool;
 FlexiPool flexiPool;
+Intention_lock_srv ILSrv;
 
 int fgPercent; // TODO: Initialise in parameters
 

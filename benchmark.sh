@@ -12,6 +12,7 @@ python3 -m venv ./PythonEnv || exit 1
 python3 -m pip install matplotlib  || exit 1
 python3 -m pip install pandas  || exit 1
 python3 -m pip install numpy  || exit 1
+python3 -m pip install seaborn || exit 1
 
 
 echo Compiling Benchmark implementation on STMBench7......

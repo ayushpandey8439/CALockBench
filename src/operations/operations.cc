@@ -42,6 +42,10 @@
 #include "Mid/operation_ops_mid.h"
 #include "Mid/structural_modification_ops_mid.h"
 
+#include "IntentionLock//query_ops_intention.h"
+#include "IntentionLock//operation_ops_intention.h"
+#include "IntentionLock//structural_modification_ops_intention.h"
+
 #include "NumLock/query_ops_num.h"
 #include "NumLock/operation_ops_num.h"
 #include "NumLock/structural_modification_ops_num.h"
@@ -75,6 +79,9 @@ void sb7::Operations::initOperations(DataHolder *dh) {
     }
     else if (parameters.getLockType() == Parameters::lock_flexi) {
         initOperationsFlexi(dh);
+    }
+    else if (parameters.getLockType() == Parameters::lock_intention) {
+        initOperationsIntention(dh);
     }
 }
 
@@ -197,6 +204,18 @@ void sb7::Operations::initOperationsFlexi(DataHolder *dh) {
     ops.push_back(new FlexiStructuralModification2(dh));
     ops.push_back(new FlexiStructuralModification3(dh));
 }
+
+void sb7::Operations::initOperationsIntention(DataHolder *dh) {
+    ops.push_back(new IntentionQuery1(dh));
+    ops.push_back(new IntentionQuery2(dh)); // Aggregation
+    ops.push_back(new IntentionOperation6(dh));
+    ops.push_back(new IntentionOperation7(dh));
+    ops.push_back(new IntentionOperation9(dh));
+    ops.push_back(new IntentionOperation10(dh)); // Aggregation
+    ops.push_back(new IntentionStructuralModification2(dh));
+    ops.push_back(new IntentionStructuralModification3(dh));
+}
+
 //
 //void sb7::Operations::initOperationsLockNum(DataHolder *dh) {
 //    ops.push_back(new NumQuery1(dh));

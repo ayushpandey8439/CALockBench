@@ -114,5 +114,10 @@ add_executable(STMBench src/sb7_lock.cc
         src/operations/Flexigran/traversal_ops_flexi.cpp
         src/operations/Flexigran/structural_modification_ops_flexi.h
         src/operations/Flexigran/structural_modification_ops_flexi.cpp
+        src/operations/IntentionLock/operation_ops_intention.cpp
+        src/operations/IntentionLock/query_ops_intention.cpp
+        src/operations/IntentionLock/structural_modification_ops_intention.cpp
+        src/operations/IntentionLock/Intention_lock_srv.cpp
+        src/operations/IntentionLock/Intention_lock_srv.h
 )
 set_target_properties(STMBench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../)

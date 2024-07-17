@@ -1056,6 +1056,11 @@ int sb7::Parameters::strToLockType(std::string& val)
     {
         return Parameters::lock_flexi;
     }
+    else if (equalNoCase(val, std::string("intention")) ||
+        equalNoCase(val, std::string("intention")))
+    {
+        return Parameters::lock_intention;
+    }
     else
     {
         return -1;
@@ -1098,7 +1103,11 @@ std::string sb7::Parameters::lockTypeToStr(lock_type val)
     }
     else if (val == lock_flexi)
     {
-        return {"FlexiLock"};
+        return {"FlexiGran Lock"};
+    }
+    else if (val == lock_intention)
+    {
+        return {"Intention Lock"};
     }
     else
     {

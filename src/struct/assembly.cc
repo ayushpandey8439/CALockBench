@@ -23,6 +23,7 @@ bool sb7::ComplexAssembly::removeSubAssembly(Assembly *assembly) const {
     return m_subAssemblies->remove(assembly);
 }
 
+
 // BaseAssembly implementation
 void sb7::BaseAssembly::addComponent(CompositePart *cpart) const {
     if (m_components->add(cpart)) {

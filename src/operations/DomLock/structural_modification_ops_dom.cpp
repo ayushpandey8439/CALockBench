@@ -30,7 +30,7 @@ int sb7::DomStructuralModification2::run(int tid) const {
     int cpartId = get_random()->nextInt(parameters.getMaxCompParts()) + 1;
     CompositePart *cpart = dataHolder->getCompositePart(cpartId);
 
-    if (cpart == NULL || cpart->m_post_number == 0 || cpart->m_pre_number == 0) {
+    if (cpart == NULL) {
         throw Sb7Exception();
     }
 

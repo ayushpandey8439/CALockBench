@@ -72,8 +72,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const override;
     };
 
     class MidOperation10 : public MidQuery2 {
@@ -84,8 +84,8 @@ namespace sb7 {
         int run(int tid) const override;
 
     protected:
-        virtual void performOperationOnAtomicPart(
-                AtomicPart *apart) const;
+        void performOperationOnAtomicPart(
+                AtomicPart *apart) const override;
     };
 
     class MidOperation11 : public MidTraversal8 {

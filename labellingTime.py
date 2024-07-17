@@ -1,49 +1,35 @@
 # Import the necessary modules
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 import numpy as np
 import sys
 # Initialize the lists for X and Y
 
-hierarchySize = ("Small", "Medium", "Large")
-MID = (8.9518e+07, 9.08921e+07, 1.14594e+09)
-DomLock =  (4.39985e+07,4.3434e+07,5.68294e+08)
-CALock=(4.13138e+08, 6.71705e+08,6.50443e+09)
-Flexi=(4.32685e+07,5.6863e+07,7.06276e+08 )
 
-patterns = [ "//","\\\\","oo", "++","xx","--"]
-width = 0.2
+data = {
+    'Type': ['Small', 'Medium', 'Large'],
+    'CALock': [4.13138e+08, 6.71705e+08,6.50443e+09],
+    'Domlock': [4.39985e+07,4.3434e+07,5.68294e+08],
+    'MID': [8.9518e+07, 9.08921e+07, 1.14594e+09],
+    'Flexi': [4.32685e+07,5.6863e+07,7.06276e+08]
+}
 
-r1 = np.arange(len(hierarchySize)) # the label locations
-r2 = [x + width for x in r1]
-r3 = [x + width for x in r2]
-r4 = [x + width for x in r3]
-
-
-# # Add some text for labels, title and custom x-axis tick labels, etc.
-# ax.set_ylabel('Label Assignment Time (ns logScale)')
-# ax.set_xlabel('Size of the hierarchy')
-# ax.set_xticks(x + width, LockType)
-# ax.set_yscale("log")
-# ax.legend()
-#
-# plt.show()
-plt.figure(figsize=(7, 4))
-plt.bar(r1, DomLock, color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r2, MID,     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, Flexi, color='#F9BA8F', width=width, label='Flexigran 50%', edgecolor='black',
-        hatch=patterns[4])
-plt.bar(r4, CALock,  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[5])
+df = pd.DataFrame(data)
+order = {"Domlock": 0, "MID": 1, "Flexi": 2, "CALock": 3}
+df_melted = pd.melt(df, id_vars=['Type'], var_name='lock', value_name='value')
+# print(df_melted)
+final = df_melted.sort_values(by=["lock"], key=lambda x: x.map(order))
 
 
-plt.xlabel('Hierarchy Size')
-plt.ylabel('Time (ns logscale)')
-plt.xticks([0,1,2], ['Small', 'Medium', 'Large'])
-plt.yscale('log')
-# # Create legend & Show graphic
-plt.grid(axis='y', linestyle='--', linewidth=0.5)
-
-plt.legend(ncols=3)
+sns.set_theme(style="whitegrid")
+g = sns.catplot(data=final, kind="bar", x="Type", y="value", hue="lock", height=3, aspect=2, palette="viridis")
+g.despine(left=True)
+g.set_axis_labels("Hierarchy Size", "Labelling time (ns logscale)")
+g.set_xticklabels(['Small', 'Medium', 'Large'])
+g.legend.set_title("")
+g.set(yscale="log")
+sns.move_legend(g,loc='upper center', ncols=4, fancybox=True)
 plt.savefig("./benchmarkCharts/InitialLabelling.png", dpi=150, bbox_inches="tight")
 
 # plt.show()

@@ -119,6 +119,8 @@ namespace sb7
 
         void initOperationsFlexi(DataHolder* dh);
 
+        void initOperationsIntention(DataHolder* dh);
+
         void generateCdf();
 
     public:

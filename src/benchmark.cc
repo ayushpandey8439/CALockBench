@@ -19,12 +19,14 @@
 #include "countTraversal.h"
 #include "labelling/FlexiGran/FlexigranLabelling.h"
 #include "operations/Flexigran/FlexiPool.h"
+#include "operations/IntentionLock/Intention_lock_srv.h"
 
 extern CAPool caPool;
 extern DomPool domPool;
 extern MidPool midPool;
 extern NumPool numPool;
 extern FlexiPool flexiPool;
+extern Intention_lock_srv ILSrv;
 std::chrono::duration<long double, std::nano> idlenessTimeCM[256];
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
@@ -184,6 +186,10 @@ void sb7::Benchmark::init() {
             cout << "Labelling time for FlexiGran: " << initialLabellingTimeFlexi.count() << endl;
             cout << "Interval assignment complete" << endl;
         }
+        if(parameters.getLockType() == Parameters::lock_intention)
+        {
+            cout<<"Doing intention locking"<<endl;
+        }
     }
 }
 
@@ -232,6 +238,7 @@ void sb7::Benchmark::start() {
     for (int i = 0; i < parameters.getThreadNum(); i++) {
         // TODO catch errors
         pthread_join(threads[i].tid, nullptr);
+
     }
 
     long end_time = get_time_ms();
@@ -400,6 +407,17 @@ void sb7::Benchmark::reportStats(ostream &out) {
         out << "Total relabelling: " << flexiPool.modificationTime.count() / (flexiPool.count) << " nanos" << endl;
         int count = 1;
         for (auto i: flexiPool.idleness) {
+            if (i > std::chrono::duration<long double, std::nano>::zero()) {
+                count++;
+                totalTimeSpentIdle = (totalTimeSpentIdle + i);
+            }
+        }
+        totalTimeSpentIdle /= count;
+    }
+
+    else if (parameters.getLockType() == Parameters::lock_intention) {
+        int count = 1;
+        for (auto i: ILSrv.idleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {
                 count++;
                 totalTimeSpentIdle = (totalTimeSpentIdle + i);

@@ -1,6 +1,7 @@
 #ifndef SB7_DESIGN_OBJ_H_
 #define SB7_DESIGN_OBJ_H_
 
+#include <atomic>
 #include <string>
 #include <list>
 #include <set>
@@ -9,6 +10,14 @@
 using namespace std;
 
 namespace sb7 {
+    enum ILmode
+    {
+        IX,
+        IS,
+        S,
+        X,
+        SIX,
+    };
     class DesignObj {
     public:
         DesignObj(int id, string type, int buildDate)
@@ -21,6 +30,7 @@ namespace sb7 {
             rlm_post_number = 0;
             isDeleted = false;
             m_levelFromRoot = -1;
+            refCounter = 0;
         }
 
         virtual ~DesignObj() {}
@@ -28,6 +38,8 @@ namespace sb7 {
         int getId() const {
             return m_id;
         }
+
+
 
         int getLabellingId() const {
             return pathLabel.back();
@@ -88,15 +100,20 @@ namespace sb7 {
         long int m_post_number;
         int rlm_pre_number;
         int rlm_post_number;
-        pthread_rwlock_t NodeLock;
-        bool hasLabel;
+        pthread_rwlock_t NodeLock{};
+        pthread_mutex_t NodeMutex{};
+        ILmode mode;
+        bool hasLabel{};
         list<int> pathLabel{};
         set<int> criticalAncestors;
         bool isDeleted;
         int m_levelFromRoot;
-
+        int refCounter;
+        set<int>lockers;
+        int intentionLevel; // 1 for IS, 2 for IX, 3 for S and 4 for IX
     protected:
         int m_id;
+
         string m_type;
         int m_buildDate;
     };

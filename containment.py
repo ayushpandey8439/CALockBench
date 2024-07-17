@@ -1,44 +1,31 @@
 # Import the necessary modules
+import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import sys
 # Initialize the lists for X and Y
 data = pd.read_csv("./benchmarkResults/containment.csv")
-patterns = [ "//","\\\\","oo", "++","xx","--"]
 
 df = pd.DataFrame(data)
 df.columns = df.columns.str.strip() #For column names
 df.columns = [col.strip() for col in df.columns] #For data in each column
 
-# df.to_csv("./benchmarkCharts/ContainmentRatio.csv", index=False)
 
 containment = df.groupby('Type', as_index=False).agg('mean')
-print(containment)
+# print(containment)
 
+order = {"Domlock": 0, "MID": 1, "Flexi": 2, "CALock": 3}
+df_melted = pd.melt(containment, id_vars=['Type'], var_name='lock', value_name='value')
+final = df_melted.sort_values(by=["lock"], key=lambda x: x.map(order))
+# print(final)
 
-width = 0.15
-r1 = np.arange(len(containment['Type'])) # the label locations
-r2 = [x + width for x in r1]
-r3 = [x + width for x in r2]
-r4 = [x + width for x in r3]
-
-plt.figure(figsize=(7,4))
-
-plt.bar(r1, containment["Domlock"], color='#7768AE', width=width, label='Domlock', edgecolor='black', hatch=patterns[2])
-plt.bar(r2, containment["MID"],     color='#4D9DE0', width=width, label='MID', edgecolor='black', hatch=patterns[3])
-plt.bar(r3, containment["Flexi"], color='#F9BA8F', width=width, label='Flexigran 50%', edgecolor='black',
-        hatch=patterns[4])
-plt.bar(r4, containment["CALock"],  color='#3bb273', width=width, label='CALock', edgecolor='black', hatch=patterns[5])
-
-
-plt.xlabel('Vertex type', fontweight='bold')
-plt.ylabel('Vertices locked (log scale)', fontweight='bold')
-
-plt.xticks(r2, ['Complex Assembly', 'Base Assembly', 'Composite Part', 'Atomic Part'])
-plt.yscale('log')
-plt.grid(axis='y', linestyle='--', linewidth=0.5)
-
-# Create legend & Show graphic
-plt.legend()
-plt.savefig("./benchmarkCharts/ContainmentRatio.png")
+sns.set_theme(style="whitegrid")
+g = sns.catplot(data=final, kind="bar", x="Type", y="value", hue="lock", height=3, aspect=2, palette="viridis")
+g.despine(left=True)
+g.set_axis_labels("Vertex Type", "Vertices locked (log scale)")
+g.set_xticklabels(['Complex\nAssembly', 'Base\nAssembly', 'Composite\nPart', 'Atomic\nPart'])
+g.legend.set_title("")
+sns.move_legend(g,loc='upper center', ncols=4, fancybox=True)
+g.set(yscale="log")
+plt.savefig("./benchmarkCharts/ContainmentRatio.png", dpi=300, bbox_inches='tight')
