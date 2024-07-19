@@ -69,7 +69,7 @@ relabelling = relabelling.sort_values(by=["Lock Type"], key=lambda x: x.map(orde
 
 sns.set_theme(style='whitegrid')
 g = sns.catplot(x='ThreadCount', y='Ops', hue='Lock Type', data=throughput, kind='point', height=3, aspect=2,
-                markers=["^", "o", "d", "x", "*", "+"], linestyles=["-", "--", "-.", ":", "-.", "--"], palette="viridis")
+                markers=["^", "o", "d", "x", "*", "+"], linestyles=["-", "--", "-.", ":", "-.", "--"])
 g.despine(left=True)
 g.set_xlabels("Thread Count")
 g.set_ylabels("")
@@ -86,7 +86,7 @@ sns.move_legend(g, loc='upper center', ncols=3, fancybox=True, bbox_to_anchor=(0
 plt.savefig("./benchmarkCharts/" + WorkloadType + "Throughput.png", dpi=300, bbox_inches="tight")
 
 g = sns.catplot(x='ThreadCount', y='Time', hue='Lock Type', data=idleness, kind='point', height=3, aspect=2,
-                markers=["^", "o", "d", "x", "*", "+"], linestyles=["-", "--", "-.", ":", "-.", "--"], palette="viridis")
+                markers=["^", "o", "d", "x", "*", "+"], linestyles=["-", "--", "-.", ":", "-.", "--"])
 g.despine(left=True)
 g.set_xlabels("Thread Count")
 g.set_ylabels("")
@@ -99,7 +99,7 @@ sns.move_legend(g, loc='upper center', ncols=3, fancybox=True, bbox_to_anchor=(0
 plt.savefig("./benchmarkCharts/" + WorkloadType + "Idleness.png", dpi=300, bbox_inches="tight")
 
 g = sns.catplot(x='ThreadCount', y='Time', hue='Lock Type', data=relabelling, kind='point', height=3, aspect=2,
-                markers=["^", "o", "d", "x", "*", "+"], linestyles=["-", "--", "-.", ":", "-.", "--"], palette="viridis")
+                markers=["^", "o", "d", "x", "*", "+"], linestyles=["-", "--", "-.", ":", "-.", "--"])
 g.despine(left=True)
 g.set_xlabels("Thread Count")
 g.set_ylabels("")

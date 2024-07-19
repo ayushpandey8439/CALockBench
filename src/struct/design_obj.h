@@ -2,10 +2,12 @@
 #define SB7_DESIGN_OBJ_H_
 
 #include <atomic>
+#include <condition_variable>
 #include <string>
 #include <list>
 #include <set>
 #include "pthread.h"
+#include <condition_variable>
 
 using namespace std;
 
@@ -24,13 +26,14 @@ namespace sb7 {
                 : m_id(id), m_type(type), m_buildDate(buildDate) {
             m_pre_number = 0;
             m_post_number = 0;
-            pthread_rwlock_init(&NodeLock, NULL);
+            pthread_rwlock_init(&NodeLock, nullptr);
+
 //*********************************************************************************************
             rlm_pre_number = 0;
             rlm_post_number = 0;
             isDeleted = false;
             m_levelFromRoot = -1;
-            refCounter = 0;
+            intentionLevel = 0;
         }
 
         virtual ~DesignObj() {}
@@ -101,16 +104,17 @@ namespace sb7 {
         int rlm_pre_number;
         int rlm_post_number;
         pthread_rwlock_t NodeLock{};
-        pthread_mutex_t NodeMutex{};
+        mutex NodeMutex;
+        condition_variable_any intentionLocked;
+
         ILmode mode;
         bool hasLabel{};
         list<int> pathLabel{};
         set<int> criticalAncestors;
         bool isDeleted;
         int m_levelFromRoot;
-        int refCounter;
-        set<int>lockers;
-        int intentionLevel; // 1 for IS, 2 for IX, 3 for S and 4 for IX
+        set<pair<int, int>>lockers; // set of threads with their ID and the kind of intention lock they hold
+        int intentionLevel; // 1 for IS, 2 for IX, 3 for S and 4 for X
     protected:
         int m_id;
 

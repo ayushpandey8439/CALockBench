@@ -1,5 +1,5 @@
 #!/bin/bash
-COUNT=8
+COUNT=64
 ITERATIONS_PER_THREAD=2
 DURATION=2000
 SIZE=b
@@ -25,16 +25,16 @@ cmake --build "./build" --target STMBench -j6
 rm -rf ./benchmarkCharts
 mkdir ./benchmarkCharts
 echo Stage 1 of 3 : Running standard workload benchmarks
-#echo Step 1 of 6: Read Dominated load without modifications
-#. ./scripts/read.sh
+echo Step 1 of 6: Read Dominated load without modifications
+. ./scripts/read.sh
 echo Step 2 of 6: Read Dominated load with modifications
 . ./scripts/readModifications.sh
-#echo Step 3 of 6: Write Dominated load without modifications
-#. ./scripts/write.sh
+echo Step 3 of 6: Write Dominated load without modifications
+. ./scripts/write.sh
 echo Step 4 of 6: Write Dominated load with modifications
 . ./scripts/writeModifications.sh
-#echo Step 5 of 6: Balanced load without modifications
-#. ./scripts/balanced.sh
+echo Step 5 of 6: Balanced load without modifications
+. ./scripts/balanced.sh
 echo Step 6 of 6: Balanced load with modifications
 . ./scripts/balancedModifications.sh
 

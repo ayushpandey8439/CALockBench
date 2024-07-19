@@ -11,11 +11,13 @@
 #include <mutex>
 #include <queue>
 #include <set>
+#include <algorithm>
+#include <variant>
 
 #include "../../data_holder.h"
 #include "../../struct/atomic_part.h"
 #include "../../struct/composite_part.h"
-#include "../../struct/connection.h"
+#include "../../sb7_exception.h"
 
 //TODO: Convert this to a blocking intention lock  implementation instead of busy waiting i.e. When threads are waiting for a lock,
 // they should block on an atomic conditional instead of checking what the intention level is.
@@ -24,168 +26,59 @@ using namespace sb7;
 
 class Intention_lock_srv
 {
-
-
 public:
-    std::chrono::duration<long double, std::nano> idleness[512];
-    static void ISLock(int tid, DesignObj* obj)
-    {
-    check:
-        while (obj->intentionLevel == 4 && !obj->lockers.contains(tid))
-        {
-        }
+    std::chrono::duration<long double, std::nano> idleness[512]{};
 
-        Lock(&obj->NodeMutex);
-        if (obj->intentionLevel != 4)
-        {
-            pthread_rwlock_rdlock(&obj->NodeLock);
-            if (obj->intentionLevel < 1)
-                obj->intentionLevel = 1;
-            obj->refCounter++;
-        }
-        else
-        {
-            Unlock(&obj->NodeMutex);
-            goto check;
-        }
-        Unlock(&obj->NodeMutex);
+    Intention_lock_srv()
+    {
+        for (auto& i : idleness)
+            i = std::chrono::duration<long double, std::nano>(0);
     }
 
-    static void IXLock(int tid, DesignObj* obj)
-    {
-    check:
-        while (obj->intentionLevel > 2 && !obj->lockers.contains(tid))
-        {
-        }
-
-        Lock(&obj->NodeMutex);
-        if (obj->intentionLevel <= 2)
-        {
-            pthread_rwlock_rdlock(&obj->NodeLock);
-            if (obj->intentionLevel < 2)
-                obj->intentionLevel = 2;
-            obj->refCounter++;
-        }
-        else
-        {
-            Unlock(&obj->NodeMutex);
-            goto check;
-        }
-        Unlock(&obj->NodeMutex);
-    }
-
-    static void SLock(int tid, DesignObj* obj)
-    {
-    check:
-        while ((obj->intentionLevel == 2 || obj->intentionLevel == 4) && !obj->lockers.contains(tid))
-        {
-        }
-
-        Lock(&obj->NodeMutex);
-        if (obj->intentionLevel != 2 && obj->intentionLevel != 4)
-        {
-            pthread_rwlock_rdlock(&obj->NodeLock);
-            if (obj->intentionLevel < 3)
-                obj->intentionLevel = 3;
-            obj->refCounter++;
-        }
-        else
-        {
-            Unlock(&obj->NodeMutex);
-            goto check;
-        }
-        Unlock(&obj->NodeMutex);
-    }
-
-    static void XLock(int tid, DesignObj* obj)
-    {
-    check:
-        while (obj->refCounter != 0 && !obj->lockers.contains(tid))
-        {
-        }
-
-        Lock(&obj->NodeMutex);
-        if (obj->refCounter == 0)
-        {
-            pthread_rwlock_wrlock(&obj->NodeLock);
-            obj->intentionLevel = 4;
-            obj->refCounter++;
-        }
-        else
-        {
-            Unlock(&obj->NodeMutex);
-            goto check;
-        }
-        Unlock(&obj->NodeMutex);
-    }
-
-    static void IUnlock(int tid, DesignObj* obj)
-    {
-        Lock(&obj->NodeMutex);
-        pthread_rwlock_unlock(&obj->NodeLock);
-        obj->refCounter--;
-        obj->lockers.erase(tid);
-        if(obj->lockers.empty())
-            obj->intentionLevel=0;
-
-        Unlock(&obj->NodeMutex);
-    }
-
-    static void Lock(pthread_mutex_t* objLock)
-    {
-        pthread_mutex_lock(objLock);
-    }
-
-    static void Unlock(pthread_mutex_t* objLock)
-    {
-        pthread_mutex_unlock(objLock);
-    }
-
-    void getLockStack(AtomicPart* atomicPart, set<int>* visited = new set<int>())
+    void getLockStack(const AtomicPart* atomicPart, set<int>* visited = new set<int>())
     {
         if (visited->contains((atomicPart->getId() * 10) + 4)) return;
 
         visited->insert((atomicPart->getId() * 10) + 4);
-        auto cpart = atomicPart->getPartOf();
-        if (cpart != nullptr)
+        if (const auto cpart = atomicPart->getPartOf(); cpart != nullptr)
             getLockStack(cpart, visited);
     }
 
-    void getLockStack(CompositePart* cpart, set<int>* visited = new set<int>())
+    void getLockStack(const CompositePart* cpart, set<int>* visited = new set<int>())
     {
         if (visited->contains((cpart->getId() * 10) + 3)) return;
-
         visited->insert((cpart->getId() * 10) + 3);
-        auto bassms = cpart->getUsedIn();
+        const auto bassms = cpart->getUsedIn();
         auto iter = bassms->getIter();
         while (iter.has_next())
         {
-            auto bassm = iter.next();
+            const auto bassm = iter.next();
             getLockStack(bassm, visited);
         }
     }
 
-    void getLockStack(BaseAssembly* bassm, set<int>* visited = new set<int>())
+    void getLockStack(const BaseAssembly* bassm, set<int>* visited = new set<int>())
     {
         if (visited->contains((bassm->getId() * 10) + 2)) return;
         visited->insert((bassm->getId() * 10) + 2);
-        auto cassm = bassm->getSuperAssembly();
+        const auto cassm = bassm->getSuperAssembly();
         if (cassm != nullptr)
             getLockStack(cassm, visited);
     }
 
 
-    void getLockStack(ComplexAssembly* cassm, set<int>* visited = new set<int>())
+    void getLockStack(const ComplexAssembly* cassm, set<int>* visited = new set<int>())
     {
         if (visited->contains((cassm->getId() * 10) + 1)) return;
 
         visited->insert((cassm->getId() * 10) + 1);
-        auto superAssembly = cassm->getSuperAssembly();
+        const auto superAssembly = cassm->getSuperAssembly();
         if (superAssembly != nullptr)
             getLockStack(superAssembly, visited);
     }
 
-    void IntentionLock(int tid, DataHolder* dh, DesignObj* target, const int mode, set<int>* toLock)
+    void IntentionLock(const int tid, DataHolder* dh, const set<DesignObj*>* targets,const int type,  const int mode,
+                       const set<int>* lockStack)
     {
         auto t1 = std::chrono::high_resolution_clock::now();
         queue<ComplexAssembly*> cassmsQ;
@@ -193,179 +86,363 @@ public:
         queue<CompositePart*> cpartsQ;
         queue<AtomicPart*> apartsQ;
         cassmsQ.push(dh->getModule()->getDesignRoot());
-
+        set<int> visited;
         while (!cassmsQ.empty())
         {
             auto cassm = cassmsQ.front();
-            if (toLock->contains((cassm->getId() * 10) + 1))
+            if (lockStack->contains((cassm->getId() * 10) + 1))
             {
-                IntentionLock(tid, cassm, target, mode, &cassmsQ, &bassmsQ);
+                IntentionLock(tid, cassm, targets, type, mode, &cassmsQ, &bassmsQ, &visited);
             }
             cassmsQ.pop();
         }
         while (!bassmsQ.empty())
         {
-            auto bassm = bassmsQ.front();
-            if (toLock->contains((bassm->getId() * 10) + 2))
+            const auto bassm = bassmsQ.front();
+            if (lockStack->contains((bassm->getId() * 10) + 2))
             {
-                IntentionLock(tid, bassm, target, mode, cpartsQ);
+                IntentionLock(tid, bassm, targets, type,  mode, &cpartsQ, &visited);
             }
             bassmsQ.pop();
+        }
+
+        while (!cpartsQ.empty())
+        {
+            const auto cpart = cpartsQ.front();
+            if (lockStack->contains((cpart->getId() * 10) + 3))
+            {
+                IntentionLock(tid, cpart, targets,  type, mode, &apartsQ, &visited);
+            }
+            cpartsQ.pop();
+        }
+
+        while (!apartsQ.empty())
+        {
+            const auto apart = apartsQ.front();
+            if (lockStack->contains((apart->getId() * 10) + 4))
+            {
+                IntentionLock(tid, apart, type,  mode, &visited);
+            }
+            apartsQ.pop();
+        }
+
+
+
+        auto t2 = std::chrono::high_resolution_clock::now();
+        idleness[tid] += (t2 - t1);
+        if(lockStack->size()!=visited.size())
+        {
+         throw sb7::Sb7Exception();
+        }
+    }
+
+    void IntentionLock(const int tid, ComplexAssembly* cassm, const set<DesignObj*>* targets, const int type, const int mode,
+                       queue<ComplexAssembly*>* cassmsQ, queue<BaseAssembly*>* bassmsQ,
+                       set<int>* visited = new set<int>())
+    {
+        if (visited->contains(cassm->getId() * 10 + 1)) return;
+        try
+        {
+            if (targets->contains(cassm))
+            {
+                mode == 0 ? SLock(tid, cassm) : XLock(tid, cassm);
+            }
+            else
+            {
+                mode == 0 ? ISLock(tid, cassm) : IXLock(tid, cassm);
+
+                const auto subassemblies = cassm->getSubAssemblies();
+                auto iter = subassemblies->getIter();
+                const auto areChildrenBase = cassm->areChildrenBaseAssemblies();
+                while (iter.has_next())
+                {
+                    if (areChildrenBase)
+                        bassmsQ->push((BaseAssembly*)iter.next());
+                    else
+                        cassmsQ->push((ComplexAssembly*)iter.next());
+                }
+            }
+            visited->insert((cassm->getId() * 10) + 1);
+        }
+        catch (exception e)
+        {
+            IntentionUnlock(tid, targets, type, visited);
+        }
+    }
+
+    void IntentionLock(const int tid, BaseAssembly* bassm, const set<DesignObj*>* targets, const int type,const int mode,
+                       queue<CompositePart*>* cpartQ, set<int>* visited = new set<int>())
+    {
+        if (visited->contains(bassm->getId() * 10 + 2)) return;
+
+        try
+        {
+            if (targets->contains(bassm))
+            {
+                mode == 0 ? SLock(tid, bassm) : XLock(tid, bassm);
+            }
+            else
+            {
+                mode == 0 ? ISLock(tid, bassm) : IXLock(tid, bassm);
+                const auto components = bassm->getComponents();
+                auto iter = components->getIter();
+                while (iter.has_next())
+                {
+                    cpartQ->push(iter.next());
+                }
+            }
+            visited->insert((bassm->getId() * 10) + 2);
+        }catch (exception e)
+        {
+            IntentionUnlock(tid, targets, type, visited);
+        }
+    }
+
+    void IntentionLock(const int tid, CompositePart* cpart, const set<DesignObj*>* targets,const int type, const int mode,
+                       queue<AtomicPart*>* apartsQ, set<int>* visited = new set<int>())
+    {
+        if (visited->contains(cpart->getId() * 10 + 3)) return;
+        try
+        {
+            if (targets->contains(cpart))
+            {
+                mode == 0 ? SLock(tid, cpart) : XLock(tid, cpart);
+            }
+            else
+            {
+                mode == 0 ? ISLock(tid, cpart) : IXLock(tid, cpart);
+                for (const auto apart : *targets)
+                {
+                    if (visited->contains(apart->getId() * 10 + 4)) continue;
+                    visited->insert((apart->getId() * 10) + 4);
+                    apartsQ->push((AtomicPart*)apart);
+                }
+            }
+            visited->insert((cpart->getId() * 10) + 3);
+        }catch (exception e)
+        {
+            IntentionUnlock(tid, targets, type, visited);
+        }
+    }
+
+    void IntentionLock(const int tid, DesignObj* target, const int type,const int mode, set<int> *visited)
+    {
+        try
+        {
+            mode == 0 ? SLock(tid, target) : XLock(tid, target);
+        }catch (exception e)
+        {
+            auto targets = set<DesignObj*>{target};
+            IntentionUnlock(tid, &targets, 4, visited);
+        }
+    }
+
+    bool ISLock(int tid, DesignObj* vertex)
+    {
+        unique_lock<mutex> lk(vertex->NodeMutex);
+
+        vertex->intentionLocked.wait_for(lk, chrono::milliseconds(100), [vertex]
+        {
+            if (vertex->intentionLevel != 4) return true;
+            throw runtime_error("IS Lock failed");
+        });
+        vertex->lockers.insert(pair(tid, 1));
+        vertex->intentionLevel = ranges::max_element(vertex->lockers.begin(), vertex->lockers.end(),
+                                                     [](const pair<int, int>& a, const pair<int, int>& b)
+                                                     {
+                                                         return a.second < b.second;
+                                                     })->second;
+        return true;
+    }
+
+    bool IXLock(int tid, DesignObj* vertex)
+    {
+        unique_lock<mutex> lk(vertex->NodeMutex);
+        vertex->intentionLocked.wait_for(lk, chrono::milliseconds(100), [vertex]
+        {
+            if (vertex->intentionLevel <= 2)
+            {
+                return true;
+            }
+            throw runtime_error("IX Lock failed");
+        });
+        vertex->lockers.insert(pair(tid, 2));
+        vertex->intentionLevel = ranges::max_element(vertex->lockers.begin(), vertex->lockers.end(),
+                                                     [](const pair<int, int>& a, const pair<int, int>& b)
+                                                     {
+                                                         return a.second < b.second;
+                                                     })->second;
+        return true;
+    }
+
+    bool SLock(int tid, DesignObj* vertex)
+    {
+        unique_lock<mutex> lk(vertex->NodeMutex);
+        bool failed = false;
+        int count = 0;
+        vertex->intentionLocked.wait_for(
+            lk, chrono::milliseconds(100), [vertex]
+            {
+                if (vertex->intentionLevel != 2 && vertex->intentionLevel != 4) return true;
+                throw runtime_error("S Lock failed");
+            });
+
+        vertex->lockers.insert(pair(tid, 3));
+        vertex->intentionLevel = ranges::max_element(vertex->lockers.begin(), vertex->lockers.end(),
+                                                     [](const pair<int, int>& a, const pair<int, int>& b)
+                                                     {
+                                                         return a.second < b.second;
+                                                     })->second;
+        return true;
+    }
+
+    bool XLock(const int tid, DesignObj* vertex)
+    {
+        unique_lock<mutex> lk(vertex->NodeMutex);
+        vertex->intentionLocked.wait_for(lk, chrono::milliseconds(100), [vertex]
+        {
+            if (vertex->lockers.empty()) return true;
+            throw runtime_error("X Lock failed");
+        });
+        vertex->lockers.insert(pair(tid, 4));
+        vertex->intentionLevel = ranges::max_element(vertex->lockers.begin(), vertex->lockers.end(),
+                                                     [](const pair<int, int>& a, const pair<int, int>& b)
+                                                     {
+                                                         return a.second < b.second;
+                                                     })->second;
+        return true;
+    }
+
+    void Unlock(int tid, DesignObj* vertex)
+    {
+        unique_lock<mutex> lk(vertex->NodeMutex);
+        const auto it = ranges::find_if(vertex->lockers.begin(), vertex->lockers.end(),
+                                        [tid](pair<int, int> a) { return a.first == tid; });
+        if (it != vertex->lockers.end())
+            vertex->lockers.erase(it);
+        if (vertex->lockers.empty())
+        {
+            vertex->intentionLevel = 0;
+        }
+        else
+        {
+            vertex->intentionLevel = ranges::max_element(vertex->lockers.begin(), vertex->lockers.end(),
+                                                         [](const pair<int, int>& a, const pair<int, int>& b)
+                                                         {
+                                                             return a.second < b.second;
+                                                         })->second;
+        }
+        vertex->intentionLocked.notify_all();
+    }
+
+
+    void IntentionUnlock(int tid, const set<DesignObj*>* targets, const int type, set<int>* lockStack)
+    {
+        const auto t1 = std::chrono::high_resolution_clock::now();
+        queue<ComplexAssembly*> cassmsQ;
+        queue<BaseAssembly*> bassmsQ;
+        queue<CompositePart*> cpartsQ;
+        queue<AtomicPart*> apartsQ;
+        switch (type)
+        {
+        case 1:
+            for (const auto target : *targets)
+                cassmsQ.push((ComplexAssembly*)target);
+            break;
+        case 2:
+            for (const auto target : *targets)
+                bassmsQ.push((BaseAssembly*)target);
+            break;
+        case 3:
+            for (const auto target : *targets)
+                cpartsQ.push((CompositePart*)target);
+            break;
+        case 4:
+            for (const auto target : *targets)
+                apartsQ.push((AtomicPart*)target);
+        }
+
+        while (!apartsQ.empty())
+        {
+            auto apart = apartsQ.front();
+            if (lockStack->contains((apart->getId() * 10) + 4))
+            {
+                IntentionUnlock(tid, apart, &cpartsQ);
+                lockStack->erase((apart->getId() * 10) + 4);
+            }
+
+            apartsQ.pop();
         }
         while (!cpartsQ.empty())
         {
             auto cpart = cpartsQ.front();
-            if (toLock->contains((cpart->getId() * 10) + 3))
+            if (lockStack->contains((cpart->getId() * 10) + 3))
             {
-                IntentionLock(tid, cpart, target, mode, apartsQ);
+                IntentionUnlock(tid, cpart, &bassmsQ);
+                lockStack->erase((cpart->getId() * 10) + 3);
             }
+
             cpartsQ.pop();
         }
-        while (!apartsQ.empty())
+        while (!bassmsQ.empty())
         {
-            auto apart = apartsQ.front();
-            if (toLock->contains((apart->getId() * 10) + 4))
+            auto bassm = bassmsQ.front();
+            if (lockStack->contains((bassm->getId() * 10) + 2))
             {
-                IntentionLock(tid, apart, target, mode, apartsQ);
+                IntentionUnlock(tid, bassm, &cassmsQ);
+                lockStack->erase((bassm->getId() * 10) + 2);
             }
-            apartsQ.pop();
+
+            bassmsQ.pop();
+        }
+        while (!cassmsQ.empty())
+        {
+            auto cassm = cassmsQ.front();
+            if (lockStack->contains((cassm->getId() * 10) + 1))
+            {
+                IntentionUnlock(tid, cassm, &cassmsQ);
+                lockStack->erase((cassm->getId() * 10) + 1);
+            }
+
+            cassmsQ.pop();
         }
         auto t2 = std::chrono::high_resolution_clock::now();
         idleness[tid] += (t2 - t1);
     }
 
-
-    void IntentionLock(int tid, ComplexAssembly* cassm, DesignObj* target, const int mode,
-                       queue<ComplexAssembly*>* cassmsQ,
-                       queue<BaseAssembly*>* bassmsQ)
+    void IntentionUnlock(int tid, AtomicPart* apart, queue<CompositePart*>* cpartsQ)
     {
-        if ((DesignObj*)cassm == target)
-        {
-            mode == 0 ? SLock(tid, target) : XLock(tid, target);
-        }
-        else
-        {
-            mode == 0 ? ISLock(tid, cassm) : IXLock(tid, cassm);
-            auto subassemblies = cassm->getSubAssemblies();
-            auto iter = subassemblies->getIter();
-            bool areChildrenBase = cassm->areChildrenBaseAssemblies();
-
-            while (iter.has_next())
-            {
-                if (areChildrenBase)
-                    bassmsQ->push((BaseAssembly*)iter.next());
-                else
-                    cassmsQ->push((ComplexAssembly*)iter.next());
-            }
-        }
+        Unlock(tid, apart);
+        cpartsQ->push(apart->getPartOf());
     }
 
-    void IntentionLock(int tid, BaseAssembly* bassm, DesignObj* target, int mode, queue<CompositePart*> cpartQ)
+    void IntentionUnlock(int tid, CompositePart* cpart, queue<BaseAssembly*>* bassmsQ)
     {
-        if ((DesignObj*)bassm == target)
-        {
-            mode == 0 ? SLock(tid, target) : XLock(tid, target);
-        }
-        else
-        {
-            mode == 0 ? ISLock(tid, bassm) : IXLock(tid, bassm);
-
-            auto components = bassm->getComponents();
-            auto iter = components->getIter();
-            while (iter.has_next())
-            {
-                cpartQ.push(iter.next());
-            }
-        }
-    }
-
-    void IntentionLock(int tid, CompositePart* cpart, DesignObj* target, int mode, queue<AtomicPart*> apartsQ)
-    {
-        if ((DesignObj*)cpart == target)
-        {
-            mode == 0 ? SLock(tid, target) : XLock(tid, target);
-        }
-        else
-        {
-            mode == 0 ? ISLock(tid, cpart) : IXLock(tid, cpart);
-            apartsQ.push(cpart->getRootPart());
-            // mode ==0? SLock(target): XLock(target);
-            // AtomicPart* rootPart = cpart->getRootPart();
-            // IntentionLock(rootPart, target, mode, toLock, locked);
-        }
-    }
-
-    void IntentionLock(int tid, AtomicPart* apart, DesignObj* target, int mode, queue<AtomicPart*> apartsQ)
-    {
-        if ((DesignObj*)apart == target)
-        {
-            mode == 0 ? SLock(tid, target) : XLock(tid, target);
-        }
-        else
-        {
-            mode == 0 ? ISLock(tid, apart) : IXLock(tid, apart);
-            auto conns = apart->getToConnections();
-            auto iter = conns->getIter();
-            while (iter.has_next())
-            {
-                apartsQ.push(iter.next()->getDestination());
-            }
-        }
-    }
-
-
-    void IntentionUnlock(int tid, AtomicPart* atomicPart, set<int>* locksRequired, set<int>* unlocked = new set<int>())
-    {
-        if (!locksRequired->contains((atomicPart->getId() * 10) + 4) || unlocked->contains(
-            (atomicPart->getId() * 10) + 4))
-            return;
-        IUnlock(tid, atomicPart);
-        unlocked->insert((atomicPart->getId() * 10) + 4);
-
-
-        auto cpart = atomicPart->getPartOf();
-        if (cpart != nullptr)
-            IntentionUnlock(tid, cpart, locksRequired);
-    }
-
-    void IntentionUnlock(int tid, CompositePart* cpart, set<int>* locksRequired, set<int>* unlocked = new set<int>())
-    {
-        if (!locksRequired->contains((cpart->getId() * 10) + 3) || unlocked->contains((cpart->getId() * 10) + 3))
-            return;
-        IUnlock(tid, cpart);
-        unlocked->insert((cpart->getId() * 10) + 3);
+        Unlock(tid, cpart);
 
         auto bassms = cpart->getUsedIn();
         auto iter = bassms->getIter();
         while (iter.has_next())
         {
-            auto bassm = iter.next();
-            IntentionUnlock(tid, bassm, locksRequired, unlocked);
+            bassmsQ->push(iter.next());
         }
     }
 
-    void IntentionUnlock(int tid, BaseAssembly* bassm, set<int>* locksRequired, set<int>* unlocked = new set<int>())
+    void IntentionUnlock(int tid, BaseAssembly* bassm, queue<ComplexAssembly*>* cassmsQ)
     {
-        if (!locksRequired->contains((bassm->getId() * 10) + 2) || unlocked->contains((bassm->getId() * 10) + 2))
-            return;
-        IUnlock(tid, bassm);
-        unlocked->insert((bassm->getId() * 10) + 2);
+        Unlock(tid, bassm);
         auto cassm = bassm->getSuperAssembly();
         if (cassm != nullptr)
-            IntentionUnlock(tid, cassm, locksRequired, unlocked);
+            cassmsQ->push(cassm);
     }
 
 
-    void IntentionUnlock(int tid, ComplexAssembly* cassm, set<int>* locksRequired, set<int>* unlocked = new set<int>())
+    void IntentionUnlock(int tid, ComplexAssembly* cassm, queue<ComplexAssembly*>* cassmsQ)
     {
-        if (!locksRequired->contains((cassm->getId() * 10) + 1) || unlocked->contains((cassm->getId() * 10) + 1))
-            return;
-        IUnlock(tid, cassm);
-        unlocked->insert((cassm->getId() * 10) + 1);
-
+        Unlock(tid, cassm);
         auto superAssembly = cassm->getSuperAssembly();
         if (superAssembly != nullptr)
-            IntentionUnlock(tid, superAssembly, locksRequired, unlocked);
+            cassmsQ->push(superAssembly);
     }
 };
 

@@ -2,19 +2,6 @@ cmake_minimum_required(VERSION 3.25)
 project(STMBench)
 
 set(CMAKE_CXX_STANDARD 23)
-#include_directories(libraries/boost_1_81_0)
-
-
-#add_library(STMBenchLockNum
-#        src/operations/NumLock/NumPool.h
-#        src/operations/NumLock/NumPool.cpp
-#        src/operations/NumLock/numHelper.h
-#        src/operations/NumLock/operation_ops_num.cc
-#        src/operations/NumLock/structural_modification_ops_num.cc
-#        src/operations/NumLock/traversal_ops_num.cc
-#        src/operations/NumLock/query_ops_num.cc)
-#
-
 
 add_executable(STMBench src/sb7_lock.cc
         src/benchmark.h
@@ -120,4 +107,5 @@ add_executable(STMBench src/sb7_lock.cc
         src/operations/IntentionLock/Intention_lock_srv.cpp
         src/operations/IntentionLock/Intention_lock_srv.h
 )
+
 set_target_properties(STMBench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../)

@@ -6,7 +6,7 @@
 #include "../../parameters.h"
 #include "../../sb7_exception.h"
 #include "./Intention_lock_srv.h"
-
+#include <algorithm>
 extern Intention_lock_srv ILSrv;
 ////////////
 // Query1 //
@@ -24,7 +24,7 @@ int sb7::IntentionQuery1::innerRun(int tid) const
 {
     int count = 0;
     int threadID = tid;
-    long min = INFINITY, max = -1;
+    long min = INTMAX_MAX, max = -1;
     int apartId = get_random()->nextInt(
         parameters.getMaxAtomicParts()) + 1;
     Map<int, AtomicPart*>* apartInd = dataHolder->getAtomicPartIdIndex();
@@ -37,10 +37,12 @@ int sb7::IntentionQuery1::innerRun(int tid) const
         if (string(name) == "Q1")
         {
             set<int> locksRequired;
+            set<DesignObj*> targets;
+            targets.insert(query.val);
             ILSrv.getLockStack(query.val, &locksRequired);
-            ILSrv.IntentionLock(tid,dataHolder, query.val, 0, &locksRequired);
+            ILSrv.IntentionLock(tid, dataHolder, &targets,4, 0, &locksRequired);
             performOperationOnAtomicPart(query.val);
-            ILSrv.IntentionUnlock(tid,query.val, &locksRequired);
+            ILSrv.IntentionUnlock(tid, &targets, 4, &locksRequired);
             // pthread_rwlock_t *lock = dominatorHelper::getIntentioninatorLock(dataHolder, &(min), &(max));
             // auto *inv = new interval(min, max, 0);
             // if (!domPool.IsOverlap(inv, 0, threadID)) {
@@ -54,10 +56,12 @@ int sb7::IntentionQuery1::innerRun(int tid) const
         else if (string(name) == "OP9" || string(name) == "OP15")
         {
             set<int> locksRequired;
+            set<DesignObj*> targets;
+            targets.insert(query.val);
             ILSrv.getLockStack(query.val, &locksRequired);
-            ILSrv.IntentionLock(tid,dataHolder, query.val, 1, &locksRequired);
+            ILSrv.IntentionLock(tid, dataHolder, &targets, 4,1, &locksRequired);
             performOperationOnAtomicPart(query.val);
-            ILSrv.IntentionUnlock(tid,query.val, &locksRequired);
+            ILSrv.IntentionUnlock(tid, &targets, 4, &locksRequired);
             // pthread_rwlock_t *lock = dominatorHelper::getIntentioninatorLock(dataHolder, &min, &(max));
             // auto *inv = new interval(min, max, 1);
             // if (!domPool.IsOverlap(inv, 1, threadID)) {
@@ -104,7 +108,7 @@ int sb7::IntentionQuery2::run(int tid) const
 int sb7::IntentionQuery2::innerRun(int tid) const
 {
     int count = 0;
-    long min = INFINITY, max = 0;
+    long min = INTMAX_MAX, max = 0;
 
     int range = percent * (parameters.getMaxAtomicDate() -
         parameters.getMinAtomicDate()) / 100;
@@ -120,14 +124,14 @@ int sb7::IntentionQuery2::innerRun(int tid) const
     {
         Set<AtomicPart*>* apartSet = iter.next();
         SetIterator<AtomicPart*> apartIter = apartSet->getIter();
-        vector<AtomicPart*> aparts;
+        set<DesignObj*> targets;
         set<int> locksRequired;
         set<int> handled;
         while (apartIter.has_next())
         {
             AtomicPart* apart = apartIter.next();
             ILSrv.getLockStack(apart, &locksRequired);
-            aparts.push_back(apart);
+            targets.insert(apart);
         }
         int mode = 0;
         if (string(name) == "Q2")
@@ -135,33 +139,19 @@ int sb7::IntentionQuery2::innerRun(int tid) const
         if (string(name) == "OP10")
             mode = 1;
 
-        sort(aparts.begin(), aparts.end(), [](AtomicPart* a, AtomicPart* b)
-        {
-            return a->getId() < b->getId();
-        });
-
-        for (auto* apart : aparts)
-        {
+        // sort(targets.begin(), targets.end(), [](const DesignObj* a, const DesignObj* b){return (a->getId()<b->getId());});
 
 
-            ILSrv.IntentionLock(tid,dataHolder, apart, mode, &locksRequired);
-            // handled.insert(locksRequired[apart->getId()].begin(), locksRequired[apart->getId()].end());
-        }
-        handled.clear();
-        for (auto* apart : aparts)
+        ILSrv.IntentionLock(tid, dataHolder, &targets, 4,mode, &locksRequired);
+
+        for (auto* apart : targets)
         {
-            performOperationOnAtomicPart(apart);
+            performOperationOnAtomicPart((AtomicPart*)apart);
             count++;
         }
-        for (auto* apart : aparts)
-        {
-            // const auto newend = remove_if(locksRequired[apart->getId()].begin(), locksRequired[apart->getId()].end(),
-                                    // [&](int x) { return handled.contains(x); });
-            // locksRequired[apart->getId()].erase(newend, locksRequired[apart->getId()].end());
 
-            ILSrv.IntentionUnlock(tid,apart, &(locksRequired));
-            // handled.insert(locksRequired[apart->getId()].begin(), locksRequired[apart->getId()].end());
-        }
+        ILSrv.IntentionUnlock(tid, &targets, 4, &(locksRequired));
+        // handled.insert(locksRequired[apart->getId()].begin(), locksRequired[apart->getId()].end());
         // pthread_rwlock_t *lock = dominatorHelper::getIntentioninatorLock(dataHolder, &(min), &(max));
         // auto *inv = new interval(min, max, mode);
         // if (!domPool.IsOverlap(inv, mode, tid)) {
