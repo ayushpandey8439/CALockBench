@@ -22,15 +22,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c1798620-cd37-4d33-bee4-7436bef1963a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/STMBench" beforeDir="false" afterPath="$PROJECT_DIR$/STMBench" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TimeToCompletion.py" beforeDir="false" afterPath="$PROJECT_DIR$/TimeToCompletion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/containment.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/containment.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containment.py" beforeDir="false" afterPath="$PROJECT_DIR$/containment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graphPlotGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphPlotGenerator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/operation_ops_intention.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/operation_ops_intention.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/query_ops_intention.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/query_ops_intention.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/structural_modification_ops_intention.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/structural_modification_ops_intention.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/struct/design_obj.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct/design_obj.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labellingTime.py" beforeDir="false" afterPath="$PROJECT_DIR$/labellingTime.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metadataSize.py" beforeDir="false" afterPath="$PROJECT_DIR$/metadataSize.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/benchmark.cc" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -720,6 +720,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2jSdiNXE20As5rWAXKPveOhhL5p" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -734,6 +737,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "reimplement",
+    "last_opened_file_path": "/Users/pandey/work/CALockBench/benchmarkResults",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -743,13 +747,18 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/benchmarkResults" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration name="STMBench" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-l intention -d 2000 -m true -w w -z 50 -n 64" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBench" TARGET_NAME="STMBench" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBench" RUN_TARGET_NAME="STMBench">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="STMBench" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-l coarse -d 2000 -m true -w w -z 50 -n 4" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STMBench" TARGET_NAME="STMBench" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STMBench" RUN_TARGET_NAME="STMBench">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -765,6 +774,7 @@
       <updated>1721318816241</updated>
       <workItem from="1721318817935" duration="7499000" />
       <workItem from="1721384541402" duration="15501000" />
+      <workItem from="1721407365853" duration="6521000" />
     </task>
     <servers />
   </component>

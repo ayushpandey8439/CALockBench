@@ -37,11 +37,3 @@ echo Step 5 of 6: Balanced load without modifications
 . ./scripts/balanced.sh
 echo Step 6 of 6: Balanced load with modifications
 . ./scripts/balancedModifications.sh
-
-#
-#echo Stage 2 of 3: Running benchmark to find the intersection between DomLock, MID and CALock
-#echo Step 1 of 1: Running 10 to 90 percent reads
-#. ./scripts/readProportions.sh
-#
-#echo Stage 3 of 3: Running benchmark to find number of vertices locked per vertex type
-#. ./scripts/script_lockProportions.sh

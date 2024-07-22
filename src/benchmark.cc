@@ -200,7 +200,7 @@ void sb7::Benchmark::start() {
         auto c = new containmentBenchmarkTraversal(dataHolder);
         c->traverse(this->dataHolder.getModule()->getDesignRoot());
         ofstream file("./benchmarkResults/containment.csv"); //To Write into a File, Use "ofstream"
-        file <<"Type, CALock, Domlock, MID, Flexi\n";
+        file <<"Type, CALock, DomLock, MID, FlexiGran\n";
         for(auto& kv : c->containedCount) {
             file <<(kv.first%10)<<","<< get<0>(kv.second)<<","<<get<1>(kv.second)<<","<<get<2>(kv.second)<< ","<< get<1>(kv.second) << '\n';
         }
@@ -416,6 +416,7 @@ void sb7::Benchmark::reportStats(ostream &out) {
     }
 
     else if (parameters.getLockType() == Parameters::lock_intention) {
+        out << "Total relabelling: 0 nanos" << endl;
         int count = 1;
         for (auto i: ILSrv.idleness) {
             if (i > std::chrono::duration<long double, std::nano>::zero()) {

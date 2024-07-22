@@ -7,29 +7,41 @@ import sys
 
 # Initialize the lists for X and Y
 
+custom_colors = {
+    'Coarse': '#58b5e1',
+    'Medium': '#b7d165',
+    'Intention Lock': '#ab2b60',
+    'DomLock': '#56ebd3',
+    'MID': '#965a5b',
+    'FlexiGran': '#d8a06c',
+    'CALock': '#335862',
+}
+
+
+
 data = {
     'Type': ['Small', 'Medium', 'Large'],
-    'CALock': [58064, 89804, 89700],
-    'Domlock': [19088, 33264, 33200],
+    'DomLock': [19088, 33264, 33200],
     'MID': [28632, 49896, 49800],
-    'Flexi': [23860, 41620, 41620]
+    'FlexiGran': [23860, 41620, 41620],
+    'CALock': [58064, 89804, 89700],
 }
 
 
 df = pd.DataFrame(data)
-order = {"Domlock": 0, "MID": 1, "Flexi": 2, "CALock": 3}
+order = {'Coarse': 0, 'Medium': 1, 'Intention Lock': 2, 'DomLock': 3, 'MID': 4, 'FlexiGran': 5, 'CALock': 6}
 df_melted = pd.melt(df, id_vars=['Type'], var_name='lock', value_name='value')
 # print(df_melted)
 final = df_melted.sort_values(by=["lock"], key=lambda x: x.map(order))
-
+palette = [custom_colors[lock] for lock in final['lock'].unique()]
 
 sns.set_theme(style="whitegrid")
-g = sns.catplot(data=final, kind="bar", x="Type", y="value", hue="lock", height=3, aspect=2, palette="viridis")
+g = sns.catplot(data=final, kind="bar", x="Type", y="value", hue="lock", height=3, aspect=2, palette=palette)
 g.despine(left=True)
 g.set_axis_labels("Hierarchy Size", "Metadata size (bytes)")
 g.set_xticklabels(['Small', 'Medium', 'Large'])
 g.legend.set_title("")
-sns.move_legend(g,loc='upper center', ncols=4, fancybox=True)
+sns.move_legend(g,loc='upper center', ncols=4, fancybox=True, bbox_to_anchor=(0.4, 1.1))
 plt.savefig("./benchmarkCharts/LabelsMemorySize.png", dpi=300, bbox_inches='tight')
 
 
