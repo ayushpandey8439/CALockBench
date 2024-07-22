@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 04/07/2024.
-//
-
 #ifndef FLEXIGRANHELPER_H
 #define FLEXIGRANHELPER_H
 #include <thread>

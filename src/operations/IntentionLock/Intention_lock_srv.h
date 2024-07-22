@@ -1,6 +1,3 @@
-//
-// Created by Ayush Pandey on 15/07/2024.
-//
 
 #ifndef INTENTION_LOCK_SRV_H
 #define INTENTION_LOCK_SRV_H

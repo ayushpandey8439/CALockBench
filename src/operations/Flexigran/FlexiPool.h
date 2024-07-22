@@ -1,6 +1,3 @@
-//
-// Created by Ayush Pandey on 04/07/2024.
-//
 
 #ifndef FLEXIPOOL_H
 #define FLEXIPOOL_H

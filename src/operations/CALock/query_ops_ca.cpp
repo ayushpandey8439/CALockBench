@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
 #include "query_ops_ca.h"
 #include "../../helpers.h"
 #include "./CAPool.h"

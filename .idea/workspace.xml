@@ -22,15 +22,39 @@
   <component name="ChangeListManager">
     <list default="true" id="c1798620-cd37-4d33-bee4-7436bef1963a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/STMBench" beforeDir="false" afterPath="$PROJECT_DIR$/STMBench" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TimeToCompletion.py" beforeDir="false" afterPath="$PROJECT_DIR$/TimeToCompletion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/containment.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/containment.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/containment.py" beforeDir="false" afterPath="$PROJECT_DIR$/containment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphPlotGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphPlotGenerator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labellingTime.py" beforeDir="false" afterPath="$PROJECT_DIR$/labellingTime.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metadataSize.py" beforeDir="false" afterPath="$PROJECT_DIR$/metadataSize.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/benchmark.cc" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containmentBenchmark.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/containmentBenchmark.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/countTraversal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/countTraversal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelling/FlexiGran/FlexigranLabelling.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelling/FlexiGran/FlexigranLabelling.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/labelling/MID/MidLabeling.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/CAPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/CAPool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/CAPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/CAPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/lscaHelpers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/lscaHelpers.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/lscaHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/lscaHelpers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/operation_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/operation_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/operation_ops_ca.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/operation_ops_ca.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/query_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/query_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/query_ops_ca.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/query_ops_ca.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/structural_modification_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/structural_modification_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/structural_modification_ops_ca.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/structural_modification_ops_ca.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/traversal_ops_ca.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/traversal_ops_ca.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/CALock/traversal_ops_ca.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/CALock/traversal_ops_ca.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/DomLock/DomPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/DomLock/DomPool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/DomLock/DomPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/DomLock/DomPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/DomLock/dominatorHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/DomLock/dominatorHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Flexigran/FlexiGranHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Flexigran/FlexiGranHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Flexigran/FlexiPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Flexigran/FlexiPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Mid/MidPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Mid/MidPool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Mid/MidPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Mid/MidPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/Mid/midHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/Mid/midHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/NumLock/NumPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/NumLock/NumPool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/NumLock/NumPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/NumLock/NumPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/operations/NumLock/numHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/NumLock/numHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parameters.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/parameters.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/random.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/random.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -751,6 +775,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/benchmarkResults" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
@@ -774,7 +801,7 @@
       <updated>1721318816241</updated>
       <workItem from="1721318817935" duration="7499000" />
       <workItem from="1721384541402" duration="15501000" />
-      <workItem from="1721407365853" duration="6521000" />
+      <workItem from="1721407365853" duration="7978000" />
     </task>
     <servers />
   </component>
@@ -791,12 +818,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h</url>
-          <line>196</line>
+          <line>193</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h</url>
-          <line>223</line>
+          <line>220</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>

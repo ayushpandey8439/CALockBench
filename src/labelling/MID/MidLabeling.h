@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 24/06/2024.
-//
-
 #ifndef SB7_LOCK_MIDLABELING_H
 #define SB7_LOCK_MIDLABELING_H
 #include "../../operations/operations.h"

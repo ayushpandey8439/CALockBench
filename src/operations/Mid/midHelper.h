@@ -1,6 +1,3 @@
-//
-// Created by Ayush Pandey on 20/06/2024.
-//
 
 #ifndef SB7_LOCK_MIDHELPER_H
 #define SB7_LOCK_MIDHELPER_H

@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 30/11/2022.
-//
-
 #ifndef STMBENCH_INTERVAL_H
 #define STMBENCH_INTERVAL_H
 

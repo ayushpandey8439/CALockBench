@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
 #include "structural_modification_ops_ca.h"
 
 #include "../../parameters.h"

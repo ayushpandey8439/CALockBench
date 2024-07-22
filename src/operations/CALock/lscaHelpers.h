@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 21/11/2022.
-//
-
 
 #ifndef STMBENCH_LSCAHELPERS_H
 #define STMBENCH_LSCAHELPERS_H

@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
 #include "operation_ops_ca.h"
 #include "../../thread/thread.h"
 

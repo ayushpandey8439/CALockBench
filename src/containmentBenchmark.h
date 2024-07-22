@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 03/07/2024.
-//
-
 #ifndef CONTAINMENTBENCHMARK_H
 #define CONTAINMENTBENCHMARK_H
 

@@ -1,6 +1,3 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
 
 #ifndef STMBENCH_RANDOM_H
 #define STMBENCH_RANDOM_H

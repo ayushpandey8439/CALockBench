@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 24/06/2024.
-//
-
 #include "MidLabeling.h"
 #include "stack"
 #include "../../struct/connection.h"

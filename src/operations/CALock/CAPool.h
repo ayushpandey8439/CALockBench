@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 16/11/2022.
-//
-
 #ifndef STMBENCH_CAPOOL_H
 #define STMBENCH_CAPOOL_H
 

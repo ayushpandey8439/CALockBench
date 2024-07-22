@@ -1,7 +1,3 @@
-//
-// Created by Ayush Pandey on 15/11/2022.
-//
-
 #ifndef STMBENCH_OPERATION_OPS_CA_H
 #define STMBENCH_OPERATION_OPS_CA_H
 
