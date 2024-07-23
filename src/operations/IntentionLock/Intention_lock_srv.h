@@ -86,11 +86,11 @@ public:
     void IntentionLock(const int tid, DataHolder* dh, const set<DesignObj*>* targets, const int type, const int mode,
                        const set<int>* lockStack)
     {
+        auto t1 = std::chrono::high_resolution_clock::now();
         int locksRejected = 0;
     retake:
         try
         {
-            auto t1 = std::chrono::high_resolution_clock::now();
             queue<ComplexAssembly*> cassmsQ;
             queue<BaseAssembly*> bassmsQ;
             queue<CompositePart*> cpartsQ;
@@ -149,6 +149,8 @@ public:
 
             locksRejected++;
             sleep(10);
+            auto t2 = std::chrono::high_resolution_clock::now();
+            idleness[tid] += (t2 - t1);
             if (locksRejected < 20)
             {
                 goto retake;

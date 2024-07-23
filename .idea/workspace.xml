@@ -22,18 +22,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c1798620-cd37-4d33-bee4-7436bef1963a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/STMBench" beforeDir="false" afterPath="$PROJECT_DIR$/STMBench" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TimeToCompletion.py" beforeDir="false" afterPath="$PROJECT_DIR$/TimeToCompletion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphPlotGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/graphPlotGenerator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labellingTime.py" beforeDir="false" afterPath="$PROJECT_DIR$/labellingTime.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metadataSize.py" beforeDir="false" afterPath="$PROJECT_DIR$/metadataSize.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/benchmark.cc" beforeDir="false" afterPath="$PROJECT_DIR$/src/benchmark.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/query_ops_intention.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/query_ops_intention.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/operations.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/operations.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/thread/thread_fun.cc" beforeDir="false" afterPath="$PROJECT_DIR$/src/thread/thread_fun.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +182,7 @@
       <workItem from="1721318817935" duration="7499000" />
       <workItem from="1721384541402" duration="15501000" />
       <workItem from="1721407365853" duration="7978000" />
-      <workItem from="1721655078584" duration="10171000" />
+      <workItem from="1721655078584" duration="11653000" />
     </task>
     <servers />
   </component>
@@ -210,7 +199,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h</url>
-          <line>252</line>
+          <line>254</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
