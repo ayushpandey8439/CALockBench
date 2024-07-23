@@ -45,6 +45,7 @@ namespace sb7
         int aborted;
         int failure;
         int maxttc;
+        int totalttc;
         const char* name;
     };
 

@@ -32,10 +32,10 @@ void *sb7::worker_thread(void *data) {
     while (!wtdata->stopped) {
         int opind = wtdata->getOperationRndInd();
         const Operation *op = wtdata->operations->getOperations()[opind];
-
+        long start_time = get_time_ms();
         try {
             // get start time
-            long start_time = get_time_ms();
+
             op->run(wtdata->threadId);
             long end_time = get_time_ms();
 
@@ -53,7 +53,19 @@ void *sb7::worker_thread(void *data) {
             }
 
         } catch (Sb7Exception) {
+            long end_time = get_time_ms();
             wtdata->failed_ops[opind]++;
+            int ttc = (int) (end_time - start_time);
+
+            if (ttc <= wtdata->max_low_ttc) {
+                wtdata->operations_ttc[opind][ttc]++;
+            } else {
+                double logHighTtc = (::log(ttc) - wtdata->max_low_ttc_log) /
+                                    wtdata->high_ttc_log_base;
+                int intLogHighTtc =
+                        MIN((int) logHighTtc, wtdata->high_ttc_entries - 1);
+                wtdata->operations_high_ttc_log[opind][intLogHighTtc]++;
+            }
         }
     }
 

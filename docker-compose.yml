@@ -1,4 +1,8 @@
 services:
   benchmark:
     container_name: LockBenchmark
-    build: .
+    build:
+      args:
+        progress: string
+      context: .
+

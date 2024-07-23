@@ -16,10 +16,10 @@ custom_colors = {
 }
 data = {
     'Type': ['Small', 'Medium', 'Large'],
-    'DomLock': [4.39985e+07,4.3434e+07,5.68294e+08],
-    'MID': [8.9518e+07, 9.08921e+07, 1.14594e+09],
-    'FlexiGran': [4.32685e+07,5.6863e+07,7.06276e+08],
-    'CALock': [4.13138e+08, 6.71705e+08,6.50443e+09]
+    'DomLock': [4.39985e+01,4.3434e+01,5.68294e+02],
+    'MID': [8.9518e+01, 9.08921e+01, 1.14594e+03],
+    'FlexiGran': [4.32685e+01,5.6863e+01,7.06276e+02],
+    'CALock': [4.13138e+02, 6.71705e+02,6.50443e+03]
 }
 
 df = pd.DataFrame(data)
@@ -32,7 +32,7 @@ palette = [custom_colors[lock] for lock in final['lock'].unique()]
 sns.set_theme(style="whitegrid",palette=palette)
 g = sns.catplot(data=final, kind="bar", x="Type", y="value", hue="lock", height=3, aspect=2)
 g.despine(left=True)
-g.set_axis_labels("Hierarchy Size", "Labelling time (ns logscale)")
+g.set_axis_labels("Hierarchy Size", "Labelling time ($\mu$s logscale)")
 g.set_xticklabels(['Small', 'Medium', 'Large'])
 g.legend.set_title("")
 g.set(yscale="log")

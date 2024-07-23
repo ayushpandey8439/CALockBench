@@ -57,9 +57,10 @@ while i <= ThreadCount:
          'Intention Lock': intention.iloc[0, 0]}, index=[i])
     idleness = concat([idleness, line])
 
-    line = pd.DataFrame({'ThreadCount': int(i), 'Coarse': coarse.iloc[1, 0] + 0.1, 'Medium': medium.iloc[1, 0] + 0.1,
-                         'DomLock': dom.iloc[1, 0], 'CALock': ca.iloc[1, 0], 'MID': mid.iloc[1, 0],
-                         'FlexiGran': flexi.iloc[1, 0], 'Intention Lock': intention.iloc[1, 0] + 0.1}, index=[i])
+    line = pd.DataFrame({'ThreadCount': int(i), 'Coarse': (coarse.iloc[1, 0] + 0.1)/100000, 'Medium': (medium.iloc[1, 0] + 0.1)/100000,
+                         'DomLock': (dom.iloc[1, 0] + 0.1)/100000, 'CALock': (ca.iloc[1, 0] + 0.1)/100000,
+                         'MID': (mid.iloc[1, 0] + 0.1)/100000, 'FlexiGran': (flexi.iloc[1, 0] + 0.1)/100000,
+                         'Intention Lock': (intention.iloc[1, 0] + 0.1)/100000}, index=[i])
     relabelling = concat([relabelling, line])
     i *= 2
 
@@ -97,7 +98,7 @@ g = sns.catplot(x='ThreadCount', y='Ops', hue='Lock Type', data=throughput, kind
 g.despine()
 g.set(yscale="linear", xlabel="Thread Count", ylabel="")
 if "Read" in WorkloadType:
-    g.set_ylabels('Op/s (logscale)')
+    g.set_ylabels('Op/s')
 if "WithoutModifications" in WorkloadType:
     plt.ylim(0, 350000)
 else:
@@ -114,7 +115,7 @@ g = sns.catplot(x='ThreadCount', y='Time', hue='Lock Type', data=idleness, kind=
 g.despine()
 g.set(yscale="log", xlabel="Thread Count", ylabel="")
 if "Read" in WorkloadType:
-    g.set_ylabels("Response time (ns logscale)")
+    g.set_ylabels("Response time ($\mu$s logscale)")
 g.legend.set_title("")
 sns.move_legend(g, loc='upper center', ncols=4, fancybox=True, bbox_to_anchor=(0.45, 1.2))
 plt.savefig("./benchmarkCharts/" + WorkloadType + "Idleness.png", dpi=300, bbox_inches="tight")
@@ -126,7 +127,7 @@ g = sns.catplot(x='ThreadCount', y='Time', hue='Lock Type', data=relabelling, ki
 g.despine()
 g.set(yscale="log", xlabel="Thread Count", ylabel="")
 if "Read" in WorkloadType:
-    g.set_ylabels("Relabelling time (ns logscale)")
+    g.set_ylabels("Relabelling time ($\mu$s logscale)")
 g.legend.set_title("")
 sns.move_legend(g, loc='upper center', ncols=4, fancybox=True, bbox_to_anchor=(0.45, 1.2))
 plt.savefig("./benchmarkCharts/" + WorkloadType + "Relabelling.png", dpi=300, bbox_inches="tight")

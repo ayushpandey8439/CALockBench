@@ -1,4 +1,3 @@
-
 #ifndef INTENTION_LOCK_SRV_H
 #define INTENTION_LOCK_SRV_H
 #include <stack>
@@ -9,12 +8,15 @@
 #include <queue>
 #include <set>
 #include <algorithm>
+#include <exception>
+#include <functional>
 #include <variant>
 
 #include "../../data_holder.h"
 #include "../../struct/atomic_part.h"
 #include "../../struct/composite_part.h"
 #include "../../sb7_exception.h"
+#include "../../thread/thread.h"
 
 //TODO: Convert this to a blocking intention lock  implementation instead of busy waiting i.e. When threads are waiting for a lock,
 // they should block on an atomic conditional instead of checking what the intention level is.
@@ -25,11 +27,18 @@ class Intention_lock_srv
 {
 public:
     std::chrono::duration<long double, std::nano> idleness[512]{};
+    int lockRejection[512]{};
 
     Intention_lock_srv()
     {
         for (auto& i : idleness)
+        {
             i = std::chrono::duration<long double, std::nano>(0);
+        }
+        for (auto& i : lockRejection)
+        {
+            i = 0;
+        }
     }
 
     void getLockStack(const AtomicPart* atomicPart, set<int>* visited = new set<int>())
@@ -74,66 +83,83 @@ public:
             getLockStack(superAssembly, visited);
     }
 
-    void IntentionLock(const int tid, DataHolder* dh, const set<DesignObj*>* targets,const int type,  const int mode,
+    void IntentionLock(const int tid, DataHolder* dh, const set<DesignObj*>* targets, const int type, const int mode,
                        const set<int>* lockStack)
     {
-        auto t1 = std::chrono::high_resolution_clock::now();
-        queue<ComplexAssembly*> cassmsQ;
-        queue<BaseAssembly*> bassmsQ;
-        queue<CompositePart*> cpartsQ;
-        queue<AtomicPart*> apartsQ;
-        cassmsQ.push(dh->getModule()->getDesignRoot());
-        set<int> visited;
-        while (!cassmsQ.empty())
+        int locksRejected = 0;
+    retake:
+        try
         {
-            auto cassm = cassmsQ.front();
-            if (lockStack->contains((cassm->getId() * 10) + 1))
+            auto t1 = std::chrono::high_resolution_clock::now();
+            queue<ComplexAssembly*> cassmsQ;
+            queue<BaseAssembly*> bassmsQ;
+            queue<CompositePart*> cpartsQ;
+            queue<AtomicPart*> apartsQ;
+            cassmsQ.push(dh->getModule()->getDesignRoot());
+            set<int> visited;
+            while (!cassmsQ.empty())
             {
-                IntentionLock(tid, cassm, targets, type, mode, &cassmsQ, &bassmsQ, &visited);
+                auto cassm = cassmsQ.front();
+                if (lockStack->contains((cassm->getId() * 10) + 1))
+                {
+                    IntentionLock(tid, cassm, targets, type, mode, &cassmsQ, &bassmsQ, &visited);
+                }
+                cassmsQ.pop();
             }
-            cassmsQ.pop();
-        }
-        while (!bassmsQ.empty())
-        {
-            const auto bassm = bassmsQ.front();
-            if (lockStack->contains((bassm->getId() * 10) + 2))
+            while (!bassmsQ.empty())
             {
-                IntentionLock(tid, bassm, targets, type,  mode, &cpartsQ, &visited);
+                const auto bassm = bassmsQ.front();
+                if (lockStack->contains((bassm->getId() * 10) + 2))
+                {
+                    IntentionLock(tid, bassm, targets, type, mode, &cpartsQ, &visited);
+                }
+                bassmsQ.pop();
             }
-            bassmsQ.pop();
-        }
 
-        while (!cpartsQ.empty())
-        {
-            const auto cpart = cpartsQ.front();
-            if (lockStack->contains((cpart->getId() * 10) + 3))
+            while (!cpartsQ.empty())
             {
-                IntentionLock(tid, cpart, targets,  type, mode, &apartsQ, &visited);
+                const auto cpart = cpartsQ.front();
+                if (lockStack->contains((cpart->getId() * 10) + 3))
+                {
+                    IntentionLock(tid, cpart, targets, type, mode, &apartsQ, &visited);
+                }
+                cpartsQ.pop();
             }
-            cpartsQ.pop();
-        }
 
-        while (!apartsQ.empty())
-        {
-            const auto apart = apartsQ.front();
-            if (lockStack->contains((apart->getId() * 10) + 4))
+            while (!apartsQ.empty())
             {
-                IntentionLock(tid, apart, type,  mode, &visited);
+                const auto apart = apartsQ.front();
+                if (lockStack->contains((apart->getId() * 10) + 4))
+                {
+                    IntentionLock(tid, apart, type, mode, &visited);
+                }
+                apartsQ.pop();
             }
-            apartsQ.pop();
+
+
+            auto t2 = std::chrono::high_resolution_clock::now();
+            idleness[tid] += (t2 - t1);
+            if (lockStack->size() != visited.size())
+            {
+                throw sb7::Sb7Exception();
+            }
         }
-
-
-
-        auto t2 = std::chrono::high_resolution_clock::now();
-        idleness[tid] += (t2 - t1);
-        if(lockStack->size()!=visited.size())
+        catch (runtime_error& e)
         {
-         throw sb7::Sb7Exception();
+
+            locksRejected++;
+            sleep(10);
+            if (locksRejected < 20)
+            {
+                goto retake;
+            }
+            lockRejection[tid]++;
+            throw sb7::Sb7Exception();
         }
     }
 
-    void IntentionLock(const int tid, ComplexAssembly* cassm, const set<DesignObj*>* targets, const int type, const int mode,
+    void IntentionLock(const int tid, ComplexAssembly* cassm, const set<DesignObj*>* targets, const int type,
+                       const int mode,
                        queue<ComplexAssembly*>* cassmsQ, queue<BaseAssembly*>* bassmsQ,
                        set<int>* visited = new set<int>())
     {
@@ -161,13 +187,15 @@ public:
             }
             visited->insert((cassm->getId() * 10) + 1);
         }
-        catch (exception e)
+        catch (exception_ptr e)
         {
             IntentionUnlock(tid, targets, type, visited);
+            rethrow_exception(e);
         }
     }
 
-    void IntentionLock(const int tid, BaseAssembly* bassm, const set<DesignObj*>* targets, const int type,const int mode,
+    void IntentionLock(const int tid, BaseAssembly* bassm, const set<DesignObj*>* targets, const int type,
+                       const int mode,
                        queue<CompositePart*>* cpartQ, set<int>* visited = new set<int>())
     {
         if (visited->contains(bassm->getId() * 10 + 2)) return;
@@ -189,13 +217,16 @@ public:
                 }
             }
             visited->insert((bassm->getId() * 10) + 2);
-        }catch (exception e)
+        }
+        catch (exception_ptr e)
         {
             IntentionUnlock(tid, targets, type, visited);
+            rethrow_exception(e);
         }
     }
 
-    void IntentionLock(const int tid, CompositePart* cpart, const set<DesignObj*>* targets,const int type, const int mode,
+    void IntentionLock(const int tid, CompositePart* cpart, const set<DesignObj*>* targets, const int type,
+                       const int mode,
                        queue<AtomicPart*>* apartsQ, set<int>* visited = new set<int>())
     {
         if (visited->contains(cpart->getId() * 10 + 3)) return;
@@ -216,21 +247,25 @@ public:
                 }
             }
             visited->insert((cpart->getId() * 10) + 3);
-        }catch (exception e)
+        }
+        catch (exception_ptr e)
         {
             IntentionUnlock(tid, targets, type, visited);
+            rethrow_exception(e);
         }
     }
 
-    void IntentionLock(const int tid, DesignObj* target, const int type,const int mode, set<int> *visited)
+    void IntentionLock(const int tid, DesignObj* target, const int type, const int mode, set<int>* visited)
     {
         try
         {
             mode == 0 ? SLock(tid, target) : XLock(tid, target);
-        }catch (exception e)
+        }
+        catch (exception_ptr e)
         {
             auto targets = set<DesignObj*>{target};
             IntentionUnlock(tid, &targets, 4, visited);
+            rethrow_exception(e);
         }
     }
 

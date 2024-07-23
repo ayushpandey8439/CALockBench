@@ -21,10 +21,10 @@ custom_colors = {
 
 data = {
     'Type': ['Small', 'Medium', 'Large'],
-    'DomLock': [19088, 33264, 33200],
-    'MID': [28632, 49896, 49800],
-    'FlexiGran': [23860, 41620, 41620],
-    'CALock': [58064, 89804, 89700],
+    'DomLock': [19.088, 33.264, 33.200],
+    'MID': [28.632, 49.896, 49.800],
+    'FlexiGran': [23.860, 41.620, 41.620],
+    'CALock': [58.064, 89.804, 89.700],
 }
 
 
@@ -38,7 +38,7 @@ palette = [custom_colors[lock] for lock in final['lock'].unique()]
 sns.set_theme(style="whitegrid")
 g = sns.catplot(data=final, kind="bar", x="Type", y="value", hue="lock", height=3, aspect=2, palette=palette)
 g.despine(left=True)
-g.set_axis_labels("Hierarchy Size", "Metadata size (bytes)")
+g.set_axis_labels("Hierarchy Size", "Metadata size (Kb)")
 g.set_xticklabels(['Small', 'Medium', 'Large'])
 g.legend.set_title("")
 sns.move_legend(g,loc='upper center', ncols=4, fancybox=True, bbox_to_anchor=(0.4, 1.1))

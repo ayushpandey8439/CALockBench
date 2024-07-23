@@ -59,6 +59,7 @@ int sb7::IntentionQuery1::innerRun(int tid) const
             set<DesignObj*> targets;
             targets.insert(query.val);
             ILSrv.getLockStack(query.val, &locksRequired);
+            rerequest:
             ILSrv.IntentionLock(tid, dataHolder, &targets, 4,1, &locksRequired);
             performOperationOnAtomicPart(query.val);
             ILSrv.IntentionUnlock(tid, &targets, 4, &locksRequired);
