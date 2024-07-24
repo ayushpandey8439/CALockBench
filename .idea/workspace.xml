@@ -22,7 +22,61 @@
   <component name="ChangeListManager">
     <list default="true" id="c1798620-cd37-4d33-bee4-7436bef1963a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/operations/IntentionLock/Intention_lock_srv.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsIdleness.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithModificationsThroughput.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsIdleness.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/BalancedWithoutModificationsThroughput.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsIdleness.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithModificationsThroughput.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsIdleness.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/ReadWithoutModificationsThroughput.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsIdleness.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithModificationsThroughput.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsIdleness.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsIdleness.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsThroughput.png" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkCharts/WriteWithoutModificationsThroughput.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention32.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention64.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications/intention8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention32.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention64.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications/intention8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention32.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention64.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications/intention8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention32.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention64.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithoutModifications/intention8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention32.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention64.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications/intention8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention32.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention32.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention64.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention64.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications/intention8.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +195,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "reimplement",
-    "last_opened_file_path": "/Users/pandey/work/CALockBench/benchmarkResults",
+    "last_opened_file_path": "/Users/pandey/work/CALockBench/benchmarkResultsBackup/curr/WriteWithoutModifications",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -153,7 +207,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/benchmarkResults" />
+      <recent name="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithoutModifications" />
+      <recent name="$PROJECT_DIR$/benchmarkResultsBackup/curr/WriteWithModifications" />
+      <recent name="$PROJECT_DIR$/benchmarkResultsBackup/curr/ReadWithModifications" />
+      <recent name="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithoutModifications" />
+      <recent name="$PROJECT_DIR$/benchmarkResultsBackup/curr/BalancedWithModifications" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -182,7 +240,7 @@
       <workItem from="1721318817935" duration="7499000" />
       <workItem from="1721384541402" duration="15501000" />
       <workItem from="1721407365853" duration="7978000" />
-      <workItem from="1721655078584" duration="11653000" />
+      <workItem from="1721655078584" duration="13462000" />
     </task>
     <servers />
   </component>
