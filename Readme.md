@@ -8,9 +8,9 @@ The benchmark is written in C++ and can be run standalone if the system is compa
 To run the standalone benchmark, the script `benchmark.sh` can be used. It sets up the python virtual environment, the variables used across 
 the different scripts and executes the different workloads. 
 
-To run the docker image, `docker compose up --build` can be used to setup the image and run the benchmark. The container is called `LockBenchmark`
-and can be used to retrieve the raw data results via `docekr cp -r LockBenchmark:/benchmarkResultsBkup ./results`. 
-The generated charts can be retrieved via `docker cp -r LockBenchmark:/benchmarkCharts ./charts`.
+To run the docker image, `docker compose up --build` can be used to set up the image and run the benchmark. The container is called `LockBenchmark`
+and can be used to retrieve the raw data results via `docekr cp -r LockBenchmark:/usr/CALockBench/benchmarkResultsBkup ./results`. 
+The generated charts can be retrieved via `docker cp -r LockBenchmark:/usr/CALockBench/benchmarkCharts ./charts`.
 
 If there is a need to generate charts using raw data collected earlier, the script `allChartGenerator.sh` can be used.
 
@@ -21,7 +21,7 @@ Individual performance charts for completion time, metadata size etc. contain pr
 In order to not run the benchmark with its default configuration, several parameters can be changed. 
 `benchmark.sh` contains the following parameters that can be changed:
 
-* `COUNT`: Maximum number of threads. The benchmark startes with 1 thread and doubles the number of threads until `COUNT` is reached.
+* `COUNT`: Maximum number of threads. The benchmark starts with 1 thread and doubles the number of threads until `COUNT` is reached.
 * `ITERATIONS_PER_THREAD`: The number of times the same workload is executed. This should be kept higher than 1 so that average performance can be measured.
 * `DURATION`: The duration of the benchmark in milliseconds. This is used to calculate the throughput.
 * `SIZE`: Size of the STMBench7 hierarchy to use. 
