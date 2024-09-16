@@ -124,7 +124,7 @@ plt.savefig("./benchmarkCharts/" + WorkloadType + "Throughput.png", dpi=300, bbo
 
 
 
-plt.figure(figsize=(3, 3))
+plt.figure(figsize=(2, 2))
 
 plt.plot(x, idleness['Coarse'], marker='^', linestyle='--', color=custom_colors['Coarse'], label='Coarse')
 plt.plot(x, idleness['Medium'], marker='o', linestyle='--', color=custom_colors['Medium'], label='Medium')
