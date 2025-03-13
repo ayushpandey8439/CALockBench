@@ -35,6 +35,7 @@ plt.bar(x + 3 * width / 2, df['CALock'], width=width, label='CALock', color = cu
 
 plt.yscale('log')
 plt.ylabel('Labelling time ($\mu$s log)')
+plt.ylim(1)
 plt.xlabel('Hierarchy Size')
 plt.xticks(x, ['$Small$', '$Medium$', '$Large$'])
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.3), fancybox=True, ncols=4)

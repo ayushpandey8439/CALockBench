@@ -1,4 +1,6 @@
 # Import the necessary modules
+import math
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -21,8 +23,7 @@ custom_colors = {
     'CALock': '#335862',
 }
 
-emptyDF = {'ThreadCount': [], 'Coarse': [], 'Medium': [], 'DomLock': [], 'CALock': [], 'MID': [], 'FlexiGran': [],
-           'Intention Lock': []}
+emptyDF = {'ThreadCount': [], 'Coarse': [], 'Medium': [], 'Intention Lock': [],'DomLock': [], 'MID': [], 'FlexiGran': [], 'CALock': []}
 
 throughput = pd.DataFrame(emptyDF)
 idleness = pd.DataFrame(emptyDF)
@@ -47,20 +48,29 @@ while i <= ThreadCount:
     intention = intention.groupby(0).sum() / Iterations
 
     line = pd.DataFrame(
-        {'ThreadCount': int(i), 'Coarse': coarse.iloc[2, 0]/1000000, 'Medium': medium.iloc[2, 0]/1000000, 'DomLock': dom.iloc[2, 0]/1000000,
-         'CALock': ca.iloc[2, 0]/1000000, 'MID': mid.iloc[2, 0]/1000000, 'FlexiGran': flexi.iloc[2, 0]/1000000,
-         'Intention Lock': intention.iloc[2, 0]/1000000}, index=[i])
+        {'ThreadCount': int(i), 'Coarse': coarse.iloc[2, 0]/1000000,
+         'Medium': medium.iloc[2, 0]/1000000,
+         'Intention Lock': intention.iloc[2, 0]/1000000,
+         'DomLock': dom.iloc[2, 0]/1000000,
+         'MID': mid.iloc[2, 0]/1000000,
+         'FlexiGran': flexi.iloc[2, 0]/1000000,
+         'CALock': ca.iloc[2, 0]/1000000
+         },
+        index=[i])
     throughput = concat([throughput, line])
     line = pd.DataFrame(
-        {'ThreadCount': int(i), 'Coarse': coarse.iloc[0, 0], 'Medium': medium.iloc[0, 0], 'DomLock': dom.iloc[0, 0],
-         'CALock': ca.iloc[0, 0], 'MID': mid.iloc[0, 0], 'FlexiGran': flexi.iloc[0, 0],
-         'Intention Lock': intention.iloc[0, 0]}, index=[i])
+        {'ThreadCount': int(i), 'Coarse': coarse.iloc[0, 0], 'Medium': medium.iloc[0, 0],
+         'Intention Lock': intention.iloc[0, 0],
+         'DomLock': math.ceil(dom.iloc[0, 0]),
+         'MID': math.ceil(mid.iloc[0, 0]), 'FlexiGran': math.ceil(flexi.iloc[0, 0]),'CALock': math.ceil(ca.iloc[0, 0])
+         }, index=[i])
     idleness = concat([idleness, line])
 
     line = pd.DataFrame({'ThreadCount': int(i), 'Coarse': (coarse.iloc[1, 0] + 0.1)/100000, 'Medium': (medium.iloc[1, 0] + 0.1)/100000,
-                         'DomLock': (dom.iloc[1, 0] + 0.1)/100000, 'CALock': (ca.iloc[1, 0] + 0.1)/100000,
-                         'MID': (mid.iloc[1, 0] + 0.1)/100000, 'FlexiGran': (flexi.iloc[1, 0] + 0.1)/100000,
-                         'Intention Lock': (intention.iloc[1, 0] + 0.1)/100000}, index=[i])
+                         'Intention Lock': (intention.iloc[1, 0] + 0.1)/100000,
+                         'DomLock': (dom.iloc[1, 0] + 0.1)/100000,
+                         'MID': (mid.iloc[1, 0] + 0.1)/100000, 'FlexiGran': (flexi.iloc[1, 0] + 0.1)/100000, 'CALock': (ca.iloc[1, 0] + 0.1)/100000
+                         }, index=[i])
     relabelling = concat([relabelling, line])
     i *= 2
 #
@@ -100,7 +110,7 @@ relabelling["ThreadCount"] = relabelling["ThreadCount"].astype(int)
 x = np.arange(len(throughput['ThreadCount']))
 
 plt.figure(figsize=(2, 2))
-
+throughput.to_csv("./benchmarkCharts/" + WorkloadType + "Throughput.csv", index=False,float_format='%.4f')
 plt.plot(x, throughput['Coarse'], marker='^', linestyle='--', color=custom_colors['Coarse'], label='Coarse')
 plt.plot(x, throughput['Medium'], marker='o', linestyle='--', color=custom_colors['Medium'], label='Medium')
 plt.plot(x, throughput['Intention Lock'], marker='d', linestyle='--', color=custom_colors['Intention Lock'], label='Intention Lock')
@@ -125,7 +135,7 @@ plt.savefig("./benchmarkCharts/" + WorkloadType + "Throughput.png", dpi=300, bbo
 
 
 plt.figure(figsize=(2, 2))
-
+idleness.to_csv("./benchmarkCharts/" + WorkloadType + "idleness.csv", index=False,float_format='%.3f')
 plt.plot(x, idleness['Coarse'], marker='^', linestyle='--', color=custom_colors['Coarse'], label='Coarse')
 plt.plot(x, idleness['Medium'], marker='o', linestyle='--', color=custom_colors['Medium'], label='Medium')
 plt.plot(x, idleness['Intention Lock'], marker='d', linestyle='--', color=custom_colors['Intention Lock'], label='Intention Lock')
@@ -136,16 +146,16 @@ plt.plot(x, idleness['CALock'], marker='s', linestyle='-', color=custom_colors['
 
 plt.xlabel('Thread Count')
 plt.xticks(x, throughput['ThreadCount'])
-
+plt.ylim(1)
 plt.yscale('log')
 if "ReadWithoutModifications" in WorkloadType:
-    plt.ylabel("Response time ($\mu$s log)")
+    plt.ylabel("Resp. time ($\mu$s log)")
 plt.grid(axis='y', linestyle='--', linewidth=0.5)
 
 plt.savefig("./benchmarkCharts/" + WorkloadType + "Idleness.png", dpi=300, bbox_inches="tight")
 
 
-plt.figure(figsize=(5, 1.5))
+plt.figure(figsize=(5, 2))
 
 plt.bar(x - 3 * 0.2 / 2, relabelling['DomLock'], color=custom_colors['DomLock'], width=0.2, label='Domlock')
 plt.bar(x - 0.2 / 2, relabelling['MID'], width=0.2, label='MID', color=custom_colors['MID'])
@@ -153,7 +163,7 @@ plt.bar(x + 0.2 / 2, relabelling['FlexiGran'], width=0.2, label='Flexigran', col
 plt.bar(x + 3 * 0.2 / 2, relabelling['CALock'], width=0.2, label='CALock', color=custom_colors['CALock'])
 
 plt.yscale('log')
-
+plt.ylim(1)
 plt.xlabel('Thread Count')
 plt.ylabel('Relabelling time ($\mu$s log)')
 plt.xticks(x, throughput['ThreadCount'])

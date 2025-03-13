@@ -32,14 +32,14 @@ final = df_melted.sort_values(by=["lock"], key=lambda x: x.map(order))
 
 x = np.arange(len(containment['Type']))
 width = 0.2
-
+print(containment)
 plt.figure(figsize=(5, 1.5))
 plt.bar(x - 3 * width / 2, containment['DomLock'], color=custom_colors['DomLock'], width=width, label='Domlock')
 plt.bar(x - width / 2, containment['MID'], width=width, label='MID', color=custom_colors['MID'])
 plt.bar(x + width / 2, containment['FlexiGran'], width=width, label='Flexigran', color=custom_colors['FlexiGran'])
 plt.bar(x + 3 * width / 2, containment['CALock'], width=width, label='CALock', color=custom_colors['CALock'])
 plt.yscale('log')
-
+plt.ylim(1)
 plt.xlabel('Vertex Type')
 plt.ylabel('Vertices locked (log scale)')
 plt.xticks(x, ['$Complex Assm$', '$Base Assm$', '$Composite Part$', '$Atomic Part$'])

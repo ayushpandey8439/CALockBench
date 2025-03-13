@@ -45,7 +45,7 @@ palette = [custom_colors[lock] for lock in final['Lock Type'].unique()]
 
 
 sns.set_theme(style='whitegrid', palette=palette)
-g = sns.catplot(x='Operation', y='Time', hue='Lock Type', data=final, kind='bar', height=3, aspect=2)
+g = sns.catplot(x='Operation', y='Time', hue='Lock Type', data=final, kind='bar', height=3, aspect=3)
 # g1= sns.pointplot(data=lockRejections, x='Operation', y='Rejections', color='grey', markers="." ,linestyles='--', ax=g.ax, legend=False)
 # for(_, value) in lockRejections.iterrows():
 #     plt.annotate(value['Rejections'], (value['Operation'], value['Rejections']), textcoords="offset points", xytext=(0,5), ha='center', fontsize=8)
