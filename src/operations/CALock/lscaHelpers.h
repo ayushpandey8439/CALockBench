@@ -19,7 +19,7 @@ public:
         if (objectLabel.size() == 1) {
             objectId = objectLabel.front();
         } else {
-            objectId = objectLabel.back();
+            objectId = objectLabel->back();
         }
         int typeIdentifier = objectId % 10;
         int id = objectId / 10;

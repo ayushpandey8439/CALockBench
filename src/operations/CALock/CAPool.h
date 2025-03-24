@@ -15,6 +15,7 @@
 #include "atomic"
 #include "memory"
 #include "pthread.h"
+>>>>>>> blockingImplementation
 
 using namespace std;
 using namespace sb7;
@@ -31,7 +32,7 @@ public:
 
     lockObject(int pId, set<int> *ancestors, int m) {
         Id = pId;
-        criticalAncestors = ancestors;
+        criticalAncestors.insert(ancestors->begin(), ancestors->end());
         mode = m;
         Oseq = -1;
         accessController.test_and_set();
@@ -40,10 +41,12 @@ public:
 
 class CAPool {
 public:
+    const uint processor_Count = std::thread::hardware_concurrency();
     mutex lockPoolLock;
     lockObject *locks[SIZE];
     shared_mutex threadMutexes[SIZE];
     condition_variable_any threadConditions[SIZE];
+>>>>>>> blockingImplementation
     long int Gseq;
     std::chrono::duration<long double, std::nano> idleness[SIZE];
     std::chrono::duration<long double, std::nano> modificationTime;
@@ -81,6 +84,24 @@ public:
         lockPoolLock.unlock();
         for (int i = 0; i < SIZE; i++) {
             /// A thread won't run into conflict with itself.
+<<<<<<< HEAD
+            /// Spin waiting on the condition.
+            auto l = locks[i];
+            while (l!= nullptr &&
+             /// If a read lock is requested for an object that is read locked, only then allow it.
+             (reqObj->mode == 1 || (reqObj->mode==0 && l->mode == 1)) &&
+             /// Someone else has requested a lock on my LSCA before me (locked Sub-Hierarchy)or
+             /// I am the LSCA of some node that is locked already (locked Super-hierarchy).
+             (l->criticalAncestors.contains(reqObj->Id)) &&
+             /// It isn't my turn to take the lock
+             (reqObj->Oseq > l->Oseq)) {
+                if(processor_Count<parameters.getThreadNum()) this_thread::yield();
+                l=locks[i];
+            }
+        }
+        auto t2 = std::chrono::high_resolution_clock::now();
+        idleness[threadID] += t2-t1;
+=======
             /// A thread won't run into conflict with itself.
             if (locks[i] != nullptr) {
 
@@ -112,6 +133,7 @@ public:
         l->accessController.clear();
         l->accessController.notify_all();
 //        threadConditions[threadId].notify_all();
+>>>>>>> blockingImplementation
     }
 //
 //    list<int> addToLockRequest(DataHolder*dh, list<int> & lockRequest, DesignObj & label){

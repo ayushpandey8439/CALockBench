@@ -15,7 +15,7 @@
 using namespace std;
 
 
-#define S 256
+#define S 64
 #define leafNodes = 300;
 
 class numInterval {
@@ -93,8 +93,6 @@ public:
         auto t2 = std::chrono::high_resolution_clock::now();
         idleness[threadID] += (t2 - t1);
         return false;
-
-
     }
 
     void Delete(int index) {

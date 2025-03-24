@@ -16,16 +16,6 @@ extern CAPool caPool;
 /// The nodes need default labels.
 
 /////////////////////////////
-// StructuralModification1 //
-/////////////////////////////
-
-int sb7::CAStructuralModification1::run(int tid) const {
-    //simple creation of an object does not require relabelling or lock. Only when this component is connected to the hierarchy, we need to label it in order to operate on it.
-    dataHolder->createCompositePart();
-    return 0;
-}
-
-/////////////////////////////
 // StructuralModification2 //
 /////////////////////////////
 
@@ -86,6 +76,7 @@ int sb7::CAStructuralModification3::run(int tid) const {
     }
     if (lockLabel.empty()) {
         throw Sb7Exception();
+>>>>>>> blockingImplementation
     }
 //    lockLabel= caPool.addToLockRequest(dataHolder, bassm->pathLabel,cpart->pathLabel);
     pair<DesignObj *, bool> lo = lscaHelpers::getLockObject(lockLabel, dataHolder);
@@ -103,10 +94,15 @@ int sb7::CAStructuralModification3::run(int tid) const {
             auto *r = new CALockRelabeling(dataHolder, tid);
             r->cpartQ.push(cpart);
             r->run();
+            auto t2 = std::chrono::high_resolution_clock::now();
+            pool.modificationTimeCA+= (t2-t1);
         }
         caPool.releaseLock(l, tid);
     }
 
+<<<<<<< HEAD
+    if(!executed){
+=======
 
     return 0;
 }
@@ -139,6 +135,7 @@ int sb7::CAStructuralModification5::run(int tid) const {
     cassmId = (cassmId * (tid + 1)) % parameters.getMaxComplexAssemblies();
     ComplexAssembly *cassm = dataHolder->getComplexAssembly(cassmId);
     if (cassm == nullptr || cassm->isDeleted) {
+>>>>>>> blockingImplementation
         throw Sb7Exception();
     }
 
@@ -288,3 +285,4 @@ int sb7::CAStructuralModification8::run(int tid) const {
 
     return 1;
 }
+>>>>>>> blockingImplementation
