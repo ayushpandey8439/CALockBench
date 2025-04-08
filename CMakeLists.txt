@@ -1,0 +1,111 @@
+cmake_minimum_required(VERSION 3.25)
+project(STMBench)
+
+set(CMAKE_CXX_STANDARD 23)
+
+add_executable(STMBench src/sb7_lock.cc
+        src/benchmark.h
+        src/benchmark.cc
+
+
+        src/operations/Mid/MidPool.h
+        src/operations/Mid/MidPool.cpp
+        src/operations/Mid/operation_ops_mid.cc
+        src/operations/Mid/query_ops_mid.cc
+        src/operations/Mid/short_traversal_ops_mid.cc
+        src/operations/Mid/structural_modification_ops_mid.cc
+        src/operations/Mid/traversal_ops_mid.cc
+        src/operations/Mid/traversal_ops_mid.h
+        src/operations/Mid/midHelper.h
+        src/labelling/MID/MidLabeling.h
+        src/labelling/MID/MidLabeling.cpp
+
+        src/operations/DomLock/DomPool.h
+        src/operations/DomLock/DomPool.cpp
+        src/operations/DomLock/operation_ops_dom.cpp
+        src/operations/DomLock/query_ops_dom.cpp
+        src/operations/DomLock/short_traversal_ops_dom.cpp
+        src/operations/DomLock/structural_modification_ops_dom.cpp
+        src/operations/DomLock/traversal_ops_dom.cpp
+        src/operations/DomLock/dominatorHelper.h
+        src/labelling/DomLock/DomLockLabeling.cpp
+        src/labelling/DomLock/DomLockLabeling.h
+
+        src/operations/CALock/CAPool.h
+        src/operations/CALock/CAPool.cpp
+        src/operations/CALock/structural_modification_ops_ca.cpp
+        src/operations/CALock/traversal_ops_ca.cpp
+        src/operations/CALock/operation_ops_ca.cpp
+        src/operations/CALock/query_ops_ca.cpp
+        src/labelling/CALock/CALockLabeling.cpp
+        src/labelling/CALock/CALockLabeling.h
+        src/labelling/CALock/CALockRelabeling.cpp
+        src/labelling/CALock/CALockRelabeling.h
+        src/display/output.cpp
+        src/display/output.h
+
+        src/operations/locking_medium/lock_srv_lm.cc
+        src/operations/locking_medium/operation_ops_lm.cc
+        src/operations/locking_medium/query_ops_lm.cc
+        src/operations/locking_medium/short_traversal_ops_lm.cc
+        src/operations/locking_medium/structural_modification_ops_lm.cc
+        src/operations/locking_medium/traversal_ops_lm.cc
+
+
+        src/operations/locking_coarse/lock_srv_lc.cc
+        src/operations/locking_coarse/operation_ops_lc.cc
+        src/operations/locking_coarse/query_ops_lc.cc
+        src/operations/locking_coarse/short_traversal_ops_lc.cc
+        src/operations/locking_coarse/structural_modification_ops_lc.cc
+        src/operations/locking_coarse/traversal_ops_lc.cc
+
+        src/helpers.cc
+        src/thread/thread.cc
+        src/thread/thread_fun.cc
+        src/parameters.cc
+        src/data_holder.cc
+        src/id_pool.cc
+
+        src/struct/assembly.cc
+        src/struct/assembly.h
+        src/struct/atomic_part.cc
+        src/struct/atomic_part.h
+        src/struct/composite_part.cc
+        src/struct/composite_part.h
+        src/struct/design_obj.cc
+        src/struct/design_obj.h
+        src/struct/document.cc
+        src/struct/document.h
+        src/struct/manual.cc
+        src/struct/manual.h
+
+        src/labelling/DomLock/DomLockLabeling.cpp
+        src/labelling/DomLock/DomLockLabeling.h
+
+        src/labelling/CALock/CALockLabeling.cpp
+        src/labelling/CALock/CALockLabeling.h
+        src/labelling/CALock/CALockRelabeling.cpp
+        src/labelling/CALock/CALockRelabeling.h
+
+        src/operations/operations.cc
+        src/operations/operations.h
+        src/containmentBenchmark.h
+        src/countTraversal.h
+        src/labelling/FlexiGran/FlexigranLabelling.cpp
+        src/labelling/FlexiGran/FlexigranLabelling.h
+        src/operations/Flexigran/FlexiGranHelper.h
+        src/operations/Flexigran/FlexiPool.h
+        src/operations/Flexigran/query_ops_flexi.cpp
+        src/operations/Flexigran/operation_ops_flexi.h
+        src/operations/Flexigran/operation_ops_flexi.cpp
+        src/operations/Flexigran/traversal_ops_flexi.cpp
+        src/operations/Flexigran/structural_modification_ops_flexi.h
+        src/operations/Flexigran/structural_modification_ops_flexi.cpp
+        src/operations/IntentionLock/operation_ops_intention.cpp
+        src/operations/IntentionLock/query_ops_intention.cpp
+        src/operations/IntentionLock/structural_modification_ops_intention.cpp
+        src/operations/IntentionLock/Intention_lock_srv.cpp
+        src/operations/IntentionLock/Intention_lock_srv.h
+)
+
+set_target_properties(STMBench PROPERTIES RUNTIME_OUTPUT_DIRECTORY ../)

@@ -1,9 +1,13 @@
 build/
 target/
 benchmarkResults/
-
+PythonEnv/
 .idea/
+.DS_Store
 
 cmake-build-debug/
 
-sb7_lock
+STMBench
+
+
+

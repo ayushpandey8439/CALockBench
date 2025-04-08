@@ -1,0 +1,26 @@
+#!/bin/bash
+
+rm ./benchmarkResults/*
+cp ./benchmarkResultsBackup/curr/ReadWithoutModifications/* ./benchmarkResults/
+python3 ./graphPlotGenerator.py 64 2 ReadWithoutModifications
+
+
+rm ./benchmarkResults/*
+cp ./benchmarkResultsBackup/curr/ReadWithModifications/* ./benchmarkResults/
+python3 ./graphPlotGenerator.py 64 2 ReadWithModifications
+
+rm ./benchmarkResults/*
+cp ./benchmarkResultsBackup/curr/BalancedWithoutModifications/* ./benchmarkResults/
+python3 ./graphPlotGenerator.py 64 2 BalancedWithoutModifications
+
+rm ./benchmarkResults/*
+cp ./benchmarkResultsBackup/curr/BalancedWithModifications/* ./benchmarkResults/
+python3 ./graphPlotGenerator.py 64 2 BalancedWithModifications
+
+rm ./benchmarkResults/*
+cp ./benchmarkResultsBackup/curr/WriteWithoutModifications/* ./benchmarkResults/
+python3 ./graphPlotGenerator.py 64 2 WriteWithoutModifications
+
+rm ./benchmarkResults/*
+cp ./benchmarkResultsBackup/curr/WriteWithModifications/* ./benchmarkResults/
+python3 ./graphPlotGenerator.py 64 2 WriteWithModifications
